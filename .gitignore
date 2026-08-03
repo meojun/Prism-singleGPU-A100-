@@ -1,0 +1,34 @@
+# Upstream sources -- bootstrap.sh clones these at the SHAs in setup/pins.env.
+# Never commit them: they are separate git repos and would become broken
+# embedded repos / gitlinks.
+/prism-research/
+/kvcached/
+/kvcached-prism/
+
+# Virtualenvs (prism-venv is ~15 GB, sglang-pip-venv ~12 GB)
+/prism-venv/
+*/engine_integration/sglang-pip-venv/
+__pycache__/
+*.pyc
+
+# Model weights live in $HF_HOME, not here
+*.safetensors
+*.bin
+*.pth
+
+# Setup transcripts -- large and machine-specific
+/setup_prism_env.log
+/setup_sglang.log
+/dl_models.log
+
+# Server logs: regenerated on every run, ~14 MB
+/exp/server-logs/
+
+# Bulk results from exploratory runs. The sanity sweep under
+# exp/results/sanity/ IS committed (see the un-ignore rules below).
+/exp/results/requests/
+/exp/results/*_all.jsonl
+
+# IPC sockets/fifos the scheduler drops in the benchmark dir
+gpu_scheduler_*_to_worker_*
+request_handler_to_gpu_scheduler_*

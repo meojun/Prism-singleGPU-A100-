@@ -1,0 +1,50 @@
+{
+  "case": "A",
+  "models": {
+    "model_1": "meta-llama/Llama-3.1-8B"
+  },
+  "ttft_slo_scale": 5.0,
+  "tpot_slo_scale": 2.0,
+  "duration_s": 602.7843729574233,
+  "total_requests": 296,
+  "completed": 296,
+  "failed": 0,
+  "per_model": {
+    "model_1": {
+      "requests": 296,
+      "completed": 296,
+      "slo_ttft_s": 0.2143485546,
+      "slo_tpot_ms": 22.92579678,
+      "req_throughput_rps": 0.4910545350532959,
+      "output_tok_throughput": 143.42608050011046,
+      "attain_ttft": 1.0,
+      "attain_tpot": 1.0,
+      "attain_both": 1.0,
+      "violation_rate": 0.0,
+      "goodput_rps": 0.4910545350532959,
+      "goodput_tok_s": 143.42608050011046,
+      "ttft_p50_ms": 33.45370292663574,
+      "ttft_p99_ms": 77.68799066543586,
+      "tpot_p50_ms": 13.55523827197803,
+      "tpot_p99_ms": 14.685875779719325
+    },
+    "ALL": {
+      "requests": 296,
+      "completed": 296,
+      "slo_ttft_s": null,
+      "slo_tpot_ms": null,
+      "req_throughput_rps": 0.4910545350532959,
+      "output_tok_throughput": 143.42608050011046,
+      "attain_ttft": 1.0,
+      "attain_tpot": 1.0,
+      "attain_both": 1.0,
+      "violation_rate": 0.0,
+      "goodput_rps": 0.4910545350532959,
+      "goodput_tok_s": 143.42608050011046,
+      "ttft_p50_ms": 33.45370292663574,
+      "ttft_p99_ms": 77.68799066543586,
+      "tpot_p50_ms": 13.55523827197803,
+      "tpot_p99_ms": 14.685875779719325
+    }
+  }
+}

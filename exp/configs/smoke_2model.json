@@ -1,0 +1,26 @@
+[
+  {
+    "model_name": "model_1",
+    "model_path": "Qwen/Qwen2.5-0.5B-Instruct",
+    "tp_size": 1,
+    "init_placements": [
+      {
+        "gpu_ids": [0],
+        "on": true,
+        "max_memory_pool_size": 5
+      }
+    ]
+  },
+  {
+    "model_name": "model_2",
+    "model_path": "Qwen/Qwen2.5-1.5B-Instruct",
+    "tp_size": 1,
+    "init_placements": [
+      {
+        "gpu_ids": [0],
+        "on": true,
+        "max_memory_pool_size": 5
+      }
+    ]
+  }
+]
