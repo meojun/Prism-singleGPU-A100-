@@ -117,10 +117,24 @@ if __name__ == "__main__":
     ap.add_argument("--label", required=True)
     ap.add_argument("--model-map", default="{}")
     ap.add_argument("--out", required=True)
+    ap.add_argument(
+        "--slo-base",
+        default=os.environ.get("SLO_BASE_FILE"),
+        help="JSON {slot: [ttft_p95_s, tpot_p95_ms]} overriding the built-in "
+             "table. The built-ins are the authors' H100 measurements; on other "
+             "hardware or another workload they are not this machine's baseline "
+             "-- regenerate with exp/scripts/derive_slo_baseline.py.",
+    )
     a = ap.parse_args()
+
+    if a.slo_base:
+        override = json.load(open(a.slo_base))
+        SLO_BASE.update({k: tuple(v) for k, v in override.items()})
+        print(f"# SLO baseline overridden from {a.slo_base}: {sorted(override)}")
 
     res = analyze(a.req_file, a.metrics_file, a.ttft_slo_scale, a.tpot_slo_scale,
                   a.label, json.loads(a.model_map))
+    res["slo_base_source"] = a.slo_base or "builtin (authors' H100 measurement)"
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     json.dump(res, open(a.out, "w"), indent=2)
     print(json.dumps(res, indent=2))

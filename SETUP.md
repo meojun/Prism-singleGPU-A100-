@@ -54,6 +54,92 @@ ROOT=/data/prism ./bootstrap.sh       # 다른 경로에 설치
 
 ---
 
+## 실험 결과는 어디에
+
+| 경로 | 내용 |
+| --- | --- |
+| `exp/results/exp/REPORT.md` | **ShareGPT + slowdown SLO 로 측정한 colocation 실험** (2026-08-04). 8B 1개 / 8B 2개 / 3B+8B, TABLE VI 기준 |
+| `exp/results/sanity/REPORT.md` | 그 이전의 환경 검증 스윕 (합성 프롬프트, 절대 SLO) |
+
+---
+
+## 데이터셋 — ShareGPT
+
+기본 트레이스 `real_trace.pkl`은 **프롬프트 내용이 합성이다.** 1500건 전부
+`"Hello " * prompt_len`이라 도착 시각·입출력 길이·라우팅만 제공하고 내용은 없다
+(`exp/results/sanity/REPORT.md` §2). 실제 텍스트가 필요하면 ShareGPT로 바꾼다.
+
+**하네스에는 ShareGPT 로더가 없다.** `bench_serving.py`(단일 모델)에만 있고,
+멀티모델 e2e 경로는 `trace.py::generate_e2e_benchmark_reqs`가 pkl에서 `req.prompt`를
+그대로 읽는다. 그래서 로더를 붙이는 게 아니라 **같은 구조의 pkl을 새로 만든다.**
+
+```bash
+source exp/scripts/env.sh
+hf download anon8231489123/ShareGPT_Vicuna_unfiltered \
+    ShareGPT_V3_unfiltered_cleaned_split.json --repo-type dataset \
+    --local-dir $DATASETS/sharegpt          # 673 MB, ungated
+python exp/scripts/build_sharegpt_trace.py  # 약 12초, 두 변형 생성
+```
+
+변형이 둘인 이유는 "ShareGPT를 쓴다"가 중의적이기 때문이다:
+
+| 변형 | 보존하는 것 | ShareGPT에서 가져오는 것 | 어제 baseline과 비교 |
+| --- | --- | --- | --- |
+| `$SHAREGPT_CONTENT` | 도착 시각, 라우팅, **길이 전부** | 프롬프트 텍스트만 | ✅ 가능 |
+| `$SHAREGPT_FULL` | 도착 시각, 라우팅 | 텍스트 + 입출력 길이 | ❌ 부하가 다름 |
+
+`content`는 부하를 그대로 두고 내용만 바꾸므로 변수가 하나만 움직인다. 1500건
+**전부 토큰 길이가 정확히 일치**하고, 케이스 A/B/C 어디서도 prefill 토큰 총합이
+원본과 1토큰도 다르지 않다. 서버가 실제로 토크나이즈한 값으로도 확인했다(9/9 샘플).
+`full`은 sglang 표준 필터(`prompt_len>1024` 또는 `prompt+output>2048` 제외)를 적용한
+진짜 chat workload다.
+
+```
+                실제 prefill 토큰            output_len          prefix 재사용
+original        p50 41  / p99 903      p50 211 / p99 785       99.3%  ← 함정
+content         p50 41  / p99 903      p50 211 / p99 785        2.0%
+full            p50 110 / p99 782      p50 139 / p99 770        1.9%
+```
+
+케이스별 총량 (원본 대비):
+
+| | 케이스 A prefill / decode | 케이스 B | 케이스 C |
+| --- | --- | --- | --- |
+| `content` | 1.00x / 1.00x (차이 0) | 1.00x / 1.00x (차이 0) | 1.00x / 1.00x (차이 0) |
+| `full` | 1.45x / 0.62x | 1.57x / 0.66x | 1.39x / 0.65x |
+
+실행할 때는 `TRACE`와 `TAG`를 준다. **`TAG`는 출력 네임스페이스라 필수다** —
+안 주면 `results/sanity/`의 커밋된 baseline을 덮어쓴다.
+
+```bash
+TRACE=$SHAREGPT_CONTENT TAG=sharegpt_content ./exp/scripts/run_sanity.sh A
+TRACE=$SHAREGPT_FULL    TAG=sharegpt_full    ./exp/scripts/run_sanity.sh A
+./exp/scripts/run_sanity.sh A                # 기본값 = 원본 트레이스, results/sanity/
+```
+
+### 알아둘 것
+
+- **출력 길이는 내용과 무관하다.** `benchmark.py`가 `ignore_eos=True`,
+  `max_new_tokens=output_len`으로 보내므로 모델이 EOS로 일찍 멈추지 않는다. 즉
+  ShareGPT로 바뀌는 건 **prefill뿐이고 decode 구간은 그대로다.**
+- `prompt_len` 필드는 장식이 아니다. Prism의 GPU-local 스케줄러가
+  `request_queue.py`에서 `prompt_len * (0.5/1024)`로 쓴다. `content` 변형이 이 필드를
+  원본 그대로 두는 이유가 이것이다.
+- 원본은 `prompt_len`과 실제 토큰 수가 1 어긋나 있다(`"Hello "*13` → 14토큰). 기존
+  결함이고 영향은 없지만, 길이를 맞출 때는 **필드가 아니라 실제 토큰 수**를 봐야 한다.
+- **`--disable-radix-cache`를 빼는 순간 원본 트레이스는 못 쓴다.** `"Hello "*n`은 짧은
+  프롬프트가 긴 프롬프트의 완전한 prefix라서, radix cache를 켜면 prefill의 **99.3%**가
+  캐시 히트로 처리된다(케이스 A 기준 42,963토큰 중 실제 연산은 1,149토큰). 성능이
+  비현실적으로 좋게 나오고, 그게 Prism 때문인지 트레이스 때문인지 구분할 수 없다.
+  ShareGPT 변형은 2% 수준이라 정상이다. 지금 스윕은 radix cache를 꺼서 돌렸으므로 이
+  함정이 아직 드러나지 않았을 뿐이다.
+- 위 이유로 `content` 변형은 요청마다 **서로 다른 원본 대화**를 쓴다. 작은 풀에서
+  중복 추출하면 짧은 프롬프트들이 같은 문서의 앞부분이 되어 prefix 재사용이 30%까지
+  올라간다(실제로 밟았던 함정). 빌더가 `prefix 재사용률`을 매번 출력하니 이 값이
+  한 자릿수를 벗어나면 의심할 것.
+
+---
+
 ## 왜 `setup_prism_env.sh`를 그대로 안 쓰는가
 
 원래 셋업 스크립트(참고용으로 저장소에 남겨둠)는 **재현되지 않는다.** 매번 의존성을

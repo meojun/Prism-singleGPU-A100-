@@ -1,0 +1,317 @@
+{
+  "case": "B",
+  "baseline_tag": "base",
+  "measurement_tag": "exp",
+  "duration_s": 600.0,
+  "slo_table": {
+    "TTFT": {
+      "50": 2.0,
+      "90": 3.0,
+      "99": 6.0
+    },
+    "TBT": {
+      "50": 1.25,
+      "90": 1.5,
+      "99": 5.0
+    },
+    "E2E": {
+      "50": 1.25,
+      "90": 1.5,
+      "99": 5.0
+    }
+  },
+  "per_slot": {
+    "model_1": {
+      "slot": "model_1",
+      "requests": 296,
+      "completed": 296,
+      "failed": 0,
+      "duration_s": 600.0,
+      "throughput_rps": 0.49333333333333335,
+      "output_tok_throughput": 144.09166666666667,
+      "ttft_p50_ms": 57.55937099456787,
+      "ttft_p99_ms": 144.36986446380618,
+      "tbt_p50_ms": 28.180299237457632,
+      "tbt_p99_ms": 30.94011618674985,
+      "e2e_p50_ms": 5613.591762725264,
+      "e2e_p99_ms": 22890.30401287601,
+      "percentile_compliance": {
+        "TTFT_p50": {
+          "observed_slowdown": 1.6674318156468289,
+          "allowed": 2.0,
+          "pass": true
+        },
+        "TTFT_p90": {
+          "observed_slowdown": 2.4867003991882877,
+          "allowed": 3.0,
+          "pass": true
+        },
+        "TTFT_p99": {
+          "observed_slowdown": 3.2335049291539093,
+          "allowed": 6.0,
+          "pass": true
+        },
+        "TBT_p50": {
+          "observed_slowdown": 2.0343432172205675,
+          "allowed": 1.25,
+          "pass": false
+        },
+        "TBT_p90": {
+          "observed_slowdown": 2.1494607697877424,
+          "allowed": 1.5,
+          "pass": false
+        },
+        "TBT_p99": {
+          "observed_slowdown": 2.2204414591054022,
+          "allowed": 5.0,
+          "pass": true
+        },
+        "E2E_p50": {
+          "observed_slowdown": 2.021719801610458,
+          "allowed": 1.25,
+          "pass": false
+        },
+        "E2E_p90": {
+          "observed_slowdown": 2.138490926862053,
+          "allowed": 1.5,
+          "pass": false
+        },
+        "E2E_p99": {
+          "observed_slowdown": 2.2103861695646607,
+          "allowed": 5.0,
+          "pass": true
+        }
+      },
+      "percentile_ratio": {
+        "TTFT_p50": {
+          "observed_slowdown": 1.7152321644884778,
+          "allowed": 2.0,
+          "pass": true
+        },
+        "TTFT_p90": {
+          "observed_slowdown": 1.4825226280144312,
+          "allowed": 3.0,
+          "pass": true
+        },
+        "TTFT_p99": {
+          "observed_slowdown": 0.11377271627822284,
+          "allowed": 6.0,
+          "pass": true
+        },
+        "TBT_p50": {
+          "observed_slowdown": 2.02973874719262,
+          "allowed": 1.25,
+          "pass": false
+        },
+        "TBT_p90": {
+          "observed_slowdown": 2.034712881255277,
+          "allowed": 1.5,
+          "pass": false
+        },
+        "TBT_p99": {
+          "observed_slowdown": 0.761621235949319,
+          "allowed": 5.0,
+          "pass": true
+        },
+        "E2E_p50": {
+          "observed_slowdown": 1.417446482676203,
+          "allowed": 1.25,
+          "pass": false
+        },
+        "E2E_p90": {
+          "observed_slowdown": 2.0236357649839922,
+          "allowed": 1.5,
+          "pass": false
+        },
+        "E2E_p99": {
+          "observed_slowdown": 1.9921878634791719,
+          "allowed": 5.0,
+          "pass": true
+        }
+      },
+      "attainment": {
+        "tier_p50": {
+          "attainment": 0.35135135135135137,
+          "violation_rate": 0.6486486486486487,
+          "goodput_rps": 0.17333333333333334,
+          "goodput_tok_s": 43.85333333333333
+        },
+        "tier_p90": {
+          "attainment": 0.35135135135135137,
+          "violation_rate": 0.6486486486486487,
+          "goodput_rps": 0.17333333333333334,
+          "goodput_tok_s": 43.85333333333333
+        },
+        "tier_p99": {
+          "attainment": 1.0,
+          "violation_rate": 0.0,
+          "goodput_rps": 0.49333333333333335,
+          "goodput_tok_s": 144.09166666666667
+        }
+      },
+      "slowdown": {
+        "TTFT": {
+          "p50": 1.6674318156468289,
+          "p90": 2.4867003991882877,
+          "p99": 3.2335049291539093
+        },
+        "TBT": {
+          "p50": 2.0343432172205675,
+          "p90": 2.1494607697877424,
+          "p99": 2.2204414591054022
+        },
+        "E2E": {
+          "p50": 2.021719801610458,
+          "p90": 2.138490926862053,
+          "p99": 2.2103861695646607
+        }
+      }
+    },
+    "model_4": {
+      "slot": "model_4",
+      "requests": 262,
+      "completed": 262,
+      "failed": 0,
+      "duration_s": 600.0,
+      "throughput_rps": 0.43666666666666665,
+      "output_tok_throughput": 134.24333333333334,
+      "ttft_p50_ms": 61.00904941558838,
+      "ttft_p99_ms": 2952.1452140807814,
+      "tbt_p50_ms": 28.49903510734584,
+      "tbt_p99_ms": 30.965336745555373,
+      "e2e_p50_ms": 8786.726626567543,
+      "e2e_p99_ms": 18190.215826509502,
+      "percentile_compliance": {
+        "TTFT_p50": {
+          "observed_slowdown": 1.8125722315585808,
+          "allowed": 2.0,
+          "pass": true
+        },
+        "TTFT_p90": {
+          "observed_slowdown": 2.613507743199753,
+          "allowed": 3.0,
+          "pass": true
+        },
+        "TTFT_p99": {
+          "observed_slowdown": 63.58307247475753,
+          "allowed": 6.0,
+          "pass": false
+        },
+        "TBT_p50": {
+          "observed_slowdown": 2.083426498389671,
+          "allowed": 1.25,
+          "pass": false
+        },
+        "TBT_p90": {
+          "observed_slowdown": 2.1511338322686315,
+          "allowed": 1.5,
+          "pass": false
+        },
+        "TBT_p99": {
+          "observed_slowdown": 2.275653023569669,
+          "allowed": 5.0,
+          "pass": true
+        },
+        "E2E_p50": {
+          "observed_slowdown": 2.078037128621943,
+          "allowed": 1.25,
+          "pass": false
+        },
+        "E2E_p90": {
+          "observed_slowdown": 2.1521164080317687,
+          "allowed": 1.5,
+          "pass": false
+        },
+        "E2E_p99": {
+          "observed_slowdown": 2.6508078876103873,
+          "allowed": 5.0,
+          "pass": true
+        }
+      },
+      "percentile_ratio": {
+        "TTFT_p50": {
+          "observed_slowdown": 1.8497818708863596,
+          "allowed": 2.0,
+          "pass": true
+        },
+        "TTFT_p90": {
+          "observed_slowdown": 1.9937348501111494,
+          "allowed": 3.0,
+          "pass": true
+        },
+        "TTFT_p99": {
+          "observed_slowdown": 27.896355155801526,
+          "allowed": 6.0,
+          "pass": false
+        },
+        "TBT_p50": {
+          "observed_slowdown": 2.074776538893067,
+          "allowed": 1.25,
+          "pass": false
+        },
+        "TBT_p90": {
+          "observed_slowdown": 2.0491688057926662,
+          "allowed": 1.5,
+          "pass": false
+        },
+        "TBT_p99": {
+          "observed_slowdown": 2.0261479886321987,
+          "allowed": 5.0,
+          "pass": true
+        },
+        "E2E_p50": {
+          "observed_slowdown": 1.9362979138160117,
+          "allowed": 1.25,
+          "pass": false
+        },
+        "E2E_p90": {
+          "observed_slowdown": 2.0614325606865287,
+          "allowed": 1.5,
+          "pass": false
+        },
+        "E2E_p99": {
+          "observed_slowdown": 2.405651703427492,
+          "allowed": 5.0,
+          "pass": true
+        }
+      },
+      "attainment": {
+        "tier_p50": {
+          "attainment": 0.04961832061068702,
+          "violation_rate": 0.950381679389313,
+          "goodput_rps": 0.021666666666666667,
+          "goodput_tok_s": 4.87
+        },
+        "tier_p90": {
+          "attainment": 0.0648854961832061,
+          "violation_rate": 0.9351145038167938,
+          "goodput_rps": 0.028333333333333332,
+          "goodput_tok_s": 7.238333333333333
+        },
+        "tier_p99": {
+          "attainment": 0.9809160305343512,
+          "violation_rate": 0.01908396946564883,
+          "goodput_rps": 0.42833333333333334,
+          "goodput_tok_s": 131.60666666666665
+        }
+      },
+      "slowdown": {
+        "TTFT": {
+          "p50": 1.8125722315585808,
+          "p90": 2.613507743199753,
+          "p99": 63.58307247475753
+        },
+        "TBT": {
+          "p50": 2.083426498389671,
+          "p90": 2.1511338322686315,
+          "p99": 2.275653023569669
+        },
+        "E2E": {
+          "p50": 2.078037128621943,
+          "p90": 2.1521164080317687,
+          "p99": 2.6508078876103873
+        }
+      }
+    }
+  }
+}

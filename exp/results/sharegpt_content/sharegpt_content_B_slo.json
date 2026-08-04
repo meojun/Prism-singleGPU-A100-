@@ -1,0 +1,70 @@
+{
+  "case": "B",
+  "models": {
+    "model_1": "meta-llama/Llama-3.1-8B",
+    "model_4": "meta-llama/Llama-3.1-8B"
+  },
+  "ttft_slo_scale": 5.0,
+  "tpot_slo_scale": 2.0,
+  "duration_s": 612.6897280262783,
+  "total_requests": 558,
+  "completed": 558,
+  "failed": 0,
+  "per_model": {
+    "model_1": {
+      "requests": 296,
+      "completed": 296,
+      "slo_ttft_s": 0.2143485546,
+      "slo_tpot_ms": 22.92579678,
+      "req_throughput_rps": 0.4831156561960584,
+      "output_tok_throughput": 141.10731100145347,
+      "attain_ttft": 0.9966216216216216,
+      "attain_tpot": 0.34459459459459457,
+      "attain_both": 0.34459459459459457,
+      "violation_rate": 0.6554054054054055,
+      "goodput_rps": 0.1664790436891823,
+      "goodput_tok_s": 42.25793058977077,
+      "ttft_p50_ms": 56.91874027252197,
+      "ttft_p99_ms": 134.42271947860723,
+      "tpot_p50_ms": 28.38850414106088,
+      "tpot_p99_ms": 31.55176415950452
+    },
+    "model_4": {
+      "requests": 262,
+      "completed": 262,
+      "slo_ttft_s": 0.2324957371,
+      "slo_tpot_ms": 22.46220606,
+      "req_throughput_rps": 0.4276226416329976,
+      "output_tok_throughput": 131.46295149989095,
+      "attain_ttft": 0.9847328244274809,
+      "attain_tpot": 0.08778625954198473,
+      "attain_both": 0.08778625954198473,
+      "violation_rate": 0.9122137404580153,
+      "goodput_rps": 0.037539392204423455,
+      "goodput_tok_s": 10.969663261127394,
+      "ttft_p50_ms": 60.80901622772217,
+      "ttft_p99_ms": 2847.458903789491,
+      "tpot_p50_ms": 28.664560474346143,
+      "tpot_p99_ms": 32.7729358349771
+    },
+    "ALL": {
+      "requests": 558,
+      "completed": 558,
+      "slo_ttft_s": null,
+      "slo_tpot_ms": null,
+      "req_throughput_rps": 0.910738297829056,
+      "output_tok_throughput": 272.5702625013444,
+      "attain_ttft": 0.9910394265232975,
+      "attain_tpot": 0.22401433691756273,
+      "attain_both": 0.22401433691756273,
+      "violation_rate": 0.7759856630824373,
+      "goodput_rps": 0.20401843589360574,
+      "goodput_tok_s": 53.22759385089817,
+      "ttft_p50_ms": 58.00795555114746,
+      "ttft_p99_ms": 196.9379234313951,
+      "tpot_p50_ms": 28.508700905835674,
+      "tpot_p99_ms": 32.63364528489906
+    }
+  },
+  "slo_base_source": "builtin (authors' H100 measurement)"
+}

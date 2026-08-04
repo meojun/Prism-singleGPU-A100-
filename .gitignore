@@ -32,3 +32,6 @@ __pycache__/
 # IPC sockets/fifos the scheduler drops in the benchmark dir
 gpu_scheduler_*_to_worker_*
 request_handler_to_gpu_scheduler_*
+
+# redis snapshots -- redis-server writes these into whatever cwd it started in
+dump.rdb

@@ -1,0 +1,171 @@
+{
+  "case": "A",
+  "baseline_tag": "base",
+  "measurement_tag": "exp",
+  "duration_s": 600.0,
+  "slo_table": {
+    "TTFT": {
+      "50": 2.0,
+      "90": 3.0,
+      "99": 6.0
+    },
+    "TBT": {
+      "50": 1.25,
+      "90": 1.5,
+      "99": 5.0
+    },
+    "E2E": {
+      "50": 1.25,
+      "90": 1.5,
+      "99": 5.0
+    }
+  },
+  "per_slot": {
+    "model_1": {
+      "slot": "model_1",
+      "requests": 296,
+      "completed": 296,
+      "failed": 0,
+      "duration_s": 600.0,
+      "throughput_rps": 0.49333333333333335,
+      "output_tok_throughput": 144.09166666666667,
+      "ttft_p50_ms": 34.70766544342041,
+      "ttft_p99_ms": 82.89743661880495,
+      "tbt_p50_ms": 14.13120775547469,
+      "tbt_p99_ms": 16.25088214874268,
+      "e2e_p50_ms": 3697.1004237420857,
+      "e2e_p99_ms": 11827.89928540589,
+      "percentile_compliance": {
+        "TTFT_p50": {
+          "observed_slowdown": 1.0131573274741092,
+          "allowed": 2.0,
+          "pass": true
+        },
+        "TTFT_p90": {
+          "observed_slowdown": 1.463684458163772,
+          "allowed": 3.0,
+          "pass": true
+        },
+        "TTFT_p99": {
+          "observed_slowdown": 1.9047834267068877,
+          "allowed": 6.0,
+          "pass": true
+        },
+        "TBT_p50": {
+          "observed_slowdown": 1.0101958642203785,
+          "allowed": 1.25,
+          "pass": true
+        },
+        "TBT_p90": {
+          "observed_slowdown": 1.0628278381806826,
+          "allowed": 1.5,
+          "pass": true
+        },
+        "TBT_p99": {
+          "observed_slowdown": 1.1687456546668522,
+          "allowed": 5.0,
+          "pass": true
+        },
+        "E2E_p50": {
+          "observed_slowdown": 1.0112515680216065,
+          "allowed": 1.25,
+          "pass": true
+        },
+        "E2E_p90": {
+          "observed_slowdown": 1.0627334948404266,
+          "allowed": 1.5,
+          "pass": true
+        },
+        "E2E_p99": {
+          "observed_slowdown": 1.1576706815703839,
+          "allowed": 5.0,
+          "pass": true
+        }
+      },
+      "percentile_ratio": {
+        "TTFT_p50": {
+          "observed_slowdown": 1.034266064660057,
+          "allowed": 2.0,
+          "pass": true
+        },
+        "TTFT_p90": {
+          "observed_slowdown": 0.9308638996138996,
+          "allowed": 3.0,
+          "pass": true
+        },
+        "TTFT_p99": {
+          "observed_slowdown": 0.06532849893329189,
+          "allowed": 6.0,
+          "pass": true
+        },
+        "TBT_p50": {
+          "observed_slowdown": 1.0178266626704393,
+          "allowed": 1.25,
+          "pass": true
+        },
+        "TBT_p90": {
+          "observed_slowdown": 1.0097369907128604,
+          "allowed": 1.5,
+          "pass": true
+        },
+        "TBT_p99": {
+          "observed_slowdown": 0.40003136616185686,
+          "allowed": 5.0,
+          "pass": true
+        },
+        "E2E_p50": {
+          "observed_slowdown": 0.9335274478865578,
+          "allowed": 1.25,
+          "pass": true
+        },
+        "E2E_p90": {
+          "observed_slowdown": 1.008913129754931,
+          "allowed": 1.5,
+          "pass": true
+        },
+        "E2E_p99": {
+          "observed_slowdown": 1.0294051749415365,
+          "allowed": 5.0,
+          "pass": true
+        }
+      },
+      "attainment": {
+        "tier_p50": {
+          "attainment": 0.9831081081081081,
+          "violation_rate": 0.016891891891891886,
+          "goodput_rps": 0.485,
+          "goodput_tok_s": 141.75666666666666
+        },
+        "tier_p90": {
+          "attainment": 0.9966216216216216,
+          "violation_rate": 0.0033783783783783994,
+          "goodput_rps": 0.49166666666666664,
+          "goodput_tok_s": 144.08833333333334
+        },
+        "tier_p99": {
+          "attainment": 1.0,
+          "violation_rate": 0.0,
+          "goodput_rps": 0.49333333333333335,
+          "goodput_tok_s": 144.09166666666667
+        }
+      },
+      "slowdown": {
+        "TTFT": {
+          "p50": 1.0131573274741092,
+          "p90": 1.463684458163772,
+          "p99": 1.9047834267068877
+        },
+        "TBT": {
+          "p50": 1.0101958642203785,
+          "p90": 1.0628278381806826,
+          "p99": 1.1687456546668522
+        },
+        "E2E": {
+          "p50": 1.0112515680216065,
+          "p90": 1.0627334948404266,
+          "p99": 1.1576706815703839
+        }
+      }
+    }
+  }
+}

@@ -6,6 +6,16 @@
 #   C  Llama-3.1-8B + Llama-3.2-3B    (model_1 + model_2)
 #
 #   ./run_sanity.sh <A|B|C>
+#
+# Dataset is selectable.  TRACE picks the request trace, TAG namespaces every
+# output so a new dataset can never overwrite a previous sweep's results:
+#
+#   ./run_sanity.sh A                                   # default synthetic trace
+#   TRACE=$SHAREGPT_CONTENT TAG=sharegpt_content ./run_sanity.sh A
+#   TRACE=$SHAREGPT_FULL    TAG=sharegpt_full    ./run_sanity.sh A
+#
+# (env.sh exports SHAREGPT_CONTENT / SHAREGPT_FULL; build them with
+#  exp/scripts/build_sharegpt_trace.py)
 set -euo pipefail
 
 CASE=${1:?usage: run_sanity.sh <A|B|C>}
@@ -14,7 +24,23 @@ source "$SCRIPT_DIR/env.sh"
 
 TTFT_SCALE=${TTFT_SCALE:-5}
 TPOT_SCALE=${TPOT_SCALE:-2}
+TRACE=${TRACE:-./real_trace.pkl}
+TAG=${TAG:-sanity}
+TS=${TS:-1}
 
+# Resolve TRACE now: benchmark.py runs from the multi-model dir, so a relative
+# path given from anywhere else would silently miss.
+case "$TRACE" in
+  ./*|../*) : ;;                       # keep harness-relative paths as-is
+  *) TRACE=$(readlink -f "$TRACE") ;;
+esac
+if [ "${TRACE#./}" = "$TRACE" ] && [ ! -f "$TRACE" ]; then
+    echo "trace not found: $TRACE" >&2; exit 1
+fi
+
+# A/B/C are the colocation cases. M1/M2/M4 run one slot ALONE -- these are the
+# no-contention references the slowdown SLO (TABLE VI) is measured against, so
+# every slot appearing in a colocated case needs its own M-run first.
 case "$CASE" in
   A) CFG=llama_1x8b.json;  MODELS=(model_1);          PORT=31000
      MAP='{"model_1":"meta-llama/Llama-3.1-8B"}' ;;
@@ -22,16 +48,24 @@ case "$CASE" in
      MAP='{"model_1":"meta-llama/Llama-3.1-8B","model_4":"meta-llama/Llama-3.1-8B"}' ;;
   C) CFG=llama_8b_3b.json; MODELS=(model_1 model_2);  PORT=31002
      MAP='{"model_1":"meta-llama/Llama-3.1-8B","model_2":"meta-llama/Llama-3.2-3B"}' ;;
+  M1) CFG=llama_1x8b.json;    MODELS=(model_1); PORT=31010
+     MAP='{"model_1":"meta-llama/Llama-3.1-8B"}' ;;
+  M2) CFG=llama_1x3b_m2.json; MODELS=(model_2); PORT=31011
+     MAP='{"model_2":"meta-llama/Llama-3.2-3B"}' ;;
+  M4) CFG=llama_1x8b_m4.json; MODELS=(model_4); PORT=31012
+     MAP='{"model_4":"meta-llama/Llama-3.1-8B"}' ;;
   *) echo "unknown case $CASE" >&2; exit 1 ;;
 esac
 
 N=${#MODELS[@]}
-EXP=sanity_${CASE}
+EXP=${TAG}_${CASE}
+RESULTS=$PRISM_EXP/results/$TAG
 LOGDIR=$PRISM_EXP/server-logs/$EXP
 mkdir -p "$LOGDIR"
-SESSION=prism-sanity-$CASE
+SESSION=prism-${TAG}-$CASE
 
 echo "### case $CASE : $CFG  (${MODELS[*]})  port=$PORT"
+echo "###   trace=$TRACE  -> results/$TAG/"
 
 # --- launch full-Prism server -------------------------------------------------
 # workers-per-gpu must be >= number of 'on' models on that GPU (README gotcha #5)
@@ -67,18 +101,18 @@ echo " -> ready: $(curl -s http://127.0.0.1:$PORT/get_model_names)"
 
 # --- benchmark ----------------------------------------------------------------
 cd "$PRISM_REPO/benchmark/multi-model"
-mkdir -p "$PRISM_EXP/results/sanity" "$PRISM_EXP/results/sanity/requests"
+mkdir -p "$RESULTS" "$RESULTS/requests"
 
 set +e
 python3 benchmark.py \
   --base-url "http://127.0.0.1:$PORT" \
   --num-models "$N" --model-paths "${MODELS[@]}" \
   --exp-name "$EXP" \
-  --results-path "$PRISM_EXP/results/sanity" \
-  --request-path "$PRISM_EXP/results/sanity/requests" \
+  --results-path "$RESULTS" \
+  --request-path "$RESULTS/requests" \
   --seed 42 --disable-tqdm \
-  --e2e-benchmark --real-trace ./real_trace.pkl \
-  --time-scale 1 --replication 1 --num-gpus 1 \
+  --e2e-benchmark --real-trace "$TRACE" \
+  --time-scale "$TS" --replication 1 --num-gpus 1 \
   --enable-elastic-memory \
   --ttft-slo-scale "$TTFT_SCALE" --tpot-slo-scale "$TPOT_SCALE" \
   > "$LOGDIR/bench.log" 2>&1
@@ -89,13 +123,15 @@ tmux kill-session -t "$SESSION" 2>/dev/null || true
 
 # --- analyze ------------------------------------------------------------------
 # time_scale is a float, so the filename carries "1.0x" -- glob rather than guess
-REQF=$(ls "$PRISM_EXP"/results/sanity/requests/${EXP}_e2e_1gpu_*_output_requests.json | head -1)
-METF=$(ls "$PRISM_EXP"/results/sanity/${EXP}_e2e_1gpu_*rep.json | head -1)
+# time_scale lands in the filename as a float ("1" -> "1.0x"), so match on
+# newest rather than trying to reconstruct the repr in bash.
+REQF=$(ls -t "$RESULTS"/requests/${EXP}_e2e_1gpu_*_output_requests.json | head -1)
+METF=$(ls -t "$RESULTS"/${EXP}_e2e_1gpu_*rep.json | head -1)
 python3 "$SCRIPT_DIR/analyze_slo.py" \
   --req-file "$REQF" \
   --metrics-file "$METF" \
   --ttft-slo-scale "$TTFT_SCALE" --tpot-slo-scale "$TPOT_SCALE" \
   --label "$CASE" --model-map "$MAP" \
-  --out "$PRISM_EXP/results/sanity/${EXP}_slo.json" > "$LOGDIR/analyze.log" 2>&1
+  --out "$RESULTS/${EXP}_slo.json" > "$LOGDIR/analyze.log" 2>&1
 
-echo "### case $CASE done -> $PRISM_EXP/results/sanity/${EXP}_slo.json"
+echo "### case $CASE done -> $RESULTS/${EXP}_slo.json"
