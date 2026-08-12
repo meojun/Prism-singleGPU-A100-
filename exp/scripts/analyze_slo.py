@@ -84,6 +84,8 @@ def analyze(req_file, metrics_file, ttft_scale, tpot_scale, label, model_map):
 
         ttfts = [r["ttft"] for r in good]
         tpots = [r["tpot"] for r in good]
+        # "latency" in the raw dump is end-to-end: arrival -> last token.
+        e2es = [r["latency"] for r in good if r.get("latency") is not None]
         out_toks = sum(r["output_len"] for r in good)
         good_toks = sum(r["output_len"] for r, b in zip(good, both) if b)
 
@@ -100,10 +102,20 @@ def analyze(req_file, metrics_file, ttft_scale, tpot_scale, label, model_map):
             "violation_rate": 1 - att_both,
             "goodput_rps": sum(both) / duration,
             "goodput_tok_s": good_toks / duration,
+            # mean is reported alongside the percentiles precisely so it can be
+            # ignored: it hides the tail that decides SLO attainment.
+            "ttft_mean_ms": (float(np.mean(ttfts)) * 1000) if ttfts else float("nan"),
             "ttft_p50_ms": pct(ttfts, 50) * 1000,
+            "ttft_p95_ms": pct(ttfts, 95) * 1000,
             "ttft_p99_ms": pct(ttfts, 99) * 1000,
+            "tpot_mean_ms": (float(np.mean(tpots)) * 1000) if tpots else float("nan"),
             "tpot_p50_ms": pct(tpots, 50) * 1000,
+            "tpot_p95_ms": pct(tpots, 95) * 1000,
             "tpot_p99_ms": pct(tpots, 99) * 1000,
+            "e2e_mean_s": float(np.mean(e2es)) if e2es else float("nan"),
+            "e2e_p50_s": pct(e2es, 50),
+            "e2e_p95_s": pct(e2es, 95),
+            "e2e_p99_s": pct(e2es, 99),
         }
     return out
 

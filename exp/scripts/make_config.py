@@ -61,6 +61,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--num-gpus", type=int, required=True)
     ap.add_argument("--models", type=int, default=8, help="use slots 1..K (max 8)")
+    ap.add_argument("--slots", default=None,
+                    help="explicit slot list, e.g. '1,4,5'. Overrides --models. "
+                         "Slots 1/4/5 are the Llama-3.1-8B slots, 2 is 3B, 3/6/7/8 are 1B -- "
+                         "pick by the model you want, not by slot number.")
     ap.add_argument("--placement", choices=["blocks", "roundrobin", "balanced"], default="blocks")
     ap.add_argument("--pool", type=float, default=20.0,
                     help="max_memory_pool_size GiB per model. In elastic/prism mode this is a "
@@ -68,6 +72,13 @@ def main():
     ap.add_argument("-o", "--out", required=True)
     a = ap.parse_args()
 
+    if a.slots:
+        slots_arg = [int(s) for s in a.slots.split(",")]
+        if not all(s in SLOTS for s in slots_arg):
+            raise SystemExit(f"slots must be within 1..8, got {slots_arg}")
+        a.models = len(slots_arg)
+    else:
+        slots_arg = None
     if not 1 <= a.models <= 8:
         raise SystemExit("--models must be 1..8: trace.py's e2e path defines exactly 8 slots")
     if a.models < a.num_gpus:
@@ -77,7 +88,7 @@ def main():
         raise SystemExit(f"--models ({a.models}) must be >= --num-gpus ({a.num_gpus}): "
                          "every GPU needs at least one on:true model")
 
-    slots = list(range(1, a.models + 1))
+    slots = slots_arg if slots_arg else list(range(1, a.models + 1))
     placement = assign(slots, a.num_gpus, a.placement)
 
     cfg = [{
@@ -101,7 +112,9 @@ def main():
         r = sum(SLOTS[s][2] for s in mine)
         share = 100 * r / total_reqs if total_reqs else 0
         print(f"  GPU {g}: {' '.join('model_%d' % s for s in mine)}")
-        print(f"          weights {w:5.1f} GiB | trace requests {r:4d} ({share:.0f}%)")
+        # request counts are real_trace.pkl's, shown to expose skew. A workload
+        # built by build_sharegpt_trace.py --variant rate sets its own rates.
+        print(f"          weights {w:5.1f} GiB | real_trace.pkl requests {r:4d} ({share:.0f}%)")
     print(f"  -> launch with WORKERS >= {max(sum(1 for s in slots if placement[s] == g) for g in range(a.num_gpus))}")
 
 

@@ -207,6 +207,94 @@ def build_full(tok, originals, pairs, seed):
     return out
 
 
+# slot -> adapter rank. trace.py::generate_e2e_benchmark_reqs does
+#   selected_ranks = [2, 14, 3, 10, 5, 19, 23, 24]
+#   model_mapping  = {rank: f"model_{i+1}"}
+# and recovers the rank with int(adapter_dir.split("-")[-1]), so the rank is the
+# ONLY thing deciding which slot -- and therefore which hard-coded SLO baseline
+# -- a request lands on.
+SLOT_RANK = {1: 2, 2: 14, 3: 3, 4: 10, 5: 5, 6: 19, 7: 23, 8: 24}
+SLOT_MODEL = {
+    1: "meta-llama/Llama-3.1-8B", 2: "meta-llama/Llama-3.2-3B",
+    3: "meta-llama/Llama-3.2-1B", 4: "meta-llama/Llama-3.1-8B",
+    5: "meta-llama/Llama-3.1-8B", 6: "meta-llama/Llama-3.2-1B",
+    7: "meta-llama/Llama-3.2-1B", 8: "meta-llama/Llama-3.2-1B",
+}
+
+
+def sharegpt_samples(tok, pairs, n, seed):
+    """n (prompt, prompt_len, output_len) triples under sglang's standard filter.
+
+    Same filter as build_full (bench_serving.py::sample_sharegpt_requests), so
+    the length distribution is the one everyone else benchmarks with.  Each
+    request gets a DISTINCT conversation -- reusing a small pool makes short
+    prompts prefixes of longer ones and inflates radix-cache hits.
+    """
+    out, i = [], 0
+    while len(out) < n and i < len(pairs):
+        prompt, completion = pairs[i]
+        i += 1
+        plen = len(tok.encode(prompt, add_special_tokens=False))
+        olen = len(tok.encode(completion, add_special_tokens=False))
+        if plen < 4 or olen < 4 or plen > 1024 or plen + olen > 2048:
+            continue
+        out.append((prompt, plen, olen))
+    if len(out) < n:
+        raise SystemExit(f"only {len(out)} usable ShareGPT samples, need {n}")
+    return out
+
+
+def build_rate(tok, pairs, slots, phases, phase_len, cv, seed):
+    """Gamma/Poisson arrivals at a controlled per-slot rate, ShareGPT lengths.
+
+    `phases` is a list of per-slot rate lists (req/s), one per phase; each phase
+    runs `phase_len` seconds.  One phase = flat-rate workload.  Several phases =
+    the burst scenario where the number of simultaneously hot models grows.
+
+    The arrival process is the one trace.py::generate_synthetic_reqs already
+    uses -- gamma intervals with shape 1/cv^2, scale cv^2/rate.  cv=1 is exactly
+    Poisson; cv>1 is burstier at the same mean rate.  It is reproduced here
+    rather than called because that function also forces prompts to "Hello "*n
+    and a single scalar SLO, which would discard both ShareGPT lengths and the
+    per-slot SLO baselines.
+
+    Per-slot streams are drawn independently and merged, so a slot's configured
+    rate is literally its arrival rate and the model mix is exact.
+    """
+    import numpy as np
+
+    rng = np.random.default_rng(seed)
+    shape = 1.0 / (cv ** 2)
+    events = []  # (arrival_time, slot)
+    for p_idx, rates in enumerate(phases):
+        t0 = p_idx * phase_len
+        for slot, rate in zip(slots, rates):
+            if rate <= 0:
+                continue
+            n = int(rate * phase_len * 1.4) + 32   # draw generously, clip below
+            iv = rng.gamma(shape, (cv ** 2) / rate, n)
+            ts = t0 + np.cumsum(iv)
+            events += [(float(t), slot) for t in ts if t < t0 + phase_len]
+    events.sort()
+    if not events:
+        raise SystemExit("no requests generated -- check --phase-rates")
+
+    samples = sharegpt_samples(tok, pairs, len(events), seed)
+    out = []
+    for i, ((t, slot), (prompt, plen, olen)) in enumerate(zip(events, samples)):
+        r = Request()
+        r.req_id = str(i)
+        r.prompt = prompt
+        r.prompt_len = plen
+        r.output_len = olen
+        r.req_time = t
+        r.adapter_dir = f"dummy-lora-7b-rank-8-{SLOT_RANK[slot]}"  # rank suffix is all that is read
+        r.model_dir = SLOT_MODEL[slot]
+        r.slo = r.slo_ttft = r.slo_tpot = None   # replay assigns the per-slot baseline
+        out.append(r)
+    return out
+
+
 def prefix_reuse(tok, requests):
     """Fraction of prefill tokens a radix cache would serve from an existing prefix.
 
@@ -252,8 +340,21 @@ def main():
     ap.add_argument("--original", default=None, help="source real_trace.pkl")
     ap.add_argument("--sharegpt", default=DEFAULT_SHAREGPT)
     ap.add_argument("--outdir", default=DEFAULT_OUTDIR)
-    ap.add_argument("--variant", choices=["content", "full", "both"], default="both")
+    ap.add_argument("--variant", choices=["content", "full", "both", "rate"], default="both")
     ap.add_argument("--seed", type=int, default=42)
+    # --- rate variant: controlled arrival rate, ShareGPT lengths -------------
+    ap.add_argument("--slots", default="1,4,5",
+                    help="model slots to drive. Slots 1/4/5 are the Llama-3.1-8B "
+                         "slots in trace.py; 2 is 3B, 3/6/7/8 are 1B.")
+    ap.add_argument("--phase-rates", default=None,
+                    help="per-slot req/s, ';'-separated phases. "
+                         "'6,6,6' = flat; '6,1,1;6,6,1;6,6,6' = growing burst")
+    ap.add_argument("--rate", type=float, default=None,
+                    help="shorthand: total req/s split evenly over --slots (one phase)")
+    ap.add_argument("--phase-len", type=float, default=600.0, help="seconds per phase")
+    ap.add_argument("--cv", type=float, default=1.0,
+                    help="arrival coefficient of variation. 1.0 = Poisson")
+    ap.add_argument("--out", default=None, help="output pkl (rate variant)")
     args = ap.parse_args()
 
     original = args.original or os.path.join(
@@ -264,6 +365,45 @@ def main():
     from transformers import AutoTokenizer
     tok = AutoTokenizer.from_pretrained(TOKENIZER)
 
+    os.makedirs(args.outdir, exist_ok=True)
+
+    if args.variant == "rate":
+        slots = [int(s) for s in args.slots.split(",")]
+        if args.phase_rates:
+            phases = [[float(x) for x in p.split(",")] for p in args.phase_rates.split(";")]
+        elif args.rate is not None:
+            phases = [[args.rate / len(slots)] * len(slots)]
+        else:
+            raise SystemExit("rate variant needs --phase-rates or --rate")
+        for p in phases:
+            if len(p) != len(slots):
+                raise SystemExit(f"each phase needs {len(slots)} rates (one per slot), got {p}")
+
+        pairs = load_sharegpt_pairs(args.sharegpt, args.seed)
+        print(f"ShareGPT: 2턴 이상 대화 {len(pairs)}개")
+        reqs = build_rate(tok, pairs, slots, phases, args.phase_len, args.cv, args.seed)
+
+        out = args.out or os.path.join(args.outdir, "sharegpt_rate.pkl")
+        # adapter_dirs is only carried for structural parity; the replay path
+        # reads ranks off each request, not this list.
+        adapters = sorted({r.adapter_dir for r in reqs})
+        with open(out, "wb") as f:
+            pickle.dump([adapters, reqs], f)
+
+        span = args.phase_len * len(phases)
+        print(f"\n[rate] {len(reqs)}건 / {span:.0f}s = {len(reqs)/span:.2f} req/s 평균, cv={args.cv}, seed={args.seed}")
+        for i, p in enumerate(phases):
+            t0, t1 = i * args.phase_len, (i + 1) * args.phase_len
+            got = [sum(1 for r in reqs
+                       if t0 <= r.req_time < t1 and r.adapter_dir.endswith(f"-{SLOT_RANK[s]}"))
+                   for s in slots]
+            want = " ".join(f"model_{s}={r:g}" for s, r in zip(slots, p))
+            have = " ".join(f"model_{s}={g/args.phase_len:.2f}" for s, g in zip(slots, got))
+            print(f"  phase {i} [{t0:.0f}-{t1:.0f}s] 목표 {want}  실측 {have}")
+        summarize(tok, reqs, "rate")
+        print(f"\n생성됨: {out}  ({os.path.getsize(out)/1e6:.1f} MB)")
+        return
+
     adapter_dirs, originals = load_original(original)
     print(f"원본 트레이스: {len(originals)}건, 어댑터 {len(adapter_dirs)}개  ({original})")
     summarize(tok, originals, "original")
@@ -271,7 +411,6 @@ def main():
     pairs = load_sharegpt_pairs(args.sharegpt, args.seed)
     print(f"\nShareGPT: 2턴 이상 대화 {len(pairs)}개")
 
-    os.makedirs(args.outdir, exist_ok=True)
     made = []
 
     if args.variant in ("content", "both"):

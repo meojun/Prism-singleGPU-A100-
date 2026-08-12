@@ -29,7 +29,12 @@ source "$SCRIPT_DIR/env.sh"
 
 # NGPU defaults to every visible GPU, so the same command adapts to the box.
 NGPU=${NGPU:-$(nvidia-smi --query-gpu=index --format=csv,noheader | wc -l)}
+# SLOTS drives a possibly non-contiguous slot set, e.g. "1,4,5" -- the three
+# Llama-3.1-8B slots in trace.py. Defaults to 1..NMODELS so fig7 is unchanged.
 NMODELS=${NMODELS:-8}          # trace.py's e2e path defines exactly 8 SLO slots
+SLOTS=${SLOTS:-$(seq 1 "$NMODELS" | paste -sd,)}
+MODELS=(); for i in ${SLOTS//,/ }; do MODELS+=("model_$i"); done
+NMODELS=${#MODELS[@]}          # SLOTS is authoritative from here on
 PLACEMENT=${PLACEMENT:-blocks} # blocks | roundrobin | balanced (see make_config.py)
 MAXMEM=${MAXMEM:-67.28}        # per-GPU GiB budget handed to the global scheduler
 TTFT_SCALE=${TTFT_SCALE:-5}
@@ -66,7 +71,6 @@ case "$TRACE" in
   *) TRACE=$(readlink -f "$TRACE") ;;
 esac
 
-MODELS=(); for i in $(seq 1 "$NMODELS"); do MODELS+=("model_$i"); done
 # slot -> hf path, read straight out of the config so the two can never drift
 MAP=$(python3 -c "
 import json,sys
