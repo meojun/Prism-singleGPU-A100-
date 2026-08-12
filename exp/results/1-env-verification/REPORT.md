@@ -154,10 +154,10 @@ SLO baseline을 하드코딩해 두었고 그 값은 특정 모델을 대상으�
 | `exp/scripts/run_sanity.sh` | launch + bench + analyze, 호출당 케이스 하나 |
 | `exp/scripts/analyze_slo.py` | 원본 덤프에서 attainment / goodput / 위반율 재계산 |
 | `exp/scripts/summarize_sanity.py` | 비교 표 출력 |
-| `exp/results/sanity/sanity_{A,B,C}_slo.json` | 계산된 모델별 지표 |
-| `exp/results/sanity/sanity_{A,B,C}_e2e_1gpu_1.0x_1rep.json` | 하네스 원본 지표 |
-| `exp/results/sanity/requests/*_output_requests.json` | per-request 원본 기록 |
-| `exp/results/sanity/summary.tsv` | 8행 전체, machine-readable |
+| `exp/results/1-env-verification/sanity_{A,B,C}_slo.json` | 계산된 모델별 지표 |
+| `exp/results/1-env-verification/sanity_{A,B,C}_e2e_1gpu_1.0x_1rep.json` | 하네스 원본 지표 |
+| `exp/results/1-env-verification/requests/*_output_requests.json` | per-request 원본 기록 |
+| `exp/results/1-env-verification/summary.tsv` | 8행 전체, machine-readable |
 | `exp/server-logs/sanity_{A,B,C}/` | server stdout, gpu_scheduler, model_service, bench 로그 |
 
 ---

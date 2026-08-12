@@ -1,7 +1,7 @@
 # Rate-sweep experiments on 3x Llama-3.1-8B (2x A100-80G)
 
 Commands to reproduce every run under `exp/results/{ref,probe,exp,burst}/`.
-Findings and interpretation: [`exp/results/exp/REPORT_rate_sweep.md`](exp/results/exp/REPORT_rate_sweep.md).
+Findings and interpretation: [`exp/results/4-rate-sweep/REPORT_rate_sweep.md`](exp/results/4-rate-sweep/REPORT_rate_sweep.md).
 
 Everything below drives **stock Prism**. No file under `prism-research/` or
 `kvcached-prism/` is patched. The workload generator emits a pickle in the
@@ -105,7 +105,7 @@ req/s, so **lambda_base = 12 req/s, about 46% of capacity**, inside the 40-60%
 target.
 
 > The two probe runs share `TAG=probe` and therefore overwrite each other's
-> logs. The low ramp's CSVs were preserved as `results/probe/rampLO_*`. Use a
+> logs. The low ramp's CSVs were preserved as `results/4-rate-sweep/rampLO_*`. Use a
 > distinct TAG per ramp if you rerun.
 
 ## 4. Experiment 1 (baseline) and 2 (contention)

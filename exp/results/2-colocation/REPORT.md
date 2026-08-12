@@ -334,19 +334,19 @@ done
 # 4) 분석 (warmup + baseline 오염 제외)
 python exp/scripts/analyze_slowdown.py --baseline base --measurement exp \
     --case A --slots model_1 --base-case M1 \
-    --warmup 4 --min-slowdown 0.5 --out exp/results/exp/exp_A_slowdown_clean.json
+    --warmup 4 --min-slowdown 0.5 --out exp/results/2-colocation/exp_A_slowdown_clean.json
 python exp/scripts/analyze_slowdown.py --baseline base --measurement exp \
     --case B --slots model_1 model_4 --base-case M1 M4 \
-    --warmup 4 --min-slowdown 0.5 --out exp/results/exp/exp_B_slowdown_clean.json
+    --warmup 4 --min-slowdown 0.5 --out exp/results/2-colocation/exp_B_slowdown_clean.json
 python exp/scripts/analyze_slowdown.py --baseline base --measurement exp \
     --case C --slots model_1 model_2 --base-case M1 M2 \
-    --warmup 4 --min-slowdown 0.5 --out exp/results/exp/exp_C_slowdown_clean.json
+    --warmup 4 --min-slowdown 0.5 --out exp/results/2-colocation/exp_C_slowdown_clean.json
 
 # 5) 표
 python exp/scripts/report_slowdown.py --measurement exp --suffix _clean --tier 50
 ```
 
-`TAG`는 출력 네임스페이스라 필수다. 안 주면 `results/sanity/`의 커밋된 baseline을 덮어쓴다.
+`TAG`는 출력 네임스페이스라 필수다. 안 주면 `results/1-env-verification/`의 커밋된 baseline을 덮어쓴다.
 
 실행 시각 기록 (총 62분):
 
@@ -362,10 +362,10 @@ base M4  07:08:29 → 07:19:48      exp C  07:42:21 → 07:53:33
 
 | 경로 | 내용 |
 | --- | --- |
-| `exp/results/base/` | 무경합 baseline 3슬롯 (원시 지표 + per-request 덤프) |
-| `exp/results/exp/exp_{A,B,C}_slowdown_clean.json` | **최종 결과** (warmup·오염 제외) |
-| `exp/results/exp/exp_{A,B,C}_slowdown.json` | 처리 전 (비교용) |
-| `exp/results/exp/requests/` | per-request 원시 덤프 |
+| `exp/results/1-env-verification/` | 무경합 baseline 3슬롯 (원시 지표 + per-request 덤프) |
+| `exp/results/2-colocation/exp_{A,B,C}_slowdown_clean.json` | **최종 결과** (warmup·오염 제외) |
+| `exp/results/2-colocation/exp_{A,B,C}_slowdown.json` | 처리 전 (비교용) |
+| `exp/results/2-colocation/requests/` | per-request 원시 덤프 |
 | `exp/scripts/build_sharegpt_trace.py` | ShareGPT → Prism 트레이스 pkl |
 | `exp/scripts/analyze_slowdown.py` | slowdown SLO 분석 |
 | `exp/scripts/report_slowdown.py` | 표 출력 |
@@ -377,8 +377,8 @@ base M4  07:08:29 → 07:19:48      exp C  07:42:21 → 07:53:33
 
 | 경로 | 왜 있는가 |
 | --- | --- |
-| `exp/results/sharegpt_content/` | 데이터셋 교체가 부하 중립임을 확인. 원본 트레이스와 케이스 A attainment 1.000 동일, 케이스 B 0.224 동일 |
-| `exp/results/sanity_repeat/` | 실행 간 분산 측정 (§8). 원본 트레이스 케이스 C를 재실행해 0.959 → 0.912 관측 |
+| `exp/results/2-colocation/` | 데이터셋 교체가 부하 중립임을 확인. 원본 트레이스와 케이스 A attainment 1.000 동일, 케이스 B 0.224 동일 |
+| `exp/results/1-env-verification/` | 실행 간 분산 측정 (§8). 원본 트레이스 케이스 C를 재실행해 0.959 → 0.912 관측 |
 
 ---
 

@@ -22,7 +22,7 @@ source exp/scripts/env.sh
 python exp/scripts/summarize_sanity.py
 ```
 
-나온 숫자를 `exp/results/sanity/REPORT.md` §3의 표와 비교하면 새 장비가 제대로
+나온 숫자를 `exp/results/1-env-verification/REPORT.md` §3의 표와 비교하면 새 장비가 제대로
 돌아가는지 확인된다.
 
 ---
@@ -58,8 +58,8 @@ ROOT=/data/prism ./bootstrap.sh       # 다른 경로에 설치
 
 | 경로 | 내용 |
 | --- | --- |
-| `exp/results/exp/REPORT.md` | **ShareGPT + slowdown SLO 로 측정한 colocation 실험** (2026-08-04). 8B 1개 / 8B 2개 / 3B+8B, TABLE VI 기준 |
-| `exp/results/sanity/REPORT.md` | 그 이전의 환경 검증 스윕 (합성 프롬프트, 절대 SLO) |
+| `exp/results/2-colocation/REPORT.md` | **ShareGPT + slowdown SLO 로 측정한 colocation 실험** (2026-08-04). 8B 1개 / 8B 2개 / 3B+8B, TABLE VI 기준 |
+| `exp/results/1-env-verification/REPORT.md` | 그 이전의 환경 검증 스윕 (합성 프롬프트, 절대 SLO) |
 
 ---
 
@@ -67,7 +67,7 @@ ROOT=/data/prism ./bootstrap.sh       # 다른 경로에 설치
 
 기본 트레이스 `real_trace.pkl`은 **프롬프트 내용이 합성이다.** 1500건 전부
 `"Hello " * prompt_len`이라 도착 시각·입출력 길이·라우팅만 제공하고 내용은 없다
-(`exp/results/sanity/REPORT.md` §2). 실제 텍스트가 필요하면 ShareGPT로 바꾼다.
+(`exp/results/1-env-verification/REPORT.md` §2). 실제 텍스트가 필요하면 ShareGPT로 바꾼다.
 
 **하네스에는 ShareGPT 로더가 없다.** `bench_serving.py`(단일 모델)에만 있고,
 멀티모델 e2e 경로는 `trace.py::generate_e2e_benchmark_reqs`가 pkl에서 `req.prompt`를
@@ -109,12 +109,12 @@ full            p50 110 / p99 782      p50 139 / p99 770        1.9%
 | `full` | 1.45x / 0.62x | 1.57x / 0.66x | 1.39x / 0.65x |
 
 실행할 때는 `TRACE`와 `TAG`를 준다. **`TAG`는 출력 네임스페이스라 필수다** —
-안 주면 `results/sanity/`의 커밋된 baseline을 덮어쓴다.
+안 주면 `results/1-env-verification/`의 커밋된 baseline을 덮어쓴다.
 
 ```bash
 TRACE=$SHAREGPT_CONTENT TAG=sharegpt_content ./exp/scripts/run_sanity.sh A
 TRACE=$SHAREGPT_FULL    TAG=sharegpt_full    ./exp/scripts/run_sanity.sh A
-./exp/scripts/run_sanity.sh A                # 기본값 = 원본 트레이스, results/sanity/
+./exp/scripts/run_sanity.sh A                # 기본값 = 원본 트레이스, results/1-env-verification/
 ```
 
 ### 알아둘 것
@@ -202,7 +202,7 @@ lockfile은 여기서 아무 도움이 안 된다 — torch/vllm/flashinfer 조�
 | `setup/download_models.sh` | 가중치 다운로드 |
 | `exp/configs/` | 모델 배치 config (Llama 3종 + Qwen 계열) |
 | `exp/scripts/` | launch / bench / analyze / summarize |
-| `exp/results/sanity/` | 기준 결과 + `REPORT.md` (한국어 전문 보고서) |
+| `exp/results/1-env-verification/` | 기준 결과 + `REPORT.md` (한국어 전문 보고서) |
 | `setup_prism_env.sh` | 원래 셋업 스크립트 (역사적 참고용, 재현 불가) |
 
 **없음** (`.gitignore`)
@@ -222,7 +222,7 @@ lockfile은 여기서 아무 도움이 안 된다 — torch/vllm/flashinfer 조�
 
 1. `./exp/scripts/run_sanity.sh A` — 케이스 A는 **attainment 1.000**이 나와야 한다.
    안 나오면 환경 문제이지 부하 문제가 아니다 (8B 하나가 80 GB를 독점하는 상황).
-2. `exp/results/sanity/REPORT.md` §3과 비교. 절대 latency는 GPU가 다르면 달라지지만,
+2. `exp/results/1-env-verification/REPORT.md` §3과 비교. 절대 latency는 GPU가 다르면 달라지지만,
    B의 TPOT 붕괴(colocation contention)와 C의 높은 attainment라는 **패턴**은 유지되어야 한다.
 3. 서버가 `activating`에서 멈추면 → redis 확인, 그리고 `--workers-per-gpu`가 그 GPU에
    올라간 `on: true` 모델 수 이상인지 확인 (`exp/server-logs/*/server.log.gpu_scheduler.log`를

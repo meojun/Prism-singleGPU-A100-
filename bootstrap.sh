@@ -5,7 +5,7 @@
 #   cd prism-exp && ./bootstrap.sh
 #
 # Everything is pinned (setup/pins.env + setup/requirements.lock.txt), so this
-# reproduces the exact stack that produced exp/results/sanity/ -- it does NOT
+# reproduces the exact stack that produced exp/results/1-env-verification/ -- it does NOT
 # re-resolve dependencies. Re-resolving is what breaks this repo (see §"Traps").
 #
 # Idempotent: re-running skips work that is already done. Safe to re-run after a
@@ -181,7 +181,7 @@ cat <<EOF
   ./exp/scripts/run_sanity.sh A     # then B, C
   python exp/scripts/summarize_sanity.py
 
-Expected sanity numbers are in exp/results/sanity/REPORT.md -- compare against
+Expected sanity numbers are in exp/results/1-env-verification/REPORT.md -- compare against
 them to confirm the new box behaves. Note they were measured on A100-80G; a
 different GPU will shift absolute latencies.
 EOF

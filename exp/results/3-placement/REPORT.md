@@ -32,10 +32,10 @@ placement on/off)** 를 두 장짜리 GPU에서 실제로 돌린다.
 
 ---
 
-## 3. 1-GPU 재현 검증 (`results/verify/`)
+## 3. 1-GPU 재현 검증 (`results/1-env-verification/`)
 
 `CUDA_VISIBLE_DEVICES=0 TAG=verify ./exp/scripts/run_sanity.sh {A,B,C}`.
-커밋된 `results/sanity/` 와 대조:
+커밋된 `results/1-env-verification/` 와 대조:
 
 | case | model | n | att_ttft ref→new | att_tpot ref→new | tpot_p50 ms ref→new |
 | --- | --- | ---: | --- | --- | --- |
@@ -183,8 +183,8 @@ CUDA_VISIBLE_DEVICES=0 TAG=verify ./exp/scripts/run_sanity.sh A   # 이어서 B,
 python exp/scripts/compare_fig7.py --tag fig7 --ts 1
 ```
 
-산출물: `results/fig7/*_slo.json`, `results/fig7/summary.tsv`,
-`results/fig7/*_actions.txt`, `server-logs/fig7_*/gpu_timeline.txt`.
+산출물: `results/3-placement/*_slo.json`, `results/3-placement/summary.tsv`,
+`results/3-placement/*_actions.txt`, `server-logs/fig7_*/gpu_timeline.txt`.
 
 ---
 

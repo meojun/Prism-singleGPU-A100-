@@ -34,7 +34,7 @@ Writes, next to the results:
                          per-GPU queue + device memory + utilisation
   <exp>_summary.csv      one row: the rate-vs-X table columns
 
-  python collect_metrics.py --exp probe_glob_on_ts1 --tag probe
+  python collect_metrics.py --exp probe_glob_on_ts1 --study 4-rate-sweep
 """
 import argparse
 import csv
@@ -229,7 +229,7 @@ def window_report(a, resdir, models):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--exp", required=True, help="experiment name, e.g. probe_glob_on_ts1")
-    ap.add_argument("--tag", required=True, help="results/<tag>/ namespace")
+    ap.add_argument("--study", required=True, help="results/<study>/ folder")
     ap.add_argument("--root", default=os.environ.get("PRISM_EXP", "/workspace/prism-exp/exp"))
     ap.add_argument("--bin", type=float, default=1.0, help="time-series bin seconds")
     ap.add_argument("--trace", default=None,
@@ -242,7 +242,7 @@ def main():
     a = ap.parse_args()
 
     logdir = os.path.join(a.root, "server-logs", a.exp)
-    resdir = os.path.join(a.root, "results", a.tag)
+    resdir = os.path.join(a.root, "results", a.study)
 
     batches = parse_batches(os.path.join(logdir, "server.log"))
     qlens = parse_qlen(os.path.join(logdir, "server.log.gpu_scheduler.log"))

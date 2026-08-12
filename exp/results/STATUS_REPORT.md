@@ -1,6 +1,6 @@
 # Prism 실험 환경 — 전체 상태 보고서
 
-생성 시각 2026-08-12 10:15 UTC · 생성 스크립트 `exp/scripts/build_status_report.py`
+생성 시각 2026-08-12 10:27 UTC · 생성 스크립트 `exp/scripts/build_status_report.py`
 
 이 문서의 모든 수치는 **생성 시점에 직접 조사하거나 커밋된 결과 파일에서 읽은 것**입니다. 손으로 입력한 값은 하나도 없습니다.
 
@@ -37,7 +37,7 @@
 | kvcached (prism/shm) | `d78649d` |
 | kvcached (main) | `ce76a12` |
 
-**redis** — `PONG`, supervisor: `redis                            RUNNING   pid 3178, uptime 4:59:54`
+**redis** — `PONG`, supervisor: `redis                            RUNNING   pid 3178, uptime 5:11:13`
 
 > redis가 죽어 있으면 Prism이 기동 중 모델을 `activating` 상태로 둔 채 멈춥니다.
 
@@ -57,6 +57,7 @@
 
 | 커밋 | 날짜 | 제목 |
 | --- | --- | --- |
+| 6969c0b | 2026-08-12 | Audit both public repos properly and soften the Algorithm 1/2 claim |
 | 60bc285 | 2026-08-12 | Status report generator now emits Korean |
 | 07e03fb | 2026-08-12 | Add a status report generator that probes rather than asserts |
 | ddfb5d7 | 2026-08-12 | Rate-sweep and burst experiments on 3x Llama-3.1-8B, 2 GPUs |
@@ -68,46 +69,61 @@
 커밋 안 된 파일:
 ```
 M CLAUDE.md
- M exp/results/STATUS_REPORT.md
- M exp/results/exp/REPORT_rate_sweep.md
- M exp/results/fig7/REPORT.md
- M exp/scripts/build_status_report.py
+ M EXPERIMENT.md
+ M README.md
+ M SETUP.md
+ M bootstrap.sh
+RM exp/results/sanity/REPORT.md -> exp/results/1-env-verification/REPORT.md
+R  exp/results/base/base_M1_e2e_1gpu_1.0x_1rep.json -> exp/results/1-env-verification/base_M1_e2e_1gpu_1.0x_1rep.json
+R  exp/results/base/base_M1_slo.json -> exp/results/1-env-verification/base_M1_slo.json
+R  exp/results/base/base_M2_e2e_1gpu_1.0x_1rep.json -> exp/results/1-env-verification/base_M2_e2e_1gpu_1.0x_1rep.json
+R  exp/results/base/base_M2_slo.json -> exp/results/1-env-verification/base_M2_slo.json
+R  exp/results/base/base_M4_e2e_1gpu_1.0x_1rep.json -> exp/results/1-env-verification/base_M4_e2e_1gpu_1.0x_1rep.json
+R  exp/results/base/base_M4_slo.json -> exp/results/1-env-verification/base_M4_slo.json
+R  exp/results/base/requests/base_M1_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/base_M1_e2e_1gpu_1.0x_1rep_output_requests.json
+R  exp/results/base/requests/base_M2_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/base_M2_e2e_1gpu_1.0x_1rep_output_requests.json
+R  exp/results/base/requests/base_M4_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/base_M4_e2e_1gpu_1.0x_1rep_output_requests.json
+R  exp/results/sanity/requests/sanity_A_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/sanity_A_e2e_1gpu_1.0x_1rep_output_requests.json
+R  exp/results/sanity/requests/sanity_B_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/sanity_B_e2e_1gpu_1.0x_1rep_output_requests.json
+R  exp/results/sanity/requests/sanity_C_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/sanity_C_e2e_1gpu_1.0x_1rep_output_requests.json
+R  exp/results/sanity_repeat/requests/sanity_repeat_C_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/sanity_repeat_C_e2e_1gpu_1.0x_1rep_output_requests.json
+R  exp/results/verify/requests/verify_A_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/verify_A_e2e_1gpu_1.0x_1rep_output_requests.json
 ```
 
 ## 3. 실험 목록
 
-분석 완료된 run **28건**, 결과 네임스페이스 10개. 모든 값은 커밋된 `*_slo.json` / `*_summary.csv`에서 읽습니다.
+분석 완료된 run **28건**, 결과 네임스페이스 4개. 모든 값은 커밋된 `*_slo.json` / `*_summary.csv`에서 읽습니다.
 
 | 네임스페이스 | run | 요청수 | 시간 | att TTFT | att TPOT | TTFT p95 ms | TPOT p50 ms |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| `base` | `base_M1` | 296 | 603초 | 0.983 | 0.986 | — | 14 |
-| `base` | `base_M2` | 22 | 272초 | 1.000 | 1.000 | — | 12 |
-| `base` | `base_M4` | 262 | 607초 | 1.000 | 1.000 | — | 14 |
-| `burst` | `burst_glob_on_ts1` | 7569 | 497초 | 0.990 | 0.483 | 231 | 63 |
-| `exp` | `exp_A` | 296 | 603초 | 1.000 | 1.000 | — | 14 |
-| `exp` | `exp_B` | 558 | 611초 | 0.991 | 0.229 | — | 28 |
-| `exp` | `exp_C` | 318 | 603초 | 0.997 | 0.959 | — | 14 |
-| `exp` | `exp_glob_on_ts0.4` | 5090 | 210초 | 0.707 | 0.291 | 21,325 | 111 |
-| `exp` | `exp_glob_on_ts0.5` | 5090 | 243초 | 0.987 | 0.307 | 239 | 89 |
-| `exp` | `exp_glob_on_ts0.6667` | 5090 | 311초 | 0.999 | 0.379 | 191 | 68 |
-| `exp` | `exp_glob_on_ts0.8` | 5090 | 362초 | 1.000 | 0.447 | 177 | 57 |
-| `exp` | `exp_glob_on_ts1` | 5090 | 443초 | 1.000 | 0.872 | 165 | 44 |
-| `fig7` | `fig7_glob_off_ts0.5` | 754 | 316초 | 0.932 | 0.212 | — | 34 |
-| `fig7` | `fig7_glob_off_ts1` | 754 | 616초 | 0.954 | 0.259 | — | 34 |
-| `fig7` | `fig7_glob_on_ts0.5` | 754 | 310초 | 0.960 | 0.387 | — | 24 |
-| `fig7` | `fig7_glob_on_ts1` | 754 | 608초 | 0.966 | 0.569 | — | 20 |
-| `probe` | `probe_glob_on_ts1` | 5375 | 352초 | 0.894 | 0.206 | 3,868 | 56 |
-| `ref` | `ref_glob_on_ts1` | 702 | 193초 | 1.000 | 0.994 | 76 | 15 |
-| `sanity` | `sanity_A` | 296 | 603초 | 1.000 | 1.000 | — | 14 |
-| `sanity` | `sanity_B` | 558 | 612초 | 0.991 | 0.224 | — | 28 |
-| `sanity` | `sanity_C` | 318 | 603초 | 1.000 | 0.959 | — | 14 |
-| `sanity_repeat` | `sanity_repeat_C` | 318 | 603초 | 1.000 | 0.912 | — | 15 |
-| `sharegpt_content` | `sharegpt_content_A` | 296 | 603초 | 1.000 | 1.000 | — | 14 |
-| `sharegpt_content` | `sharegpt_content_B` | 558 | 613초 | 0.991 | 0.224 | — | 29 |
-| `sharegpt_content` | `sharegpt_content_C` | 318 | 603초 | 0.997 | 0.918 | — | 16 |
-| `verify` | `verify_A` | 296 | 603초 | 0.997 | 0.997 | — | 14 |
-| `verify` | `verify_B` | 558 | 612초 | 0.987 | 0.219 | — | 29 |
-| `verify` | `verify_C` | 318 | 604초 | 0.987 | 0.934 | — | 14 |
+| `1-env-verification` | `base_M1` | 296 | 603초 | 0.983 | 0.986 | — | 14 |
+| `1-env-verification` | `base_M2` | 22 | 272초 | 1.000 | 1.000 | — | 12 |
+| `1-env-verification` | `base_M4` | 262 | 607초 | 1.000 | 1.000 | — | 14 |
+| `1-env-verification` | `sanity_A` | 296 | 603초 | 1.000 | 1.000 | — | 14 |
+| `1-env-verification` | `sanity_B` | 558 | 612초 | 0.991 | 0.224 | — | 28 |
+| `1-env-verification` | `sanity_C` | 318 | 603초 | 1.000 | 0.959 | — | 14 |
+| `1-env-verification` | `sanity_repeat_C` | 318 | 603초 | 1.000 | 0.912 | — | 15 |
+| `1-env-verification` | `verify_A` | 296 | 603초 | 0.997 | 0.997 | — | 14 |
+| `1-env-verification` | `verify_B` | 558 | 612초 | 0.987 | 0.219 | — | 29 |
+| `1-env-verification` | `verify_C` | 318 | 604초 | 0.987 | 0.934 | — | 14 |
+| `2-colocation` | `exp_A` | 296 | 603초 | 1.000 | 1.000 | — | 14 |
+| `2-colocation` | `exp_B` | 558 | 611초 | 0.991 | 0.229 | — | 28 |
+| `2-colocation` | `exp_C` | 318 | 603초 | 0.997 | 0.959 | — | 14 |
+| `2-colocation` | `sharegpt_content_A` | 296 | 603초 | 1.000 | 1.000 | — | 14 |
+| `2-colocation` | `sharegpt_content_B` | 558 | 613초 | 0.991 | 0.224 | — | 29 |
+| `2-colocation` | `sharegpt_content_C` | 318 | 603초 | 0.997 | 0.918 | — | 16 |
+| `3-placement` | `fig7_glob_off_ts0.5` | 754 | 316초 | 0.932 | 0.212 | — | 34 |
+| `3-placement` | `fig7_glob_off_ts1` | 754 | 616초 | 0.954 | 0.259 | — | 34 |
+| `3-placement` | `fig7_glob_on_ts0.5` | 754 | 310초 | 0.960 | 0.387 | — | 24 |
+| `3-placement` | `fig7_glob_on_ts1` | 754 | 608초 | 0.966 | 0.569 | — | 20 |
+| `4-rate-sweep` | `burst_glob_on_ts1` | 7569 | 497초 | 0.990 | 0.483 | 231 | 63 |
+| `4-rate-sweep` | `exp_glob_on_ts0.4` | 5090 | 210초 | 0.707 | 0.291 | 21,325 | 111 |
+| `4-rate-sweep` | `exp_glob_on_ts0.5` | 5090 | 243초 | 0.987 | 0.307 | 239 | 89 |
+| `4-rate-sweep` | `exp_glob_on_ts0.6667` | 5090 | 311초 | 0.999 | 0.379 | 191 | 68 |
+| `4-rate-sweep` | `exp_glob_on_ts0.8` | 5090 | 362초 | 1.000 | 0.447 | 177 | 57 |
+| `4-rate-sweep` | `exp_glob_on_ts1` | 5090 | 443초 | 1.000 | 0.872 | 165 | 44 |
+| `4-rate-sweep` | `probe_glob_on_ts1` | 5375 | 352초 | 0.894 | 0.206 | 3,868 | 56 |
+| `4-rate-sweep` | `ref_glob_on_ts1` | 702 | 193초 | 1.000 | 0.994 | 76 | 15 |
 
 > attainment는 항상 `analyze_slo.py`가 재계산한 값입니다. `benchmark.py`의 `average_attainment_tpot`은 ms 단위 baseline을 초 단위 측정값과 비교해서 **항상 1.0**이므로 쓰면 안 됩니다.
 
@@ -246,10 +262,10 @@ python exp/scripts/build_status_report.py
 
 | 문서 | 내용 | 크기 |
 | --- | --- | --- |
-| [`exp/results/exp/REPORT_rate_sweep.md`](exp/REPORT_rate_sweep.md) | 3× Llama-3.1-8B rate sweep + burst (이번 연구) | 8 KB |
-| [`exp/results/fig7/REPORT.md`](fig7/REPORT.md) | 환경 구축 검증 + §7.3 global placement 실험 | 13 KB |
-| [`exp/results/exp/REPORT.md`](exp/REPORT.md) | ShareGPT colocation 연구, 1 GPU (기존) | 18 KB |
-| [`exp/results/sanity/REPORT.md`](sanity/REPORT.md) | 최초 1-GPU sanity 스윕 (기존) | 10 KB |
+| [`exp/results/4-rate-sweep/REPORT_rate_sweep.md`](4-rate-sweep/REPORT_rate_sweep.md) | 3× Llama-3.1-8B rate sweep + burst (이번 연구) | 8 KB |
+| [`exp/results/3-placement/REPORT.md`](3-placement/REPORT.md) | 환경 구축 검증 + §7.3 global placement 실험 | 13 KB |
+| [`exp/results/2-colocation/REPORT.md`](2-colocation/REPORT.md) | ShareGPT colocation 연구, 1 GPU (기존) | 18 KB |
+| [`exp/results/1-env-verification/REPORT.md`](1-env-verification/REPORT.md) | 최초 1-GPU sanity 스윕 (기존) | 10 KB |
 | [`EXPERIMENT.md`](../../EXPERIMENT.md) | 모든 커맨드와 각 선택의 근거 | 8 KB |
 | [`CLAUDE.md`](../../CLAUDE.md) | 새로 빌린 GPU 서버 셋업 런북 | 13 KB |
 

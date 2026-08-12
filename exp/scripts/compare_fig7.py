@@ -8,7 +8,7 @@ the resulting per-GPU load imbalance. The harness records neither, so:
     (server-logs/<exp>/gpu_timeline.txt) -- a proxy for the paper's
     "available KV memory per request per GPU", which the engines do not export.
 
-  python compare_fig7.py [--tag fig7] [--ts 1]
+  python compare_fig7.py [--study 3-placement] [--ts 1]
 """
 import argparse
 import glob
@@ -20,14 +20,14 @@ ROOT = os.environ.get("PRISM_EXP", "/workspace/prism-exp/exp")
 ARMS = [("glob_on", "w/ global"), ("glob_off", "w/o global")]
 
 
-def load_arm(tag, arm, ts):
-    f = os.path.join(ROOT, "results", tag, f"{tag}_{arm}_ts{ts}_slo.json")
+def load_arm(study, prefix, arm, ts):
+    f = os.path.join(ROOT, "results", study, f"{prefix}_{arm}_ts{ts}_slo.json")
     return json.load(open(f)) if os.path.exists(f) else None
 
 
-def load_timeline(tag, arm, ts):
+def load_timeline(prefix, arm, ts):
     """gpu_timeline.txt lines: '<epoch> 0, <MiB>, <util>;1, <MiB>, <util>;'"""
-    f = os.path.join(ROOT, "server-logs", f"{tag}_{arm}_ts{ts}", "gpu_timeline.txt")
+    f = os.path.join(ROOT, "server-logs", f"{prefix}_{arm}_ts{ts}", "gpu_timeline.txt")
     if not os.path.exists(f):
         return None
     per_gpu = {}
@@ -52,23 +52,24 @@ def load_timeline(tag, arm, ts):
     return per_gpu or None
 
 
-def actions(tag, arm, ts):
-    f = os.path.join(ROOT, "results", tag, f"{tag}_{arm}_ts{ts}_actions.txt")
+def actions(study, prefix, arm, ts):
+    f = os.path.join(ROOT, "results", study, f"{prefix}_{arm}_ts{ts}_actions.txt")
     return open(f).read().strip() if os.path.exists(f) else "(none recorded)"
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--tag", default="fig7")
+    ap.add_argument("--study", default="3-placement", help="results/<study>/ folder")
+    ap.add_argument("--prefix", default="fig7", help="run-name prefix")
     ap.add_argument("--ts", default="1")
     a = ap.parse_args()
 
-    data = {arm: load_arm(a.tag, arm, a.ts) for arm, _ in ARMS}
+    data = {arm: load_arm(a.study, a.prefix, arm, a.ts) for arm, _ in ARMS}
     have = [arm for arm, _ in ARMS if data[arm]]
     if not have:
-        raise SystemExit(f"no results under {ROOT}/results/{a.tag} for ts={a.ts}")
+        raise SystemExit(f"no results under {ROOT}/results/{a.study} for ts={a.ts}")
 
-    print(f"=== §7.3 Figure 7 ablation — tag={a.tag}, time_scale={a.ts} ===\n")
+    print(f"=== §7.3 Figure 7 ablation — study={a.study}, time_scale={a.ts} ===\n")
 
     # --- 7a: attainment ------------------------------------------------------
     hdr = f"{'model':<9}{'reqs':>6}"
@@ -105,7 +106,7 @@ def main():
     # --- 7b: per-GPU imbalance ----------------------------------------------
     print("\n--- per-GPU load (nvidia-smi sampled @2s) ---")
     for arm, lbl in ARMS:
-        tl = load_timeline(a.tag, arm, a.ts)
+        tl = load_timeline(a.prefix, arm, a.ts)
         if not tl:
             print(f"{lbl:<12} (no timeline)")
             continue
@@ -122,7 +123,7 @@ def main():
     print("\n--- global controller actions ---")
     for arm, lbl in ARMS:
         print(f"{lbl}:")
-        for ln in actions(a.tag, arm, a.ts).splitlines():
+        for ln in actions(a.study, a.prefix, arm, a.ts).splitlines():
             print(f"    {ln}")
 
 

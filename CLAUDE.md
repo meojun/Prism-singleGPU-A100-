@@ -94,13 +94,13 @@ source exp/scripts/env.sh
 CUDA_VISIBLE_DEVICES=0 TAG=verify ./exp/scripts/run_sanity.sh A    # then B, C
 ```
 
-`TAG` is mandatory — without it you overwrite the committed `results/sanity/`.
+`TAG` is mandatory — without it you overwrite the committed `results/1-env-verification/`.
 `CUDA_VISIBLE_DEVICES=0` is mandatory on a multi-GPU box (trap 5 below).
 
-Compare against `exp/results/sanity/` and `exp/results/exp/REPORT.md`. What must
+Compare against `exp/results/1-env-verification/` and `exp/results/2-colocation/REPORT.md`. What must
 hold: **case A attainment ≈ 1.0**, **case B's TPOT collapse** (model_1 ≈ 0.35,
 model_4 ≈ 0.08), **case C high attainment**. Absolute latency shifts with the
-GPU; those patterns must not. `exp/results/fig7/REPORT.md` §3 has a
+GPU; those patterns must not. `exp/results/3-placement/REPORT.md` §3 has a
 reference-vs-rerun table from a known-good run — decode metrics landed within 1%.
 
 An isolated stray violation (1–2 requests out of 296) is noise, not a broken
@@ -275,10 +275,10 @@ Algorithm 1. Say which one you measured.
 
 | path | contents |
 | --- | --- |
-| `exp/results/sanity/` | committed 1-GPU reference sweep (synthetic prompts) |
-| `exp/results/exp/` | committed ShareGPT + slowdown-SLO colocation study |
-| `exp/results/verify/` | 1-GPU re-verification on a 2× A100 box |
-| `exp/results/fig7/` | 2-GPU §7.3 global placement ablation + `REPORT.md` |
+| `exp/results/1-env-verification/` | committed 1-GPU reference sweep (synthetic prompts) |
+| `exp/results/2-colocation/` | committed ShareGPT + slowdown-SLO colocation study |
+| `exp/results/1-env-verification/` | 1-GPU re-verification on a 2× A100 box |
+| `exp/results/3-placement/` | 2-GPU §7.3 global placement ablation + `REPORT.md` |
 
 Each experiment writes `<exp>_slo.json` (via `analyze_slo.py`),
 `<exp>_actions.txt` (controller activity), `requests/` (raw per-request dump),
@@ -286,6 +286,6 @@ and `server-logs/<exp>/gpu_timeline.txt` (nvidia-smi samples).
 
 House style for a new study: put a `REPORT.md` next to the results with
 environment, method, numbers, and what you could *not* conclude.
-`exp/results/fig7/REPORT.md` is the template. Run each arm at least twice before
+`exp/results/3-placement/REPORT.md` is the template. Run each arm at least twice before
 quoting tail metrics (p99) — single runs are fine for aggregates over hundreds
 of requests, not for tails.

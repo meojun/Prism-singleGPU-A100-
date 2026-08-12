@@ -28,7 +28,7 @@ choice.  Both readings are reported and neither is hidden:
 Usage:
     python exp/scripts/analyze_slowdown.py \
         --baseline base --measurement exp --case B --slots model_1 model_4 \
-        --out exp/results/exp/exp_B_slowdown.json
+        --out exp/results/2-colocation/exp_B_slowdown.json
 """
 import argparse
 import glob

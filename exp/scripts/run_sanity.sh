@@ -26,6 +26,9 @@ TTFT_SCALE=${TTFT_SCALE:-5}
 TPOT_SCALE=${TPOT_SCALE:-2}
 TRACE=${TRACE:-./real_trace.pkl}
 TAG=${TAG:-sanity}
+# STUDY is the results FOLDER, TAG is the run-name prefix. Tying them
+# together is what grew results/ to ten near-duplicate directories.
+STUDY=${STUDY:-1-env-verification}
 TS=${TS:-1}
 
 # Resolve TRACE now: benchmark.py runs from the multi-model dir, so a relative
@@ -59,13 +62,13 @@ esac
 
 N=${#MODELS[@]}
 EXP=${TAG}_${CASE}
-RESULTS=$PRISM_EXP/results/$TAG
+RESULTS=$PRISM_EXP/results/$STUDY
 LOGDIR=$PRISM_EXP/server-logs/$EXP
 mkdir -p "$LOGDIR"
 SESSION=prism-${TAG}-$CASE
 
 echo "### case $CASE : $CFG  (${MODELS[*]})  port=$PORT"
-echo "###   trace=$TRACE  -> results/$TAG/"
+echo "###   trace=$TRACE  -> results/$STUDY/  (run prefix $TAG)"
 
 # --- launch full-Prism server -------------------------------------------------
 # workers-per-gpu must be >= number of 'on' models on that GPU (README gotcha #5)

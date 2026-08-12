@@ -16,7 +16,7 @@ Two variants are produced, because "use ShareGPT" is ambiguous:
            ORIGINAL trace; only the prompt TEXT becomes real ShareGPT content,
            truncated to the same true token count.  Load is bit-for-bit the same
            as the original run, so results stay comparable to
-           exp/results/sanity/REPORT.md -- the only variable that moved is content.
+           exp/results/1-env-verification/REPORT.md -- the only variable that moved is content.
 
   full     Arrival times and routing are kept, but prompt/prompt_len/output_len
            all come from ShareGPT (sglang's standard filter).  This is a real

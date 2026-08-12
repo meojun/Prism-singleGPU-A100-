@@ -40,7 +40,8 @@ MAXMEM=${MAXMEM:-67.28}        # per-GPU GiB budget handed to the global schedul
 TTFT_SCALE=${TTFT_SCALE:-5}
 TPOT_SCALE=${TPOT_SCALE:-2}
 TRACE=${TRACE:-./real_trace.pkl}
-TAG=${TAG:-fig7}
+TAG=${TAG:-fig7}                # run-name prefix
+STUDY=${STUDY:-3-placement}     # results FOLDER; keep the two separate
 
 [ "$NMODELS" -ge "$NGPU" ] || { echo "NMODELS ($NMODELS) must be >= NGPU ($NGPU): every GPU needs an on:true model" >&2; exit 1; }
 
@@ -78,7 +79,7 @@ d=json.load(open('$CFG'))
 print(json.dumps({m['model_name']: m['model_path'] for m in d}))")
 
 EXP=${TAG}_${ARM}_ts${TS}
-RESULTS=$PRISM_EXP/results/$TAG
+RESULTS=$PRISM_EXP/results/$STUDY
 LOGDIR=$PRISM_EXP/server-logs/$EXP
 # tmux silently rewrites '.' to '_' in session names, so a name built from a
 # float time_scale ("...ts0.5") never matches on has-session and the readiness
@@ -88,7 +89,7 @@ SESSION=$(echo "prism-${TAG}-${ARM}-ts${TS}" | tr '.' '_')
 mkdir -p "$LOGDIR" "$RESULTS" "$RESULTS/requests"
 
 echo "### $EXP : ${NGPU} GPUs, ${NMODELS} models, arm=$ARM, time_scale=$TS, port=$PORT"
-echo "###   config=$(basename "$CFG")  trace=$(basename "$TRACE")  -> results/$TAG/"
+echo "###   config=$(basename "$CFG")  trace=$(basename "$TRACE")  -> results/$STUDY/"
 python3 -c "
 import json,collections
 d=json.load(open('$CFG'))

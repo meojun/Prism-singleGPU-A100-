@@ -2,7 +2,7 @@
 
 > **새 GPU 서버에 세팅하려면 → [`SETUP.md`](SETUP.md) 를 읽고 `./bootstrap.sh` 를 실행하세요.**
 > 한 줄 요약: `git clone <this repo> && cd prism-exp && ./bootstrap.sh`
-> 검증된 sanity 결과 + 전체 보고서(한국어): [`exp/results/sanity/REPORT.md`](exp/results/sanity/REPORT.md)
+> 검증된 sanity 결과 + 전체 보고서(한국어): [`exp/results/1-env-verification/REPORT.md`](exp/results/1-env-verification/REPORT.md)
 >
 > `prism-research/`, `kvcached*/`, `prism-venv/`, 모델 가중치는 저장소에 없습니다 —
 > `bootstrap.sh` 가 고정 SHA/lockfile로 재생성합니다.
@@ -238,5 +238,5 @@ Llama-3.1-8B slots and `model_2` is the Llama-3.2-3B slot. Case B uses `model_1 
 Do not use `average_attainment_tpot` from `benchmark.py` when comparing against Prism.
 
 Full write-up of that sweep — environment versions, dataset provenance, results,
-the two harness defects, and caveats — is in **`exp/results/sanity/REPORT.md`**.
-Machine-readable table: `exp/results/sanity/summary.tsv`.
+the two harness defects, and caveats — is in **`exp/results/1-env-verification/REPORT.md`**.
+Machine-readable table: `exp/results/1-env-verification/summary.tsv`.

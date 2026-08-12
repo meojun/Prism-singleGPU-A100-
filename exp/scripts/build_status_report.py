@@ -222,7 +222,7 @@ def section_inventory(runs):
 def section_rate_sweep():
     pts = [("1", 1.0), ("0.8", 1.25), ("0.6667", 1.5), ("0.5", 2.0), ("0.4", 2.5)]
     have = [(ts, m) for ts, m in pts
-            if os.path.exists(os.path.join(EXP, "results/exp",
+            if os.path.exists(os.path.join(EXP, "results/4-rate-sweep",
                                            f"exp_glob_on_ts{ts}_summary.csv"))]
     if not have:
         return
@@ -234,7 +234,7 @@ def section_rate_sweep():
     w()
     rows = []
     for ts, mult in have:
-        s = load_summary(os.path.join(EXP, "results/exp",
+        s = load_summary(os.path.join(EXP, "results/4-rate-sweep",
                                       f"exp_glob_on_ts{ts}_summary.csv"))
         kv = json.loads(s.get("peak_kv_pool_frac", "{}") or "{}")
         rows.append([
@@ -250,8 +250,8 @@ def section_rate_sweep():
            "최대 큐 모델/스케줄러"], rows,
           ["---:"] * 8 + [":---:", ":---:"])
     w()
-    lo = load_summary(os.path.join(EXP, "results/exp", "exp_glob_on_ts0.5_summary.csv"))
-    hi = load_summary(os.path.join(EXP, "results/exp", "exp_glob_on_ts0.4_summary.csv"))
+    lo = load_summary(os.path.join(EXP, "results/4-rate-sweep", "exp_glob_on_ts0.5_summary.csv"))
+    hi = load_summary(os.path.join(EXP, "results/4-rate-sweep", "exp_glob_on_ts0.4_summary.csv"))
     if lo and hi:
         r95 = num(hi, "ttft_p95_ms") / num(lo, "ttft_p95_ms")
         r50 = num(hi, "ttft_p50_ms") / num(lo, "ttft_p50_ms")
@@ -262,12 +262,12 @@ def section_rate_sweep():
 
 
 def section_per_model():
-    if not os.path.exists(os.path.join(EXP, "results/exp", "exp_glob_on_ts1_slo.json")):
+    if not os.path.exists(os.path.join(EXP, "results/4-rate-sweep", "exp_glob_on_ts1_slo.json")):
         return
     h(3, "4.1 rate보다 colocation이 지배적이다")
     rows = []
     for ts, lam in [("1", 12), ("0.8", 15), ("0.6667", 18), ("0.5", 24), ("0.4", 30)]:
-        p = os.path.join(EXP, "results/exp", f"exp_glob_on_ts{ts}_slo.json")
+        p = os.path.join(EXP, "results/4-rate-sweep", f"exp_glob_on_ts{ts}_slo.json")
         if not os.path.exists(p):
             continue
         d = json.load(open(p))["per_model"]
@@ -285,7 +285,7 @@ def section_per_model():
 
 
 def section_burst():
-    f = os.path.join(EXP, "results/burst", "burst_glob_on_ts1_windows.csv")
+    f = os.path.join(EXP, "results/4-rate-sweep", "burst_glob_on_ts1_windows.csv")
     if not os.path.exists(f):
         return
     h(3, "4.2 Burst — hot 모델 수 1 → 2 → 3")
@@ -323,8 +323,8 @@ def section_burst():
 
 
 def section_capacity():
-    files = [("results/probe/rampLO_windows.csv", "저부하 ramp (1 → 8 req/s)"),
-             ("results/probe/probe_glob_on_ts1_windows.csv", "고부하 ramp (8 → 31 req/s)")]
+    files = [("results/4-rate-sweep/rampLO_windows.csv", "저부하 ramp (1 → 8 req/s)"),
+             ("results/4-rate-sweep/probe_glob_on_ts1_windows.csv", "고부하 ramp (8 → 31 req/s)")]
     rows = []
     for rel, label in files:
         p = os.path.join(EXP, rel)
@@ -536,10 +536,10 @@ def section_reports():
     h(2, "7. 상세 문서 위치")
     rows = []
     for rel, what in [
-        ("exp/results/exp/REPORT_rate_sweep.md", "3× Llama-3.1-8B rate sweep + burst (이번 연구)"),
-        ("exp/results/fig7/REPORT.md", "환경 구축 검증 + §7.3 global placement 실험"),
-        ("exp/results/exp/REPORT.md", "ShareGPT colocation 연구, 1 GPU (기존)"),
-        ("exp/results/sanity/REPORT.md", "최초 1-GPU sanity 스윕 (기존)"),
+        ("exp/results/4-rate-sweep/REPORT_rate_sweep.md", "3× Llama-3.1-8B rate sweep + burst (이번 연구)"),
+        ("exp/results/3-placement/REPORT.md", "환경 구축 검증 + §7.3 global placement 실험"),
+        ("exp/results/2-colocation/REPORT.md", "ShareGPT colocation 연구, 1 GPU (기존)"),
+        ("exp/results/1-env-verification/REPORT.md", "최초 1-GPU sanity 스윕 (기존)"),
         ("EXPERIMENT.md", "모든 커맨드와 각 선택의 근거"),
         ("CLAUDE.md", "새로 빌린 GPU 서버 셋업 런북"),
     ]:
