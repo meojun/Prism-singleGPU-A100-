@@ -1,7 +1,7 @@
 #!/bin/bash
 # Multi-GPU Prism run: the paper's canonical 8-model mix (§7.2/§7.3) across N GPUs.
 #
-#   ./run_2gpu.sh <arm> [time_scale]
+#   ./run_multigpu.sh <arm> [time_scale]
 #
 # arms:
 #   glob_on   full Prism: ballooning + GPU-local scheduler + GLOBAL controller (§6.1)
@@ -21,21 +21,39 @@
 #     starts a GPU scheduler for gpu_ids present in the initial placement
 set -euo pipefail
 
-ARM=${1:?usage: run_2gpu.sh <glob_on|glob_off> [time_scale]}
+ARM=${1:?usage: run_multigpu.sh <glob_on|glob_off> [time_scale]}
 TS=${2:-1}
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 source "$SCRIPT_DIR/env.sh"
 
-NGPU=${NGPU:-2}
-CFG=${CFG:-$PRISM_EXP/configs/llama_2gpu_8model.json}
-WORKERS=${WORKERS:-5}          # >= max on:true models per GPU (4), + headroom for migration
+# NGPU defaults to every visible GPU, so the same command adapts to the box.
+NGPU=${NGPU:-$(nvidia-smi --query-gpu=index --format=csv,noheader | wc -l)}
+NMODELS=${NMODELS:-8}          # trace.py's e2e path defines exactly 8 SLO slots
+PLACEMENT=${PLACEMENT:-blocks} # blocks | roundrobin | balanced (see make_config.py)
 MAXMEM=${MAXMEM:-67.28}        # per-GPU GiB budget handed to the global scheduler
 TTFT_SCALE=${TTFT_SCALE:-5}
 TPOT_SCALE=${TPOT_SCALE:-2}
 TRACE=${TRACE:-./real_trace.pkl}
-NMODELS=${NMODELS:-8}
 TAG=${TAG:-fig7}
+
+[ "$NMODELS" -ge "$NGPU" ] || { echo "NMODELS ($NMODELS) must be >= NGPU ($NGPU): every GPU needs an on:true model" >&2; exit 1; }
+
+# Generate the placement config for this box unless one was handed in. Keeping
+# this derived from $NGPU is what makes the script portable across 1/2/N GPUs.
+if [ -z "${CFG:-}" ]; then
+  CFG=$PRISM_EXP/configs/llama_${NGPU}gpu_${NMODELS}model_${PLACEMENT}.json
+  [ -f "$CFG" ] || python3 "$SCRIPT_DIR/make_config.py" \
+      --num-gpus "$NGPU" --models "$NMODELS" --placement "$PLACEMENT" -o "$CFG"
+fi
+
+# workers-per-gpu must be >= the on:true models on the busiest GPU, else startup
+# deadlocks with models stuck in 'activating'. +1 leaves room for a migration in.
+WORKERS=${WORKERS:-$(python3 -c "
+import json,collections
+c=collections.Counter(p['gpu_ids'][0] for m in json.load(open('$CFG'))
+                      for p in m['init_placements'] if p['on'])
+print(max(c.values())+1)")}
 
 case "$ARM" in
   glob_on)  CONTROLLER=(--enable-controller --policy simple-global); PORT=32000 ;;

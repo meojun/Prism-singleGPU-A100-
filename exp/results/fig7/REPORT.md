@@ -73,9 +73,11 @@ shared GPUs" 믹스다:
 | model_5 | Llama-3.1-8B | **120** |
 | model_6 / 7 / 8 | Llama-3.2-1B | 19 / 11 / 2 |
 
-상위 3개가 요청의 90%를 차지한다. 초기 배치는 **인덱스 순 라운드로빈**(GPU0 = 1~4,
-GPU1 = 5~8) 으로 고정했다 — 트레이스를 모르는 상태에서 누구나 쓸 배치이고, 그 결과
+상위 3개가 요청의 90%를 차지한다. 초기 배치는 **인덱스 순 블록 분할**(GPU0 = model_1~4,
+GPU1 = model_5~8) 로 고정했다 — 트레이스를 모르는 상태에서 누구나 쓸 배치이고, 그 결과
 GPU0가 요청의 **80%**(602/754)를 받는다. 두 arm 모두 동일한 초기 배치에서 출발한다.
+재생성: `python exp/scripts/make_config.py --num-gpus 2 --placement blocks -o <경로>`
+(같은 스크립트의 `roundrobin`은 60/40, `balanced`는 49/51이 된다).
 
 ### 4.2 arm 정의
 
@@ -177,7 +179,7 @@ source exp/scripts/env.sh
 CUDA_VISIBLE_DEVICES=0 TAG=verify ./exp/scripts/run_sanity.sh A   # 이어서 B, C
 
 # 2-GPU Figure 7
-./exp/scripts/run_2gpu.sh glob_on  1     # 이어서 glob_off, 그리고 0.5
+./exp/scripts/run_multigpu.sh glob_on  1     # 이어서 glob_off, 그리고 0.5
 python exp/scripts/compare_fig7.py --tag fig7 --ts 1
 ```
 
@@ -186,7 +188,7 @@ python exp/scripts/compare_fig7.py --tag fig7 --ts 1
 
 ---
 
-## 6. 멀티 GPU로 옮기며 밟은 함정 (전부 `run_2gpu.sh`에 반영됨)
+## 6. 멀티 GPU로 옮기며 밟은 함정 (전부 `run_multigpu.sh`에 반영됨)
 
 1. **tmux 서버가 `CUDA_VISIBLE_DEVICES`를 물고 있다.** tmux는 사용자당 서버 프로세스
    하나를 유지하고, 모든 `new-session`이 **그 서버가 처음 뜰 때의 환경**을 상속한다.

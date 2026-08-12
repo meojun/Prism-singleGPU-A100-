@@ -38,3 +38,6 @@ dump.rdb
 
 # Bootstrap transcript -- large and machine-specific, like the other setup logs
 /bootstrap.log
+
+# Placement configs emitted by exp/scripts/make_config.py -- regenerated on demand
+/exp/configs/llama_*gpu_*model_*.json

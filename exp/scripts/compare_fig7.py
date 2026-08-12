@@ -4,7 +4,7 @@
 Figure 7a is SLO attainment with the global scheduler enabled/disabled; 7b is
 the resulting per-GPU load imbalance. The harness records neither, so:
   * 7a comes from analyze_slo.py's recomputed attainment (results/<tag>/*_slo.json)
-  * 7b comes from the nvidia-smi timeline run_2gpu.sh samples during the run
+  * 7b comes from the nvidia-smi timeline run_multigpu.sh samples during the run
     (server-logs/<exp>/gpu_timeline.txt) -- a proxy for the paper's
     "available KV memory per request per GPU", which the engines do not export.
 
