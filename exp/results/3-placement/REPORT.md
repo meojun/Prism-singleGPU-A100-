@@ -235,9 +235,13 @@ python exp/scripts/compare_fig7.py --tag fig7 --ts 1
   실행시간 추정 `p/c`가 모두 계산되고(`request_queue.py:27,30`) 데드라인 순으로
   처리되지만, 최적성 증명의 근거인 **완료 불가 시 최장 작업 제거** 단계가 없어 단순
   EDF가 된다. 이를 적용할 admission control도 비활성이다.
-- **두 항목 공통 단서.** `prism-research`는 2025-08-09 초기 릴리스 이후 커밋 3개뿐인
-  큐레이션 저장소이고 논문은 2026년 7월 OSDI 게재다. 공개본이 평가 시스템의 이전
-  스냅샷/축약본일 수 있다. 위는 *공개 코드에 대한* 진술이다.
+- **시기 문제가 아니다.** "코드가 논문보다 먼저라 없는 것"이라는 설명은 성립하지
+  않는다. arXiv 2505.04021 **v1(2025-05-06)에 이미 두 알고리즘이 다 있고**, 프로토타입
+  공개는 그 3개월 뒤인 2025-08-09이다. OSDI 개정(v3, 2026-06-10)이 바꾼 건 KVPR의
+  분자뿐이다: `req_rate/SLO` → `token_rate*token_size/SLO`. 공개 코드는 둘 중 어느
+  것과도 다르게 SLO 가중 없는 요청 수를 쓴다. 논문이 공식 링크하는 아티팩트는
+  kvcached뿐이며 prism-research는 논문에 등장하지 않는다. 위는 *공개 코드에 대한*
+  진술이다.
 - **§6.2 admission control.** `request_queue.py:137`이 `net_available = float("inf")`.
   런타임 로그에서도 매 초 `net_available: inf`로 확인된다.
 - **§6.1 overlapped migration.** 코드는 source를 먼저 deactivate 하고 target을

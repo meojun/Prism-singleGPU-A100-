@@ -246,10 +246,18 @@ SHA and confirmed at runtime:
   feasibility check and the drop-the-longest-job step that the optimality proof
   rests on do not exist — it reduces to plain EDF. The admission control that
   would apply it is disabled anyway (`net_available = inf`).
-- **Caveat on both.** `prism-research` is a 4-commit curated release from
-  2025-08-09; the paper appeared at OSDI in July 2026. What is public may be an
-  earlier or reduced snapshot. These are statements about the released code,
-  not about what the authors built.
+- **Not a timeline gap.** The obvious excuse — that the code predates the
+  paper — does not hold: arXiv 2505.04021 **v1 (2025-05-06) already contains
+  both Algorithm 1 (KVPR) and Algorithm 2 (Moore-Hodgson)**, three months
+  before the 2025-08-09 prototype release. What the OSDI revision (v3,
+  2026-06-10) changed is the KVPR *numerator*: `req_rate/SLO` in v1 became
+  `token_rate*token_size/SLO`. The released code matches neither — it uses a
+  plain request count with no SLO weighting. Treat prism-research as a
+  simplified prototype, not as the paper's artifact: the OSDI paper links only
+  kvcached, and prism-research's README still cites the v1 title
+  ("Unleashing GPU Sharing") and its 13-author list, while kvcached's README
+  cites the 21-author OSDI version. If you implement Algorithm 1, use the OSDI
+  token-based numerator.
 - **§6.2 admission control is disabled.** `request_queue.py:137` sets
   `net_available = float("inf")`; the GPU scheduler logs `net_available: inf`
   every second at runtime.

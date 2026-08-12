@@ -1,6 +1,6 @@
 # Prism 실험 환경 — 전체 상태 보고서
 
-생성 시각 2026-08-12 10:27 UTC · 생성 스크립트 `exp/scripts/build_status_report.py`
+생성 시각 2026-08-12 11:51 UTC · 생성 스크립트 `exp/scripts/build_status_report.py`
 
 이 문서의 모든 수치는 **생성 시점에 직접 조사하거나 커밋된 결과 파일에서 읽은 것**입니다. 손으로 입력한 값은 하나도 없습니다.
 
@@ -15,7 +15,7 @@
 
 > compute capability가 10.0 이상(Blackwell)이면 이 스택은 못 씁니다 — torch 2.4.0+cu121에 해당 아키텍처 커널이 없어 첫 GPU 연산에서 죽습니다.
 
-**호스트** — 128 스레드, RAM 2003 GiB 중 1889 GiB 가용, 레포 디스크 512G 중 478G 여유, /dev/shm 250G
+**호스트** — 128 스레드, RAM 2003 GiB 중 1888 GiB 가용, 레포 디스크 512G 중 478G 여유, /dev/shm 250G
 
 **스택** (`prism-venv` 기준 — 실제 실험이 로드한 것)
 
@@ -37,7 +37,7 @@
 | kvcached (prism/shm) | `d78649d` |
 | kvcached (main) | `ce76a12` |
 
-**redis** — `PONG`, supervisor: `redis                            RUNNING   pid 3178, uptime 5:11:13`
+**redis** — `PONG`, supervisor: `redis                            RUNNING   pid 3178, uptime 6:35:16`
 
 > redis가 죽어 있으면 Prism이 기동 중 모델을 `activating` 상태로 둔 채 멈춥니다.
 
@@ -57,6 +57,7 @@
 
 | 커밋 | 날짜 | 제목 |
 | --- | --- | --- |
+| 1f48aa0 | 2026-08-12 | Collapse results/ from ten directories to four studies |
 | 6969c0b | 2026-08-12 | Audit both public repos properly and soften the Algorithm 1/2 claim |
 | 60bc285 | 2026-08-12 | Status report generator now emits Korean |
 | 07e03fb | 2026-08-12 | Add a status report generator that probes rather than asserts |
@@ -69,25 +70,8 @@
 커밋 안 된 파일:
 ```
 M CLAUDE.md
- M EXPERIMENT.md
- M README.md
- M SETUP.md
- M bootstrap.sh
-RM exp/results/sanity/REPORT.md -> exp/results/1-env-verification/REPORT.md
-R  exp/results/base/base_M1_e2e_1gpu_1.0x_1rep.json -> exp/results/1-env-verification/base_M1_e2e_1gpu_1.0x_1rep.json
-R  exp/results/base/base_M1_slo.json -> exp/results/1-env-verification/base_M1_slo.json
-R  exp/results/base/base_M2_e2e_1gpu_1.0x_1rep.json -> exp/results/1-env-verification/base_M2_e2e_1gpu_1.0x_1rep.json
-R  exp/results/base/base_M2_slo.json -> exp/results/1-env-verification/base_M2_slo.json
-R  exp/results/base/base_M4_e2e_1gpu_1.0x_1rep.json -> exp/results/1-env-verification/base_M4_e2e_1gpu_1.0x_1rep.json
-R  exp/results/base/base_M4_slo.json -> exp/results/1-env-verification/base_M4_slo.json
-R  exp/results/base/requests/base_M1_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/base_M1_e2e_1gpu_1.0x_1rep_output_requests.json
-R  exp/results/base/requests/base_M2_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/base_M2_e2e_1gpu_1.0x_1rep_output_requests.json
-R  exp/results/base/requests/base_M4_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/base_M4_e2e_1gpu_1.0x_1rep_output_requests.json
-R  exp/results/sanity/requests/sanity_A_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/sanity_A_e2e_1gpu_1.0x_1rep_output_requests.json
-R  exp/results/sanity/requests/sanity_B_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/sanity_B_e2e_1gpu_1.0x_1rep_output_requests.json
-R  exp/results/sanity/requests/sanity_C_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/sanity_C_e2e_1gpu_1.0x_1rep_output_requests.json
-R  exp/results/sanity_repeat/requests/sanity_repeat_C_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/sanity_repeat_C_e2e_1gpu_1.0x_1rep_output_requests.json
-R  exp/results/verify/requests/verify_A_e2e_1gpu_1.0x_1rep_output_requests.json -> exp/results/1-env-verification/requests/verify_A_e2e_1gpu_1.0x_1rep_output_requests.json
+ M exp/results/3-placement/REPORT.md
+ M exp/scripts/build_status_report.py
 ```
 
 ## 3. 실험 목록
@@ -231,7 +215,19 @@ rate를 **한 번의 run 안에서** 계단식으로 올리고 도착 시각 구
 | idle eviction 임계값 | 확인됨 | `simple_global.py:181` | `self.MODEL_IDLE_THRESHOLD = 50  # seconds` | 논문 §A.4가 최적이라고 한 약 45초와 근접 |
 | model service가 --num-gpus가 아니라 device_count를 봄 | 확인됨 | `multi_model_server.py:579` | `num_devices = torch.cuda.device_count()` | 멀티 GPU 박스에서 1-GPU 실험을 하려면 CUDA_VISIBLE_DEVICES가 필수 |
 
-**맥락.** `prism-research`는 2025-08-09 "Initial release: Prism research prototype" 이후 커밋 3개뿐인 큐레이션 릴리스이고, 논문은 2026년 7월 OSDI에 실렸습니다. 공개된 것이 논문에서 평가한 시스템의 **이전 스냅샷 또는 축약본**일 가능성이 있습니다. 위 표는 *공개 코드가 무엇을 하는지*에 대한 진술이며, 저자들이 무엇을 구현했는지에 대한 진술이 아닙니다.
+**맥락 — 시기 문제가 아니다.** `prism-research`는 논문 제1저자(Shan Yu, shanyu1@g.ucla.edu)가 2025-08-09에 올린 "Prism research prototype"이고 커밋 4개짜리다. 처음에는 "논문 개정 전 스냅샷이라 알고리즘이 없는 것"이라고 추정했으나 **틀렸다**: arXiv 2505.04021 **v1(2025-05-06)에 이미** Algorithm 1(KVPR)과 Algorithm 2(Moore-Hodgson)가 둘 다 있다. 즉 코드가 알고리즘보다 3개월 뒤에 나왔다.
+
+실제로 바뀐 것은 KVPR의 **분자**다.
+
+| 버전 | KVPR 분자 | 비고 |
+| --- | --- | --- |
+| arXiv v1 (2025-05) | `req_rate / SLO` | 요청률 기반 |
+| arXiv v3 = OSDI'26 (2026-06) | `token_rate * token_size / SLO` | 토큰 기반으로 정교화 |
+| 공개 코드 (2025-08) | 요청 수 (SLO 가중 없음) | v1의 역수에서 SLO 가중마저 빠짐 |
+
+따라서 공개 코드는 *논문 개정 이전판*이 아니라 **어느 판본과도 일치하지 않는 단순화 프로토타입**이다. 논문이 공식 아티팩트로 링크하는 것은 kvcached뿐이고 (prism-research는 논문 어디에도 나오지 않는다), prism-research의 README는 아직 v1 제목("Unleashing GPU Sharing")과 13인 저자 목록을 인용하고 있다 — 반면 kvcached의 README는 OSDI판(21인)을 인용한다.
+
+위 표는 *공개 코드가 무엇을 하는지*에 대한 진술이며, 저자들이 무엇을 구현했는지에 대한 진술이 아니다. Algorithm 1을 직접 구현한다면 **OSDI판(v3)의 토큰 기반 분자**를 써야 한다.
 
 다른 이유로 재현 불가: MuxServe++/QLM/ServerlessLLM 베이스라인은 torch/vllm 핀 충돌로 미설치이고, Hyperbolic / Novita / Chatbot Arena 프로덕션 트레이스는 비공개입니다.
 
@@ -263,7 +259,7 @@ python exp/scripts/build_status_report.py
 | 문서 | 내용 | 크기 |
 | --- | --- | --- |
 | [`exp/results/4-rate-sweep/REPORT_rate_sweep.md`](4-rate-sweep/REPORT_rate_sweep.md) | 3× Llama-3.1-8B rate sweep + burst (이번 연구) | 8 KB |
-| [`exp/results/3-placement/REPORT.md`](3-placement/REPORT.md) | 환경 구축 검증 + §7.3 global placement 실험 | 13 KB |
+| [`exp/results/3-placement/REPORT.md`](3-placement/REPORT.md) | 환경 구축 검증 + §7.3 global placement 실험 | 14 KB |
 | [`exp/results/2-colocation/REPORT.md`](2-colocation/REPORT.md) | ShareGPT colocation 연구, 1 GPU (기존) | 18 KB |
 | [`exp/results/1-env-verification/REPORT.md`](1-env-verification/REPORT.md) | 최초 1-GPU sanity 스윕 (기존) | 10 KB |
 | [`EXPERIMENT.md`](../../EXPERIMENT.md) | 모든 커맨드와 각 선택의 근거 | 8 KB |

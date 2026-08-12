@@ -492,11 +492,28 @@ def section_paper_vs_code():
                      f"`{txt[:60]}`" if txt else "—", why])
     table(["주장", "상태", "위치", "증거", "의미"], rows)
     w()
-    w("**맥락.** `prism-research`는 2025-08-09 \"Initial release: Prism research "
-      "prototype\" 이후 커밋 3개뿐인 큐레이션 릴리스이고, 논문은 2026년 7월 OSDI에 "
-      "실렸습니다. 공개된 것이 논문에서 평가한 시스템의 **이전 스냅샷 또는 축약본**일 "
-      "가능성이 있습니다. 위 표는 *공개 코드가 무엇을 하는지*에 대한 진술이며, 저자들이 "
-      "무엇을 구현했는지에 대한 진술이 아닙니다.")
+    w("**맥락 — 시기 문제가 아니다.** `prism-research`는 논문 제1저자"
+      "(Shan Yu, shanyu1@g.ucla.edu)가 2025-08-09에 올린 \"Prism research prototype\"이고 "
+      "커밋 4개짜리다. 처음에는 \"논문 개정 전 스냅샷이라 알고리즘이 없는 것\"이라고 "
+      "추정했으나 **틀렸다**: arXiv 2505.04021 **v1(2025-05-06)에 이미** Algorithm 1(KVPR)과 "
+      "Algorithm 2(Moore-Hodgson)가 둘 다 있다. 즉 코드가 알고리즘보다 3개월 뒤에 나왔다.")
+    w()
+    w("실제로 바뀐 것은 KVPR의 **분자**다.")
+    w()
+    table(["버전", "KVPR 분자", "비고"],
+          [["arXiv v1 (2025-05)", "`req_rate / SLO`", "요청률 기반"],
+           ["arXiv v3 = OSDI'26 (2026-06)", "`token_rate * token_size / SLO`", "토큰 기반으로 정교화"],
+           ["공개 코드 (2025-08)", "요청 수 (SLO 가중 없음)", "v1의 역수에서 SLO 가중마저 빠짐"]])
+    w()
+    w("따라서 공개 코드는 *논문 개정 이전판*이 아니라 **어느 판본과도 일치하지 않는 "
+      "단순화 프로토타입**이다. 논문이 공식 아티팩트로 링크하는 것은 kvcached뿐이고 "
+      "(prism-research는 논문 어디에도 나오지 않는다), prism-research의 README는 아직 "
+      "v1 제목(\"Unleashing GPU Sharing\")과 13인 저자 목록을 인용하고 있다 — 반면 "
+      "kvcached의 README는 OSDI판(21인)을 인용한다.")
+    w()
+    w("위 표는 *공개 코드가 무엇을 하는지*에 대한 진술이며, 저자들이 무엇을 구현했는지에 "
+      "대한 진술이 아니다. Algorithm 1을 직접 구현한다면 **OSDI판(v3)의 토큰 기반 분자**를 "
+      "써야 한다.")
     w()
     w("다른 이유로 재현 불가: MuxServe++/QLM/ServerlessLLM 베이스라인은 torch/vllm 핀 "
       "충돌로 미설치이고, Hyperbolic / Novita / Chatbot Arena 프로덕션 트레이스는 "
