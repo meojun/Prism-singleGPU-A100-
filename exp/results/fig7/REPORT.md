@@ -225,12 +225,19 @@ python exp/scripts/compare_fig7.py --tag fig7 --ts 1
 - §A.4 idle threshold 트레이드오프 — model_8 콜드스타트로 관찰
 
 **재현 안 됨 (공개 코드에 없음)**
-- **Algorithm 1 (KVPR).** `simple_global.py` 어디에도 KVPR도, `token_rate*token_size/SLO`
-  정렬도, τ도 없다. 실제로는 `violation`(SLO 위반 비율) / `memory_per_request`(기본,
-  요청당 메모리 비율) 두 휴리스틱이다.
-- **Algorithm 2 (Moore-Hodgson).** `request_queue.py:30`은
-  `arrival + slo - profiled_prefill_time` 단순 min-heap(slack EDF)이다. deadline 초과 시
-  최장 작업을 evict 하는 단계가 없다.
+- **Algorithm 1 (KVPR) — 부분 구현.** 두 공개 레포의 전 커밋을 감사한 결과 `KVPR` /
+  `w_token_rate` / `shared_kv` 라는 이름은 어디에도 없다. 구성요소로 보면 분모
+  (`memory_available_for_requests = gpu_mem − weights`, `simple_global.py:93`)는 같은
+  개념이 있으나, 분자가 `token_rate*token_size/SLO`가 아니라 **평활 요청 수**이고,
+  그 비율로 모델을 정렬하는 코드도 없다. τ에 해당하는 임계값은 있으나 다른 지표에
+  적용된다. 목적(GPU별 메모리 압력 균형)은 구현되어 있고 지표가 다르다.
+- **Algorithm 2 (Moore-Hodgson) — 재료는 있고 메커니즘이 없음.** 데드라인 `a+s`와
+  실행시간 추정 `p/c`가 모두 계산되고(`request_queue.py:27,30`) 데드라인 순으로
+  처리되지만, 최적성 증명의 근거인 **완료 불가 시 최장 작업 제거** 단계가 없어 단순
+  EDF가 된다. 이를 적용할 admission control도 비활성이다.
+- **두 항목 공통 단서.** `prism-research`는 2025-08-09 초기 릴리스 이후 커밋 3개뿐인
+  큐레이션 저장소이고 논문은 2026년 7월 OSDI 게재다. 공개본이 평가 시스템의 이전
+  스냅샷/축약본일 수 있다. 위는 *공개 코드에 대한* 진술이다.
 - **§6.2 admission control.** `request_queue.py:137`이 `net_available = float("inf")`.
   런타임 로그에서도 매 초 `net_available: inf`로 확인된다.
 - **§6.1 overlapped migration.** 코드는 source를 먼저 deactivate 하고 target을

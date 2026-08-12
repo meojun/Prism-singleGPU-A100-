@@ -348,40 +348,107 @@ def section_capacity():
 
 
 # ------------------------------------------------- paper vs code, re-verified
+# Component-level audit. "Is Algorithm 1 implemented?" is not a yes/no
+# question: the released policy balances memory pressure across GPUs (the same
+# goal) using a different metric. Checking whole algorithms as present/absent
+# overstates the finding in both directions, so each ingredient is checked
+# separately and the verdict is assembled from the parts.
+#
+# Scope of the audit these patterns encode (re-run scripts/audit notes):
+#   * Multi-LLM/prism-research: 1 branch, 4 commits, pinned SHA == HEAD
+#   * ovg-project/kvcached: 22 branches, 339 commits, 5 tags
+#   * grepped ALL commits of BOTH repos for KVPR / kv_pressure / w_token_rate /
+#     shared_kv / Hodgson / Moore -> 0 hits in source files
+#   * no other public repo in either org carries a Prism control plane
+ALGO1 = [
+    ("분모 `shared_kv` (GPU 용량 − 가중치)", "구현됨",
+     "python/sglang/multi_model/scheduling/policy/simple_global.py",
+     r"memory_available_for_requests\s*=\s*total_gpu_memory\s*-\s*total_model_memory",
+     "논문의 shared_kv와 같은 개념"),
+    ("분자 = SLO 가중 토큰율 `token_rate*token_size/SLO`", "대체됨",
+     "python/sglang/multi_model/scheduling/policy/simple_global.py",
+     r"memory_per_request\s*=\s*memory_available_for_requests\s*/\s*total_reqs",
+     "토큰 크기·SLO 가중 없이 **평활 요청 수**만 씀"),
+    ("모델을 `t*tz/s` 내림차순 정렬 (Alg.1 line 1)", "없음",
+     "python/sglang/multi_model/scheduling/policy/simple_global.py",
+     r"sorted\([^)]*key=lambda[^)]*(slo|token_size|tz)", 
+     "정렬 키 10개 전부 violation 비율·요청수·잔여예산·가용메모리 중 하나"),
+    ("마이그레이션 임계값 τ (Alg.1 line 8)", "유사 구현",
+     "python/sglang/multi_model/scheduling/policy/simple_global.py",
+     r"MEMORY_PER_REQUEST_RATIO_THRESHOLD\s*=\s*(\d+)",
+     "τ에 해당하는 임계값은 있으나 KVPR이 아닌 다른 지표에 적용"),
+]
+
+ALGO2 = [
+    ("데드라인 `d = a + s`", "구현됨",
+     "python/sglang/multi_model/scheduling/gpu/request_queue.py",
+     r"req\.arrival_time \+ req\.slo",
+     "우선순위 힙 키에 포함"),
+    ("실행시간 추정 `e = p / c`", "구현됨",
+     "python/sglang/multi_model/scheduling/gpu/request_queue.py",
+     r"req\.prompt_len \* \(0\.5 / 1024\)",
+     "c = 1024/0.5 tok/s로 고정된 chunked-prefill 속도"),
+    ("데드라인 오름차순 처리", "구현됨",
+     "python/sglang/multi_model/scheduling/gpu/request_queue.py",
+     r"heapq\.heappop",
+     "min-heap이므로 사실상 EDF"),
+    ("실행 불가 시 최장 작업 제거 (Alg.2 line 9-11)", "없음",
+     "python/sglang/multi_model/scheduling/gpu/request_queue.py",
+     r"argmax|remove.*longest|current_time > ",
+     "누적 완료시각 검사도, 제거 단계도 없음 → 최적성 주장 근거가 사라짐"),
+    ("이를 적용할 admission control", "무력화됨",
+     "python/sglang/multi_model/scheduling/gpu/request_queue.py",
+     r'net_available\s*=\s*float\("inf"\)',
+     "자원 한도가 무한이라 승인 판정 자체가 항상 통과"),
+]
+
 CLAIMS = [
     ("§6.2 admission control이 비활성",
      "python/sglang/multi_model/scheduling/gpu/request_queue.py",
      r'net_available\s*=\s*float\("inf"\)',
-     "메모리 부족으로 요청이 거절되는 일이 없음 → `rejected`가 0인 것은 관측 실패가 아니라 구조적"),
-    ("§6.1 migration 임계값이 하드코딩되어 있고 매우 느슨함",
+     "메모리 부족으로 요청이 거절되는 일이 없음 → `rejected` 0은 관측 실패가 아니라 구조적"),
+    ("§6.1 migration 임계값이 하드코딩·매우 느슨",
      "python/sglang/multi_model/scheduling/policy/simple_global.py",
      r"MEMORY_PER_REQUEST_RATIO_THRESHOLD\s*=\s*(\d+)",
-     "기본 `memory_per_request` 정책은 GPU 간 이 배율만큼 벌어져야 migrate함. 실측 불균형은 약 1.6배"),
+     "기본 정책은 GPU 간 이 배율만큼 벌어져야 migrate. 실측 불균형은 약 1.6배"),
     ("idle eviction 임계값",
      "python/sglang/multi_model/scheduling/policy/simple_global.py",
      r"MODEL_IDLE_THRESHOLD\s*=\s*(\d+)",
      "논문 §A.4가 최적이라고 한 약 45초와 근접"),
-    ("GPU-local 스케줄링은 slack 정렬 EDF (Moore-Hodgson 아님)",
-     "python/sglang/multi_model/scheduling/gpu/request_queue.py",
-     r"return req\.arrival_time \+ req\.slo - profiled_prefill_time",
-     "단순 min-heap 우선순위. Algorithm 2의 '최장 작업 제거' 단계가 없음"),
     ("model service가 --num-gpus가 아니라 device_count를 봄",
      "python/sglang/multi_model/multi_model_server.py",
      r"num_devices\s*=\s*torch\.cuda\.device_count\(\)",
      "멀티 GPU 박스에서 1-GPU 실험을 하려면 CUDA_VISIBLE_DEVICES가 필수"),
 ]
 
-ABSENT = [
-    ("Algorithm 1 (KVPR)",
-     "python/sglang/multi_model/scheduling/policy/simple_global.py",
-     r"KVPR|kv_pressure|w_token_rate",
-     "배치 정책 어디에도 KV Pressure Ratio가 없음. 공개 코드는 `violation` / "
-     "`memory_per_request` 휴리스틱을 씀"),
-    ("Algorithm 2 (Moore-Hodgson)",
-     "python/sglang/multi_model/scheduling/gpu/request_queue.py",
-     r"[Mm]oore|[Hh]odgson",
-     "논문이 최적성을 증명한 알고리즘에 대한 언급 자체가 없음"),
-]
+
+def _probe(rel, pat):
+    """Return (found, line_no, text) for the first match of pat in rel."""
+    p = os.path.join(SRC, rel)
+    if not os.path.exists(p):
+        return False, "", ""
+    for i, l in enumerate(open(p, errors="replace"), 1):
+        if re.search(pat, l):
+            return True, str(i), l.strip()
+    return False, "", ""
+
+
+def _algo_table(title, items):
+    w()
+    w(f"**{title}**")
+    w()
+    rows = []
+    for name, verdict, rel, pat, note in items:
+        found, line, txt = _probe(rel, pat)
+        # "없음" rows assert absence: finding a hit means the audit is stale
+        if verdict == "없음":
+            status = "없음 (확인)" if not found else f"**재확인 필요 — {os.path.basename(rel)}:{line}**"
+            loc = "—"
+        else:
+            status = verdict if found else "**확인 실패**"
+            loc = f"`{os.path.basename(rel)}:{line}`" if line else "—"
+        rows.append([name, status, loc, note])
+    table(["논문 구성요소", "공개 코드", "위치", "설명"], rows)
 
 
 def section_paper_vs_code():
@@ -389,32 +456,47 @@ def section_paper_vs_code():
     if not os.path.isdir(SRC):
         w("`prism-research/`가 체크아웃되어 있지 않아 생략합니다.")
         return
-    w("아래 각 항목은 **이 보고서를 생성하는 시점에** 실제 소스를 grep해서 확인합니다. "
-      "더 이상 맞지 않는 주장은 반복되지 않고 `확인 실패`로 표시됩니다.")
+    w("아래는 **이 보고서를 생성하는 시점에** 실제 소스를 grep해서 확인합니다. "
+      "맞지 않게 된 항목은 `확인 실패` / `재확인 필요`로 표시됩니다.")
     w()
+    w("**감사 범위** — `Multi-LLM/prism-research` 브랜치 1개·커밋 4개(핀된 SHA가 HEAD), "
+      "`ovg-project/kvcached` 브랜치 22개·커밋 339개·태그 5개. 두 레포의 **모든 커밋**에서 "
+      "`KVPR` / `kv_pressure` / `w_token_rate` / `shared_kv` / `Hodgson` / `Moore`를 "
+      "검색해 소스 파일 히트 0건. 두 조직의 다른 공개 레포에도 Prism 컨트롤 플레인은 "
+      "없습니다.")
+    w()
+    w("다만 **이름이 없다고 알고리즘이 없는 것은 아니므로**, 아래는 구성요소 단위로 "
+      "형태를 대조한 결과입니다. 결론부터: 두 알고리즘 모두 *목적은 같지만 명세와 다른 "
+      "단순화된 휴리스틱*으로 구현되어 있습니다.")
+
+    _algo_table("Algorithm 1 (KVPR 기반 배치) — 구성요소 대조", ALGO1)
+    w()
+    w("→ **판정: 부분 구현.** GPU별 메모리 압력을 균형 잡는다는 목적과 분모(`shared_kv`)는 "
+      "같지만, KVPR의 핵심인 **SLO·토큰 크기 가중**이 빠지고 평활 요청 수로 대체되었습니다. "
+      "따라서 이 코드로 얻은 결과는 *global placement가 도움이 된다*는 것은 보여줄 수 "
+      "있어도 *Algorithm 1을 검증했다*고는 할 수 없습니다.")
+
+    _algo_table("Algorithm 2 (Moore-Hodgson 요청 중재) — 구성요소 대조", ALGO2)
+    w()
+    w("→ **판정: 재료는 있고 메커니즘이 없음.** 데드라인과 실행시간 추정이 모두 계산되고 "
+      "데드라인 순으로 처리되지만, 논문이 최적성을 증명하는 **'완료 못 하면 최장 작업을 "
+      "빼낸다'** 단계가 없어 결과적으로 단순 EDF입니다. 게다가 이를 적용할 admission "
+      "control이 무한 자원으로 무력화되어 있습니다.")
+
+    h(3, "5.1 그 밖에 재검증된 항목")
     rows = []
     for title, rel, pat, why in CLAIMS:
-        p = os.path.join(SRC, rel)
-        status, line, txt = "**확인 실패**", "", ""
-        if os.path.exists(p):
-            for i, l in enumerate(open(p, errors="replace"), 1):
-                if re.search(pat, l):
-                    status, line, txt = "확인됨", str(i), l.strip()
-                    break
+        found, line, txt = _probe(rel, pat)
         loc = f"`{os.path.basename(rel)}:{line}`" if line else f"`{os.path.basename(rel)}`"
-        rows.append([title, status, loc, f"`{txt[:60]}`" if txt else "—", why])
+        rows.append([title, "확인됨" if found else "**확인 실패**", loc,
+                     f"`{txt[:60]}`" if txt else "—", why])
     table(["주장", "상태", "위치", "증거", "의미"], rows)
     w()
-    w("**부재가 곧 결론**인 항목 (grep이 아무것도 못 찾는 것이 발견):")
-    w()
-    rows = []
-    for title, rel, pat, why in ABSENT:
-        p = os.path.join(SRC, rel)
-        hits = sum(1 for l in open(p, errors="replace")
-                   if re.search(pat, l)) if os.path.exists(p) else 0
-        rows.append([title, "없음(확인)" if hits == 0 else f"**{hits}건 발견 — 재확인 필요**",
-                     f"`{os.path.basename(rel)}`", why])
-    table(["논문 메커니즘", "상태", "검색 대상", "의미"], rows)
+    w("**맥락.** `prism-research`는 2025-08-09 \"Initial release: Prism research "
+      "prototype\" 이후 커밋 3개뿐인 큐레이션 릴리스이고, 논문은 2026년 7월 OSDI에 "
+      "실렸습니다. 공개된 것이 논문에서 평가한 시스템의 **이전 스냅샷 또는 축약본**일 "
+      "가능성이 있습니다. 위 표는 *공개 코드가 무엇을 하는지*에 대한 진술이며, 저자들이 "
+      "무엇을 구현했는지에 대한 진술이 아닙니다.")
     w()
     w("다른 이유로 재현 불가: MuxServe++/QLM/ServerlessLLM 베이스라인은 torch/vllm 핀 "
       "충돌로 미설치이고, Hyperbolic / Novita / Chatbot Arena 프로덕션 트레이스는 "

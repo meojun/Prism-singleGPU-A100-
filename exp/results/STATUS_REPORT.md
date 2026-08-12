@@ -1,6 +1,6 @@
 # Prism 실험 환경 — 전체 상태 보고서
 
-생성 시각 2026-08-12 10:00 UTC · 생성 스크립트 `exp/scripts/build_status_report.py`
+생성 시각 2026-08-12 10:15 UTC · 생성 스크립트 `exp/scripts/build_status_report.py`
 
 이 문서의 모든 수치는 **생성 시점에 직접 조사하거나 커밋된 결과 파일에서 읽은 것**입니다. 손으로 입력한 값은 하나도 없습니다.
 
@@ -15,7 +15,7 @@
 
 > compute capability가 10.0 이상(Blackwell)이면 이 스택은 못 씁니다 — torch 2.4.0+cu121에 해당 아키텍처 커널이 없어 첫 GPU 연산에서 죽습니다.
 
-**호스트** — 128 스레드, RAM 2003 GiB 중 1891 GiB 가용, 레포 디스크 512G 중 478G 여유, /dev/shm 250G
+**호스트** — 128 스레드, RAM 2003 GiB 중 1889 GiB 가용, 레포 디스크 512G 중 478G 여유, /dev/shm 250G
 
 **스택** (`prism-venv` 기준 — 실제 실험이 로드한 것)
 
@@ -37,7 +37,7 @@
 | kvcached (prism/shm) | `d78649d` |
 | kvcached (main) | `ce76a12` |
 
-**redis** — `PONG`, supervisor: `redis                            RUNNING   pid 3178, uptime 4:44:55`
+**redis** — `PONG`, supervisor: `redis                            RUNNING   pid 3178, uptime 4:59:54`
 
 > redis가 죽어 있으면 Prism이 기동 중 모델을 `activating` 상태로 둔 채 멈춥니다.
 
@@ -57,6 +57,7 @@
 
 | 커밋 | 날짜 | 제목 |
 | --- | --- | --- |
+| 60bc285 | 2026-08-12 | Status report generator now emits Korean |
 | 07e03fb | 2026-08-12 | Add a status report generator that probes rather than asserts |
 | ddfb5d7 | 2026-08-12 | Rate-sweep and burst experiments on 3x Llama-3.1-8B, 2 GPUs |
 | a5f676b | 2026-08-12 | Generalise the runner to N GPUs and add an agent runbook |
@@ -66,7 +67,11 @@
 
 커밋 안 된 파일:
 ```
-M exp/scripts/build_status_report.py
+M CLAUDE.md
+ M exp/results/STATUS_REPORT.md
+ M exp/results/exp/REPORT_rate_sweep.md
+ M exp/results/fig7/REPORT.md
+ M exp/scripts/build_status_report.py
 ```
 
 ## 3. 실험 목록
@@ -172,22 +177,45 @@ rate를 **한 번의 run 안에서** 계단식으로 올리고 도착 시각 구
 
 ## 5. 논문 vs 공개 코드 — 고정된 소스에서 매번 재검증
 
-아래 각 항목은 **이 보고서를 생성하는 시점에** 실제 소스를 grep해서 확인합니다. 더 이상 맞지 않는 주장은 반복되지 않고 `확인 실패`로 표시됩니다.
+아래는 **이 보고서를 생성하는 시점에** 실제 소스를 grep해서 확인합니다. 맞지 않게 된 항목은 `확인 실패` / `재확인 필요`로 표시됩니다.
+
+**감사 범위** — `Multi-LLM/prism-research` 브랜치 1개·커밋 4개(핀된 SHA가 HEAD), `ovg-project/kvcached` 브랜치 22개·커밋 339개·태그 5개. 두 레포의 **모든 커밋**에서 `KVPR` / `kv_pressure` / `w_token_rate` / `shared_kv` / `Hodgson` / `Moore`를 검색해 소스 파일 히트 0건. 두 조직의 다른 공개 레포에도 Prism 컨트롤 플레인은 없습니다.
+
+다만 **이름이 없다고 알고리즘이 없는 것은 아니므로**, 아래는 구성요소 단위로 형태를 대조한 결과입니다. 결론부터: 두 알고리즘 모두 *목적은 같지만 명세와 다른 단순화된 휴리스틱*으로 구현되어 있습니다.
+
+**Algorithm 1 (KVPR 기반 배치) — 구성요소 대조**
+
+| 논문 구성요소 | 공개 코드 | 위치 | 설명 |
+| --- | --- | --- | --- |
+| 분모 `shared_kv` (GPU 용량 − 가중치) | 구현됨 | `simple_global.py:93` | 논문의 shared_kv와 같은 개념 |
+| 분자 = SLO 가중 토큰율 `token_rate*token_size/SLO` | 대체됨 | `simple_global.py:370` | 토큰 크기·SLO 가중 없이 **평활 요청 수**만 씀 |
+| 모델을 `t*tz/s` 내림차순 정렬 (Alg.1 line 1) | 없음 (확인) | — | 정렬 키 10개 전부 violation 비율·요청수·잔여예산·가용메모리 중 하나 |
+| 마이그레이션 임계값 τ (Alg.1 line 8) | 유사 구현 | `simple_global.py:183` | τ에 해당하는 임계값은 있으나 KVPR이 아닌 다른 지표에 적용 |
+
+→ **판정: 부분 구현.** GPU별 메모리 압력을 균형 잡는다는 목적과 분모(`shared_kv`)는 같지만, KVPR의 핵심인 **SLO·토큰 크기 가중**이 빠지고 평활 요청 수로 대체되었습니다. 따라서 이 코드로 얻은 결과는 *global placement가 도움이 된다*는 것은 보여줄 수 있어도 *Algorithm 1을 검증했다*고는 할 수 없습니다.
+
+**Algorithm 2 (Moore-Hodgson 요청 중재) — 구성요소 대조**
+
+| 논문 구성요소 | 공개 코드 | 위치 | 설명 |
+| --- | --- | --- | --- |
+| 데드라인 `d = a + s` | 구현됨 | `request_queue.py:30` | 우선순위 힙 키에 포함 |
+| 실행시간 추정 `e = p / c` | 구현됨 | `request_queue.py:27` | c = 1024/0.5 tok/s로 고정된 chunked-prefill 속도 |
+| 데드라인 오름차순 처리 | 구현됨 | `request_queue.py:154` | min-heap이므로 사실상 EDF |
+| 실행 불가 시 최장 작업 제거 (Alg.2 line 9-11) | 없음 (확인) | — | 누적 완료시각 검사도, 제거 단계도 없음 → 최적성 주장 근거가 사라짐 |
+| 이를 적용할 admission control | 무력화됨 | `request_queue.py:137` | 자원 한도가 무한이라 승인 판정 자체가 항상 통과 |
+
+→ **판정: 재료는 있고 메커니즘이 없음.** 데드라인과 실행시간 추정이 모두 계산되고 데드라인 순으로 처리되지만, 논문이 최적성을 증명하는 **'완료 못 하면 최장 작업을 빼낸다'** 단계가 없어 결과적으로 단순 EDF입니다. 게다가 이를 적용할 admission control이 무한 자원으로 무력화되어 있습니다.
+
+### 5.1 그 밖에 재검증된 항목
 
 | 주장 | 상태 | 위치 | 증거 | 의미 |
 | --- | --- | --- | --- | --- |
-| §6.2 admission control이 비활성 | 확인됨 | `request_queue.py:137` | `net_available = float("inf")` | 메모리 부족으로 요청이 거절되는 일이 없음 → `rejected`가 0인 것은 관측 실패가 아니라 구조적 |
-| §6.1 migration 임계값이 하드코딩되어 있고 매우 느슨함 | 확인됨 | `simple_global.py:183` | `self.MEMORY_PER_REQUEST_RATIO_THRESHOLD = 15` | 기본 `memory_per_request` 정책은 GPU 간 이 배율만큼 벌어져야 migrate함. 실측 불균형은 약 1.6배 |
+| §6.2 admission control이 비활성 | 확인됨 | `request_queue.py:137` | `net_available = float("inf")` | 메모리 부족으로 요청이 거절되는 일이 없음 → `rejected` 0은 관측 실패가 아니라 구조적 |
+| §6.1 migration 임계값이 하드코딩·매우 느슨 | 확인됨 | `simple_global.py:183` | `self.MEMORY_PER_REQUEST_RATIO_THRESHOLD = 15` | 기본 정책은 GPU 간 이 배율만큼 벌어져야 migrate. 실측 불균형은 약 1.6배 |
 | idle eviction 임계값 | 확인됨 | `simple_global.py:181` | `self.MODEL_IDLE_THRESHOLD = 50  # seconds` | 논문 §A.4가 최적이라고 한 약 45초와 근접 |
-| GPU-local 스케줄링은 slack 정렬 EDF (Moore-Hodgson 아님) | 확인됨 | `request_queue.py:30` | `return req.arrival_time + req.slo - profiled_prefill_time` | 단순 min-heap 우선순위. Algorithm 2의 '최장 작업 제거' 단계가 없음 |
 | model service가 --num-gpus가 아니라 device_count를 봄 | 확인됨 | `multi_model_server.py:579` | `num_devices = torch.cuda.device_count()` | 멀티 GPU 박스에서 1-GPU 실험을 하려면 CUDA_VISIBLE_DEVICES가 필수 |
 
-**부재가 곧 결론**인 항목 (grep이 아무것도 못 찾는 것이 발견):
-
-| 논문 메커니즘 | 상태 | 검색 대상 | 의미 |
-| --- | --- | --- | --- |
-| Algorithm 1 (KVPR) | 없음(확인) | `simple_global.py` | 배치 정책 어디에도 KV Pressure Ratio가 없음. 공개 코드는 `violation` / `memory_per_request` 휴리스틱을 씀 |
-| Algorithm 2 (Moore-Hodgson) | 없음(확인) | `request_queue.py` | 논문이 최적성을 증명한 알고리즘에 대한 언급 자체가 없음 |
+**맥락.** `prism-research`는 2025-08-09 "Initial release: Prism research prototype" 이후 커밋 3개뿐인 큐레이션 릴리스이고, 논문은 2026년 7월 OSDI에 실렸습니다. 공개된 것이 논문에서 평가한 시스템의 **이전 스냅샷 또는 축약본**일 가능성이 있습니다. 위 표는 *공개 코드가 무엇을 하는지*에 대한 진술이며, 저자들이 무엇을 구현했는지에 대한 진술이 아닙니다.
 
 다른 이유로 재현 불가: MuxServe++/QLM/ServerlessLLM 베이스라인은 torch/vllm 핀 충돌로 미설치이고, Hyperbolic / Novita / Chatbot Arena 프로덕션 트레이스는 비공개입니다.
 
@@ -223,7 +251,7 @@ python exp/scripts/build_status_report.py
 | [`exp/results/exp/REPORT.md`](exp/REPORT.md) | ShareGPT colocation 연구, 1 GPU (기존) | 18 KB |
 | [`exp/results/sanity/REPORT.md`](sanity/REPORT.md) | 최초 1-GPU sanity 스윕 (기존) | 10 KB |
 | [`EXPERIMENT.md`](../../EXPERIMENT.md) | 모든 커맨드와 각 선택의 근거 | 8 KB |
-| [`CLAUDE.md`](../../CLAUDE.md) | 새로 빌린 GPU 서버 셋업 런북 | 12 KB |
+| [`CLAUDE.md`](../../CLAUDE.md) | 새로 빌린 GPU 서버 셋업 런북 | 13 KB |
 
 ## 8. 위 모든 수치에 공통으로 적용되는 주의사항
 

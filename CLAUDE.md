@@ -231,12 +231,25 @@ The repo faithfully wires up what upstream released, but **upstream's code
 diverges from the paper**. Verified by reading `prism-research` at the pinned
 SHA and confirmed at runtime:
 
-- **Algorithm 1 (KVPR) is absent.** No KVPR, no `token_rate*token_size/SLO`
-  sort, no τ. `simple_global.py` uses two heuristics instead: `violation` (SLO
-  violation proportion) and the default `memory_per_request`.
-- **Algorithm 2 (Moore-Hodgson) is absent.** `request_queue.py:30` is a plain
-  min-heap on `arrival + slo - profiled_prefill_time` (slack EDF). No
-  drop-the-longest-job step, no optimality claim.
+- **Algorithm 1 (KVPR) is partially implemented.** Audited across all commits
+  of both public repos: the names KVPR / `w_token_rate` / `shared_kv` appear
+  nowhere. Component by component, the *denominator* is there
+  (`memory_available_for_requests = gpu_mem - weights`, `simple_global.py:93`),
+  but the *numerator* is a smoothed request count rather than
+  `token_rate*token_size/SLO`, nothing sorts models by that ratio, and the τ
+  threshold exists but is applied to a different metric. The goal — balance
+  per-GPU memory pressure — is implemented; the specific metric is not, so an
+  ablation here shows global placement helps without validating Algorithm 1.
+- **Algorithm 2 (Moore-Hodgson): ingredients present, mechanism absent.** The
+  deadline `a + s` and the execution estimate `p/c` are both computed
+  (`request_queue.py:27,30`) and requests are popped in deadline order, but the
+  feasibility check and the drop-the-longest-job step that the optimality proof
+  rests on do not exist — it reduces to plain EDF. The admission control that
+  would apply it is disabled anyway (`net_available = inf`).
+- **Caveat on both.** `prism-research` is a 4-commit curated release from
+  2025-08-09; the paper appeared at OSDI in July 2026. What is public may be an
+  earlier or reduced snapshot. These are statements about the released code,
+  not about what the authors built.
 - **§6.2 admission control is disabled.** `request_queue.py:137` sets
   `net_available = float("inf")`; the GPU scheduler logs `net_available: inf`
   every second at runtime.
