@@ -22,9 +22,12 @@ hf auth whoami >/dev/null 2>&1 || hf auth login --token "$HF_TOKEN" --add-to-git
 # Models used by exp/configs/llama_*.json. Both are already present in Prism's
 # profiled model_info.json, so no profiling step is needed.
 # NOTE: there is no Llama-3.1 3B -- 3B exists only in Llama 3.2.
+# Llama-3.2-1B added for the 8-model mix that trace.py's e2e path hard-codes
+# (model_3/6/7/8 are 1B slots) -- the paper's §7.2/§7.3 two-GPU experiment.
 MODELS=(
     meta-llama/Llama-3.1-8B
     meta-llama/Llama-3.2-3B
+    meta-llama/Llama-3.2-1B
 )
 # Ungated Qwen2.5 fallbacks (exp/configs/qwen_*.json); uncomment if you want them.
 # MODELS+=(Qwen/Qwen2.5-0.5B-Instruct Qwen/Qwen2.5-1.5B-Instruct

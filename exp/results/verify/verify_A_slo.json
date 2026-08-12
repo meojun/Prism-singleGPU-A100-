@@ -1,0 +1,51 @@
+{
+  "case": "A",
+  "models": {
+    "model_1": "meta-llama/Llama-3.1-8B"
+  },
+  "ttft_slo_scale": 5.0,
+  "tpot_slo_scale": 2.0,
+  "duration_s": 602.7415162203833,
+  "total_requests": 296,
+  "completed": 296,
+  "failed": 0,
+  "per_model": {
+    "model_1": {
+      "requests": 296,
+      "completed": 296,
+      "slo_ttft_s": 0.2143485546,
+      "slo_tpot_ms": 22.92579678,
+      "req_throughput_rps": 0.49108945050961456,
+      "output_tok_throughput": 143.43627852638085,
+      "attain_ttft": 0.9966216216216216,
+      "attain_tpot": 0.9966216216216216,
+      "attain_both": 0.9932432432432432,
+      "violation_rate": 0.006756756756756799,
+      "goodput_rps": 0.48777127854671176,
+      "goodput_tok_s": 143.26207449832845,
+      "ttft_p50_ms": 33.066391944885254,
+      "ttft_p99_ms": 86.68178319931033,
+      "tpot_p50_ms": 13.691411407285814,
+      "tpot_p99_ms": 18.302569353490853
+    },
+    "ALL": {
+      "requests": 296,
+      "completed": 296,
+      "slo_ttft_s": null,
+      "slo_tpot_ms": null,
+      "req_throughput_rps": 0.49108945050961456,
+      "output_tok_throughput": 143.43627852638085,
+      "attain_ttft": 0.9966216216216216,
+      "attain_tpot": 0.9966216216216216,
+      "attain_both": 0.9932432432432432,
+      "violation_rate": 0.006756756756756799,
+      "goodput_rps": 0.48777127854671176,
+      "goodput_tok_s": 143.26207449832845,
+      "ttft_p50_ms": 33.066391944885254,
+      "ttft_p99_ms": 86.68178319931033,
+      "tpot_p50_ms": 13.691411407285814,
+      "tpot_p99_ms": 18.302569353490853
+    }
+  },
+  "slo_base_source": "builtin (authors' H100 measurement)"
+}

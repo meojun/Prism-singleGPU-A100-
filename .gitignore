@@ -35,3 +35,6 @@ request_handler_to_gpu_scheduler_*
 
 # redis snapshots -- redis-server writes these into whatever cwd it started in
 dump.rdb
+
+# Bootstrap transcript -- large and machine-specific, like the other setup logs
+/bootstrap.log
