@@ -81,10 +81,20 @@ say "[2/8] python $PYTHON_VERSION venv"
 source "$VENV/bin/activate"
 
 # --- 3. torch (custom index) --------------------------------------------------
+# PyPI is needed as a SECOND index here, not as a convenience. torch 2.4.0+cu121
+# pins nvidia-cudnn-cu12==9.1.0.70 exactly, and download.pytorch.org/whl/cu121 has
+# since PRUNED that file (it serves 9.0.0.312 and then jumps to 9.2x). With a bare
+# --index-url (which *replaces* the default index) the resolve now dies with
+# "no version of nvidia-cudnn-cu12==9.1.0.70 ... torch==2.4.0+cu121 cannot be used".
+# PyPI still carries the wheel. --index-strategy unsafe-best-match lets uv take the
+# nvidia-* deps from PyPI while torch itself still resolves to the local-version
+# 2.4.0+cu121 from the pytorch index (a local version sorts above plain 2.4.0).
 say "[3/8] torch $TORCH_VERSION (cu121)"
 python -c "import torch,sys; sys.exit(0 if torch.__version__.startswith('$TORCH_VERSION') else 1)" 2>/dev/null \
   && echo "  torch already installed" \
-  || uv pip install "torch==$TORCH_VERSION" "torchvision==$TORCHVISION_VERSION" --index-url "$TORCH_INDEX"
+  || uv pip install "torch==$TORCH_VERSION" "torchvision==$TORCHVISION_VERSION" \
+       --index-url "$TORCH_INDEX" \
+       --extra-index-url https://pypi.org/simple --index-strategy unsafe-best-match
 
 # --- 4. flashinfer (custom index) ---------------------------------------------
 say "[4/8] flashinfer $FLASHINFER_VERSION"
