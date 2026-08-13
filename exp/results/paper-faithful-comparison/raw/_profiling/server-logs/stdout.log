@@ -1,0 +1,77 @@
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+[ModelConfig(model_name='model_1', model_path='meta-llama/Llama-3.1-8B', tokenizer_path='meta-llama/Llama-3.1-8B', tp_size=1, init_placements=[{'gpu_ids': [0], 'on': True, 'max_memory_pool_size': 20.0}])]
+Initializing torch distributed...
+Torch distributed initialized.
+Loading 1 shared models to cpu...
+INFO 08-13 13:17:43 weight_utils.py:243] Using model weights format ['*.safetensors']
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:01<00:03,  1.03s/it]
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:04<00:04,  2.34s/it]
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:08<00:03,  3.33s/it]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:12<00:00,  3.59s/it]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:12<00:00,  3.19s/it]
+
+Shared models loaded in 29.13 seconds.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 0 started.
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[rank0]:     return _run_code(code, main_globals, None,
+[rank0]:   File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/runpy.py", line 86, in _run_code
+[rank0]:     exec(code, run_globals)
+[rank0]:   File "/workspace/prism-exp/prism-research/python/sglang/launch_multi_model_server.py", line 16, in <module>
+[rank0]:     raise e
+[rank0]:   File "/workspace/prism-exp/prism-research/python/sglang/launch_multi_model_server.py", line 14, in <module>
+[rank0]:     launch_multi_model_server(server_args)
+[rank0]:   File "/workspace/prism-exp/prism-research/python/sglang/multi_model/multi_model_server.py", line 935, in launch_multi_model_server
+[rank0]:     ) = launch_worker_pool_engines(
+[rank0]:   File "/workspace/prism-exp/prism-research/python/sglang/multi_model/multi_model_server.py", line 800, in launch_worker_pool_engines
+[rank0]:     server_args = ServerArgs.from_multi_model_server_args(
+[rank0]:   File "/workspace/prism-exp/prism-research/python/sglang/srt/server_args.py", line 280, in from_multi_model_server_args
+[rank0]:     return ServerArgs(worker_id=worker_id, **multi_model_server_args)
+[rank0]: TypeError: ServerArgs.__init__() got an unexpected keyword argument 'kvpr_tau'
+/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py:104: UserWarning: resource_tracker: process died unexpectedly, relaunching.  Some resources might leak.
+  warnings.warn('resource_tracker: process died unexpectedly, '
+Traceback (most recent call last):
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py", line 209, in main
+    cache[rtype].remove(name)
+KeyError: '/mp-lkl6or_n'
+Traceback (most recent call last):
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py", line 209, in main
+    cache[rtype].remove(name)
+KeyError: '/mp-fy5mku2i'
+Traceback (most recent call last):
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py", line 209, in main
+    cache[rtype].remove(name)
+KeyError: '/mp-6ehv6114'
+Traceback (most recent call last):
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py", line 209, in main
+    cache[rtype].remove(name)
+KeyError: '/mp-d78bwt9q'
+Traceback (most recent call last):
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py", line 209, in main
+    cache[rtype].remove(name)
+KeyError: '/mp-3gvcz21z'
+Traceback (most recent call last):
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py", line 209, in main
+    cache[rtype].remove(name)
+KeyError: '/mp-0t82m9ld'
+Traceback (most recent call last):
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py", line 209, in main
+    cache[rtype].remove(name)
+KeyError: '/mp-vnaf7zj5'
+Traceback (most recent call last):
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py", line 209, in main
+    cache[rtype].remove(name)
+KeyError: '/mp-gzzo6ps8'
+Traceback (most recent call last):
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py", line 209, in main
+    cache[rtype].remove(name)
+KeyError: '/mp-fggrjeqh'
+Traceback (most recent call last):
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py", line 209, in main
+    cache[rtype].remove(name)
+KeyError: '/mp-zm8wqwbi'
+[rank0]:W0813 13:18:17.867000 140160237303488 torch/_inductor/compile_worker/subproc_pool.py:126] SubprocPool unclean exit

@@ -1,0 +1,61 @@
+
+=== [0/5] environment ===
+0, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0
+1, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0
+redis OK, torch sees 2 GPUs
+timestamp: 2026-08-13T13:10:47+00:00
+git_branch: exp/paper-faithful-prism
+git_commit: a6d4438a72d5d23170b7e57b98d32e73cd124218
+prism_research_commit: 595ec1f170e75a43897a7a2ad58ac5a9820aa2e8
+kvcached_branch: HEAD
+kvcached_commit: d78649d0c2b7d2ff32eb48a423df7bf60054f4c9
+cuda_version: 12.1
+torch_version: 2.4.0+cu121
+driver: 570.211.01
+gpu_model: NVIDIA A100-SXM4-80GB
+gpu_count: 2
+models: 3x meta-llama/Llama-3.1-8B in slots 1,4,5
+request_rate_semantics: aggregate over all models (per-model = rate/3)
+rates: 2.5 5 7.5 10 15 20 25 30
+seeds: 1 2 3
+systems: released-prototype paper-faithful
+ttft_slo_scale: 5
+tpot_slo_scale: 3
+kvpr_tau: 0.10
+kvpr_rate_window_s: 30
+global_scheduler_interval_s: 5 (upstream SCHEDULE_INTERVAL)
+warmup_s: 60
+measure_s: 300
+trace_phase_len_s: 360
+
+=== [1/5] traces (one per rate x seed, shared by both systems) ===
+downloading ShareGPT...
+Downloading 'ShareGPT_V3_unfiltered_cleaned_split.json' to '/workspace/datasets/sharegpt/.cache/huggingface/download/4RlMRPFI_R0c9bKJSt-LyNZ8eDY=.35f0e213ce091ed9b9af2a1f0755e9d39f9ccec34ab281cd4ca60d70f6479ba4.incomplete'
+Download complete. Moving file to /workspace/datasets/sharegpt/ShareGPT_V3_unfiltered_cleaned_split.json
+/workspace/datasets/sharegpt/ShareGPT_V3_unfiltered_cleaned_split.json
+  built pf_rate2.5_seed1.pkl  (per-model 0.833333 req/s)
+  built pf_rate2.5_seed2.pkl  (per-model 0.833333 req/s)
+  built pf_rate2.5_seed3.pkl  (per-model 0.833333 req/s)
+  built pf_rate5_seed1.pkl  (per-model 1.666667 req/s)
+  built pf_rate5_seed2.pkl  (per-model 1.666667 req/s)
+  built pf_rate5_seed3.pkl  (per-model 1.666667 req/s)
+  built pf_rate7.5_seed1.pkl  (per-model 2.500000 req/s)
+  built pf_rate7.5_seed2.pkl  (per-model 2.500000 req/s)
+  built pf_rate7.5_seed3.pkl  (per-model 2.500000 req/s)
+  built pf_rate10_seed1.pkl  (per-model 3.333333 req/s)
+  built pf_rate10_seed2.pkl  (per-model 3.333333 req/s)
+  built pf_rate10_seed3.pkl  (per-model 3.333333 req/s)
+  built pf_rate15_seed1.pkl  (per-model 5.000000 req/s)
+  built pf_rate15_seed2.pkl  (per-model 5.000000 req/s)
+  built pf_rate15_seed3.pkl  (per-model 5.000000 req/s)
+  built pf_rate20_seed1.pkl  (per-model 6.666667 req/s)
+  built pf_rate20_seed2.pkl  (per-model 6.666667 req/s)
+  built pf_rate20_seed3.pkl  (per-model 6.666667 req/s)
+  built pf_rate25_seed1.pkl  (per-model 8.333333 req/s)
+  built pf_rate25_seed2.pkl  (per-model 8.333333 req/s)
+  built pf_rate25_seed3.pkl  (per-model 8.333333 req/s)
+  built pf_rate30_seed1.pkl  (per-model 10.000000 req/s)
+  built pf_rate30_seed2.pkl  (per-model 10.000000 req/s)
+  built pf_rate30_seed3.pkl  (per-model 10.000000 req/s)
+
+=== [2/5] no-contention profiling (SLO baseline + chunked-prefill speed c_i) ===

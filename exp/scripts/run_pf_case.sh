@@ -144,16 +144,19 @@ kill "$SAMPLER" 2>/dev/null || true
 
 # Proof that the intended scheduler actually ran, not merely that the flag parsed.
 GC="$LOGDIR/server.log.global_controller.log"
-GS_GLOB="$LOGDIR/server.log.gpu_scheduler.log"
+# `grep -c` prints 0 AND exits 1 when there is no match, so a bare `|| echo 0`
+# emits the count twice. Swallow the status instead and default an empty result.
+count_gc() { local n; n=$(grep -c -- "$1" "$GC" 2>/dev/null || true); echo "${n:-0}"; }
+count_gs() { local n; n=$(cat "$LOGDIR"/*gpu_scheduler*.log 2>/dev/null | grep -c -- "$1" || true); echo "${n:-0}"; }
 {
   echo "system=$SYSTEM rate=$RATE seed=$SEED"
-  echo "alg1_log_lines=$( [ -f "$GC" ] && grep -c '\[PAPER-ALG1\]' "$GC" || echo 0)"
-  echo "alg1_migrations=$( [ -f "$GC" ] && grep -c '\[PAPER-ALG1\] MIGRATE' "$GC" || echo 0)"
-  echo "alg2_log_lines=$(cat "$LOGDIR"/*gpu_scheduler*.log 2>/dev/null | grep -c '\[PAPER-ALG2\]' || echo 0)"
-  echo "proto_migrations=$( [ -f "$GC" ] && grep -c 'Reason: migrate model' "$GC" || echo 0)"
-  echo "activations=$( [ -f "$GC" ] && grep -c 'ACTION: activate' "$GC" || echo 0)"
-  echo "deactivations=$( [ -f "$GC" ] && grep -c 'ACTION: deactivate' "$GC" || echo 0)"
-  echo "idle_evictions=$( [ -f "$GC" ] && grep -c 'Reason: idle instance eviction' "$GC" || echo 0)"
+  echo "alg1_log_lines=$(count_gc '[PAPER-ALG1]')"
+  echo "alg1_migrations=$(count_gc '[PAPER-ALG1] MIGRATE')"
+  echo "alg2_log_lines=$(count_gs '[PAPER-ALG2]')"
+  echo "proto_migrations=$(count_gc 'Reason: migrate model')"
+  echo "activations=$(count_gc 'ACTION: activate')"
+  echo "deactivations=$(count_gc 'ACTION: deactivate')"
+  echo "idle_evictions=$(count_gc 'Reason: idle instance eviction')"
 } > "$OUTDIR/scheduler_proof.txt"
 
 cat "$OUTDIR/scheduler_proof.txt"

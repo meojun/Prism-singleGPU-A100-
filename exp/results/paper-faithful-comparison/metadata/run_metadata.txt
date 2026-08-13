@@ -1,0 +1,24 @@
+timestamp: 2026-08-13T13:10:47+00:00
+git_branch: exp/paper-faithful-prism
+git_commit: a6d4438a72d5d23170b7e57b98d32e73cd124218
+prism_research_commit: 595ec1f170e75a43897a7a2ad58ac5a9820aa2e8
+kvcached_branch: HEAD
+kvcached_commit: d78649d0c2b7d2ff32eb48a423df7bf60054f4c9
+cuda_version: 12.1
+torch_version: 2.4.0+cu121
+driver: 570.211.01
+gpu_model: NVIDIA A100-SXM4-80GB
+gpu_count: 2
+models: 3x meta-llama/Llama-3.1-8B in slots 1,4,5
+request_rate_semantics: aggregate over all models (per-model = rate/3)
+rates: 2.5 5 7.5 10 15 20 25 30
+seeds: 1 2 3
+systems: released-prototype paper-faithful
+ttft_slo_scale: 5
+tpot_slo_scale: 3
+kvpr_tau: 0.10
+kvpr_rate_window_s: 30
+global_scheduler_interval_s: 5 (upstream SCHEDULE_INTERVAL)
+warmup_s: 60
+measure_s: 300
+trace_phase_len_s: 360
