@@ -77,12 +77,18 @@ def count_in_logs(logdir, pattern, globpat="*.log"):
 
 
 def max_cumulative_deferred(logdir):
-    """Peak `cumulative deferred=N` across the GPU-scheduler logs.
+    """Peak deferred-request counter across the GPU-scheduler logs.
 
     Each GPU scheduler keeps its own counter, so the per-GPU peaks are summed.
+
+    Two spellings must both be matched. The livelock fix changed the counter from
+    per-round ("cumulative deferred=") to per-request ("distinct deferred="), but
+    only on the branch that logs a deferral; the other branch still prints the old
+    wording. Matching just one spelling reads whichever branch happens to log last
+    and undercounts badly -- observed 56 against an actual 4338.
     """
     total = 0
-    rx = re.compile(r"cumulative deferred=(\d+)")
+    rx = re.compile(r"(?:cumulative|distinct) deferred=(\d+)")
     for path in glob.glob(os.path.join(logdir, "*gpu_scheduler*.log")):
         best = 0
         try:

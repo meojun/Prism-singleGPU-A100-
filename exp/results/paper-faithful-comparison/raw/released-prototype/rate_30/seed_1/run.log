@@ -1,0 +1,40 @@
+### released-prototype_rate30_seed1  system=released-prototype rate=30req/s seed=1 port=33000
+###   trace=pf_rate30_seed1.pkl  cfg=llama_2gpu_3x8b.json  workers=3
+waiting for server.......................................... -> ready
+system=released-prototype rate=30 seed=1
+alg1_log_lines=0
+alg1_migrations=0
+alg2_log_lines=0
+proto_migrations=3
+activations=0
+deactivations=3
+idle_evictions=0
+### released-prototype_rate30_seed1 done
+{
+  "system": "released-prototype",
+  "request_rate": 30.0,
+  "seed": 1,
+  "ttft_p50_ms": 177.69908905029297,
+  "ttft_p99_ms": 21138.68026733398,
+  "tpot_p50_ms": 141.38206839561462,
+  "tpot_p99_ms": 331.4584263888265,
+  "ttft_slo_attainment": 0.6540037656440358,
+  "tpot_slo_attainment": 0.1914940746483553,
+  "joint_slo_attainment": 0.17908960017720676,
+  "throughput_req_s": 30.096666666666668,
+  "joint_slo_goodput_req_s": 5.39,
+  "num_completed": 9029,
+  "num_failed": 72,
+  "num_migrations": 3,
+  "num_evictions": 0,
+  "num_activations": 0,
+  "num_mh_deferred": 0,
+  "ttft_p95_ms": 14952.850246429445,
+  "tpot_p95_ms": 216.32944919353423,
+  "requests_in_window": 9101,
+  "measure_s": 300.0,
+  "warmup_s": 60.0,
+  "slo_base_source": "/workspace/prism-exp/exp/configs/slo_base_pf.json",
+  "alg1_log_lines": 0,
+  "alg2_log_lines": 0
+}
