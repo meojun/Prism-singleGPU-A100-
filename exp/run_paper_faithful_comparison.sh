@@ -257,6 +257,10 @@ done
 echo "sweep finished: $DONE/$TOTAL ok, $FAILED failed"
 
 say "[5/5] aggregate + figures + report"
+# Must precede aggregate: the report's root-cause section reads diagnostics.json.
+# Non-fatal -- it needs server-logs/ and requests/, absent in a results-only checkout.
+python3 "$SCRIPT_DIR/diagnose_pf.py" --base "$BASE" >> "$BASE/logs/aggregate.log" 2>&1 \
+  || echo "  diagnostics skipped, see $BASE/logs/aggregate.log"
 python3 "$SCRIPT_DIR/aggregate_pf.py" --base "$BASE" >> "$BASE/logs/aggregate.log" 2>&1 \
   && echo "  wrote $BASE/processed/results.csv and summary.csv" \
   || echo "  aggregation failed, see $BASE/logs/aggregate.log"
