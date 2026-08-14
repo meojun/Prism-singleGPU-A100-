@@ -36,17 +36,68 @@ def pct(xs, q):
 
 
 def load_requests(run_dir):
+    """The dump is EITHER one pretty-printed JSON array (the --model-paths +
+    --real-trace path benchmark.py takes here) OR one JSON array per line
+    (append mode, when a run is repeated). Handle both: try the whole file
+    first, fall back to line-by-line."""
     cands = sorted(glob.glob(os.path.join(run_dir, "requests", "*_output_requests.json"))) \
         or sorted(glob.glob(os.path.join(run_dir, "*_output_requests.json")))
     if not cands:
         raise SystemExit(f"no request dump under {run_dir}")
+    text = open(cands[-1]).read()
+    try:
+        obj = json.loads(text)
+        return obj if isinstance(obj, list) else [obj]
+    except json.JSONDecodeError:
+        pass
     out = []
-    with open(cands[-1]) as f:
-        for line in f:
-            line = line.strip()
-            if line:
-                out.extend(json.loads(line))
+    for line in text.splitlines():
+        line = line.strip()
+        if line:
+            out.extend(json.loads(line))
     return out
+
+
+def load_trace(path):
+    """Read a direct-trace pickle without importing trace.py (which needs the
+    sglang package on the path)."""
+    import pickle
+
+    class Request:  # structural stand-in; the pickle records this class name
+        pass
+
+    class _U(pickle.Unpickler):
+        def find_class(self, module, name):
+            if name == "Request":
+                return Request
+            return super().find_class(module, name)
+
+    with open(path, "rb") as f:
+        _adapters, reqs = _U(f).load()
+    reqs.sort(key=lambda r: r.arrival_time)
+    return reqs
+
+
+def join_trace(reqs, trace_path):
+    """The dump benchmark.py writes on this path carries only
+    {success, latency, ttft, tpot, output_len, model, error} -- no arrival time
+    and no prompt length. It is written in TRACE ORDER and never reordered, so
+    request i in the dump is request i in the (arrival-sorted) trace. Join by
+    index to recover arrival_time / prompt_len / request_id, and verify the
+    model sequence matches so a silent misalignment cannot pass as data."""
+    trace = load_trace(trace_path)
+    if len(trace) != len(reqs):
+        raise SystemExit(f"trace has {len(trace)} requests, dump has {len(reqs)} "
+                         "-- cannot join by index")
+    mism = sum(1 for t, r in zip(trace, reqs) if r.get("model") != t.model)
+    if mism:
+        raise SystemExit(f"index join is misaligned: {mism} model mismatches")
+    for t, r in zip(trace, reqs):
+        r["arrival_time"] = t.arrival_time
+        r["prompt_len"] = t.prompt_len
+        r["request_id"] = t.req_id
+        r.setdefault("output_len", t.output_len)
+    return reqs
 
 
 def scheduler_stats(run_dir):
@@ -164,6 +215,9 @@ def main():
     ap.add_argument("--tpot-scale", type=float, default=3.0)
     ap.add_argument("--warmup", type=float, default=60.0)
     ap.add_argument("--measure", type=float, default=300.0)
+    ap.add_argument("--trace", default=None,
+                    help="direct-trace pickle; joined by index to recover "
+                         "arrival_time / prompt_len the dump omits")
     ap.add_argument("--label", default="")
     ap.add_argument("-o", "--out", required=True)
     a = ap.parse_args()
@@ -173,13 +227,16 @@ def main():
     slo_tpot = {m: v["tpot"] * a.tpot_scale for m, v in base.items()}
 
     reqs = load_requests(a.run_dir)
-    arrivals = [r["arrival_time"] for r in reqs if r.get("arrival_time")]
+    if a.trace:
+        reqs = join_trace(reqs, a.trace)
+    arrivals = [r["arrival_time"] for r in reqs if r.get("arrival_time") is not None]
     if not arrivals:
-        raise SystemExit("no arrival timestamps in dump")
+        raise SystemExit("no arrival timestamps -- pass --trace to join by index")
     t0 = min(arrivals)
     lo, hi = t0 + a.warmup, t0 + a.warmup + a.measure
 
-    win = [r for r in reqs if r.get("arrival_time") and lo <= r["arrival_time"] < hi]
+    win = [r for r in reqs if r.get("arrival_time") is not None
+           and lo <= r["arrival_time"] < hi]
     ok = [r for r in win if r.get("success")]
     ttfts = [r["ttft"] for r in ok if r.get("ttft")]
     tpots = [r["tpot"] for r in ok if r.get("tpot")]

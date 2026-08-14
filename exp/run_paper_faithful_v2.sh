@@ -101,7 +101,8 @@ cmd=exp/scripts/run_v2_case.sh $sys $wl $rate $seed $trace $d" > "$d/META.txt"
     if "$SCRIPT_DIR/run_v2_case.sh" "$sys" "$wl" "$rate" "$seed" "$trace" "$d" \
          2>&1 | tee "$BASE/logs/$(basename "$d")_${sys}_${wl}_${rate}_${seed}.log"; then
       python3 "$SCRIPT_DIR/collect_v2_metrics.py" --run-dir "$d" \
-        --slo-base "$SLO_BASE_FILE" --ttft-scale "$TTFT_SCALE" --tpot-scale "$TPOT_SCALE" \
+        --slo-base "$SLO_BASE_FILE" --trace "$trace" \
+        --ttft-scale "$TTFT_SCALE" --tpot-scale "$TPOT_SCALE" \
         --warmup "$WARMUP" --measure "$MEASURE" \
         --label "$sys/$wl/$rate/$seed" -o "$d/metrics.json" && touch "$d/DONE"
     else

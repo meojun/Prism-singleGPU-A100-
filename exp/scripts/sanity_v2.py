@@ -42,15 +42,25 @@ def check(name, hard, ok, detail):
 
 
 def load_requests(run_dir):
+    """The dump is EITHER one pretty-printed JSON array (the --model-paths +
+    --real-trace path benchmark.py takes here) OR one JSON array per line
+    (append mode, when a run is repeated). Handle both: try the whole file
+    first, fall back to line-by-line."""
     cands = sorted(glob.glob(os.path.join(run_dir, "requests", "*_output_requests.json"))) \
         or sorted(glob.glob(os.path.join(run_dir, "*_output_requests.json")))
+    if not cands:
+        return []
+    text = open(cands[-1]).read()
+    try:
+        obj = json.loads(text)
+        return obj if isinstance(obj, list) else [obj]
+    except json.JSONDecodeError:
+        pass
     out = []
-    for c in cands[-1:]:
-        with open(c) as f:
-            for line in f:
-                line = line.strip()
-                if line:
-                    out.extend(json.loads(line))
+    for line in text.splitlines():
+        line = line.strip()
+        if line:
+            out.extend(json.loads(line))
     return out
 
 
@@ -114,12 +124,24 @@ def main():
     ap.add_argument("--prefill-speed", required=True)
     ap.add_argument("--workload-dir", required=True)
     ap.add_argument("--slo-base", default=None)
+    ap.add_argument("--trace", default=None,
+                    help="direct-trace pickle, joined by index for prompt_len")
     ap.add_argument("-o", "--out", required=True)
     a = ap.parse_args()
 
     speed = json.load(open(a.prefill_speed))
     reqs = load_requests(a.bursty_dir)
-    ok = [r for r in reqs if r.get("success") and r.get("prefill_finish_time") and r.get("out_queue_time")]
+    if a.trace:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from collect_v2_metrics import join_trace
+        try:
+            reqs = join_trace(reqs, a.trace)
+        except SystemExit as e:
+            print(f"  (trace join failed: {e})")
+    # This dump path carries ttft/tpot but not the prefill interval, so check A
+    # falls back to comparing e_i against TTFT when the interval is absent.
+    ok = [r for r in reqs if r.get("success")
+          and (r.get("prefill_finish_time") and r.get("out_queue_time") or r.get("ttft"))]
 
     print("== A. c_i vs measured prefill interval (under load)")
     if not ok:
@@ -131,7 +153,11 @@ def main():
             if not c or not r.get("prompt_len"):
                 continue
             pred = r["prompt_len"] / c
-            meas = r["prefill_finish_time"] - r["out_queue_time"]
+            meas = ((r["prefill_finish_time"] - r["out_queue_time"])
+                    if (r.get("prefill_finish_time") and r.get("out_queue_time"))
+                    else r.get("ttft"))
+            if meas is None:
+                continue
             if meas <= 0:
                 continue
             ratios.append(pred / meas)

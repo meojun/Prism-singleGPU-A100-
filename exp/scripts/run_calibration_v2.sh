@@ -39,7 +39,8 @@ for rate in "${RATES[@]}"; do
   if "$SCRIPT_DIR/run_v2_case.sh" released-prototype steady "$rate" "$SEED" \
         "$WL/steady_r${rate}_s${SEED}.pkl" "$d" 2>&1 | tee "$d/run.log"; then
     python3 "$SCRIPT_DIR/collect_v2_metrics.py" --run-dir "$d" \
-      --slo-base "$SLO_BASE_FILE" --warmup "$WARM" --measure "$MEAS" \
+      --slo-base "$SLO_BASE_FILE" --trace "$WL/steady_r${rate}_s${SEED}.pkl" \
+      --warmup "$WARM" --measure "$MEAS" \
       --label "calib/$rate" -o "$d/metrics.json" && touch "$d/DONE"
   else
     echo "!! calibration rate=$rate FAILED"

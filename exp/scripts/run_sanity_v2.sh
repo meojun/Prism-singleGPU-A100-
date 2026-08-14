@@ -36,7 +36,8 @@ for sys in paper-faithful released-prototype; do
     if "$SCRIPT_DIR/run_v2_case.sh" "$sys" "$wl" "$RATE" "$SEED" \
          "$WL/${wl}_r${RATE}_s${SEED}.pkl" "$d" 2>&1 | tee "$d/run.log"; then
       python3 "$SCRIPT_DIR/collect_v2_metrics.py" --run-dir "$d" \
-        --slo-base "$SLO_BASE_FILE" --warmup 40 --measure $((DUR-80)) \
+        --slo-base "$SLO_BASE_FILE" --trace "$WL/${wl}_r${RATE}_s${SEED}.pkl" \
+        --warmup 40 --measure $((DUR-80)) \
         --label "sanity/$sys/$wl" -o "$d/metrics.json" && touch "$d/DONE"
     else
       echo "!! sanity run $sys/$wl FAILED"
@@ -52,6 +53,7 @@ V2_DURATION=$DUR python3 "$SCRIPT_DIR/sanity_v2.py" \
   --bursty-dir "$BASE/smoke/paper-faithful_bursty" \
   --steady-dir "$BASE/smoke/paper-faithful_steady" \
   --prefill-speed "$PREFILL_SPEED_FILE" \
+  --trace "$WL/bursty_r${RATE}_s${SEED}.pkl" \
   --slo-base "$SLO_BASE_FILE" \
   --workload-dir "$WL" -o "$BASE/sanity_gate.json"
 RC=$?
