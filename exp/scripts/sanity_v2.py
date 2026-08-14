@@ -143,6 +143,26 @@ def main():
     ok = [r for r in reqs if r.get("success")
           and (r.get("prefill_finish_time") and r.get("out_queue_time") or r.get("ttft"))]
 
+    print("== 0. the intended scheduler actually ran")
+    # A parsed flag is not evidence that the algorithm executed. Both arms load
+    # the same binary; what separates them is which code path the controller and
+    # the GPU scheduler took, and the only proof of that is their own log
+    # markers. Without this check every later number could come from the
+    # prototype path with paper flags attached.
+    proof = os.path.join(a.bursty_dir, "scheduler_proof.txt")
+    kv = {}
+    if os.path.exists(proof):
+        for line in open(proof):
+            if "=" in line:
+                k, _, v = line.strip().partition("=")
+                kv[k] = v
+    a1 = int(kv.get("alg1_log_lines", 0) or 0)
+    a2 = int(kv.get("alg2_log_lines", 0) or 0)
+    check("0 Algorithm 1 executed", True, a1 > 0,
+          f"[PAPER-ALG1] log lines = {a1} (migrations {kv.get('alg1_migrations', '?')})")
+    check("0 Algorithm 2 executed", True, a2 > 0,
+          f"[PAPER-ALG2] log lines = {a2}")
+
     print("== A. c_i vs measured prefill interval (under load)")
     if not ok:
         check("A c_i vs measured prefill", True, False, "no usable request records")
