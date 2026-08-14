@@ -71,6 +71,13 @@ source "$ROOT/exp/scripts/env.sh"
 python3 exp/tests/test_moore_hodgson.py  || { echo "FATAL: Algorithm 2 tests failed"; exit 1; }
 python3 exp/tests/test_kvpr_placement.py || { echo "FATAL: Algorithm 1 tests failed"; exit 1; }
 
+say "pre-flight: prove this box can hold a multi-hour run"
+# Do not skip. This reproduces, against a canary in ~90 s, the three failure
+# modes that silently killed multi-hour sweeps on this instance.
+"$ROOT/exp/scripts/preflight_v2.sh" || {
+    echo "!! PRE-FLIGHT FAILED -- do not start the sweep, it will vanish mid-run."
+    exit 1; }
+
 say "supervisor registration"
 # Long runs MUST live under supervisor on this box: tmux sessions and even
 # setsid-detached processes have been killed mid-sweep here, while supervisord

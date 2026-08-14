@@ -359,6 +359,38 @@ nvidia-smi --query-gpu=index,memory.used --format=csv,noheader   # 0 MiB 여야 
    **TPOT** 입니다(5 req/s 에서 TTFT 달성률 0.995 대 TPOT 0.690). 유입률은 반드시
    `run_calibration_v2.sh` 로 먼저 재세요.
 
+### 실행 전 필수 — pre-flight 를 반드시 통과시키세요
+
+**장시간 스윕을 시작하기 전에 무조건 이것부터 돌리세요. 건너뛰지 마세요.**
+
+```bash
+./exp/scripts/preflight_v2.sh      # 약 90초
+```
+
+세 번의 멀티시간 스윕이 이 검사 없이 시작됐다가 사라졌습니다. 매번 몇 분간
+정상으로 보이다가 조용히 없어졌고, 파이프라인 로그에는 아무 에러도 없었습니다.
+이 스크립트는 그 실패 양상을 canary 프로세스로 90초 만에 재현합니다.
+
+여덟 가지를 검사합니다.
+
+1. supervisord 가 응답하는가 (`supervisorctl status` 의 **종료코드로 판단하지
+   마세요** — 이 이미지는 jupyter/pyworker 를 EXITED 로 두므로 항상 비정상
+   종료코드입니다. 출력 유무로 판단합니다)
+2. 실행 경로에 `kill 0` / `kill "${VAR:-0}"` / `kill -- -PGID` 가 없는가.
+   **이것이 세 번의 사망 중 주원인이었습니다.** 정리 트랩이 자식 PID 변수가
+   설정되기 전에 발동하면 `kill 0` 이 되고, 이는 프로세스 그룹 전체에 SIGTERM
+   입니다 — 스윕 드라이버도 watchdog 도 부모 셸도 함께 죽습니다
+3. supervisor 아래 프로세스가 자기를 띄운 셸이 사라진 뒤에도 살아 있는가
+4. SIGKILL 을 받으면 supervisor 가 되살리는가 (실제로 죽여서 확인합니다)
+5. tmux 세션이 자기를 만든 셸보다 오래 사는가 (모델 서버가 tmux 안에 삽니다)
+6. 포트를 런타임에 확보하는가 (고정 포트는 모델을 다 로드한 뒤에 충돌합니다)
+7. Algorithm 1/2 패치가 클론에 실제로 들어갔는가 (13개 랜딩 포인트)
+8. 디스크 여유
+
+통과하면 `/workspace/logs/preflight.ok` 를 씁니다. **`exp/run_pipeline_v2.sh` 는
+이 파일이 없으면 시작을 거부하고**, 없으면 스스로 pre-flight 를 돌린 뒤 실패 시
+멈춥니다. `setup/quickstart.sh` 도 마지막에 이것을 돌립니다.
+
 ### 새 장비 세팅 — 0 에서 실험까지
 
 이번에 이 절이 없어서 세팅에만 몇 시간이 들었습니다. 순서대로 하면 됩니다.

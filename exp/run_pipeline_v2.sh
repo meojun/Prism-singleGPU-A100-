@@ -41,6 +41,23 @@ report() {
 
 echo "===== PIPELINE START $(stamp)"
 
+# ---------------------------------------------------------------- pre-flight
+# Refuse to start without proof that this box can hold a multi-hour run. Three
+# sweeps were lost here before anyone checked; each looked healthy for minutes
+# and then vanished with nothing in the pipeline log. The check takes ~90 s.
+if [ ! -f $L/preflight.ok ]; then
+  echo "no $L/preflight.ok -- running pre-flight"
+  ./exp/scripts/preflight_v2.sh 2>&1 | tee $L/preflight.log
+  if [ ! -f $L/preflight.ok ]; then
+    echo "!!! PRE-FLIGHT FAILED -- refusing to start. See $L/preflight.log"
+    echo "PIPELINE_STOPPED_AT=preflight $(stamp)" >> $L/pipeline.status
+    exit 1
+  fi
+fi
+echo "pre-flight verified $(cat $L/preflight.ok)"
+
+
+
 echo "===== [1] CALIBRATION $(stamp)"
 ./exp/scripts/run_calibration_v2.sh 2>&1 | tee $L/calibration.log
 save "calibration: 이 장비의 부하 곡선 측정 $(stamp)"
