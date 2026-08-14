@@ -22,21 +22,40 @@ import argparse
 import glob
 import json
 import os
+import sys
 
 import numpy as np
 
 
 def load(req_file):
+    """The `--model-paths` + `--real-trace` path writes ONE pretty-printed array."""
     with open(req_file) as fh:
-        lines = [ln for ln in fh.read().splitlines() if ln.strip()]
-    return json.loads(lines[-1])
+        return json.load(fh)
 
 
-def fit_speed(reqs, slot, lo_q=5, hi_q=80):
+def load_trace(path):
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from build_sharegpt_trace import _Unpickler
+    with open(path, "rb") as fh:
+        _, trace = _Unpickler(fh).load()
+    return trace
+
+
+def fit_speed(reqs, trace, slot, lo_q=5, hi_q=80):
+    """Join dump to trace BY INDEX to recover prompt_len.
+
+    run_tp_mode's dump carries only {success, latency, ttft, tpot, output_len,
+    model, error} -- no prompt_len and no arrival time. benchmark.py writes the
+    dump in trace order and never reorders it, so request i in the dump is
+    request i in the pkl (same property collect_metrics.py relies on).
+    """
+    if len(reqs) != len(trace):
+        raise SystemExit(f"dump has {len(reqs)} records but trace has {len(trace)}; "
+                         "cannot join by index")
     pts = [
-        (r["prompt_len"], r["ttft"])
-        for r in reqs
-        if r.get("success") and r.get("model") == slot and r.get("prompt_len")
+        (tr.prompt_len, r["ttft"])
+        for r, tr in zip(reqs, trace)
+        if r.get("success") and r.get("model") == slot and tr.prompt_len
     ]
     if len(pts) < 30:
         raise SystemExit(f"{slot}: only {len(pts)} usable samples, need >= 30")
@@ -44,21 +63,35 @@ def fit_speed(reqs, slot, lo_q=5, hi_q=80):
     p = np.array([x for x, _ in pts], dtype=float)
     t = np.array([y for _, y in pts], dtype=float)
 
-    # Trim TTFT outliers: queueing delay is additive noise that biases the slope.
+    # Trim TTFT outliers: queueing delay is additive noise on an otherwise
+    # uncontended measurement.
     lo, hi = np.percentile(t, lo_q), np.percentile(t, hi_q)
     keep = (t >= lo) & (t <= hi)
     p, t = p[keep], t[keep]
 
+    # RATIO estimator, deliberately not the regression slope.
+    #
+    # The paper's execution estimate is e_i = p_i / c_i with NO intercept term, so
+    # c_i has to be the speed that reproduces the WHOLE prefill time, not the
+    # marginal cost of one extra token. Fitting ttft = a + p/c on this box gives
+    # a ~= 29 ms with 1/slope ~= 20,800 tok/s: the fixed overhead dominates at these
+    # prompt lengths (p50 = 70 tokens). Feeding that slope into e_i = p/c would put
+    # every e_i in the 3-30 ms range -- an order of magnitude under the real prefill
+    # time -- and Moore-Hodgson's feasibility test would essentially never fire.
+    # total_tokens / total_time is the estimator consistent with the paper's formula.
+    # The slope fit is still reported below as a diagnostic.
+    speed = float(p.sum() / t.sum())
     slope, intercept = np.polyfit(p, t, 1)
-    if slope <= 0:
-        raise SystemExit(f"{slot}: non-positive slope {slope:.3g}; run was not uncontended")
-    speed = 1.0 / slope
-    resid = t - (slope * p + intercept)
+    per_req = p / t
     return {
-        "tokens_per_second": float(speed),
-        "intercept_s": float(intercept),
+        "tokens_per_second": speed,
+        "estimator": "ratio: sum(prompt_len) / sum(ttft), matches e_i = p_i / c_i",
         "n_samples": int(keep.sum()),
-        "rmse_s": float(np.sqrt(np.mean(resid ** 2))),
+        "per_request_speed_p50": float(np.percentile(per_req, 50)),
+        "per_request_speed_p90": float(np.percentile(per_req, 90)),
+        "diagnostic_slope_tokens_per_second": float(1.0 / slope) if slope > 0 else None,
+        "diagnostic_intercept_s": float(intercept),
+        "ttft_p50_s": float(np.percentile(t, 50)),
         "prompt_len_p50": float(np.percentile(p, 50)),
         "prompt_len_p99": float(np.percentile(p, 99)),
     }
@@ -68,6 +101,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--req-file", help="raw *_output_requests.json from a solo run")
     ap.add_argument("--req-glob", help="glob; newest match is used")
+    ap.add_argument("--trace", required=True,
+                    help="the .pkl replayed by that run; supplies prompt_len, which "
+                         "the TP-mode dump does not record")
     ap.add_argument("--source-slot", default="model_1")
     ap.add_argument("--also-slots", default="",
                     help="comma-separated slots that run the SAME model architecture "
@@ -83,7 +119,8 @@ def main():
         req_file = files[-1]
 
     reqs = load(req_file)
-    stats = fit_speed(reqs, a.source_slot)
+    trace = load_trace(a.trace)
+    stats = fit_speed(reqs, trace, a.source_slot)
     print(f"# fitted from {req_file}")
     print(f"# {a.source_slot}: {json.dumps(stats, indent=2)}")
 

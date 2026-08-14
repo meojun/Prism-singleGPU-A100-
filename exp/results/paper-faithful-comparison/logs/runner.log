@@ -3,9 +3,9 @@
 0, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0
 1, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0
 redis OK, torch sees 2 GPUs
-timestamp: 2026-08-13T13:10:47+00:00
+timestamp: 2026-08-13T13:19:54+00:00
 git_branch: exp/paper-faithful-prism
-git_commit: a6d4438a72d5d23170b7e57b98d32e73cd124218
+git_commit: 66cd51b5c92635e6a03e5c386ea416a2c37b37e2
 prism_research_commit: 595ec1f170e75a43897a7a2ad58ac5a9820aa2e8
 kvcached_branch: HEAD
 kvcached_commit: d78649d0c2b7d2ff32eb48a423df7bf60054f4c9
@@ -29,33 +29,43 @@ measure_s: 300
 trace_phase_len_s: 360
 
 === [1/5] traces (one per rate x seed, shared by both systems) ===
-downloading ShareGPT...
-Downloading 'ShareGPT_V3_unfiltered_cleaned_split.json' to '/workspace/datasets/sharegpt/.cache/huggingface/download/4RlMRPFI_R0c9bKJSt-LyNZ8eDY=.35f0e213ce091ed9b9af2a1f0755e9d39f9ccec34ab281cd4ca60d70f6479ba4.incomplete'
-Download complete. Moving file to /workspace/datasets/sharegpt/ShareGPT_V3_unfiltered_cleaned_split.json
-/workspace/datasets/sharegpt/ShareGPT_V3_unfiltered_cleaned_split.json
-  built pf_rate2.5_seed1.pkl  (per-model 0.833333 req/s)
-  built pf_rate2.5_seed2.pkl  (per-model 0.833333 req/s)
-  built pf_rate2.5_seed3.pkl  (per-model 0.833333 req/s)
-  built pf_rate5_seed1.pkl  (per-model 1.666667 req/s)
-  built pf_rate5_seed2.pkl  (per-model 1.666667 req/s)
-  built pf_rate5_seed3.pkl  (per-model 1.666667 req/s)
-  built pf_rate7.5_seed1.pkl  (per-model 2.500000 req/s)
-  built pf_rate7.5_seed2.pkl  (per-model 2.500000 req/s)
-  built pf_rate7.5_seed3.pkl  (per-model 2.500000 req/s)
-  built pf_rate10_seed1.pkl  (per-model 3.333333 req/s)
-  built pf_rate10_seed2.pkl  (per-model 3.333333 req/s)
-  built pf_rate10_seed3.pkl  (per-model 3.333333 req/s)
-  built pf_rate15_seed1.pkl  (per-model 5.000000 req/s)
-  built pf_rate15_seed2.pkl  (per-model 5.000000 req/s)
-  built pf_rate15_seed3.pkl  (per-model 5.000000 req/s)
-  built pf_rate20_seed1.pkl  (per-model 6.666667 req/s)
-  built pf_rate20_seed2.pkl  (per-model 6.666667 req/s)
-  built pf_rate20_seed3.pkl  (per-model 6.666667 req/s)
-  built pf_rate25_seed1.pkl  (per-model 8.333333 req/s)
-  built pf_rate25_seed2.pkl  (per-model 8.333333 req/s)
-  built pf_rate25_seed3.pkl  (per-model 8.333333 req/s)
-  built pf_rate30_seed1.pkl  (per-model 10.000000 req/s)
-  built pf_rate30_seed2.pkl  (per-model 10.000000 req/s)
-  built pf_rate30_seed3.pkl  (per-model 10.000000 req/s)
+  have pf_rate2.5_seed1.pkl
+  have pf_rate2.5_seed2.pkl
+  have pf_rate2.5_seed3.pkl
+  have pf_rate5_seed1.pkl
+  have pf_rate5_seed2.pkl
+  have pf_rate5_seed3.pkl
+  have pf_rate7.5_seed1.pkl
+  have pf_rate7.5_seed2.pkl
+  have pf_rate7.5_seed3.pkl
+  have pf_rate10_seed1.pkl
+  have pf_rate10_seed2.pkl
+  have pf_rate10_seed3.pkl
+  have pf_rate15_seed1.pkl
+  have pf_rate15_seed2.pkl
+  have pf_rate15_seed3.pkl
+  have pf_rate20_seed1.pkl
+  have pf_rate20_seed2.pkl
+  have pf_rate20_seed3.pkl
+  have pf_rate25_seed1.pkl
+  have pf_rate25_seed2.pkl
+  have pf_rate25_seed3.pkl
+  have pf_rate30_seed1.pkl
+  have pf_rate30_seed2.pkl
+  have pf_rate30_seed3.pkl
 
 === [2/5] no-contention profiling (SLO baseline + chunked-prefill speed c_i) ===
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/prism-exp/exp/configs/slo_base_pf.json'
+FATAL: prefill-speed profiling failed
+EXIT=1

@@ -1,0 +1,16 @@
+{
+  "source": "exp/results/paper-faithful-comparison/raw/_profiling/requests/released-prototype_rate4_seed42_e2e_1gpu_1.0x_1rep_output_requests.json",
+  "source_slot": "model_1",
+  "fit": {
+    "tokens_per_second": 4214.351343068637,
+    "estimator": "ratio: sum(prompt_len) / sum(ttft), matches e_i = p_i / c_i",
+    "n_samples": 525,
+    "per_request_speed_p50": 2396.595355647415,
+    "per_request_speed_p90": 8277.10680616297,
+    "diagnostic_slope_tokens_per_second": 20774.577642773664,
+    "diagnostic_intercept_s": 0.02906692868558641,
+    "ttft_p50_s": 0.03430962562561035,
+    "prompt_len_p50": 70.0,
+    "prompt_len_p99": 608.28
+  }
+}

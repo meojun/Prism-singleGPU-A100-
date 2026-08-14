@@ -41,3 +41,15 @@ dump.rdb
 
 # Placement configs emitted by exp/scripts/make_config.py -- regenerated on demand
 /exp/configs/llama_*gpu_*model_*.json
+
+# Paper-Faithful comparison: keep the analysis, drop the bulk.
+# Per-run server logs and raw request dumps run to a few hundred MB across the 48
+# runs; metrics.json / scheduler_proof.txt carry everything the report needs, and
+# processed/ + figures/ + REPORT.md are the deliverables.
+/exp/results/paper-faithful-comparison/raw/*/*/*/server-logs/
+/exp/results/paper-faithful-comparison/raw/*/*/*/requests/
+/exp/results/paper-faithful-comparison/raw/*/*/*/*_output_requests.json
+/exp/results/paper-faithful-comparison/raw/_profiling/
+/exp/results/paper-faithful-comparison/raw/_smoke/*/server-logs/
+/exp/results/paper-faithful-comparison/raw/_smoke/*/requests/
+/exp/results/paper-faithful-comparison/logs/*.log

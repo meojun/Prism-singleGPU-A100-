@@ -179,10 +179,37 @@ exercised. Stated so the omission is not mistaken for a silent simplification.
 
 The brief forbids an arbitrary constant. There is no per-model prefill-speed table in
 `prism-research`, `model_info.json`, or `kvcached`. So `exp/scripts/profile_prefill_speed.py`
-runs a solo, uncontended sweep of prompt lengths per model, fits
-`prefill_time ≈ intercept + prompt_len / c`, and persists the result to
-`exp/configs/prefill_speed.json`. Both the profiling run and the fit are seeded and
-reproducible; the file is read at server start, so `c_i` cannot drift between runs.
+derives it from a solo, uncontended run and persists it to
+`exp/configs/prefill_speed.json`, which the server reads at start-up so `c_i` cannot
+drift between runs of the sweep.
+
+**Estimator choice matters more than it looks.** Two defensible estimators differ by 5×
+on this box (525 uncontended Llama-3.1-8B samples):
+
+| estimator | value | meaning |
+| --- | ---: | --- |
+| regression slope of `ttft = a + p/c` | 20,775 tok/s (intercept **29 ms**) | marginal cost of one extra prompt token |
+| ratio `Σ prompt_len / Σ ttft` | **4,214 tok/s** | speed that reproduces the whole prefill time |
+
+The paper's `e_i = p_i / c_i` has **no intercept term**, so `c_i` must be the quantity
+that reproduces total prefill time — the ratio estimator. Using the slope would put
+every `e_i` in the 3–30 ms range, an order of magnitude below real prefill time, and
+Moore-Hodgson's feasibility test would essentially never fire; the algorithm would be
+present but inert. The slope and intercept are still recorded in
+`prefill_speed_detail.json` as diagnostics. Prompts here are short (p50 = 70 tokens,
+p99 = 608), which is why the fixed overhead dominates and the two estimators diverge so
+far; on a workload with longer prompts they would converge.
+
+For reference the released prototype's implied constant is 2048 tok/s
+(`clamp(prompt_len*0.5/1024, 0.2, 2)`), within 2× of the measured ratio value.
+
+### 6.1a Measured SLO baseline
+
+Re-derived on this box the paper-§7.1 way (uncontended p95 over 702 solo requests):
+**TTFT p95 = 125.7 ms, TPOT p95 = 21.41 ms**. With the study's ×5 / ×3 scales the SLOs
+are **628.7 ms TTFT** and **64.23 ms TPOT**. The built-in table in `trace.py` is the
+authors' hardware and is not this machine's baseline; both arms use the re-derived
+values, and `--slo-base-file` feeds the same numbers to Algorithm 1's KVPR weighting.
 
 ### 6.2 Model configuration
 

@@ -1,3 +1,30 @@
 ### released-prototype_rate4_seed42  system=released-prototype rate=4req/s seed=42 port=33000
 ###   trace=pf_ref_solo.pkl  cfg=llama_1gpu_solo8b.json  workers=2
-waiting for server......................... -> DIED, see /workspace/prism-exp/exp/results/paper-faithful-comparison/raw/_profiling/server-logs/stdout.log
+waiting for server.................................. -> ready
+grep: Invalid range end
+system=released-prototype rate=4 seed=42
+alg1_log_lines=0
+alg1_migrations=0
+alg2_log_lines=0
+proto_migrations=0
+activations=0
+deactivations=0
+idle_evictions=0
+### released-prototype_rate4_seed42 done
+usage: derive_slo_baseline.py [-h] --run TAG:CASE:SLOT --out OUT
+                              [--allow-contended]
+derive_slo_baseline.py: error: the following arguments are required: --run
+Traceback (most recent call last):
+  File "/workspace/prism-exp/exp/scripts/profile_prefill_speed.py", line 106, in <module>
+    main()
+  File "/workspace/prism-exp/exp/scripts/profile_prefill_speed.py", line 85, in main
+    reqs = load(req_file)
+  File "/workspace/prism-exp/exp/scripts/profile_prefill_speed.py", line 32, in load
+    return json.loads(lines[-1])
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)

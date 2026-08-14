@@ -38,18 +38,29 @@ def pct(xs, q):
 
 
 def load_requests(outdir, exp):
-    """Last JSON array in the dump.
-
-    benchmark.py opens the file in APPEND mode and writes one JSON array per line,
-    so a re-run leaves several generations in place; the newest is the live one.
-    """
+    """The dump is ONE pretty-printed JSON array (same as analyze_slo.py reads)."""
     pat = os.path.join(outdir, "requests", f"{exp}_e2e_*_output_requests.json")
     files = sorted(glob.glob(pat), key=os.path.getmtime)
     if not files:
         raise SystemExit(f"no request dump matching {pat}")
     with open(files[-1]) as fh:
-        lines = [ln for ln in fh.read().splitlines() if ln.strip()]
-    return json.loads(lines[-1])
+        return json.load(fh)
+
+
+def load_trace(path):
+    """Trace records, which carry req_time and prompt_len.
+
+    The `--model-paths` + `--real-trace` client path (run_tp_mode) dumps only
+    {success, latency, ttft, tpot, output_len, model, error}; there is no arrival
+    time in it. benchmark.py writes the dump in trace order and never reorders it,
+    so request i in the dump is request i in the pkl -- the same index join
+    collect_metrics.py uses -- and that is where the arrival time comes from.
+    """
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from build_sharegpt_trace import _Unpickler
+    with open(path, "rb") as fh:
+        _, trace = _Unpickler(fh).load()
+    return trace
 
 
 def count_in_logs(logdir, pattern, globpat="*.log"):
@@ -89,6 +100,9 @@ def max_cumulative_deferred(logdir):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--outdir", required=True)
+    ap.add_argument("--trace", required=True,
+                    help="the .pkl replayed by this run; supplies req_time (and "
+                         "prompt_len), which the TP-mode dump does not record")
     ap.add_argument("--system", required=True)
     ap.add_argument("--rate", type=float, required=True)
     ap.add_argument("--seed", type=int, required=True)
@@ -108,14 +122,15 @@ def main():
 
     exp = f"{a.system}_rate{a.rate:g}_seed{a.seed}"
     reqs = load_requests(a.outdir, exp)
+    trace = load_trace(a.trace)
+    if len(reqs) != len(trace):
+        raise SystemExit(f"{exp}: dump has {len(reqs)} records but trace has "
+                         f"{len(trace)}; cannot join by index")
 
-    # Warm-up exclusion by arrival time relative to the first arrival in the run.
-    arrivals = [r["arrival_time"] for r in reqs if r.get("arrival_time")]
-    if not arrivals:
-        raise SystemExit(f"{exp}: no arrival_time in dump")
-    t0 = min(arrivals)
-    lo, hi = t0 + a.warmup, t0 + a.warmup + a.measure
-    win = [r for r in reqs if r.get("arrival_time") and lo <= r["arrival_time"] < hi]
+    # Warm-up exclusion by TRACE arrival time (req_time is relative to trace start),
+    # so both arms of a (rate, seed) pair drop exactly the same requests.
+    lo, hi = a.warmup, a.warmup + a.measure
+    win = [r for r, tr in zip(reqs, trace) if lo <= tr.req_time < hi]
     if not win:
         raise SystemExit(f"{exp}: no requests in the measurement window")
 
