@@ -55,3 +55,21 @@ dump.rdb
 /exp/results/paper-faithful-comparison/raw/_profiling/requests/
 /exp/results/paper-faithful-comparison/raw/_smoke/*/server-logs/
 /exp/results/paper-faithful-comparison/raw/_smoke/*/requests/
+
+# --- paper-faithful-v2 ---------------------------------------------------
+# Workload pickles carry raw ShareGPT prompt TEXT. That text is third-party
+# content and some conversations in the dataset contain real leaked credentials
+# (GitHub push protection flagged a Slack webhook inside one of ours), so the
+# pickles must not be redistributed here. They are fully regenerable:
+#   python exp/scripts/build_paired_workload.py --rate R --seed S --duration D \
+#     --slo-base exp/configs/v2/slo_base.json --outdir exp/workloads/paper-faithful-v2
+# and paired_requests_*.json / phases_*.json (both committed) record everything
+# needed to verify the pair -- ids, per-model counts, prompt/output lengths and
+# the full phase schedule -- without carrying the prompt bodies.
+/exp/workloads/paper-faithful-v2/**/*.pkl
+
+# Per-run request dumps and server logs: bulky, and the dumps carry prompt
+# lengths per request for thousands of requests. metrics.json, META.txt and
+# scheduler_proof.txt keep everything the report cites.
+/exp/results/paper-faithful-v2/**/requests/
+/exp/results/paper-faithful-v2/**/server-logs/

@@ -43,26 +43,31 @@ c=collections.Counter(p['gpu_ids'][0] for m in json.load(open('$CFG'))
                       for p in m['init_placements'] if p['on'])
 print(max(c.values())+1)")}
 
-# Ports are spaced 100 apart per system: the server derives one port per
-# model engine from --port (port+1, port+2, ...), so adjacent values collide.
+# The port is chosen at RUN TIME, not hard-coded. launch_multi_model_server
+# derives one port per model engine from --port and refuses to start if --port
+# is taken -- and it probes by binding 0.0.0.0, not 127.0.0.1. The 30000-40000
+# range is where editor/tooling servers park dynamic ports, so a fixed base
+# eventually collides and the run dies AFTER loading every model.
+PORT=$(python3 "$SCRIPT_DIR/find_free_port.py" --from 41000 --span 24) || {
+  echo "FATAL: no free port block"; exit 1; }
 CONTROLLER=(--enable-controller)
 case "$SYSTEM" in
-  released-prototype) CONTROLLER+=(--policy simple-global); PORT=34000 ;;
+  released-prototype) CONTROLLER+=(--policy simple-global) ;;
   paper-alg1-only)
       CONTROLLER+=(--policy kvpr-global --kvpr-tau "$KVPR_TAU"
                    --kvpr-rate-window "$KVPR_WINDOW" --slo-base-file "$SLO_BASE"
                    --kvpr-migration-cooldown "$KVPR_COOLDOWN"
-                   --kvpr-tpot-slo-scale "$TPOT_SCALE"); PORT=34100 ;;
+                   --kvpr-tpot-slo-scale "$TPOT_SCALE") ;;
   paper-alg2-only)
       CONTROLLER+=(--policy simple-global --enable-moore-hodgson
-                   --prefill-speed-file "$PREFILL_SPEED"); PORT=34200 ;;
+                   --prefill-speed-file "$PREFILL_SPEED") ;;
   paper-faithful)
       CONTROLLER+=(--policy kvpr-global --kvpr-tau "$KVPR_TAU"
                    --kvpr-rate-window "$KVPR_WINDOW" --slo-base-file "$SLO_BASE"
                    --kvpr-migration-cooldown "$KVPR_COOLDOWN"
                    --kvpr-tpot-slo-scale "$TPOT_SCALE"
                    --enable-moore-hodgson --prefill-speed-file "$PREFILL_SPEED")
-      PORT=34300 ;;
+      ;;
   *) echo "unknown system: $SYSTEM" >&2; exit 1 ;;
 esac
 
@@ -100,6 +105,9 @@ cleanup() {
 trap cleanup EXIT
 
 tmux kill-session -t "$SESSION" 2>/dev/null || true
+# A killed run leaves /dev/shm/ipc_0_model_*_root behind under the same names
+# the next launch wants; clear them so a stale segment cannot be inherited.
+rm -f /dev/shm/ipc_0_model_*_root 2>/dev/null || true
 tmux new-session -d -s "$SESSION" \
   "export CUDA_VISIBLE_DEVICES=$VISIBLE && cd $PRISM_REPO/benchmark/multi-model && \
    source $SCRIPT_DIR/env.sh && export CUDA_VISIBLE_DEVICES=$VISIBLE && \
