@@ -1,0 +1,71 @@
+{
+  "results": [
+    {
+      "check": "0 Algorithm 1 executed",
+      "hard": true,
+      "pass": true,
+      "detail": "[PAPER-ALG1] log lines = 45 (migrations 2)"
+    },
+    {
+      "check": "0 Algorithm 2 executed",
+      "hard": true,
+      "pass": true,
+      "detail": "[PAPER-ALG2] log lines = 2"
+    },
+    {
+      "check": "A c_i vs measured prefill",
+      "hard": true,
+      "pass": true,
+      "detail": "median predicted/measured = 0.071 over n=1619; model_1:0.06, model_2:0.06, model_3:0.04, model_4:0.11, model_5:0.13, model_6:0.12"
+    },
+    {
+      "check": "B alg2 under-admission",
+      "hard": true,
+      "pass": true,
+      "detail": "pathological rounds=0/479, max consecutive eligible>0&selected=0 streak=0, selected/eligible=0.940"
+    },
+    {
+      "check": "B2 alg2 selected ratio",
+      "hard": false,
+      "pass": true,
+      "detail": "selected/eligible=0.940"
+    },
+    {
+      "check": "C gpu idle vs queue",
+      "hard": true,
+      "pass": true,
+      "detail": "0/95 samples with GPU util<20% and queue>20"
+    },
+    {
+      "check": "D kvpr varies over time",
+      "hard": true,
+      "pass": true,
+      "detail": "peak KVPR cv=0.353 over 42 cycles (min=2.41e+05, max=1.11e+08)"
+    },
+    {
+      "check": "E gpu candidates differ",
+      "hard": true,
+      "pass": true,
+      "detail": "mean per-cycle (max-min)/max KVPR across GPUs = 0.597"
+    },
+    {
+      "check": "F scheduler acts",
+      "hard": false,
+      "pass": true,
+      "detail": "migrations=4 activations=4 idle_evictions=4"
+    },
+    {
+      "check": "G latency sane",
+      "hard": true,
+      "pass": true,
+      "detail": "n_ttft=1619 p50=57.4ms p99=4073.7ms | n_tpot=1619 p50=23.92ms p99=70.84ms"
+    },
+    {
+      "check": "H reproducible",
+      "hard": true,
+      "pass": true,
+      "detail": "bursty_r8_s77.pkl: db0726e69b23 vs rebuilt db0726e69b23"
+    }
+  ],
+  "hard_failures": 0
+}
