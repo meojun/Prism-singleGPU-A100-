@@ -25,6 +25,26 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 MARK = "# PAPER-FAITHFUL"
 
+DIRECT_TRACE_BODY = '''        # PAPER-FAITHFUL: direct trace -- the pickle already carries everything.
+        if getattr(self, "_direct", False):
+            out, n = [], req_count
+            for r in self.requests:
+                for _ in range(config.replication):
+                    ttft = r.slo_ttft * config.ttft_slo_scale
+                    tpot = r.slo_tpot * config.tpot_slo_scale
+                    out.append(Request(
+                        req_id=str(n), prompt=r.prompt, prompt_len=r.prompt_len,
+                        output_len=r.output_len,
+                        arrival_time=r.arrival_time * config.time_scale,
+                        model=r.model, slo=ttft, slo_ttft=ttft, slo_tpot=tpot))
+                    n += 1
+            out.sort(key=lambda x: x.arrival_time)
+            span = (out[-1].arrival_time - out[0].arrival_time) if out else 0.0
+            print("[PRISM_DIRECT] %d requests, span %.1fs" % (len(out), span))
+            return out
+'''
+
+
 
 def edit(path: pathlib.Path, anchor: str, addition: str, where="after", count=1):
     """Insert `addition` relative to the first `count` occurrence(s) of `anchor`."""
@@ -177,6 +197,39 @@ def main():
             help="Scale applied to the TPOT SLO baseline used as s_j in Algorithm 1.")
 ''', where="before")
     print("  edited multi_model_server_args.py")
+
+    # ------------------------------------------------------------- trace.py
+    # Harness plumbing, NOT an algorithm change: it applies identically to
+    # every arm.  generate_e2e_benchmark_reqs() maps a request's adapter rank
+    # onto one of eight fixed slots and looks its SLO up in a table keyed by
+    # slot, which makes any model set outside those eight slots impossible to
+    # express.  A "direct" trace carries model, arrival_time and per-model SLO
+    # baselines in the pickle itself and is passed straight through; the
+    # ttft/tpot scale flags still apply, so both arms keep sharing one knob.
+    tr = pathlib.Path(a.repo) / "benchmark/multi-model/trace.py"
+    edit(tr, "            adapter_dirs, self.requests = obj[0], obj[1]\n",
+         '            self._direct = bool(adapter_dirs) and adapter_dirs[0] == "__PRISM_DIRECT__"   '
+         + MARK + "\n")
+    edit(tr, '        """Generate e2e benchmark requests from trace_1.py"""\n',
+         DIRECT_TRACE_BODY)
+    print("  edited benchmark/multi-model/trace.py")
+
+    # ------------------------------------------------------- srt/server_args.py
+    # ServerArgs is constructed from MultiModelServerArgs by forwarding **vars()
+    # minus an explicit drop-list, so any field added to MultiModelServerArgs
+    # that ServerArgs does not know about crashes engine launch with
+    # "unexpected keyword argument".  Our flags are controller/scheduler-side
+    # only, so they join the drop-list next to --policy and --enable-controller.
+    sa = pathlib.Path(a.repo) / "python/sglang/srt/server_args.py"
+    edit(sa, '            "num_model_service_workers",\n',
+         '            "enable_moore_hodgson",   ' + MARK + '\n'
+         '            "prefill_speed_file",\n'
+         '            "slo_base_file",\n'
+         '            "kvpr_tau",\n'
+         '            "kvpr_rate_window",\n'
+         '            "kvpr_migration_cooldown",\n'
+         '            "kvpr_tpot_slo_scale",\n')
+    print("  edited python/sglang/srt/server_args.py")
     print("PAPER-FAITHFUL patches applied.")
 
 
