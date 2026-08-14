@@ -1,0 +1,5 @@
+commit=1063a0656e1360843c037b5af613173da7e0fd17 system=paper-faithful workload=steady rate=8 seed=1
+trace=/workspace/prism-exp/exp/workloads/paper-faithful-v2/steady_r8_s1.pkl cfg=/workspace/prism-exp/exp/configs/v2/6model_2gpu.json duration=420 warmup=60 measure=300
+ttft_slo_scale=5 tpot_slo_scale=3
+slo_base=/workspace/prism-exp/exp/configs/v2/slo_base.json prefill_speed=/workspace/prism-exp/exp/configs/v2/prefill_speed.json
+cmd=exp/scripts/run_v2_case.sh paper-faithful steady 8 1 /workspace/prism-exp/exp/workloads/paper-faithful-v2/steady_r8_s1.pkl /workspace/prism-exp/exp/results/paper-faithful-v2/raw/paper-faithful/steady/rate_8/seed_1
