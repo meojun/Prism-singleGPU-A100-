@@ -42,14 +42,16 @@ dump.rdb
 # Placement configs emitted by exp/scripts/make_config.py -- regenerated on demand
 /exp/configs/llama_*gpu_*model_*.json
 
-# Paper-Faithful comparison: keep the analysis, drop the bulk.
-# Per-run server logs and raw request dumps run to a few hundred MB across the 48
-# runs; metrics.json / scheduler_proof.txt carry everything the report needs, and
-# processed/ + figures/ + REPORT.md are the deliverables.
+# Paper-Faithful comparison: ignore the loose bulk, keep the archived copy.
+# Per-run server logs and request dumps are 141 MB uncompressed across the 18 runs,
+# but ~12x compressible, so each run's pair is committed as logs.tar.gz (~1 MB) and
+# only the expanded directories are ignored. Nothing is discarded: diagnose_pf.py's
+# round statistics and per-decile TTFT are recomputable from these archives.
+#   tar -xzf <run>/logs.tar.gz -C <run>
 /exp/results/paper-faithful-comparison/raw/*/*/*/server-logs/
 /exp/results/paper-faithful-comparison/raw/*/*/*/requests/
 /exp/results/paper-faithful-comparison/raw/*/*/*/*_output_requests.json
-/exp/results/paper-faithful-comparison/raw/_profiling/
+/exp/results/paper-faithful-comparison/raw/_profiling/server-logs/
+/exp/results/paper-faithful-comparison/raw/_profiling/requests/
 /exp/results/paper-faithful-comparison/raw/_smoke/*/server-logs/
 /exp/results/paper-faithful-comparison/raw/_smoke/*/requests/
-/exp/results/paper-faithful-comparison/logs/*.log

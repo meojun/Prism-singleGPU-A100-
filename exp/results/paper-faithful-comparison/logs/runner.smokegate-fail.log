@@ -1,0 +1,84 @@
+
+=== [0/5] environment ===
+0, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0
+1, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0
+redis OK, torch sees 2 GPUs
+timestamp: 2026-08-14T02:03:14+00:00
+git_branch: exp/paper-faithful-prism
+git_commit: 763b848e1c8f12bc7b483afa770cee62b1db18a0
+prism_research_commit: 595ec1f170e75a43897a7a2ad58ac5a9820aa2e8
+kvcached_branch: HEAD
+kvcached_commit: d78649d0c2b7d2ff32eb48a423df7bf60054f4c9
+cuda_version: 12.1
+torch_version: 2.4.0+cu121
+driver: 570.211.01
+gpu_model: NVIDIA A100-SXM4-80GB
+gpu_count: 2
+models: 3x meta-llama/Llama-3.1-8B in slots 1,4,5
+request_rate_semantics: aggregate over all models (per-model = rate/3)
+rates: 30 20 10
+seeds: 1 2 3
+systems: released-prototype paper-faithful
+ttft_slo_scale: 5
+tpot_slo_scale: 3
+kvpr_tau: 0.35
+kvpr_rate_window_s: 30
+kvpr_migration_cooldown_s: 30
+global_scheduler_interval_s: 5 (upstream SCHEDULE_INTERVAL)
+warmup_s: 60
+measure_s: 300
+trace_phase_len_s: 360
+
+=== [1/5] traces (one per rate x seed, shared by both systems) ===
+  have pf_rate30_seed1.pkl
+  have pf_rate30_seed2.pkl
+  have pf_rate30_seed3.pkl
+  have pf_rate20_seed1.pkl
+  have pf_rate20_seed2.pkl
+  have pf_rate20_seed3.pkl
+  have pf_rate10_seed1.pkl
+  have pf_rate10_seed2.pkl
+  have pf_rate10_seed3.pkl
+
+=== [2/5] no-contention profiling (SLO baseline + chunked-prefill speed c_i) ===
+  already profiled:
+{
+  "model_1": [
+    0.12573637962341283,
+    21.409522056579572
+  ],
+  "model_4": [
+    0.12573637962341283,
+    21.409522056579572
+  ],
+  "model_5": [
+    0.12573637962341283,
+    21.409522056579572
+  ]
+}{
+  "model_1": 4214.351,
+  "model_4": 4214.351,
+  "model_5": 4214.351
+}
+=== [3/5] smoke test -- both systems, and proof Alg1/Alg2 really ran ===
+  smoke: released-prototype
+system=released-prototype rate=3 seed=99
+alg1_log_lines=0
+alg1_migrations=0
+alg2_log_lines=0
+proto_migrations=0
+activations=0
+deactivations=0
+idle_evictions=0
+  VERIFIED: prototype arm ran with neither paper algorithm
+  smoke: paper-faithful
+system=paper-faithful rate=3 seed=99
+alg1_log_lines=0
+alg1_migrations=0
+alg2_log_lines=0
+proto_migrations=1
+activations=0
+deactivations=1
+idle_evictions=0
+FATAL: no [PAPER-ALG1] activity in paper-faithful
+RUNNER_EXIT=1

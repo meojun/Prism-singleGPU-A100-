@@ -185,7 +185,11 @@ peak KVPR ≈ (w + w) / (67.28 − 2×15.08 GiB) = 2w / 37.12
 - `τ`, 토큰율 측정 창, Moore-Hodgson 제외 요청의 처리 방식은 논문에 명시가 없다. 사용한 값은 메타데이터와 `design_analysis.md` 에 기록했다. 어느 arm 에도 유입률별 튜닝을 적용하지 않았다.
 - GPU 2 개에 모델 3 개는 필연적으로 1+2 분할이므로 어떤 배치 정책도 부하를 균등화할 수 없다. Algorithm 1 이 여기서 낼 수 있는 성능의 상한을 이 사실이 정한다.
 - 프로토타입은 논문의 아티팩트가 아니라 단순화된 연구용 공개본이다. 여기서 측정된 차이는 **프로토타입 대 논문 알고리즘**이지 **저자 구현 대 논문**이 아니다.
-- `server-logs/` 와 `requests/` 는 용량 때문에 git 에 올리지 않는다. 원인 분석 절의 라운드 통계와 구간별 TTFT 를 다시 계산하려면 실험을 돌린 장비에서 `diagnose_pf.py` 를 실행해야 한다.
+- `server-logs/` 와 `requests/` 는 런마다 `logs.tar.gz` 로 압축해 저장소에 함께 커밋했다(런당 약 1 MB, 전체 14 MB). 원인 분석 절의 라운드 통계와 구간별 TTFT 는 이 아카이브를 풀면 실험 장비 없이도 그대로 재계산된다. 복원본으로 계산한 값이 원본과 일치함을 확인했다:
+  ```bash
+  for f in raw/*/rate_*/seed_*/logs.tar.gz; do tar -xzf "$f" -C "$(dirname "$f")"; done
+  python exp/scripts/diagnose_pf.py --base <결과 디렉터리>
+  ```
 
 ## 20. 재현
 
