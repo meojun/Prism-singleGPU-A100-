@@ -72,18 +72,7 @@ Latency improvement = (prototype − paper) / prototype; goodput and attainment 
 | 20 | released-prototype | 1.0 | 0.7 | 0.0 | 0.0 | 6060.7 | 0.0 |
 | 20 | paper-faithful | 2.0 | 1.3 | 0.0 | 58.3 | 6060.7 | 0.0 |
 | 30 | released-prototype | 2.3 | 1.0 | 0.0 | 0.0 | 8553.7 | 549.3 |
-| 30 | paper-faithful | 2.7 | 2.0 | 0.0 | 1138.7 | 8029.0 | 1074.0 |
-
-## Figures
-
-![fig1_ttft_p50_ms.png](figures/fig1_ttft_p50_ms.png)
-![fig2_ttft_p99_ms.png](figures/fig2_ttft_p99_ms.png)
-![fig3_tpot_p50_ms.png](figures/fig3_tpot_p50_ms.png)
-![fig4_tpot_p99_ms.png](figures/fig4_tpot_p99_ms.png)
-![fig5_ttft_slo_attainment.png](figures/fig5_ttft_slo_attainment.png)
-![fig6_tpot_slo_attainment.png](figures/fig6_tpot_slo_attainment.png)
-![fig7_joint_slo_attainment.png](figures/fig7_joint_slo_attainment.png)
-![fig8_joint_slo_goodput_req_s.png](figures/fig8_joint_slo_goodput_req_s.png)
+| 30 | paper-faithful | 2.7 | 2.0 | 0.0 | 4089.0 | 8029.0 | 1074.0 |
 
 ## 19. Limitations
 

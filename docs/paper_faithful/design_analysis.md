@@ -166,6 +166,7 @@ The prototype's behaviour is preserved by construction: every new code path is b
 | per-model chunked-prefill speed `c_i` | **Not specified** | measured, `exp/configs/prefill_speed.json` (§6) | The prototype's `c = 2048 tok/s` is an unexplained constant; we profile it on this box |
 | eviction threshold | **Not specified** | prototype's `MODEL_IDLE_THRESHOLD = 50 s`, unchanged | Paper §A.4 quotes ~45 s optimum; the prototype's 50 s is already consistent. Identical in both arms |
 | paper's exact 2-GPU model configuration | **Not reproducible from public info** | 3 × Llama-3.1-8B in slots `model_1/4/5` | See §6.2 |
+| machine model of the feasibility test | **Not specified** — Algorithm 2 is stated as `1‖ΣU_j`, a *single* machine running one job at a time | taken literally: `clock += e_i`, no parallelism term | Faithfulness first. The literal reading is what we set out to measure, and it is what the results in §8 report. It is also, measurably, the dominant effect at high load (§5c) — so this row is the single most consequential ambiguity in the paper |
 
 ### 5a. The KVPR objective is flat in this configuration — how `τ` was set
 
@@ -240,6 +241,57 @@ why holding them cannot work.
 GPU. Our configuration is TP=1 throughout, so the constraint is implemented
 (a candidate GPU already holding a shard of the same model is rejected) but is never
 exercised. Stated so the omission is not mistaken for a silent simplification.
+
+### 5c. The sequential machine model under-admits on a batching engine
+
+This is the dominant finding of the sweep, and it is a property of Algorithm 2 as
+written, not of our transcription of it.
+
+Algorithm 2 solves `1‖ΣU_j`: one machine, one job at a time, feasibility tested by
+accumulating `clock += e_i` and comparing against `d_i`. The serving engine is not
+that machine — it prefills **many requests per batch**. So the feasibility test
+prices the *k*-th admitted request as if it had to wait for the previous *k−1* to
+finish, when in reality it rides the same batch. The test therefore reports
+infeasible while the GPU is still far from saturated.
+
+Measured at 30 req/s, seed 1, from the GPU-scheduler logs:
+
+| quantity | value |
+| --- | ---: |
+| rounds in which anything was deferred | 1,083 |
+| **requests selected across those rounds** | **246** (0.23 per round) |
+| requests requeued (held back as backpressure) | 1,024, across 1,013 rounds |
+| requests dispatched already past deadline | 4,459 |
+| peak queue length | 211 (prototype: 178, median 0) |
+
+Rounds with `eligible=123, selected=0` are routine. The engine could batch those
+123; the single-machine test admits none of them.
+
+The consequence is a throughput deficit, not merely a latency reordering. TTFT p50
+by decile of the run (seconds, rate 30, seed 1):
+
+| decile | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| released prototype | 0.09 | 0.10 | 0.12 | 0.52 | 0.19 | 0.14 | 3.63 | 7.01 | 0.18 | 0.14 |
+| paper-faithful | 0.09 | 0.10 | 0.10 | 6.66 | 9.84 | 20.45 | 20.09 | 26.90 | 29.03 | 23.32 |
+
+The prototype spikes and **recovers**. Paper-faithful climbs from decile 4 and never
+returns — a backlog that never drains, because sustained throughput (26.7 req/s)
+sits below the 30 req/s offered load. That is the signature of under-admission, not
+of shedding.
+
+This also reinterprets the *favourable* high-load numbers. Paper-faithful's better
+TPOT p99 (243 ms vs 404 ms) and higher joint goodput (7.86 vs 4.53 req/s) are real,
+but the mechanism is admitting fewer requests into the batch, which reduces decode
+contention for those admitted. Requests that get in are served well; requests that
+do not wait ~30 s. Reporting the goodput gain without this caveat would misattribute
+it to better scheduling.
+
+**Not fixed here, deliberately.** The obvious correction — divide by a measured
+batch width, `clock += e_i / B` — is *not in the paper*, and applying it would mean
+reporting something other than Algorithm 2. It is recorded as the natural follow-up
+experiment (§8), to be run as a clearly-labelled third arm rather than folded into
+the paper-faithful arm.
 
 ---
 
