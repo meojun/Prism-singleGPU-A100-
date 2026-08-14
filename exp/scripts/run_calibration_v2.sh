@@ -11,7 +11,7 @@ set -uo pipefail
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 source "$SCRIPT_DIR/env.sh"
 
-RATES=("$@"); [ ${#RATES[@]} -eq 0 ] && RATES=(5 10 20 30 45)
+RATES=("$@"); [ ${#RATES[@]} -eq 0 ] && RATES=(1 2 3 5 8 10)
 DUR=${CAL_DURATION:-200}
 WARM=${CAL_WARMUP:-40}
 MEAS=${CAL_MEASURE:-140}
