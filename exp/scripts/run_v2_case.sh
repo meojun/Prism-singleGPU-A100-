@@ -43,6 +43,8 @@ c=collections.Counter(p['gpu_ids'][0] for m in json.load(open('$CFG'))
                       for p in m['init_placements'] if p['on'])
 print(max(c.values())+1)")}
 
+# Ports are spaced 100 apart per system: the server derives one port per
+# model engine from --port (port+1, port+2, ...), so adjacent values collide.
 CONTROLLER=(--enable-controller)
 case "$SYSTEM" in
   released-prototype) CONTROLLER+=(--policy simple-global); PORT=34000 ;;
@@ -50,17 +52,17 @@ case "$SYSTEM" in
       CONTROLLER+=(--policy kvpr-global --kvpr-tau "$KVPR_TAU"
                    --kvpr-rate-window "$KVPR_WINDOW" --slo-base-file "$SLO_BASE"
                    --kvpr-migration-cooldown "$KVPR_COOLDOWN"
-                   --kvpr-tpot-slo-scale "$TPOT_SCALE"); PORT=34001 ;;
+                   --kvpr-tpot-slo-scale "$TPOT_SCALE"); PORT=34100 ;;
   paper-alg2-only)
       CONTROLLER+=(--policy simple-global --enable-moore-hodgson
-                   --prefill-speed-file "$PREFILL_SPEED"); PORT=34002 ;;
+                   --prefill-speed-file "$PREFILL_SPEED"); PORT=34200 ;;
   paper-faithful)
       CONTROLLER+=(--policy kvpr-global --kvpr-tau "$KVPR_TAU"
                    --kvpr-rate-window "$KVPR_WINDOW" --slo-base-file "$SLO_BASE"
                    --kvpr-migration-cooldown "$KVPR_COOLDOWN"
                    --kvpr-tpot-slo-scale "$TPOT_SCALE"
                    --enable-moore-hodgson --prefill-speed-file "$PREFILL_SPEED")
-      PORT=34003 ;;
+      PORT=34300 ;;
   *) echo "unknown system: $SYSTEM" >&2; exit 1 ;;
 esac
 

@@ -7,7 +7,7 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 source "$SCRIPT_DIR/env.sh"
 
 RATE=${1:-12}
-DUR=${SANITY_DURATION:-240}
+DUR=${SANITY_DURATION:-200}
 SEED=${SANITY_SEED:-77}
 BASE=$PRISM_EXP/results/paper-faithful-v2/sanity
 WL=$BASE/workloads

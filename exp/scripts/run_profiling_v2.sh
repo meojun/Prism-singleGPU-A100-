@@ -78,11 +78,14 @@ profile_one() {   # profile_one <slot> <gpu> <port>
   sleep 8
 }
 
+# Ports are spaced 100 apart, not 1: launch_multi_model_server assigns each model
+# engine a port derived from --port (port+1, port+2, ...), so adjacent --port
+# values collide -- the second server bind-fails and dies while its GPU sits idle.
 for ((i=0; i<${#MODELS[@]}; i+=2)); do
   A=${MODELS[$i]}; B=${MODELS[$((i+1))]:-}
-  profile_one "$A" 0 $((31000+i)) &
+  profile_one "$A" 0 $((31000+i*100)) &
   PA=$!
-  if [ -n "$B" ]; then profile_one "$B" 1 $((31001+i)) & PB=$!; else PB=; fi
+  if [ -n "$B" ]; then profile_one "$B" 1 $((31050+i*100)) & PB=$!; else PB=; fi
   wait $PA; [ -n "$PB" ] && wait $PB
   nvidia-smi --query-gpu=index,memory.used --format=csv,noheader
 done
