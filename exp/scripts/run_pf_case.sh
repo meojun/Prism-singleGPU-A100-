@@ -149,8 +149,12 @@ kill "$SAMPLER" 2>/dev/null || true
 GC="$LOGDIR/server.log.global_controller.log"
 # `grep -c` prints 0 AND exits 1 when there is no match, so a bare `|| echo 0`
 # emits the count twice. Swallow the status instead and default an empty result.
-count_gc() { local n; n=$(grep -c -- "$1" "$GC" 2>/dev/null || true); echo "${n:-0}"; }
-count_gs() { local n; n=$(cat "$LOGDIR"/*gpu_scheduler*.log 2>/dev/null | grep -c -- "$1" || true); echo "${n:-0}"; }
+# -F is required, not cosmetic: the markers are bracketed ("[PAPER-ALG1]"), which
+# as a regex is a character class whose "R-A" is an invalid range. grep exits 2,
+# the `|| true` swallows it, and every count silently reads 0 -- indistinguishable
+# from "the algorithm never ran", which failed the gate on a correct run.
+count_gc() { local n; n=$(grep -cF -- "$1" "$GC" 2>/dev/null || true); echo "${n:-0}"; }
+count_gs() { local n; n=$(cat "$LOGDIR"/*gpu_scheduler*.log 2>/dev/null | grep -cF -- "$1" || true); echo "${n:-0}"; }
 {
   echo "system=$SYSTEM rate=$RATE seed=$SEED"
   echo "alg1_log_lines=$(count_gc '[PAPER-ALG1]')"
