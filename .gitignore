@@ -66,7 +66,8 @@ dump.rdb
 # and paired_requests_*.json / phases_*.json (both committed) record everything
 # needed to verify the pair -- ids, per-model counts, prompt/output lengths and
 # the full phase schedule -- without carrying the prompt bodies.
-/exp/workloads/paper-faithful-v2/**/*.pkl
+# every workload pickle, wherever it lands (results/sanity/workloads too)
+*.pkl
 
 # Per-run request dumps and server logs: bulky, and the dumps carry prompt
 # lengths per request for thousands of requests. metrics.json, META.txt and

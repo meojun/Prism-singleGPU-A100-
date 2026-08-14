@@ -20,6 +20,11 @@ RATE=${3:?}
 SEED=${4:?}
 TRACE=${5:?}
 OUTDIR=${6:?}
+# benchmark.py runs from $PRISM_REPO/benchmark/multi-model, so a relative trace
+# path resolves against the wrong directory and dies with FileNotFoundError
+# after the server has already loaded all six models.
+TRACE=$(readlink -f "$TRACE")
+OUTDIR=$(readlink -f "$OUTDIR" 2>/dev/null || { mkdir -p "$OUTDIR"; readlink -f "$OUTDIR"; })
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 source "$SCRIPT_DIR/env.sh"
@@ -97,7 +102,13 @@ ARGS=(
 VISIBLE=$(seq -s, 0 $((NGPU - 1)))
 
 cleanup() {
-  kill "${SAMPLER:-0}" 2>/dev/null || true
+  # NEVER `kill 0`. If SAMPLER is unset -- which it is on every early exit, i.e.
+  # exactly when the server failed to come up -- "${SAMPLER:-0}" expands to 0,
+  # and `kill 0` signals the ENTIRE PROCESS GROUP: this script, the sweep
+  # driver, the watchdog, everything. Three separate multi-hour runs were lost
+  # to this before supervisord's log made it visible ("terminated by SIGTERM;
+  # not expected"). Only ever signal a PID we actually started.
+  [ -n "${SAMPLER:-}" ] && kill "$SAMPLER" 2>/dev/null || true
   tmux kill-session -t "$SESSION" 2>/dev/null || true
   pkill -f "launch_multi_model_server.*--port $PORT" 2>/dev/null || true
   sleep 3

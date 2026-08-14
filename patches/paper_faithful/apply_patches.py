@@ -52,10 +52,20 @@ DIRECT_TRACE_BODY = '''        # PAPER-FAITHFUL: direct trace -- the pickle alre
 
 
 
-def edit(path: pathlib.Path, anchor: str, addition: str, where="after", count=1):
-    """Insert `addition` relative to the first `count` occurrence(s) of `anchor`."""
+def edit(path: pathlib.Path, anchor: str, addition: str, where="after", count=1,
+         probe: str = None):
+    """Insert `addition` relative to the first `count` occurrence(s) of `anchor`.
+
+    `probe` is the string that decides "already applied". It defaults to the
+    addition's first line, which is WRONG for any addition whose first line is
+    common boilerplate: the choices-list edit below starts with "choices=[",
+    which appears dozens of times in an argparse file, so the probe matched
+    immediately and the edit silently did nothing. The server then rejected
+    `--policy kvpr-global` at launch, hours later. Pass an explicit probe
+    whenever the first line is not unique.
+    """
     src = path.read_text()
-    if addition.strip().splitlines()[0] in src:
+    if (probe or addition.strip().splitlines()[0]) in src:
         return False
     if anchor not in src:
         sys.exit(f"FATAL: anchor not found in {path}:\n{anchor!r}")
@@ -180,8 +190,14 @@ def main():
     kvpr_migration_cooldown: float = 30.0
     kvpr_tpot_slo_scale: float = 1.0
 """)
-    edit(ar, '            choices=[\n                "simple-global",\n            ],',
-         '            choices=[\n                "simple-global",\n                "kvpr-global",   ' + MARK + '\n            ],')
+    src = ar.read_text()
+    if '"kvpr-global"' not in src:
+        old = '            choices=[\n                "simple-global",\n            ],'
+        assert old in src, "policy choices anchor not found"
+        ar.write_text(src.replace(
+            old,
+            '            choices=[\n                "simple-global",\n'
+            '                "kvpr-global",   ' + MARK + '\n            ],', 1))
     edit(ar, '        parser.add_argument(\n            "--queue-id",',
          f'''        {MARK}: paper Algorithm 1 / Algorithm 2 knobs.
         parser.add_argument("--enable-moore-hodgson", action="store_true",
@@ -236,6 +252,33 @@ def main():
          '            "kvpr_migration_cooldown",\n'
          '            "kvpr_tpot_slo_scale",\n')
     print("  edited python/sglang/srt/server_args.py")
+
+    # ------------------------------------------------------------------ verify
+    # An edit that silently no-ops is the worst failure mode here: everything
+    # looks patched, the flags parse, and the server rejects the policy hours
+    # later at launch. Assert every landing point explicitly.
+    checks = [
+        (mm / "scheduling/gpu/moore_hodgson.py", "def select("),
+        (mm / "scheduling/gpu/request_queue_mh.py", "admission_control_mh"),
+        (mm / "scheduling/policy/kvpr_global.py", "class KVPRGlobalPolicy"),
+        (mm / "scheduling/gpu/request_queue.py", "class RequestQueue(MooreHodgsonMixin)"),
+        (mm / "scheduling/gpu/request_queue.py", "admission_control_mh("),
+        (mm / "scheduling/gpu/gpu_scheduler.py", "configure_moore_hodgson"),
+        (mm / "scheduling/controller_global.py", "KVPRGlobalPolicy("),
+        (mm / "multi_model_server_args.py", '"kvpr-global"'),
+        (mm / "multi_model_server_args.py", "--enable-moore-hodgson"),
+        (mm / "multi_model_server_args.py", "enable_moore_hodgson: bool = False"),
+        (pathlib.Path(a.repo) / "python/sglang/srt/server_args.py", '"kvpr_tau"'),
+        (pathlib.Path(a.repo) / "benchmark/multi-model/trace.py", "__PRISM_DIRECT__"),
+        (pathlib.Path(a.repo) / "benchmark/multi-model/trace.py", "_direct"),
+    ]
+    bad = [(f, n) for f, n in checks if n not in f.read_text()]
+    if bad:
+        for f, n in bad:
+            print(f"  MISSING in {f}: {n!r}")
+        sys.exit("FATAL: patch verification failed -- see above")
+    print(f"  verified {len(checks)} landing points")
+
     print("PAPER-FAITHFUL patches applied.")
 
 

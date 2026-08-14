@@ -294,3 +294,83 @@ nvidia-smi --query-gpu=index,memory.used --format=csv,noheader   # 0 MiB 여야 
 못한 것*을 적으세요. `exp/results/3-placement/REPORT.md` 가 템플릿입니다. 꼬리 지표
 (p99)를 인용하려면 각 arm 을 최소 두 번 돌리세요 — 단일 런은 수백 개 요청에 대한
 집계에는 괜찮지만 꼬리에는 부적합합니다.
+
+---
+
+## 8. v2 함정 — 전부 실제로 실행을 멈춰 세운 것들
+
+`exp/paper-faithful-v2` 브랜치에서 하루치 실행 시간을 잡아먹은 것들입니다.
+**장시간 스윕을 시작하기 전에 이 절을 끝까지 읽으세요.** 각각은 증상이 원인과
+멀리 떨어져 있어서, 직접 겪으면 한 시간씩 날아갑니다.
+
+1. **`kill 0` 은 프로세스 그룹 전체를 죽입니다.** `run_pf_case.sh` 의 정리 트랩에
+   `kill "${SAMPLER:-0}"` 이 있습니다. 서버가 준비되기 전에 스크립트가 빠져나가면
+   `SAMPLER` 가 아직 없어서 `kill 0` 이 되고, POSIX 에서 이것은 **자기 프로세스
+   그룹 전체에 SIGTERM** 입니다 — 스윕 드라이버도, watchdog 도, 부모 셸도 같이
+   죽습니다. 세 번의 멀티시간 런이 이것 때문에 사라졌고, supervisord 로그의
+   `terminated by SIGTERM; not expected` 를 보고서야 잡혔습니다. 시작하지도 않은
+   PID 에 절대 시그널을 보내지 마세요. `run_v2_case.sh` 는 고쳐져 있습니다.
+
+2. **장시간 작업은 supervisor 아래에 두세요.** tmux 세션도, `setsid` 로 PPID 1 ·
+   독립 세션 · tty 없음까지 만든 프로세스도 이 장비에서 죽었습니다(위 1번이
+   주원인이지만 그것만은 아닙니다). supervisor 아래 redis 는 10시간 무중단입니다.
+   `/etc/supervisor/conf.d/prism_pipeline.conf` 가 예시이고, `autorestart=unexpected`
+   덕분에 무엇이 죽이든 수 초 안에 되살아납니다. 모든 단계가 `--resume` 안전이면
+   재시작이 무해해집니다.
+
+3. **포트를 고정하지 마세요.** `launch_multi_model_server` 는 `--port` 에서 모델
+   엔진별 포트를 파생시키고(port+1, port+2, ...), `is_port_available` 은
+   `127.0.0.1` 이 아니라 **`0.0.0.0`** 에 바인드해서 확인합니다. 게다가 30000–40000
+   대는 에디터/툴링 서버가 동적 포트를 잡는 구간입니다. 고정 베이스는 언젠가 반드시
+   충돌하고, 충돌은 **모델을 전부 로드한 뒤에** 드러납니다. `find_free_port.py` 로
+   연속 블록을 런타임에 확보하세요.
+
+4. **패치 적용기의 "이미 적용됨" 검사는 고유 문자열이어야 합니다.**
+   `apply_patches.py` 가 addition 의 첫 줄로 중복을 판단했는데, argparse choices
+   편집의 첫 줄이 `choices=[` 였습니다. 그 문자열은 파일에 수십 번 나오므로 편집이
+   **조용히 건너뛰어졌고**, 나머지는 전부 정상이라 몇 시간 뒤 서버가
+   `--policy: invalid choice: 'kvpr-global'` 로 죽고서야 드러났습니다. 지금은 13개
+   랜딩 포인트를 명시적으로 검증합니다.
+
+5. **요청 덤프에는 도착 시각도 프롬프트 길이도 없습니다.** `--model-paths` +
+   `--real-trace` 경로의 덤프는 `{success, latency, ttft, tpot, output_len, model,
+   error}` 뿐이고, JSONL 이 아니라 pretty-print 된 **단일 배열**입니다. 트레이스
+   순서 그대로 기록되므로 도착 시각 정렬한 트레이스와 **인덱스로 조인**해야 합니다
+   (`collect_v2_metrics.py::join_trace`). 조인이 어긋나면 조용히 엉뚱한 값이 붙으므로
+   모델 시퀀스 불일치를 반드시 세세요.
+
+6. **실행 중인 bash 스크립트를 편집하지 마세요.** bash 는 스크립트를 바이트 오프셋
+   기준으로 이어 읽으므로, 실행 중 편집하면 다음 명령이 엉뚱하게 잘립니다.
+   calibration 이 도는 중에 러너를 고쳤더니 이후 런들이 옛 인자로 실행됐습니다.
+   멈추고 → 고치고 → 재시작하세요.
+
+7. **ShareGPT 프롬프트가 담긴 pickle 은 GitHub 이 거부합니다.** 데이터셋 대화 중
+   일부에 제3자의 실제 자격증명(우리 경우 Slack incoming webhook)이 들어 있어서
+   push protection 에 걸립니다. 워크로드 pickle 은 gitignore 하고, seed 로
+   재생성하세요. `paired_requests_*.json` 과 `phases_*.json` 이 프롬프트 본문 없이
+   페어링 검증에 필요한 것을 전부 담습니다.
+
+8. **프로파일이 하나라도 빠지면 config 를 쓰지 마세요.** 슬롯이 빠지면 Algorithm 2 가
+   조용히 프로토타입의 2048 tok/s 상수로 되돌아가고 SLO 조회는 스윕 중간에
+   KeyError 를 냅니다. `run_profiling_v2.sh` 는 folding 전에 여섯 슬롯을 확인합니다.
+
+9. **이 6모델 구성은 5~10 req/s 에서 포화합니다.** v1 의 3×Llama-8B 무릎(≈26 req/s)을
+   근거로 유입률을 잡으면 전 구간이 붕괴 영역이 됩니다. 그리고 병목은 TTFT 가 아니라
+   **TPOT** 입니다(5 req/s 에서 TTFT 달성률 0.995 대 TPOT 0.690). 유입률은 반드시
+   `run_calibration_v2.sh` 로 먼저 재세요.
+
+### v2 를 이어받는 가장 빠른 길
+
+```bash
+./setup/quickstart.sh                       # redis→bootstrap→패치→모델→단위테스트
+supervisorctl status prism_pipeline         # 이미 돌고 있는지
+tail -f /workspace/logs/pipeline.log        # 어디까지 왔는지
+grep -E "^=====" /workspace/logs/pipeline.log   # 단계 전이만
+cat /workspace/logs/chosen_rates.txt        # 확정된 부하 사다리
+```
+
+파이프라인은 `exp/run_pipeline_v2.sh` 이고
+calibration → 부하 구간 선택 → sanity 게이트 → 본 스윕 → ablation → REPORT 순입니다.
+**모든 단계가 `--resume` 안전**하므로 언제 죽어도 이어서 돌리면 됩니다. 단계마다
+REPORT.md 를 다시 만들고 push 하므로, 원격에는 항상 그 시점까지의 보고서가 있습니다.
+설계 근거와 논문 대조는 `exp/results/paper-faithful-v2/fragments/` 에 있습니다.
