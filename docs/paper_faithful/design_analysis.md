@@ -156,7 +156,8 @@ The prototype's behaviour is preserved by construction: every new code path is b
 | token-rate measurement window | **Not specified** | 30 s sliding window | Matches the prototype's own `ModelRequestTracker` window, so window length is not a confound between the two arms |
 | rate smoothing method | **Not specified** | arithmetic mean over the window | Simplest estimator; no tuning knob that could be tilted toward either arm |
 | global scheduler interval | **Not specified** | 5 s | The prototype's hard-coded `SCHEDULE_INTERVAL`; keeps decision cadence identical across arms |
-| migration threshold `τ` | **Not specified numerically** | `0.10` (10 % relative KVPR improvement), `--kvpr-tau` | Paper says "migrate only if improvement > τ" without a value. 10 % is small enough to let migration actually fire (the prototype's 15× never does) and large enough to prevent thrashing at 5 s cadence. Sensitivity is a documented limitation, not a tuned result |
+| migration threshold `τ` | **Not specified numerically** | `0.35`, `--kvpr-tau` | Set to `mean + 2σ` of the measured improvement estimator (§5a), i.e. above the sampling noise, so migrations fire only on imbalance that is not noise. Derived from the estimator's own distribution, **not** from any latency outcome |
+| minimum interval between migrations | **Not specified** (paper has no such term) | `30 s`, `--kvpr-migration-cooldown` | Decisions run every 5 s but the rate estimate is a 30 s sliding mean, so consecutive passes share 25/30 of their input and are not independent observations. One full window means each migration is justified by substantially fresh data |
 | `token_rate` definition | Partially — "newly admitted input tokens + running decode tokens" | `input_tok/s` over arrivals in the window **+** `output_tok/s` over decoding requests in the window | Follows the brief's reading: the rate at which KV cache actually grows |
 | `token_size` | Yes (KV bytes/token) | `model_info.json["cell_size"]` | Already profiled upstream; Llama-3.1-8B = 131072 B/token |
 | which SLO weights KVPR | Yes — TPOT SLO | per-slot TPOT baseline × `--tpot-slo-scale`, from `SLO_BASE_FILE` | The TPOT SLO is *not* plumbed to the controller (`trace.py` sends only `slo_ttft`), so it is loaded controller-side from the same baseline file the analysis uses |
@@ -165,6 +166,43 @@ The prototype's behaviour is preserved by construction: every new code path is b
 | per-model chunked-prefill speed `c_i` | **Not specified** | measured, `exp/configs/prefill_speed.json` (§6) | The prototype's `c = 2048 tok/s` is an unexplained constant; we profile it on this box |
 | eviction threshold | **Not specified** | prototype's `MODEL_IDLE_THRESHOLD = 50 s`, unchanged | Paper §A.4 quotes ~45 s optimum; the prototype's 50 s is already consistent. Identical in both arms |
 | paper's exact 2-GPU model configuration | **Not reproducible from public info** | 3 × Llama-3.1-8B in slots `model_1/4/5` | See §6.2 |
+
+### 5a. The KVPR objective is flat in this configuration — how `τ` was set
+
+Running Algorithm 1 with `τ = 0.10` on a 90 s smoke workload produced **8 migrations in
+38 placement passes**, and they oscillated: `model_4` 1→0, `model_1` 0→1, `model_5` 1→0,
+`model_4` 0→1, `model_4` 1→0, … Each one is a *stop-the-world* move in this prototype
+(deactivate source, then activate target, `evict_waiting_requests=True`; §6.1's
+overlapped migration is not implemented), so the arm would have been measuring
+thrashing rather than placement quality.
+
+The cause is structural, and it is a result in its own right. With three
+similar-rate models on two GPUs the placement is forced to be 1+2, and the doubled GPU's
+KVPR is
+
+```
+peak KVPR ≈ (w + w) / (67.28 − 2×15.08 GiB) = 2w / 37.12
+```
+
+which is **the same whichever model is doubled**. The objective is flat, so the argmin is
+decided by estimator noise. Measured over the smoke run's 24 decisions:
+
+```
+improvement:  mean +0.002   std 0.175   median +0.013   range [−0.411, +0.396]
+τ = 0.10 → migrates on 33 % of passes      τ = 0.35 → 4 %
+```
+
+The expected gain from migrating is **zero** (+0.2 %); everything above it is sampling
+noise of ±17.5 %. So the paper's rule, applied with a `τ` above the noise, correctly
+decides *not* to move — and `τ = mean + 2σ ≈ 0.35` is that threshold. This is derived
+from the estimator's distribution, not from any TTFT/goodput outcome; no per-rate tuning
+was applied to either arm.
+
+Two things follow for the report. Algorithm 1 has **no lever** in this 3-model/2-GPU
+configuration, so a null placement result here is expected and is not evidence against
+KVPR. And in the paper's own setting — more models, more GPUs, heterogeneous sizes and
+rates — the objective is *not* flat, so `τ` there separates real imbalance from noise
+rather than suppressing everything.
 
 **Anti-affinity / TP:** the paper constrains TP shards of one model away from sharing a
 GPU. Our configuration is TP=1 throughout, so the constraint is implemented

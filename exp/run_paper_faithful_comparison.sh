@@ -41,15 +41,16 @@ WARMUP=${PF_WARMUP:-60}
 MEASURE=${PF_MEASURE:-300}
 TTFT_SCALE=${PF_TTFT_SCALE:-5}
 TPOT_SCALE=${PF_TPOT_SCALE:-3}
-KVPR_TAU=${PF_KVPR_TAU:-0.10}
+KVPR_TAU=${PF_KVPR_TAU:-0.35}
 KVPR_WINDOW=${PF_KVPR_WINDOW:-30}
+KVPR_COOLDOWN=${PF_KVPR_COOLDOWN:-30}
 
 BASE=$PRISM_EXP/results/paper-faithful-comparison
 TRACES=${DATASETS:-/workspace/datasets}/sharegpt/pf
 CFG=$PRISM_EXP/configs/llama_2gpu_3x8b.json
 export SLO_BASE_FILE=${SLO_BASE_FILE:-$PRISM_EXP/configs/slo_base_pf.json}
 export PREFILL_SPEED_FILE=${PREFILL_SPEED_FILE:-$PRISM_EXP/configs/prefill_speed.json}
-export NGPU SLOTS CFG TTFT_SCALE TPOT_SCALE KVPR_TAU KVPR_WINDOW
+export NGPU SLOTS CFG TTFT_SCALE TPOT_SCALE KVPR_TAU KVPR_WINDOW KVPR_COOLDOWN
 
 mkdir -p "$BASE"/{metadata,raw,processed,figures,logs} "$TRACES"
 
@@ -103,6 +104,7 @@ echo "redis OK, torch sees $(python3 -c 'import torch;print(torch.cuda.device_co
   echo "tpot_slo_scale: $TPOT_SCALE"
   echo "kvpr_tau: $KVPR_TAU"
   echo "kvpr_rate_window_s: $KVPR_WINDOW"
+  echo "kvpr_migration_cooldown_s: $KVPR_COOLDOWN"
   echo "global_scheduler_interval_s: 5 (upstream SCHEDULE_INTERVAL)"
   echo "warmup_s: $WARMUP"
   echo "measure_s: $MEASURE"

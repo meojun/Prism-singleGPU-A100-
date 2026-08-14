@@ -277,3 +277,14 @@ ShareGPT: 2턴 이상 대화 92886개
      prefix 재사용률   : 0.8%  (합성 트레이스는 ~97%, 실제 텍스트는 ~1%)
 
 생성됨: /workspace/datasets/sharegpt/pf/pf_ref_solo.pkl  (0.7 MB)
+ShareGPT: 2턴 이상 대화 92886개
+
+[rate] 264건 / 90s = 2.93 req/s 평균, cv=1.0, seed=99
+  phase 0 [0-90s] 목표 model_1=1 model_4=1 model_5=1  실측 model_1=1.02 model_4=0.96 model_5=0.96
+  [rate] n=264  span=90.0s
+     실제 prefill 토큰 : p50 95 / p90 632 / p99 878 / max 952
+     prompt_len 필드   : p50 95 / p90 632 / p99 878 / max 952
+     output_len        : p50 131 / p90 454 / p99 768 / max 965
+     prefix 재사용률   : 0.5%  (합성 트레이스는 ~97%, 실제 텍스트는 ~1%)
+
+생성됨: /workspace/datasets/sharegpt/pf/pf_smoke.pkl  (0.3 MB)

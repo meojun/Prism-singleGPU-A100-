@@ -30,8 +30,9 @@ CFG=${CFG:-$PRISM_EXP/configs/llama_2gpu_3x8b.json}
 MAXMEM=${MAXMEM:-67.28}
 TTFT_SCALE=${TTFT_SCALE:-5}
 TPOT_SCALE=${TPOT_SCALE:-3}
-KVPR_TAU=${KVPR_TAU:-0.10}
+KVPR_TAU=${KVPR_TAU:-0.35}
 KVPR_WINDOW=${KVPR_WINDOW:-30}
+KVPR_COOLDOWN=${KVPR_COOLDOWN:-30}
 SLO_BASE=${SLO_BASE_FILE:-$PRISM_EXP/configs/slo_base_3x8b_sharegpt.json}
 PREFILL_SPEED=${PREFILL_SPEED_FILE:-$PRISM_EXP/configs/prefill_speed.json}
 
@@ -52,6 +53,7 @@ case "$SYSTEM" in
   paper-alg1-only)
       CONTROLLER+=(--policy kvpr-global --kvpr-tau "$KVPR_TAU"
                    --kvpr-rate-window "$KVPR_WINDOW" --slo-base-file "$SLO_BASE"
+                   --kvpr-migration-cooldown "$KVPR_COOLDOWN"
                    --kvpr-tpot-slo-scale "$TPOT_SCALE"); PORT=33001 ;;
   paper-alg2-only)
       CONTROLLER+=(--policy simple-global --enable-moore-hodgson
@@ -59,6 +61,7 @@ case "$SYSTEM" in
   paper-faithful)
       CONTROLLER+=(--policy kvpr-global --kvpr-tau "$KVPR_TAU"
                    --kvpr-rate-window "$KVPR_WINDOW" --slo-base-file "$SLO_BASE"
+                   --kvpr-migration-cooldown "$KVPR_COOLDOWN"
                    --kvpr-tpot-slo-scale "$TPOT_SCALE"
                    --enable-moore-hodgson --prefill-speed-file "$PREFILL_SPEED")
       PORT=33003 ;;
