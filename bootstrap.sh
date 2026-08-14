@@ -155,6 +155,15 @@ if [ "${SKIP_MODELS:-0}" != 1 ]; then
     "$ROOT/setup/download_models.sh" || echo "  (model download skipped/failed -- rerun setup/download_models.sh)"
 fi
 
+# --- paper-faithful implementation ------------------------------------------
+# Algorithm 1 (KVPR placement) and Algorithm 2 (Moore-Hodgson) are NOT in the
+# upstream prototype. They live in patches/paper_faithful/ in THIS repo and are
+# copied into the (gitignored) prism-research clone here, so they survive a
+# fresh box. Every edit is gated behind a CLI flag: with no flags the released
+# prototype's code path is untouched.
+say "[8b/8] paper-faithful Algorithm 1 / Algorithm 2"
+python3 "$ROOT/patches/paper_faithful/apply_patches.py" --repo "$ROOT/prism-research"
+
 # --- verify -------------------------------------------------------------------
 say "verify"
 python - <<'PY'
