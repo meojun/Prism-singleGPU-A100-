@@ -54,6 +54,12 @@ class MooreHodgsonMixin:
         self._mh_stats = defaultdict(float)
         self._mh_log_path = log_path
         self._mh_fh = None
+        # The scheduling loop runs at ~100 Hz, so an unbounded per-round log can
+        # reach hundreds of MB on a long high-rate run. Cap the FILE; the
+        # counters in _mh_stats keep accumulating either way, so the aggregate
+        # numbers stay exact and only the round-by-round detail is truncated.
+        self._mh_log_lines = 0
+        self._mh_log_cap = 300_000
         if log_path:
             try:
                 self._mh_fh = open(log_path, "a", buffering=1)
@@ -164,10 +170,15 @@ class MooreHodgsonMixin:
 
         should_log = (
             self._mh_fh is not None
+            and self._mh_log_lines < self._mh_log_cap
             and (n_def or pathological or (now - self._mh_last_log) >= 0.5)
         )
         if should_log:
             self._mh_last_log = now
+            self._mh_log_lines += 1
+            if self._mh_log_lines == self._mh_log_cap:
+                logger.warning(f"[PAPER-ALG2] round log capped at "
+                               f"{self._mh_log_cap} lines; counters continue")
             rec = {
                 "round": self._mh_round, "t": round(now, 4),
                 "queue_length": queue_len, "eligible_requests": len(eligible),
