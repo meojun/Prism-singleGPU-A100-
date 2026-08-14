@@ -162,7 +162,7 @@ The prototype's behaviour is preserved by construction: every new code path is b
 | `token_size` | Yes (KV bytes/token) | `model_info.json["cell_size"]` | Already profiled upstream; Llama-3.1-8B = 131072 B/token |
 | which SLO weights KVPR | Yes — TPOT SLO | per-slot TPOT baseline × `--tpot-slo-scale`, from `SLO_BASE_FILE` | The TPOT SLO is *not* plumbed to the controller (`trace.py` sends only `slo_ttft`), so it is loaded controller-side from the same baseline file the analysis uses |
 | `shared_kv` | Partially | `max_mem_usage − Σ active model_size` on that GPU | `max_mem_usage` is the per-GPU budget the harness already hands the scheduler; using measured free memory would make the metric depend on transient allocator state |
-| fate of requests Moore-Hodgson excludes | **Not specified** | kept in the queue with original `a_i`/`d_i`, reconsidered next round (~10 ms later) | The brief's preferred option. Dropping would change the completed-request set between arms and make TTFT/TPOT incomparable |
+| fate of requests Moore-Hodgson excludes | **Not specified** | split by whether the deadline has passed: `d_i > now` → requeued with original `a_i`/`d_i`; `d_i ≤ now` → dispatched after the feasible set | Requeue-everything is the brief's preferred option but **livelocks** (§5b). Dropping would change the completed-request set between arms and make TTFT/TPOT incomparable |
 | per-model chunked-prefill speed `c_i` | **Not specified** | measured, `exp/configs/prefill_speed.json` (§6) | The prototype's `c = 2048 tok/s` is an unexplained constant; we profile it on this box |
 | eviction threshold | **Not specified** | prototype's `MODEL_IDLE_THRESHOLD = 50 s`, unchanged | Paper §A.4 quotes ~45 s optimum; the prototype's 50 s is already consistent. Identical in both arms |
 | paper's exact 2-GPU model configuration | **Not reproducible from public info** | 3 × Llama-3.1-8B in slots `model_1/4/5` | See §6.2 |
@@ -203,6 +203,38 @@ configuration, so a null placement result here is expected and is not evidence a
 KVPR. And in the paper's own setting — more models, more GPUs, heterogeneous sizes and
 rates — the objective is *not* flat, so `τ` there separates real imbalance from noise
 rather than suppressing everything.
+
+### 5b. Why excluded requests cannot simply be requeued
+
+The brief's preferred handling — keep every excluded request queued with its original
+arrival time and deadline, reconsider next round — **livelocks**, and it was caught in
+the smoke run:
+
+```
+round=328763  eligible=2  selected=0  deferred=2  (cumulative 651754)  queue_len=2
+bench: Waiting for task req_105_model_1        <- never dispatched
+```
+
+Once `d_i ≤ now`, adding the job makes the completion clock exceed its deadline
+immediately, so Moore-Hodgson evicts it — and will evict it again on every future
+round, because the input has not changed in any way that could help. Nothing ages out
+of that state. The scheduler ran 328 k rounds re-deferring the same two requests while
+the client blocked on them.
+
+The resolution follows from what Moore-Hodgson actually optimises: it minimises the
+**number of late jobs**, on the assumption that every job is executed — the late ones
+simply run after the on-time ones. So excluded requests are split:
+
+* `d_i > now` — crowded out this round but still feasible in principle. Requeued; this
+  is genuine backpressure and they get another chance as the backlog drains.
+* `d_i ≤ now` — already late, permanently infeasible. Dispatched after the feasible set,
+  lowest priority. They are already counted as SLO violations; starving them would only
+  turn a late response into no response, and would change the completed-request set
+  between arms.
+
+`exp/tests/test_moore_hodgson.py` case 9 is the regression test: it asserts the two
+classes are separable and that the verdict is stable across rounds, which is exactly
+why holding them cannot work.
 
 **Anti-affinity / TP:** the paper constrains TP shards of one model away from sharing a
 GPU. Our configuration is TP=1 throughout, so the constraint is implemented

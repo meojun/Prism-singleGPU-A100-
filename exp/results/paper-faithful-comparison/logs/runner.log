@@ -3,9 +3,9 @@
 0, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0
 1, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0
 redis OK, torch sees 2 GPUs
-timestamp: 2026-08-14T00:30:47+00:00
+timestamp: 2026-08-14T00:55:58+00:00
 git_branch: exp/paper-faithful-prism
-git_commit: 6bb9108b7f3ca2d8f74e5ecd078e89ec3aa138bf
+git_commit: edfed78ac60d42f33a0a29c8b318e2bc051b374f
 prism_research_commit: 595ec1f170e75a43897a7a2ad58ac5a9820aa2e8
 kvcached_branch: HEAD
 kvcached_commit: d78649d0c2b7d2ff32eb48a423df7bf60054f4c9
@@ -62,3 +62,14 @@ trace_phase_len_s: 360
 }
 === [3/5] smoke test -- both systems, and proof Alg1/Alg2 really ran ===
   smoke: released-prototype
+system=released-prototype rate=3 seed=99
+alg1_log_lines=0
+alg1_migrations=0
+alg2_log_lines=0
+proto_migrations=0
+activations=0
+deactivations=0
+idle_evictions=0
+  VERIFIED: prototype arm ran with neither paper algorithm
+  smoke: paper-faithful
+RUNNER_EXIT=143

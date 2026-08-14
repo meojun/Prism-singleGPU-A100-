@@ -58,11 +58,15 @@ say() { echo -e "\n=== $* ===" ; }
 run_dir() { echo "$BASE/raw/$1/rate_$2/seed_$3"; }
 
 # ---------------------------------------------------------------- plan / dry-run
+# SEED is the OUTER loop on purpose: after one pass every (system, rate) cell has a
+# measurement, so a complete comparison curve exists early and later seeds only add
+# error bars. Seeds-innermost would finish one cell at a time and leave the curve
+# unusable until the very end.
 plan() {
   local n=0
-  for sys in "${SYSTEMS[@]}"; do
-    for rate in "${RATES[@]}"; do
-      for seed in "${SEEDS[@]}"; do
+  for seed in "${SEEDS[@]}"; do
+    for sys in "${SYSTEMS[@]}"; do
+      for rate in "${RATES[@]}"; do
         printf '%-20s | rate=%-5s | seed=%s\n' "$sys" "$rate" "$seed"
         n=$((n+1))
       done
@@ -217,9 +221,9 @@ fi
 say "[4/5] sweep: ${#SYSTEMS[@]} systems x ${#RATES[@]} rates x ${#SEEDS[@]} seeds"
 plan
 TOTAL=0; DONE=0; FAILED=0
-for sys in "${SYSTEMS[@]}"; do
-  for rate in "${RATES[@]}"; do
-    for seed in "${SEEDS[@]}"; do
+for seed in "${SEEDS[@]}"; do
+  for sys in "${SYSTEMS[@]}"; do
+    for rate in "${RATES[@]}"; do
       TOTAL=$((TOTAL+1))
       d=$(run_dir "$sys" "$rate" "$seed")
       if [ "$RESUME" = 1 ] && [ -f "$d/DONE" ]; then

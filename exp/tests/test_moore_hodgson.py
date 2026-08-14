@@ -94,7 +94,30 @@ jobs = [MHJob("late", 100, 1), MHJob("early", 10, 1), MHJob("mid", 50, 1)]
 sel, _ = select(jobs, 0.0)
 check("ascending deadline", names(sel) == ["early", "mid", "late"], f"got {names(sel)}")
 
-print("== 9. maximum cardinality vs brute force (randomised) ==")
+print("== 9. past-deadline jobs are separable (no starvation) ==")
+# THE LIVELOCK REGRESSION. A request whose deadline has already passed can never
+# be feasible, so select() evicts it every round forever. The scheduler must be
+# able to tell those apart from jobs merely crowded out this round, or it holds
+# them until the client gives up (observed: 328k rounds, benchmark hung).
+now = 1000.0
+jobs = [
+    MHJob("expired-1", now - 5, 0.1),    # deadline already gone
+    MHJob("expired-2", now - 1, 0.1),
+    MHJob("feasible", now + 100, 0.1),   # plenty of headroom
+]
+sel, defd = select(jobs, now)
+expired = [j for j in defd if j.deadline <= now]
+requeued = [j for j in defd if j.deadline > now]
+check("feasible job is selected", "feasible" in names(sel), f"got {names(sel)}")
+check("both expired jobs are deferred", len(expired) == 2, f"got {names(expired)}")
+check("nothing feasible is left requeued", requeued == [], f"got {names(requeued)}")
+# Re-running with the same input must give the same verdict -- that is precisely
+# why holding them back loops forever, and why they must be dispatched instead.
+sel2, defd2 = select(jobs, now)
+check("verdict is stable across rounds (hence the livelock)",
+      names(defd2) == names(defd), f"{names(defd2)} vs {names(defd)}")
+
+print("== 10. maximum cardinality vs brute force (randomised) ==")
 # Moore-Hodgson is optimal for 1||sum U_j; verify against exhaustive search.
 import itertools
 import random
