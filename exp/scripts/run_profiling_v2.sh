@@ -90,6 +90,17 @@ for ((i=0; i<${#MODELS[@]}; i+=2)); do
   nvidia-smi --query-gpu=index,memory.used --format=csv,noheader
 done
 
+# Folding an INCOMPLETE set is the dangerous failure here: a missing slot means
+# Algorithm 2 silently falls back to the prototype's 2048 tok/s constant for that
+# model and the SLO lookup KeyErrors halfway through a sweep. Refuse instead.
+MISSING=()
+for m in "${MODELS[@]}"; do [ -s "$OUT/$m.json" ] || MISSING+=("$m"); done
+if [ ${#MISSING[@]} -gt 0 ]; then
+  echo "!! FATAL: no profile for: ${MISSING[*]}"
+  echo "!! Not writing configs -- rerun this script (finished slots are skipped)."
+  exit 1
+fi
+
 echo "=== folding into configs"
 python3 - "$OUT" "$PRISM_EXP/configs/v2" <<'PY'
 import glob, json, os, sys
