@@ -38,9 +38,16 @@ json.dump([{ "model_name": slot, "model_path": path, "tp_size": 1,
 PY
   local log=$PRISM_EXP/server-logs/profiling/${slot}
   tmux kill-session -t "prof-$slot" 2>/dev/null || true
-  # a stale server still holding the port makes the new one bind-fail and die
-  pkill -f "launch_multi_model_server.*--port $port" 2>/dev/null || true
+  # A previous attempt can leave engine subprocesses alive holding both the port
+  # and GPU memory even after its HTTP app has shut down; the new server then
+  # bind-fails and dies while the readiness loop waits out its full timeout.
+  # Free the port hard and confirm it is free before launching.
+  fuser -k -n tcp "$port" 2>/dev/null || true
   sleep 3
+  for _ in $(seq 1 10); do
+    ss -ltn 2>/dev/null | grep -q ":$port " || break
+    fuser -k -n tcp "$port" 2>/dev/null || true; sleep 2
+  done
   tmux new-session -d -s "prof-$slot" \
     "export CUDA_VISIBLE_DEVICES=$gpu && cd $PRISM_REPO/benchmark/multi-model && \
      source $SCRIPT_DIR/env.sh && export CUDA_VISIBLE_DEVICES=$gpu && \
@@ -49,6 +56,8 @@ PY
        --log-file ${log}.log 2>&1 | tee ${log}_stdout.log"
   for _ in $(seq 1 300); do
     curl -sf "http://127.0.0.1:$port/get_model_names" >/dev/null 2>&1 && return 0
+    grep -q "address already in use" "${log}_stdout.log" 2>/dev/null && {
+      echo "  $slot BIND CONFLICT on $port"; return 1; }
     tmux has-session -t "prof-$slot" 2>/dev/null || { echo "  $slot DIED (see ${log}_stdout.log)"; return 1; }
     sleep 2
   done
@@ -57,11 +66,12 @@ PY
 
 profile_one() {   # profile_one <slot> <gpu> <port>
   local slot=$1 gpu=$2 port=$3
+  if [ -s "$OUT/$slot.json" ]; then echo "--- $slot already profiled, skipping"; return 0; fi
   echo "--- $slot on GPU$gpu port $port  (${PATHS[$slot]})"
   if launch_solo "$slot" "$gpu" "$port"; then
     python3 "$SCRIPT_DIR/profile_v2.py" --url "http://127.0.0.1:$port" \
       --model "$slot" --model-path "${PATHS[$slot]}" -o "$OUT/$slot.json" \
-      2>&1 | sed "s/^/  /"
+      2>&1 | stdbuf -oL sed "s/^/  /"
   fi
   tmux kill-session -t "prof-$slot" 2>/dev/null || true
   pkill -f "launch_multi_model_server.*--port $port" 2>/dev/null || true
