@@ -48,5 +48,8 @@ echo "===== [5] AGGREGATE $(stamp)"
 python3 exp/scripts/aggregate_v2.py --base exp/results/paper-faithful-v2 \
   -o exp/results/paper-faithful-v2/processed 2>&1 | tee $L/aggregate.log
 
+python3 exp/scripts/plot_v2.py --base exp/results/paper-faithful-v2 \
+  -o exp/results/paper-faithful-v2/plots 2>&1 | tee -a $L/aggregate.log
+
 echo "PIPELINE_DONE $(stamp)" >> $L/pipeline.status
 echo "===== PIPELINE END $(stamp)"
