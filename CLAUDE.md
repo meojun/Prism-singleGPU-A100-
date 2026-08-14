@@ -359,6 +359,49 @@ nvidia-smi --query-gpu=index,memory.used --format=csv,noheader   # 0 MiB 여야 
    **TPOT** 입니다(5 req/s 에서 TTFT 달성률 0.995 대 TPOT 0.690). 유입률은 반드시
    `run_calibration_v2.sh` 로 먼저 재세요.
 
+### 새 장비 세팅 — 0 에서 실험까지
+
+이번에 이 절이 없어서 세팅에만 몇 시간이 들었습니다. 순서대로 하면 됩니다.
+
+```bash
+# 1. 레포 (경로 고정 — exp/scripts/env.sh 가 하드코딩)
+git clone https://github.com/meojun/Prism-singleGPU-A100- /workspace/prism-exp
+cd /workspace/prism-exp
+
+# 2. HF 토큰. meta-llama 라이선스에 동의한 계정의 것이어야 합니다.
+#    없으면 Llama 다운로드가 전부 401 이고, 사용자에게 받으세요. 지어내지 마세요.
+echo 'HF_TOKEN=hf_xxx' > /workspace/.env && chmod 600 /workspace/.env
+
+# 3. 나머지 전부 (약 35분, 무인)
+./setup/quickstart.sh
+```
+
+`quickstart.sh` 가 하는 일: redis 를 supervisor 아래 올리고 → 모델 가중치
+(6개, 약 47 GB)와 ShareGPT(약 670 MB)를 백그라운드로 받고 → `bootstrap.sh` 로
+고정 SHA 스택을 세우고 → Algorithm 1/2 패치를 적용해 13개 랜딩 포인트를 검증하고
+→ 단위 테스트를 돌리고 → 파이프라인을 supervisor 에 등록(중지 상태로)합니다.
+
+그다음 두 단계만 사람이 시작합니다.
+
+```bash
+source exp/scripts/env.sh
+./exp/scripts/run_profiling_v2.sh      # c_i / SLO 기준선, 약 40분
+supervisorctl start prism_pipeline     # 나머지 전부 무인
+```
+
+**`run_profiling_v2.sh` 결과를 다른 장비에서 재사용하지 마세요.** c_i 와 SLO
+기준선은 이 GPU 에서 측정한 값이고, 그것이 Algorithm 2 의 실행가능성 판정과
+Algorithm 1 의 KVPR 가중을 직접 결정합니다. 커밋된
+`exp/results/paper-faithful-v2/sanity/profiling/` 은 A100-SXM4-80GB 기준입니다.
+
+세팅에서 실제로 걸렸던 것들:
+* `bootstrap.sh` 3단계의 torch 인덱스 문제는 이미 고쳐져 있습니다(README §7).
+* ShareGPT 는 번들되어 있지 않고 `env.sh` 가 경로를 하드코딩합니다. 안 받으면
+  워크로드 생성이 FileNotFoundError 로 죽습니다 — bootstrap 을 다 기다린 뒤에.
+* Algorithm 1/2 구현은 `patches/paper_faithful/` 에 있고 bootstrap 이
+  gitignore 된 `prism-research/` 클론 위에 복사합니다. v1 때는 이것이 커밋되어
+  있지 않아 장비와 함께 사라졌습니다.
+
 ### v2 를 이어받는 가장 빠른 길
 
 ```bash

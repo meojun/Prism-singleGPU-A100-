@@ -20,7 +20,7 @@ ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 cd "$ROOT"
 say() { echo -e "\n=== $* ==="; }
 
-say "[1/5] redis"
+say "[1/6] redis"
 if ! redis-cli ping >/dev/null 2>&1; then
     apt-get install -y redis-server >/dev/null 2>&1 || true
     mkdir -p /etc/supervisor/conf.d
@@ -40,7 +40,7 @@ CONF
 fi
 redis-cli ping || { echo "FATAL: redis not answering on :6379"; exit 1; }
 
-say "[2/5] model weights (background tmux session 'models')"
+say "[2/6] model weights (background tmux session 'models')"
 mkdir -p /workspace/logs
 if ! tmux has-session -t models 2>/dev/null; then
     tmux new-session -d -s models \
@@ -50,22 +50,68 @@ else
     echo "  session 'models' already running"
 fi
 
-say "[3/5] bootstrap (pinned stack) -- this is the ~20 min step"
+say "[3/6] datasets (background tmux session 'datasets')"
+if ! tmux has-session -t datasets 2>/dev/null; then
+    tmux new-session -d -s datasets \
+      "bash -lc '$ROOT/setup/download_datasets.sh 2>&1 | tee /workspace/logs/datasets.log; sleep infinity'"
+    echo "  started; follow with: tail -f /workspace/logs/datasets.log"
+else
+    echo "  session 'datasets' already running"
+fi
+
+say "[4/6] bootstrap (pinned stack) -- this is the ~20 min step"
 SKIP_MODELS=1 ./bootstrap.sh 2>&1 | tee /workspace/logs/bootstrap.log
 grep -q "BAD" /workspace/logs/bootstrap.log && { echo "FATAL: bootstrap verify failed"; exit 1; }
 
-say "[4/5] Paper-Faithful Algorithm 1 / Algorithm 2 patches"
+say "[5/6] Paper-Faithful Algorithm 1 / Algorithm 2 patches"
 python3 patches/paper_faithful/apply_patches.py --repo "$ROOT/prism-research"
 
-say "[5/5] unit tests"
+say "[6/6] unit tests"
 source "$ROOT/exp/scripts/env.sh"
 python3 exp/tests/test_moore_hodgson.py  || { echo "FATAL: Algorithm 2 tests failed"; exit 1; }
 python3 exp/tests/test_kvpr_placement.py || { echo "FATAL: Algorithm 1 tests failed"; exit 1; }
 
+say "supervisor registration"
+# Long runs MUST live under supervisor on this box: tmux sessions and even
+# setsid-detached processes have been killed mid-sweep here, while supervisord
+# has stayed up for hours. See CLAUDE.md section 8.
+if [ ! -f /etc/supervisor/conf.d/prism_pipeline.conf ]; then
+    cp "$ROOT/setup/prism_pipeline.conf" /etc/supervisor/conf.d/prism_pipeline.conf
+    mkdir -p /opt/supervisor-scripts
+    cp "$ROOT/setup/prism_pipeline.sh" /opt/supervisor-scripts/prism_pipeline.sh
+    chmod +x /opt/supervisor-scripts/prism_pipeline.sh
+    supervisorctl reread >/dev/null && supervisorctl update >/dev/null
+    supervisorctl stop prism_pipeline >/dev/null 2>&1 || true
+    echo "  registered (stopped -- start it when you are ready)"
+else
+    echo "  already registered"
+fi
+
 cat <<DONE
 
 === quickstart complete ===
-  models still downloading?   tail -f /workspace/logs/models.log
-  then:                       source exp/scripts/env.sh
-                              ./exp/run_paper_faithful_v2.sh --dry-run
+
+Still downloading in the background? Watch them:
+    tail -f /workspace/logs/models.log      # ~47 GB of weights
+    tail -f /workspace/logs/datasets.log    # ~670 MB ShareGPT
+
+Then, in order:
+    source exp/scripts/env.sh
+
+    # 1. per-model c_i and SLO baselines (~40 min, 2 GPUs in parallel).
+    #    Machine-specific -- do NOT reuse another box's numbers.
+    ./exp/scripts/run_profiling_v2.sh
+
+    # 2. everything else, unattended, under supervisor:
+    #    calibration -> load levels -> sanity gate -> sweep -> ablation -> REPORT
+    supervisorctl start prism_pipeline
+    tail -f /workspace/logs/pipeline.log
+
+Check on it later with:
+    supervisorctl status prism_pipeline
+    grep -E "^=====" /workspace/logs/pipeline.log
+    cat exp/results/paper-faithful-v2/REPORT.md
+
+Read CLAUDE.md section 8 before debugging anything. Every trap in it cost an
+hour to find.
 DONE
