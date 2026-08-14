@@ -63,17 +63,37 @@ class Request:
 
 
 def build_phases(rng, duration, phase_lo, phase_hi, models):
+    """Phases of random length; hot set redrawn each phase.
+
+    The hot set is sampled with a STALENESS weight (phases since a model was
+    last hot) rather than uniformly. Uniform iid draws leave some model cold for
+    an entire short trace, which starves its percentiles and makes per-model
+    numbers unreadable -- an artefact of the generator, not a property of the
+    workload. Staleness weighting keeps every tenant in rotation while leaving
+    the next hot set unpredictable: the scheduler still cannot see it coming,
+    because which of the stale models get picked, how many (1-3), and how long
+    the phase lasts are all still random.
+    """
     phases, t = [], 0.0
+    since_hot = {m: 1 for m in models}
     while t < duration:
         length = min(rng.uniform(phase_lo, phase_hi), duration - t)
         if length < 5.0:
-            phases[-1]["end"] = duration
+            if phases:
+                phases[-1]["end"] = duration
+                phases[-1]["len"] = phases[-1]["end"] - phases[-1]["start"]
             break
         n_hot = rng.randint(1, 3)
-        shuffled = models[:]
-        rng.shuffle(shuffled)
-        hot = shuffled[:n_hot]
-        rest = shuffled[n_hot:]
+        pool, hot = models[:], []
+        for _ in range(n_hot):
+            wts = [since_hot[m] ** 2 for m in pool]
+            pick = rng.choices(pool, weights=wts, k=1)[0]
+            hot.append(pick)
+            pool.remove(pick)
+        for m in models:
+            since_hot[m] = 1 if m in hot else since_hot[m] + 1
+        rest = pool
+        rng.shuffle(rest)
         # the rest split into medium / low / idle, at least one idle where possible
         n_idle = rng.randint(1, max(1, len(rest) - 1)) if rest else 0
         idle = rest[:n_idle]
@@ -192,9 +212,10 @@ def make_requests(payloads, arrivals, slo_base, models):
 
 
 def dump(path, reqs):
+    """(adapter_dirs, requests) -- the shape RealWorldTrace._load_requests expects.
+    The sentinel in slot 0 is what flips trace.py onto the direct passthrough."""
     with open(path, "wb") as f:
-        pickle.dump(["__PRISM_DIRECT__"], f) if False else \
-            pickle.dump((["__PRISM_DIRECT__"], reqs), f)
+        pickle.dump((["__PRISM_DIRECT__"], reqs), f)
 
 
 def main():

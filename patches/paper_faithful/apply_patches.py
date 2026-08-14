@@ -29,11 +29,17 @@ DIRECT_TRACE_BODY = '''        # PAPER-FAITHFUL: direct trace -- the pickle alre
         if getattr(self, "_direct", False):
             out, n = [], req_count
             for r in self.requests:
-                for _ in range(config.replication):
+                for k in range(config.replication):
                     ttft = r.slo_ttft * config.ttft_slo_scale
                     tpot = r.slo_tpot * config.tpot_slo_scale
+                    # keep the pickle's own request_id: the paired bursty and
+                    # steady traces carry the SAME id for the same payload, and
+                    # a sequential renumber (which is by arrival order) would
+                    # destroy exactly the pairing the study depends on.
+                    rid = getattr(r, "req_id", None) or str(n)
+                    rid = rid if config.replication == 1 else f"{rid}r{k}"
                     out.append(Request(
-                        req_id=str(n), prompt=r.prompt, prompt_len=r.prompt_len,
+                        req_id=rid, prompt=r.prompt, prompt_len=r.prompt_len,
                         output_len=r.output_len,
                         arrival_time=r.arrival_time * config.time_scale,
                         model=r.model, slo=ttft, slo_ttft=ttft, slo_tpot=tpot))
