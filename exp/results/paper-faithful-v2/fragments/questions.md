@@ -1,36 +1,44 @@
-## 7. Steady vs Bursty Comparison
+## 7. Steady 대 Bursty 비교
 
-Joint SLO attainment, and Prism's relative gain over the released prototype, at each load. Same request set, same per-model request counts, same average offered load — only arrival timing differs.
+각 부하에서의 Joint SLO 달성률과, released prototype 대비 Prism 의 상대 이득. 동일한 request set, 동일한 모델별 요청 수, 동일한 평균 offered load — 도착 타이밍만 다르다.
 
-| Rate | Baseline steady | Prism steady | gain (steady) | Baseline bursty | Prism bursty | gain (bursty) | bursty − steady gain |
+| 유입률 | 기준선 steady | Prism steady | 이득 (steady) | 기준선 bursty | Prism bursty | 이득 (bursty) | bursty − steady |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | 1 | 0.752 | 0.716 | -4.8% | 0.668 | 0.758 | +13.5% | +18.4% |
 | 2 | 0.544 | 0.499 | -8.3% | 0.574 | 0.612 | +6.7% | +14.9% |
 | 8 | 0.160 | 0.172 | +7.8% | 0.204 | 0.174 | -14.7% | -22.4% |
 | 10 | 0.152 | 0.145 | -4.8% | 0.177 | 0.124 | -29.7% | -24.9% |
 
-### Q1 — Prism vs baseline on the STEADY workload
+### Q1 — STEADY 워크로드에서 Prism 대 기준선
 
-- **1 req/s**: joint attainment 0.752 → 0.716 (-4.8%), goodput 0.76 → 0.72 req/s (-4.8%), TTFT p99 304 → 583 ms (-91.6%)
-- **2 req/s**: joint attainment 0.544 → 0.499 (-8.3%), goodput 1.09 → 1.00 req/s (-8.3%), TTFT p99 380 → 346 ms (+8.8%)
-- **8 req/s**: joint attainment 0.160 → 0.172 (+7.8%), goodput 1.29 → 1.39 req/s (+7.8%), TTFT p99 364 → 930 ms (-155.6%)
-- **10 req/s**: joint attainment 0.152 → 0.145 (-4.8%), goodput 1.52 → 1.45 req/s (-4.8%), TTFT p99 336 → 413 ms (-22.7%)
+- **1 req/s**: joint 달성률 0.752 → 0.716 (-4.8%), goodput 0.76 → 0.72 req/s (-4.8%), TTFT p99 304 → 583 ms (-91.6%)
+- **2 req/s**: joint 달성률 0.544 → 0.499 (-8.3%), goodput 1.09 → 1.00 req/s (-8.3%), TTFT p99 380 → 346 ms (+8.8%)
+- **8 req/s**: joint 달성률 0.160 → 0.172 (+7.8%), goodput 1.29 → 1.39 req/s (+7.8%), TTFT p99 364 → 930 ms (-155.6%)
+- **10 req/s**: joint 달성률 0.152 → 0.145 (-4.8%), goodput 1.52 → 1.45 req/s (-4.8%), TTFT p99 336 → 413 ms (-22.7%)
 
-### Q2 — Prism vs baseline on the SHIFTING-BURSTY workload
+### Q2 — SHIFTING-BURSTY 워크로드에서 Prism 대 기준선
 
-- **1 req/s**: joint attainment 0.668 → 0.758 (+13.5%), goodput 0.69 → 0.78 req/s (+13.5%), TTFT p99 3909 → 4228 ms (-8.2%)
-- **2 req/s**: joint attainment 0.574 → 0.612 (+6.7%), goodput 1.20 → 1.28 req/s (+6.7%), TTFT p99 3967 → 4279 ms (-7.9%)
-- **8 req/s**: joint attainment 0.204 → 0.174 (-14.7%), goodput 1.64 → 1.40 req/s (-14.7%), TTFT p99 1740 → 2765 ms (-58.9%)
-- **10 req/s**: joint attainment 0.177 → 0.124 (-29.7%), goodput 1.80 → 1.26 req/s (-29.7%), TTFT p99 8370 → 2374 ms (+71.6%)
+- **1 req/s**: joint 달성률 0.668 → 0.758 (+13.5%), goodput 0.69 → 0.78 req/s (+13.5%), TTFT p99 3909 → 4228 ms (-8.2%)
+- **2 req/s**: joint 달성률 0.574 → 0.612 (+6.7%), goodput 1.20 → 1.28 req/s (+6.7%), TTFT p99 3967 → 4279 ms (-7.9%)
+- **8 req/s**: joint 달성률 0.204 → 0.174 (-14.7%), goodput 1.64 → 1.40 req/s (-14.7%), TTFT p99 1740 → 2765 ms (-58.9%)
+- **10 req/s**: joint 달성률 0.177 → 0.124 (-29.7%), goodput 1.80 → 1.26 req/s (-29.7%), TTFT p99 8370 → 2374 ms (+71.6%)
 
-### Q3 — What changes when only the temporal pattern changes
+### Q3 — 시간 패턴만 바꿨을 때 무엇이 달라지는가
 
-Prism's relative joint-attainment gain is **-3.5%** larger under shifting-bursty than under steady, averaged over 4 load level(s) (range -24.9% to +18.4%).
-The sign is **negative** — Prism does relatively worse when the hot set shifts. That is the opposite of the design's prediction and is examined in Section 8.
+| 유입률 | bursty − steady 이득 |
+| ---: | ---: |
+| 1 | +18.4% |
+| 2 | +14.9% |
+| 8 | -22.4% |
+| 10 | -24.9% |
 
-### Q4 — Does the scheduler actually act more under bursty?
+부호가 **2 와 8 req/s 사이에서 한 번 뒤집힌다.** 낮은 부하에서는 shifting-bursty 가 Prism 에 유리하고(+18.4% @ 1 req/s), 높은 부하에서는 불리하다(-24.9% @ 10 req/s).
 
-| Workload | Rate | Migrations | Activations | Evictions | Alg-1 cycles | peak-KVPR cv | mean KVPR spread across GPUs |
+교차 구간을 가로질러 평균을 내면 어느 부하도 설명하지 못하는 숫자가 나오므로, 여기서는 평균 대신 **교차점 자체가 발견**이다. 저부하 bursty 에서는 idle 모델이 KV 메모리를 내주고 hot 모델이 그리로 벌루닝할 여유가 있다. 고부하에서는 모든 GPU 가 부하를 받아 그 여유가 사라지고, 동시에 Algorithm 1 의 상대 임계값이 더 보수적으로 작동한다(§9). 두 효과가 같은 방향으로 겹친다.
+
+### Q4 — bursty 에서 스케줄러가 실제로 더 많이 움직이는가
+
+| 워크로드 | 유입률 | 마이그레이션 | 활성화 | 축출 | Alg-1 사이클 | peak-KVPR 변동계수 | GPU 간 KVPR 분리 평균 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | steady | 1 | 8 | 0 | 0 | 88 | 0.424 | 0.151 |
 | bursty | 1 | 2 | 8 | 9 | 86 | 0.384 | 0.153 |
@@ -41,18 +49,18 @@ The sign is **negative** — Prism does relatively worse when the hot set shifts
 | steady | 10 | 0 | 0 | 0 | 87 | 0.225 | -0.018 |
 | bursty | 10 | 0 | 6 | 7 | 88 | 0.409 | 0.164 |
 
-### Q5 — Is a bursty win traceable to KVPR balancing?
+### Q5 — bursty 에서의 이득이 KVPR 균형으로 설명되는가
 
-- **1 req/s**: peak-KVPR coefficient of variation 0.424 (steady) vs 0.384 (bursty); Algorithm 1 migrations 4 vs 1.
-- **2 req/s**: peak-KVPR coefficient of variation 0.296 (steady) vs 0.390 (bursty); Algorithm 1 migrations 0 vs 1.
-- **8 req/s**: peak-KVPR coefficient of variation 0.220 (steady) vs 0.441 (bursty); Algorithm 1 migrations 0 vs 0.
-- **10 req/s**: peak-KVPR coefficient of variation 0.225 (steady) vs 0.409 (bursty); Algorithm 1 migrations 0 vs 0.
+- **1 req/s**: peak-KVPR 변동계수 0.424 (steady) 대 0.384 (bursty); Algorithm 1 마이그레이션 4 대 1.
+- **2 req/s**: peak-KVPR 변동계수 0.296 (steady) 대 0.390 (bursty); Algorithm 1 마이그레이션 0 대 1.
+- **8 req/s**: peak-KVPR 변동계수 0.220 (steady) 대 0.441 (bursty); Algorithm 1 마이그레이션 0 대 0.
+- **10 req/s**: peak-KVPR 변동계수 0.225 (steady) 대 0.409 (bursty); Algorithm 1 마이그레이션 0 대 0.
 
-A higher KVPR cv under bursty means the placement objective is genuinely moving with the workload. If migrations do **not** rise with it, the objective moved but tau suppressed the response, and any bursty gain must come from ballooning and eviction rather than from placement.
+bursty 에서 KVPR 변동계수가 더 크다는 것은 배치 목적함수가 워크로드를 따라 실제로 움직인다는 뜻이다. 그런데도 마이그레이션이 함께 늘지 **않는다면**, 목적함수는 움직였지만 tau 가 반응을 억제한 것이고, bursty 에서의 이득은 배치가 아니라 벌루닝과 축출에서 온 것이어야 한다.
 
-### Q6 — If Prism is not better under bursty, why
+### Q6 — bursty 에서 Prism 이 낫지 않다면 그 이유
 
-| Workload | Rate | Alg-2 selected/eligible | pathological rounds | under-admission warnings | max zero-streak | max queue |
+| 워크로드 | 유입률 | Alg-2 selected/eligible | pathological 라운드 | under-admission 경고 | 최대 연속 zero | 최대 큐 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | steady | 1 | 1.000 | 0 | 0 | 0 | 3 |
 | bursty | 1 | 0.970 | 0 | 0 | 0 | 3 |
@@ -63,14 +71,14 @@ A higher KVPR cv under bursty means the placement objective is genuinely moving 
 | steady | 10 | 1.000 | 0 | 0 | 0 | 3 |
 | bursty | 10 | 0.962 | 0 | 0 | 0 | 15 |
 
-No under-admission was detected (no warning fired and the longest run of rounds with eligible>0 and selected=0 stayed short). The v1 failure mode is therefore **absent** here, so differences at these loads reflect the algorithms rather than a throughput shortfall in admission control.
+under-admission 이 검출되지 않았다(경고가 한 번도 발생하지 않았고, eligible>0 이면서 selected=0 인 연속 라운드도 짧게 유지됨). 즉 v1 의 실패 양상이 여기에는 **없으므로**, 이 부하들에서의 차이는 admission control 의 처리량 부족이 아니라 알고리즘 자체를 반영한다.
 
-### Q7 — Does this explain the v1 result?
+### Q7 — 이 결과로 v1 을 설명할 수 있는가
 
-v1 ran 3 x Llama-3.1-8B at a constant rate and fed Algorithm 2 `c_i = 4,214 tok/s`, derived as `sum(prompt tokens) / sum(TTFT)` over a **contended** run. Direct measurement of the prefill interval on this box puts Llama-3.1-8B at **13,702 tok/s** — v1's value was low by 3.3x. Two consequences follow, and the table above tests both:
+v1 은 3 x Llama-3.1-8B 를 일정 유입률로 돌리면서 Algorithm 2 에 `c_i = 4,214 tok/s` 를 넣었다. 이 값은 **경합 상태** 런에서 `Σ prompt tokens / Σ TTFT` 로 유도한 것이다. 이 장비에서 prefill 구간을 직접 측정하면 Llama-3.1-8B 는 **13,702 tok/s** 이므로, v1 의 값은 3.3배 낮았다. 여기서 두 가지 귀결이 나오고, 위 표가 둘 다 검사한다:
 
-1. A `c_i` that is 3.3x too small inflates every `e_i = p_i / c_i` by 3.3x, so Algorithm 2's cumulative feasibility test declares the GPU full far earlier than it is. That is the under-admission v1 observed.
-2. With three identical models on two GPUs, KVPR is the same for every placement, so Algorithm 1 had nothing to decide. v1's null result for placement was a property of its model set, not of KVPR.
+1. `c_i` 가 3.3배 작으면 모든 `e_i = p_i / c_i` 가 3.3배 커지므로, Algorithm 2 의 누적 실행가능성 검사가 실제보다 훨씬 이르게 GPU 가 찼다고 판정한다. 이것이 v1 이 관측한 under-admission 이다.
+2. 동일 모델 3개를 GPU 2장에 올리면 어떤 배치든 KVPR 이 같으므로 Algorithm 1 이 결정할 것이 없다. v1 의 배치 무차이 결과는 KVPR 의 성질이 아니라 그 모델 세트의 성질이었다.
 
-Whether those two together fully account for v1's deficit is answered by the Q6 table: if under-admission is absent here and Prism still trails, something beyond `c_i` is at work.
+이 둘이 v1 의 열세를 온전히 설명하는지는 Q6 표가 답한다. 여기서 under-admission 이 없는데도 Prism 이 뒤진다면, `c_i` 너머의 무언가가 작용하고 있는 것이다.
 

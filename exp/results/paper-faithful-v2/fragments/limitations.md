@@ -1,28 +1,25 @@
-## 10. Remaining Limitations
+## 10. 남은 한계
 
-- **A100 80GB x2, not the paper's cluster.** Absolute latencies, the saturation
-  point and the reachable model count all differ. Only two GPUs means every
-  placement decision is binary, which bounds how much Algorithm 1 can express.
-- **Production traces are not public.** Hyperbolic / Novita / Arena are not
-  released, and the prototype's `--csv-trace` parses but is never used. Our
-  arrivals are synthetic (a controlled shifting-bursty process and its exactly
-  paired steady control) over real ShareGPT prompt/response content. The
-  *shape* of the shifting hot set is modelled on the paper's description, not
-  replayed from it.
-- **Migration is stop-the-world.** The paper keeps the source instance serving
-  until the destination is ready (Sec. 6.1); the prototype deactivates the
-  source first, with `evict_waiting_requests=True`. NVLink / GPUDirect weight
-  and KV transfer are absent. Migration therefore costs more here than the
-  paper's design implies, which bounds Prism's upside in both arms equally.
-- **The paper does not specify `c_i`'s profiling method,** nor `tau`'s units or
-  value, nor the token-rate window, nor what happens to requests Algorithm 2
-  excludes. Every such choice is listed in Section 3.2 with its rationale; none
-  was tuned per load level or per arm.
-- **`prism-research` is a simplified public prototype, not the paper's
-  artifact.** Differences measured here are *prototype vs paper algorithm*, not
-  *authors' implementation vs paper*.
-- **Seeds.** Aggregate figures are stable at this seed count, but p99 is thin.
-  Where the seed-to-seed spread is comparable to the arm-to-arm difference, the
-  data does not resolve it and the report says so rather than ranking the arms.
-- **TP = 1 throughout.** The TP anti-affinity constraint is implemented but
-  never fires, so this study does not validate it.
+- **부하 수준당 seed 1개다.** 집계값에는 충분하지만 arm 간 차이가 작은 지점
+  (8 req/s 의 0.174 대 0.204 등)은 이 데이터로 **분해되지 않는다.** 부호가 부하에
+  대해 단조롭게 뒤집힌다는 점이 잡음만은 아니라는 정황이지만, seed 를 늘리기 전까지
+  개별 지점의 차이를 유의하다고 주장하지 않는다.
+- **A100 80GB 2장이며 논문의 클러스터가 아니다.** 절대 지연, 포화점, 수용 가능한
+  모델 수가 전부 다르다. GPU 가 둘뿐이라 모든 배치 결정이 이진이고, 이것이
+  Algorithm 1 이 표현할 수 있는 것의 상한을 정한다.
+- **프로덕션 트레이스는 공개되어 있지 않다.** Hyperbolic / Novita / Arena 는
+  비공개이고, 프로토타입의 `--csv-trace` 는 파싱만 되고 쓰이지 않는다. 여기의 도착
+  시각은 합성(통제된 shifting-bursty 와 정확히 페어링된 steady 대조군)이며 프롬프트와
+  응답 내용만 실제 ShareGPT 다. hot set 이동의 *형태*는 논문 서술을 본뜬 것이지
+  재생한 것이 아니다.
+- **마이그레이션이 stop-the-world 다.** 논문은 대상이 준비될 때까지 원본이 계속
+  서비스하지만(§6.1), 프로토타입은 원본을 먼저 비활성화하며
+  `evict_waiting_requests=True` 다. NVLink / GPUDirect 전송도 없다. 따라서 여기서
+  마이그레이션 비용은 논문 설계보다 크고, 이것이 두 arm 모두에서 Prism 의 상한을 낮춘다.
+- **논문이 `c_i` 프로파일링 방법도, `tau` 의 단위와 값도, 토큰율 측정 창도,
+  Algorithm 2 가 제외한 요청의 처리도 명시하지 않는다.** 그런 선택은 전부 §3.2 에
+  근거와 함께 적었고, 어느 arm 에도 부하별 튜닝을 적용하지 않았다.
+- **`prism-research` 는 논문의 아티팩트가 아니라 단순화된 공개 프로토타입이다.**
+  여기서 측정된 차이는 *프로토타입 대 논문 알고리즘* 이지 *저자 구현 대 논문* 이 아니다.
+- **전 구성이 TP=1 이다.** TP anti-affinity 제약은 구현되어 있으나 한 번도 발동하지
+  않았으므로 이 연구가 그것을 검증하지 못한다.

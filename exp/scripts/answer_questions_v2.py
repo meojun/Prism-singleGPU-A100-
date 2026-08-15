@@ -66,17 +66,17 @@ def main():
     L = []
     add = L.append
 
-    add("## 7. Steady vs Bursty Comparison\n")
+    add("## 7. Steady 대 Bursty 비교\n")
     if not rows:
-        add("_No aggregated runs yet._\n")
+        add("_집계된 런 없음._\n")
         open(a.out, "w").write("\n".join(L))
         return
 
-    add("Joint SLO attainment, and Prism's relative gain over the released "
-        "prototype, at each load. Same request set, same per-model request "
-        "counts, same average offered load — only arrival timing differs.\n")
-    add("| Rate | Baseline steady | Prism steady | gain (steady) | "
-        "Baseline bursty | Prism bursty | gain (bursty) | bursty − steady gain |")
+    add("각 부하에서의 Joint SLO 달성률과, released prototype 대비 Prism 의 상대 "
+        "이득. 동일한 request set, 동일한 모델별 요청 수, 동일한 평균 offered load "
+        "— 도착 타이밍만 다르다.\n")
+    add("| 유입률 | 기준선 steady | Prism steady | 이득 (steady) | "
+        "기준선 bursty | Prism bursty | 이득 (bursty) | bursty − steady |")
     add("| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |")
     deltas = {}
     for rate in rates:
@@ -95,12 +95,12 @@ def main():
             f"{pctstr(gb)} | {pctstr(d)} |")
     add("")
 
-    add("### Q1 — Prism vs baseline on the STEADY workload\n")
+    add("### Q1 — STEADY 워크로드에서 Prism 대 기준선\n")
     for rate in rates:
         bs, ps = I.get((BASE_SYS, "steady", rate)), I.get((PRISM_SYS, "steady", rate))
         if not (bs and ps):
             continue
-        add(f"- **{rate} req/s**: joint attainment {fmt(num(bs['joint_attainment']))} → "
+        add(f"- **{rate} req/s**: joint 달성률 {fmt(num(bs['joint_attainment']))} → "
             f"{fmt(num(ps['joint_attainment']))} ({pctstr(rel(ps['joint_attainment'], bs['joint_attainment']))}), "
             f"goodput {fmt(num(bs['goodput_req_s']),'{:.2f}')} → {fmt(num(ps['goodput_req_s']),'{:.2f}')} req/s "
             f"({pctstr(rel(ps['goodput_req_s'], bs['goodput_req_s']))}), "
@@ -108,12 +108,12 @@ def main():
             f"({pctstr(rel(ps['ttft_p99_ms'], bs['ttft_p99_ms'], higher_better=False))})")
     add("")
 
-    add("### Q2 — Prism vs baseline on the SHIFTING-BURSTY workload\n")
+    add("### Q2 — SHIFTING-BURSTY 워크로드에서 Prism 대 기준선\n")
     for rate in rates:
         bb, pb = I.get((BASE_SYS, "bursty", rate)), I.get((PRISM_SYS, "bursty", rate))
         if not (bb and pb):
             continue
-        add(f"- **{rate} req/s**: joint attainment {fmt(num(bb['joint_attainment']))} → "
+        add(f"- **{rate} req/s**: joint 달성률 {fmt(num(bb['joint_attainment']))} → "
             f"{fmt(num(pb['joint_attainment']))} ({pctstr(rel(pb['joint_attainment'], bb['joint_attainment']))}), "
             f"goodput {fmt(num(bb['goodput_req_s']),'{:.2f}')} → {fmt(num(pb['goodput_req_s']),'{:.2f}')} req/s "
             f"({pctstr(rel(pb['goodput_req_s'], bb['goodput_req_s']))}), "
@@ -121,33 +121,55 @@ def main():
             f"({pctstr(rel(pb['ttft_p99_ms'], bb['ttft_p99_ms'], higher_better=False))})")
     add("")
 
-    add("### Q3 — What changes when only the temporal pattern changes\n")
-    vals = [d for d in deltas.values() if d is not None]
+    add("### Q3 — 시간 패턴만 바꿨을 때 무엇이 달라지는가\n")
+    vals = [deltas[r] for r in rates if deltas.get(r) is not None]
+    rs = [r for r in rates if deltas.get(r) is not None]
     if vals:
-        mean_d = statistics.fmean(vals)
-        add(f"Prism's relative joint-attainment gain is **{pctstr(mean_d)}** larger under "
-            f"shifting-bursty than under steady, averaged over {len(vals)} load level(s) "
-            f"(range {pctstr(min(vals))} to {pctstr(max(vals))}).")
-        if mean_d > 0.02:
-            add("The sign is positive at every load where both arms completed, which is the "
-                "direction Prism's design predicts: idle and low-rate models free KV memory "
-                "that hot models can balloon into, and that opportunity exists only when the "
-                "per-model load actually shifts.")
-        elif mean_d < -0.02:
-            add("The sign is **negative** — Prism does relatively worse when the hot set "
-                "shifts. That is the opposite of the design's prediction and is examined in "
-                "Section 8.")
+        signs = [1 if v > 0 else (-1 if v < 0 else 0) for v in vals]
+        flips = sum(1 for i in range(1, len(signs)) if signs[i] != signs[i - 1] and 0 not in signs[i-1:i+1])
+        add("| 유입률 | bursty − steady 이득 |")
+        add("| ---: | ---: |")
+        for r, v in zip(rs, vals):
+            add(f"| {r} | {pctstr(v)} |")
+        add("")
+        if flips == 1 and len(vals) >= 3:
+            # A single sign change across the load ladder is a crossover, not a
+            # trend. Averaging across it would report a number that describes no
+            # load level, so the crossing point is the finding.
+            k = next(i for i in range(1, len(signs)) if signs[i] != signs[i - 1])
+            lo_side = "유리" if signs[0] > 0 else "불리"
+            hi_side = "유리" if signs[-1] > 0 else "불리"
+            add(f"부호가 **{rs[k-1]} 와 {rs[k]} req/s 사이에서 한 번 뒤집힌다.** "
+                f"낮은 부하에서는 shifting-bursty 가 Prism 에 {lo_side}하고"
+                f"({pctstr(vals[0])} @ {rs[0]} req/s), 높은 부하에서는 {hi_side}하다"
+                f"({pctstr(vals[-1])} @ {rs[-1]} req/s).")
+            add("")
+            add("교차 구간을 가로질러 평균을 내면 어느 부하도 설명하지 못하는 숫자가 "
+                "나오므로, 여기서는 평균 대신 **교차점 자체가 발견**이다. "
+                "저부하 bursty 에서는 idle 모델이 KV 메모리를 내주고 hot 모델이 그리로 "
+                "벌루닝할 여유가 있다. 고부하에서는 모든 GPU 가 부하를 받아 그 여유가 "
+                "사라지고, 동시에 Algorithm 1 의 상대 임계값이 더 보수적으로 작동한다"
+                "(§9). 두 효과가 같은 방향으로 겹친다.")
+        elif all(v > 0.02 for v in vals):
+            add(f"모든 부하에서 부호가 양수다(평균 {pctstr(statistics.fmean(vals))}). "
+                "Prism 설계가 예측하는 방향이다 — idle 및 저유입 모델이 KV 메모리를 "
+                "내주고 hot 모델이 그리로 벌루닝하는데, 그 기회는 모델별 부하가 실제로 "
+                "이동할 때만 생긴다.")
+        elif all(v < -0.02 for v in vals):
+            add(f"모든 부하에서 부호가 음수다(평균 {pctstr(statistics.fmean(vals))}). "
+                "hot set 이 이동할 때 Prism 이 상대적으로 더 나쁘다는 뜻이고, 설계가 "
+                "예측하는 방향의 반대다. §8 에서 다룬다.")
         else:
-            add("The difference is within the run-to-run spread at this seed count, so this "
-                "data does **not** resolve whether the temporal pattern matters for Prism's "
-                "relative standing.")
+            add(f"부호가 부하에 따라 일관되지 않다(평균 {pctstr(statistics.fmean(vals))}, "
+                f"범위 {pctstr(min(vals))} ~ {pctstr(max(vals))}). 이 seed 수에서는 "
+                "시간 패턴이 Prism 의 상대적 우열에 미치는 영향이 **분해되지 않는다.**")
     else:
-        add("_Not enough completed pairs to compare._")
+        add("_비교할 완료 쌍이 부족하다._")
     add("")
 
-    add("### Q4 — Does the scheduler actually act more under bursty?\n")
-    add("| Workload | Rate | Migrations | Activations | Evictions | Alg-1 cycles | "
-        "peak-KVPR cv | mean KVPR spread across GPUs |")
+    add("### Q4 — bursty 에서 스케줄러가 실제로 더 많이 움직이는가\n")
+    add("| 워크로드 | 유입률 | 마이그레이션 | 활성화 | 축출 | Alg-1 사이클 | "
+        "peak-KVPR 변동계수 | GPU 간 KVPR 분리 평균 |")
     add("| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |")
     for rate in rates:
         for wl in ("steady", "bursty"):
@@ -161,7 +183,7 @@ def main():
                 f"{fmt(num(r.get('kvpr_peak_cv')))} | {fmt(num(r.get('kvpr_improvement_mean')))} |")
     add("")
 
-    add("### Q5 — Is a bursty win traceable to KVPR balancing?\n")
+    add("### Q5 — bursty 에서의 이득이 KVPR 균형으로 설명되는가\n")
     ev = []
     for rate in rates:
         pb, ps = I.get((PRISM_SYS, "bursty", rate)), I.get((PRISM_SYS, "steady", rate))
@@ -173,19 +195,19 @@ def main():
         ev.append((rate, cvb, cvs, mb, ms))
     if ev:
         for rate, cvb, cvs, mb, ms in ev:
-            add(f"- **{rate} req/s**: peak-KVPR coefficient of variation "
-                f"{fmt(cvs)} (steady) vs {fmt(cvb)} (bursty); "
-                f"Algorithm 1 migrations {ms:.0f} vs {mb:.0f}.")
+            add(f"- **{rate} req/s**: peak-KVPR 변동계수 "
+                f"{fmt(cvs)} (steady) 대 {fmt(cvb)} (bursty); "
+                f"Algorithm 1 마이그레이션 {ms:.0f} 대 {mb:.0f}.")
         add("")
-        add("A higher KVPR cv under bursty means the placement objective is genuinely "
-            "moving with the workload. If migrations do **not** rise with it, the objective "
-            "moved but tau suppressed the response, and any bursty gain must come from "
-            "ballooning and eviction rather than from placement.")
+        add("bursty 에서 KVPR 변동계수가 더 크다는 것은 배치 목적함수가 워크로드를 따라 "
+            "실제로 움직인다는 뜻이다. 그런데도 마이그레이션이 함께 늘지 **않는다면**, "
+            "목적함수는 움직였지만 tau 가 반응을 억제한 것이고, bursty 에서의 이득은 "
+            "배치가 아니라 벌루닝과 축출에서 온 것이어야 한다.")
     else:
-        add("_Not enough completed Prism runs to compare._")
+        add("_비교할 Prism 런이 부족하다._")
     add("")
 
-    add("### Q6 — If Prism is not better under bursty, why\n")
+    add("### Q6 — bursty 에서 Prism 이 낫지 않다면 그 이유\n")
     diag = []
     for rate in rates:
         for wl in ("steady", "bursty"):
@@ -199,8 +221,8 @@ def main():
             diag.append((wl, rate, sel, path, warn, streak,
                          num(r.get("max_queue_length"))))
     if diag:
-        add("| Workload | Rate | Alg-2 selected/eligible | pathological rounds | "
-            "under-admission warnings | max zero-streak | max queue |")
+        add("| 워크로드 | 유입률 | Alg-2 selected/eligible | pathological 라운드 | "
+            "under-admission 경고 | 최대 연속 zero | 최대 큐 |")
         add("| --- | ---: | ---: | ---: | ---: | ---: | ---: |")
         for wl, rate, sel, path, warn, streak, q in diag:
             add(f"| {wl} | {rate} | {fmt(sel)} | {path:.0f} | {warn:.0f} | {streak:.0f} | "
@@ -209,34 +231,33 @@ def main():
         worst = max((d[5] for d in diag), default=0)
         anywarn = sum(d[4] for d in diag)
         if anywarn > 0 or worst >= 200:
-            add(f"Under-admission **is** present (max consecutive rounds with eligible>0 and "
-                f"selected=0: {worst:.0f}; warnings: {anywarn:.0f}). Any Prism deficit at "
-                f"these loads therefore cannot be read as a weakness of Prism's design — the "
-                f"local scheduler was not admitting what the GPU could have run.")
+            add(f"under-admission 이 **존재한다**(eligible>0 이면서 selected=0 인 연속 라운드 "
+                f"최대 {worst:.0f}회, 경고 {anywarn:.0f}건). 따라서 이 부하들에서 나타난 Prism 의 "
+                f"열세는 Prism 설계의 약점으로 읽을 수 없다 — 로컬 스케줄러가 GPU 가 소화할 수 "
+                f"있는 것을 넣지 않고 있었기 때문이다.")
         else:
-            add("No under-admission was detected (no warning fired and the longest run of "
-                "rounds with eligible>0 and selected=0 stayed short). The v1 failure mode is "
-                "therefore **absent** here, so differences at these loads reflect the "
-                "algorithms rather than a throughput shortfall in admission control.")
+            add("under-admission 이 검출되지 않았다(경고가 한 번도 발생하지 않았고, eligible>0 "
+                "이면서 selected=0 인 연속 라운드도 짧게 유지됨). 즉 v1 의 실패 양상이 여기에는 "
+                "**없으므로**, 이 부하들에서의 차이는 admission control 의 처리량 부족이 아니라 "
+                "알고리즘 자체를 반영한다.")
     add("")
 
-    add("### Q7 — Does this explain the v1 result?\n")
-    add("v1 ran 3 x Llama-3.1-8B at a constant rate and fed Algorithm 2 "
-        "`c_i = 4,214 tok/s`, derived as `sum(prompt tokens) / sum(TTFT)` over a "
-        "**contended** run. Direct measurement of the prefill interval on this box "
-        "puts Llama-3.1-8B at **13,702 tok/s** — v1's value was low by 3.3x. Two "
-        "consequences follow, and the table above tests both:")
+    add("### Q7 — 이 결과로 v1 을 설명할 수 있는가\n")
+    add("v1 은 3 x Llama-3.1-8B 를 일정 유입률로 돌리면서 Algorithm 2 에 "
+        "`c_i = 4,214 tok/s` 를 넣었다. 이 값은 **경합 상태** 런에서 "
+        "`Σ prompt tokens / Σ TTFT` 로 유도한 것이다. 이 장비에서 prefill 구간을 직접 "
+        "측정하면 Llama-3.1-8B 는 **13,702 tok/s** 이므로, v1 의 값은 3.3배 낮았다. "
+        "여기서 두 가지 귀결이 나오고, 위 표가 둘 다 검사한다:")
     add("")
-    add("1. A `c_i` that is 3.3x too small inflates every `e_i = p_i / c_i` by 3.3x, so "
-        "Algorithm 2's cumulative feasibility test declares the GPU full far earlier than "
-        "it is. That is the under-admission v1 observed.")
-    add("2. With three identical models on two GPUs, KVPR is the same for every "
-        "placement, so Algorithm 1 had nothing to decide. v1's null result for placement "
-        "was a property of its model set, not of KVPR.")
+    add("1. `c_i` 가 3.3배 작으면 모든 `e_i = p_i / c_i` 가 3.3배 커지므로, Algorithm 2 의 "
+        "누적 실행가능성 검사가 실제보다 훨씬 이르게 GPU 가 찼다고 판정한다. 이것이 v1 이 "
+        "관측한 under-admission 이다.")
+    add("2. 동일 모델 3개를 GPU 2장에 올리면 어떤 배치든 KVPR 이 같으므로 Algorithm 1 이 "
+        "결정할 것이 없다. v1 의 배치 무차이 결과는 KVPR 의 성질이 아니라 그 모델 세트의 "
+        "성질이었다.")
     add("")
-    add("Whether those two together fully account for v1's deficit is answered by the "
-        "Q6 table: if under-admission is absent here and Prism still trails, something "
-        "beyond `c_i` is at work.")
+    add("이 둘이 v1 의 열세를 온전히 설명하는지는 Q6 표가 답한다. 여기서 under-admission 이 "
+        "없는데도 Prism 이 뒤진다면, `c_i` 너머의 무언가가 작용하고 있는 것이다.")
     add("")
 
     with open(a.out, "w") as f:

@@ -1,49 +1,51 @@
-## 8. Root Cause
+## 8. 원인 분석
 
-What the v1 study concluded, and what this study can now say about it. Only
-claims backed by a measurement in this report appear here.
+v1 이 내린 결론과, 이번 측정이 그것에 대해 말할 수 있는 것. 이 보고서 안에 측정
+근거가 있는 주장만 적는다.
 
-**`c_i` was low by 3.3x, and that alone changes Algorithm 2's verdict.**
-v1 fed Algorithm 2 `c_i = 4,214 tok/s` for Llama-3.1-8B, obtained as
-`sum(prompt tokens) / sum(TTFT)` over a *contended* run. Under contention TTFT
-is dominated by queueing, so that ratio measures queue delay rather than prefill
-speed. Measuring the prefill interval directly — the engine's own
-`out_queue_timestamp -> prefill_finish_timestamp`, with no contention — puts the
-same model at **13,702 tok/s** (Section 3.5). Since `e_i = p_i / c_i` scales
-inversely with `c_i`, every execution estimate v1 fed to the feasibility test was
-3.3x too large, so the cumulative check `clock += e_i` declared the GPU full at
-roughly a third of the work it could actually absorb. v1's own diagnosis called
-this "the sequential machine model is wrong for a batching engine"; the
-measurement here supports a narrower and more actionable reading — the machine
-model and the `c_i` estimator disagreed about what `c_i` means.
+**`c_i` 가 3.3배 낮았고, 그것만으로 Algorithm 2 의 판정이 달라진다.**
+v1 은 Llama-3.1-8B 에 대해 `c_i = 4,214 tok/s` 를 Algorithm 2 에 넣었다. **경합
+상태** 런에서 `Σ prompt tokens / Σ TTFT` 로 얻은 값이다. 경합 상태의 TTFT 는 대부분
+큐 대기이므로, 그 비율은 prefill 속도가 아니라 큐 지연을 잰 것이다. 경합 없이 엔진의
+`out_queue_timestamp → prefill_finish_timestamp` 구간을 직접 재면 같은 모델이
+**13,702 tok/s** 다(§3.5). `e_i = p_i / c_i` 는 `c_i` 에 반비례하므로, v1 이
+실행가능성 검사에 넣은 모든 실행시간 추정이 3.3배 컸고, 누적 검사 `clock += e_i` 는
+GPU 가 실제로 소화할 수 있는 일의 3분의 1 지점에서 "찼다" 고 선언했다. v1 은 이를
+"배치 엔진에 단일 기계 모델은 틀렸다" 로 진단했으나, 이번 측정은 더 좁고 실행 가능한
+해석을 뒷받침한다 — **기계 모델과 `c_i` 추정기가 `c_i` 의 의미에 대해 서로 다른
+전제를 쓰고 있었다.**
 
-**The paper's own analysis says `c_i` is an engine capacity.** Section 6.2's
-optimality argument holds "when chunked-prefill has prefill running at each
-inference step", and derives prefill completion as
-`d_ri = a_ri + sum_i p_ri / c_ri`. That summation is only coherent if `c` is the
-throughput of one shared prefill pipeline. Read that way, requests genuinely do
-queue behind one another for prefill capacity and `clock += p_i / c_i` is the
-right model — no batch-parallelism correction is needed, and adding one (v1's
-proposed `clock += e_i / B`) would be departing from the paper rather than
-repairing it. Read as a per-request speed, the same test double-counts.
+**논문 자신의 분석이 `c_i` 를 엔진 용량으로 규정한다.** §6.2 의 최적성 논증은
+"chunked-prefill 이 매 inference step 에서 돌 때" 성립하며, prefill 완료 시각을
+`d_ri = a_ri + Σ_i p_ri / c_ri` 로 유도한다. 이 합이 성립하려면 `c` 가 공유된 하나의
+prefill 파이프라인의 처리량이어야 한다. 그렇게 읽으면 요청들은 실제로 prefill 용량을
+두고 줄을 서므로 `clock += p_i / c_i` 가 옳은 모델이며, 배치 병렬도 보정은 필요 없다
+— v1 이 제안한 `clock += e_i / B` 를 넣는 것은 논문을 고치는 것이 아니라 논문에서
+벗어나는 것이 된다. 반대로 `c_i` 를 요청당 속도로 읽으면 같은 검사가 이중 계산을 한다.
 
-**v1's model set made Algorithm 1 unmeasurable, not ineffective.** Three
-identical Llama-3.1-8B on two GPUs forces a 1+2 split whose peak KVPR is
-`2w / (C - 2 x 15.08)` regardless of which pair is colocated: the objective is
-flat, so the argmin is decided by estimator noise. v1 measured a migration
-improvement distribution of mean +0.002 with standard deviation 0.175 — an
-expected gain of zero. That is a property of the configuration, not evidence
-about KVPR. This study replaces it with six models whose KV cell size is not
-monotone in parameter count (Section 2), so `model_3` and `model_4` have nearly
-equal prefill speed (27,057 vs 27,414 tok/s) but a 3.1x difference in KV bytes
-per token — a placement question KVPR can actually answer.
+**측정 결과가 이 해석을 지지한다.** `c_i` 를 실측값으로 바로잡은 것 외에 Algorithm 2
+는 그대로 두었는데, 24개 런 전체에서 selected/eligible 이 0.955~1.000 이고
+pathological 라운드가 0건이다. v1 의 지배적 실패 양상이 사라졌다.
 
-**v1's workload had no reclaimable memory.** A constant-rate trace keeps every
-model warm, so there is never an idle tenant whose KV pool a hot tenant could
-balloon into. Prism's central mechanism was inactive by construction. The paired
-workloads here hold the request set, per-model counts, prompts, output lengths,
-duration and average offered load exactly equal and vary only arrival timing
-(Section 5), which isolates that mechanism.
+**v1 의 모델 세트는 Algorithm 1 을 측정 불가능하게 만들었다. 무효화한 것이 아니다.**
+동일한 Llama-3.1-8B 3개를 GPU 2장에 올리면 배치는 반드시 1+2 이고, 어느 쌍을 겹치든
+peak KVPR 은 `2w / (C − 2×15.08)` 로 같다. 목적함수가 평평하므로 argmin 은 추정 잡음이
+정한다. v1 이 측정한 마이그레이션 개선폭 분포는 평균 +0.002, 표준편차 0.175 — 기대
+이득이 0이다. 이는 구성의 성질이지 KVPR 에 대한 증거가 아니다. 이번에는 KV cell size 가
+파라미터 수와 단조가 아닌 6모델로 바꿨다(§2). `model_3` 과 `model_4` 는 prefill 속도가
+거의 같지만(27,057 대 27,414 tok/s) 토큰당 KV 바이트가 3.1배 다르다 — KVPR 이 실제로
+답할 수 있는 배치 질문이다.
 
-_The measured outcome of these four changes is in Sections 6, 7 and the Q1-Q7
-answers; where the data does not separate two explanations, it says so._
+**v1 의 워크로드에는 회수할 메모리가 없었다.** 일정 유입률 트레이스는 모든 모델을
+계속 따뜻하게 유지하므로, hot 모델이 벌루닝해 들어갈 idle 테넌트의 KV 풀이 애초에
+존재하지 않는다. Prism 의 핵심 메커니즘이 구성상 비활성이었다. 이번 페어링 워크로드는
+request set, 모델별 요청 수, 프롬프트, 출력 길이, 실험 길이, 평균 offered load 를
+정확히 동일하게 두고 도착 타이밍만 바꾼다(§5). 그 결과 축출과 활성화가 **bursty
+런에서만** 발생했다(런당 7~9회, 6~8회. steady 런에서는 전부 0).
+
+**다만 이번 결과가 "그래서 Prism 이 낫다" 로 이어지지는 않는다.** under-admission 이
+사라지고 Algorithm 1 이 실제로 동작하게 되었는데도, Prism 의 우열은 부하에 따라
+뒤집힌다(§7, §9). 저부하 bursty 에서는 이기고 고부하 bursty 에서는 진다. 고부하에서
+Prism 이 마이그레이션을 0회 한 반면 프로토타입은 2~5회 했다는 사실이 그 지점을 가리킨다
+— 상대 임계값 `tau` 가 부하가 높을수록 더 보수적으로 작동하기 때문이며, 이는 후속
+실험 대상이다(§10).

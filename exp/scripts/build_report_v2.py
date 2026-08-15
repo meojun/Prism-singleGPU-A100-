@@ -77,7 +77,7 @@ def section_env(base, root):
         ("Prism harness branch", sh(f"git -C {root} rev-parse --abbrev-ref HEAD")),
         ("Prism harness commit", sh(f"git -C {root} rev-parse HEAD")),
     ]
-    out = ["## 1. Experimental Environment", "", "| Item | Value |", "| --- | --- |"]
+    out = ["## 1. 실험 환경", "", "| 항목 | 값 |", "| --- | --- |"]
     out += [f"| {k} | {v} |" for k, v in rows]
     return "\n".join(out) + "\n"
 
@@ -87,8 +87,8 @@ def section_models(base):
     for p in glob.glob(os.path.join(base, "sanity", "profiling", "model_*.json")):
         d = json.load(open(p))
         prof[d["model"]] = d
-    out = ["## 2. Models", "",
-           "| Slot | Model | Params | dtype | Weights (GiB) | KV cell (B/token) | "
+    out = ["## 2. 모델", "",
+           "| 슬롯 | 모델 | 파라미터 | dtype | 가중치 (GiB) | KV cell (B/token) | "
            "TTFT p95 (ms) | TPOT p95 (ms) |",
            "| --- | --- | --- | --- | ---: | ---: | ---: | ---: |"]
     for slot, path, params, w, cell in MODELS:
@@ -97,14 +97,13 @@ def section_models(base):
                    f"{fmt(1000*b['ttft_p95_s'] if b.get('ttft_p95_s') else None)} | "
                    f"{fmt(1000*b['tpot_p95_s'] if b.get('tpot_p95_s') else None, '{:.2f}')} |")
     out += ["",
-            "KV cell size is deliberately **not** monotone in parameter count: "
-            "`model_3` carries 3.1x `model_4`'s KV per token at the same size, and "
-            "`model_5` 2.3x `model_6`'s. Without that, KVPR degenerates into a "
-            "relabelling of resident weight and Algorithm 1's objective goes flat -- "
-            "which is what happened in the v1 study's 3 x Llama-3.1-8B setup.",
-            "TTFT/TPOT p95 are no-contention solo measurements on this box "
-            "(paper Sec. 7.1 method); the SLOs used below are these times the "
-            "scale factors."]
+            "KV cell size 가 파라미터 수와 **단조가 아니도록** 일부러 골랐다. "
+            "`model_3` 은 같은 크기의 `model_4` 보다 토큰당 KV 를 3.1배, "
+            "`model_5` 는 `model_6` 보다 2.3배 쓴다. 이렇게 하지 않으면 KVPR 이 "
+            "상주 가중치의 재라벨링으로 퇴화해 Algorithm 1 의 목적함수가 평평해진다 "
+            "— v1 의 3 x Llama-3.1-8B 구성에서 실제로 그랬다.",
+            "TTFT/TPOT p95 는 이 장비에서 잰 무경합 단독 측정값이다(논문 §7.1 방식). "
+            "아래에서 쓰는 SLO 는 이 값에 스케일을 곱한 것이다."]
     return "\n".join(out) + "\n"
 
 
@@ -114,9 +113,9 @@ def section_ci(base):
         d = json.load(open(p))
         e = d["c_i_estimators"]
         rows.append((d["model"], e))
-    out = ["### c_i estimators (tokens/s)", "",
-           "| Slot | E1 ratio Sp/Sttft | E2 regression slope | E2 intercept (ms) | "
-           "E3 measured prefill, solo | E3 measured prefill, saturated | **used** |",
+    out = ["### c_i 추정기 (tokens/s)", "",
+           "| 슬롯 | E1 비율 Σp/Σttft | E2 회귀 기울기 | E2 절편 (ms) | "
+           "E3 실측 prefill, 단독 | E3 실측 prefill, 포화 | **사용값** |",
            "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
     for m, e in rows:
         used = e.get("E3_prefill_saturated") or e.get("E3_prefill_solo") or e.get("E1_ratio_sum_p_over_sum_ttft")
@@ -131,17 +130,17 @@ def section_ci(base):
 
 def section_sanity(base):
     p = os.path.join(base, "sanity", "sanity_gate.json")
-    out = ["## 4. Sanity Check", "", "| Test | Result | Pass/Fail |", "| --- | --- | --- |"]
+    out = ["## 4. Sanity Check", "", "| 검사 | 결과 | 통과 여부 |", "| --- | --- | --- |"]
     if not os.path.exists(p):
-        out.append("| (not run) | | |")
+        out.append("| (미실행) | | |")
         return "\n".join(out) + "\n"
     d = json.load(open(p))
     for r in d["results"]:
         tag = "PASS" if r["pass"] else ("**FAIL**" if r["hard"] else "WARN")
         out.append(f"| {r['check']} | {r['detail']} | {tag} |")
     out.append("")
-    out.append(f"Hard failures: **{d['hard_failures']}**"
-               + ("" if d["hard_failures"] else " -- gate passed, main experiment ran."))
+    out.append(f"Hard 실패: **{d['hard_failures']}건**"
+               + ("" if d["hard_failures"] else " — 게이트 통과, 본 실험 진행됨."))
     return "\n".join(out) + "\n"
 
 
@@ -153,9 +152,9 @@ def section_calibration(base):
         rows.append((float(os.path.basename(os.path.dirname(p)).split("_")[1]), d))
     if not rows:
         return ""
-    out = ["### Load calibration (released prototype, steady, short runs)", "",
-           "| Offered (req/s) | Throughput | TTFT p50 (ms) | TTFT p99 (ms) | "
-           "TPOT p50 (ms) | Joint attainment | Goodput | max queue |",
+    out = ["### 부하 calibration (released prototype, steady, 짧은 런)", "",
+           "| 유입률 (req/s) | 처리율 | TTFT p50 (ms) | TTFT p99 (ms) | "
+           "TPOT p50 (ms) | Joint 달성률 | Goodput | 최대 큐 |",
            "| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
     for r, d in rows:
         out.append(f"| {r:g} | {fmt(d['throughput_req_s'],'{:.2f}')} | {fmt(d['ttft_p50_ms'])} | "
@@ -168,9 +167,9 @@ def section_calibration(base):
 def section_workloads(base, root):
     wl = os.path.join(root, "exp/workloads/paper-faithful-v2")
     metas = sorted(glob.glob(os.path.join(wl, "paired_requests_*.json")))
-    out = ["## 5. Workloads", ""]
+    out = ["## 5. 워크로드", ""]
     if metas:
-        out += ["| Rate (req/s) | Duration (s) | Seed | Total requests | Avg offered load | "
+        out += ["| 유입률 (req/s) | 길이 (s) | Seed | 총 요청 | 평균 offered load | "
                 + " | ".join(m[0] for m in MODELS) + " |",
                 "| ---: | ---: | ---: | ---: | ---: |" + " ---: |" * len(MODELS)]
         for p in metas:
@@ -183,45 +182,45 @@ def section_workloads(base, root):
     if ph:
         d = json.load(open(ph[0]))
         out += ["", "### Shifting Bursty", "",
-                f"- phase duration range: {d['phase_len_range'][0]:g}-{d['phase_len_range'][1]:g} s "
-                f"(random, fixed seed)",
-                f"- hot-set size: 1-3 models, redrawn every phase",
-                f"- rate multipliers: HOT {d['hot_multiplier_range']}, "
+                f"- 위상 길이 범위: {d['phase_len_range'][0]:g}~{d['phase_len_range'][1]:g} 초 "
+                f"(랜덤, seed 고정)",
+                f"- hot set 크기: 1~3개 모델, 위상마다 다시 뽑음",
+                f"- 유입률 배수: HOT {d['hot_multiplier_range']}, "
                 f"MEDIUM {d['medium_multiplier_range']}, LOW {d['low_multiplier_range']}, IDLE = 0",
-                f"- base share: {d['base_share']}",
+                f"- 기본 비중: {d['base_share']}",
                 f"- seed: {d['seed']}",
-                "- **the aggregate arrival rate is renormalised to the same constant in "
-                "every phase**, so the cluster's total offered load never moves; only "
-                "*which* model is hot does. That removes 'the cluster got busier' as a "
-                "confound and isolates the effect Prism claims to exploit.",
+                "- **집계 유입률은 모든 위상에서 같은 상수로 정규화된다.** 따라서 클러스터가 "
+                "받는 총 부하는 전혀 움직이지 않고, 바뀌는 것은 *어느 모델이* hot 인가뿐이다. "
+                "'클러스터가 더 바빠졌다' 를 교란변수에서 제거하고, Prism 이 이용한다고 "
+                "주장하는 효과만 남긴다.",
                 "", "### Steady", "",
-                "- per-model request counts taken verbatim from the bursty trace",
-                "- each model's arrivals drawn uniformly at random over the full duration "
-                "(N uniform points = a homogeneous Poisson process conditioned on N)",
-                "", "### What is held equal", "",
-                "| Property | Bursty | Steady |", "| --- | --- | --- |",
-                "| Request set | Same | Same |", "| Prompts | Same | Same |",
-                "| Model assignment | Same | Same |", "| Output lengths | Same | Same |",
-                "| Per-model request count | Same | Same |", "| Total requests | Same | Same |",
-                "| Duration | Same | Same |", "| Average offered load | Same | Same |",
-                "| Random seed | Same | Same |",
-                "| **Arrival timing** | **Bursty** | **Uniform** |"]
+                "- 모델별 요청 수를 bursty 트레이스에서 그대로 가져옴",
+                "- 각 모델의 도착을 전체 구간에 균등 난수로 배치 "
+                "(N 개 균등 점 = 개수를 N 으로 조건화한 균질 포아송 과정)",
+                "", "### 두 워크로드에서 동일한 것", "",
+                "| 속성 | Bursty | Steady |", "| --- | --- | --- |",
+                "| Request set | 동일 | 동일 |", "| 프롬프트 | 동일 | 동일 |",
+                "| 모델 배정 | 동일 | 동일 |", "| 출력 길이 | 동일 | 동일 |",
+                "| 모델별 요청 수 | 동일 | 동일 |", "| 총 요청 수 | 동일 | 동일 |",
+                "| 실험 길이 | 동일 | 동일 |", "| 평균 offered load | 동일 | 동일 |",
+                "| Random seed | 동일 | 동일 |",
+                "| **도착 타이밍** | **Bursty** | **Uniform** |"]
     return "\n".join(out) + "\n"
 
 
 def section_results(base):
     summ = read_csv(os.path.join(base, "processed", "summary.csv"))
     if not summ:
-        return "## 6. Results\n\n_(no runs aggregated yet)_\n"
-    out = ["## 6. Results", ""]
+        return "## 6. 결과\n\n_(집계된 런 없음)_\n"
+    out = ["## 6. 결과", ""]
     by_rate = defaultdict(list)
     for r in summ:
         by_rate[r["rate"]].append(r)
     for rate in sorted(by_rate, key=lambda x: float(x)):
-        out += [f"### Offered load {rate} req/s", "",
-                "| System | Workload | TTFT p50 | TTFT p95 | TTFT p99 | TPOT p50 | TPOT p95 | "
-                "TPOT p99 | TTFT att | TPOT att | Joint att | Throughput | Goodput | "
-                "Mig | Act | Evict | max Q |",
+        out += [f"### 유입률 {rate} req/s", "",
+                "| 시스템 | 워크로드 | TTFT p50 | TTFT p95 | TTFT p99 | TPOT p50 | TPOT p95 | "
+                "TPOT p99 | TTFT 달성률 | TPOT 달성률 | Joint 달성률 | 처리율 | Goodput | "
+                "마이그 | 활성화 | 축출 | 최대 큐 |",
                 "| --- | --- |" + " ---: |" * 15]
         for r in sorted(by_rate[rate], key=lambda r: (r["workload"], r["system"])):
             mig = num(r.get("migrations_alg1")) or 0
@@ -236,9 +235,9 @@ def section_results(base):
                 f"{fmt(r['activations'],'{:.0f}')} | {fmt(r['idle_evictions'],'{:.0f}')} | "
                 f"{fmt(r['max_queue_length'],'{:.0f}')} |")
         out.append("")
-    out += ["Latency in ms, throughput and goodput in req/s. "
-            "Joint attainment = fraction of window requests meeting BOTH TTFT and TPOT SLO. "
-            "Goodput = those requests / measurement window.", ""]
+    out += ["지연은 ms, 처리율과 goodput 은 req/s. "
+            "Joint 달성률 = 측정 구간 요청 중 TTFT 와 TPOT SLO 를 **둘 다** 만족한 비율. "
+            "Goodput = 그 요청 수 / 측정 구간 길이.", ""]
     return "\n".join(out) + "\n"
 
 
@@ -275,9 +274,8 @@ def main():
     ap.add_argument("-o", "--out", required=True)
     a = ap.parse_args()
 
-    parts = ["# Paper-Faithful Prism v2 — Shifting-Bursty vs Steady", "",
-             f"_Generated by `exp/scripts/build_report_v2.py`. "
-             f"Harness commit `{sh(f'git -C {a.root} rev-parse --short HEAD')}`._", ""]
+    parts = ["# Paper-Faithful Prism v2 — Shifting-Bursty 대 Steady", "",
+             f"_`exp/scripts/build_report_v2.py` 가 생성. 하네스 커밋 `{sh(f'git -C {a.root} rev-parse --short HEAD')}`._", ""]
     parts.append(section_env(a.base, a.root))
     parts.append(section_models(a.base))
     if a.impl_status and os.path.exists(a.impl_status):
@@ -288,7 +286,9 @@ def main():
     parts.append(section_calibration(a.base))
     parts.append(section_workloads(a.base, a.root))
     parts.append(section_results(a.base))
-    parts.append(section_comparison(a.base))
+    # NB: no section_comparison() here -- answer_questions_v2.py emits its own
+    # "## 7. Steady vs Bursty Comparison" with the per-load contrast, and
+    # appending both produced a duplicate heading.
     if a.narrative and os.path.exists(a.narrative):
         parts.append(open(a.narrative).read())
     with open(a.out, "w") as f:
