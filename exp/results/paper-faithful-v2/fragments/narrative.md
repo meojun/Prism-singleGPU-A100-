@@ -1,5 +1,13 @@
 ## 7. Steady 대 Bursty 비교
 
+![도착 타이밍만 바꿨을 때 Prism 의 상대 이득 변화](plots/fig1_crossover.png)
+
+***이 연구의 헤드라인.*** 같은 request set, 같은 모델별 요청 수, 같은 평균 offered load 에서 도착 시각만 바꿨을 때 Prism 의 상대 이득이 2~8 req/s 사이에서 부호를 한 번 바꾼다.
+
+![이 실험은 TPOT 바운드다](plots/fig3_bottleneck.png)
+
+*TTFT 달성률은 거의 항상 충족되고 무너지는 것은 TPOT 뿐이다. 따라서 joint 달성률은 사실상 TPOT 달성률이며, TTFT 를 최적화하는 Algorithm 2 의 이득은 대표 지표에 나타나지 않는다.*
+
 각 부하에서의 Joint SLO 달성률과, released prototype 대비 Prism 의 상대 이득. 동일한 request set, 동일한 모델별 요청 수, 동일한 평균 offered load — 도착 타이밍만 다르다.
 
 | 유입률 | 기준선 steady | Prism steady | 이득 (steady) | 기준선 bursty | Prism bursty | 이득 (bursty) | bursty − steady |
@@ -38,6 +46,10 @@
 
 ### Q4 — bursty 에서 스케줄러가 실제로 더 많이 움직이는가
 
+![스케줄러 동작 횟수](plots/fig6_scheduler_actions.png)
+
+*축출과 활성화는 bursty 에서만 발생했다. 페어링된 워크로드가 의도한 메커니즘을 분리해 냈다는 증거다.*
+
 | 워크로드 | 유입률 | 마이그레이션 | 활성화 | 축출 | Alg-1 사이클 | peak-KVPR 변동계수 | GPU 간 KVPR 분리 평균 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | steady | 1 | 8 | 0 | 0 | 88 | 0.424 | 0.151 |
@@ -72,6 +84,12 @@ bursty 에서 KVPR 변동계수가 더 크다는 것은 배치 목적함수가 �
 | bursty | 10 | 0.962 | 0 | 0 | 0 | 15 |
 
 under-admission 이 검출되지 않았다(경고가 한 번도 발생하지 않았고, eligible>0 이면서 selected=0 인 연속 라운드도 짧게 유지됨). 즉 v1 의 실패 양상이 여기에는 **없으므로**, 이 부하들에서의 차이는 admission control 의 처리량 부족이 아니라 알고리즘 자체를 반영한다.
+
+### 참고 - Ablation
+
+![Ablation](plots/fig7_ablation.png)
+
+*Algorithm 1 과 Algorithm 2 를 따로 켰을 때. 두 알고리즘의 효과가 서로 독립적이지 않다 — 2 req/s bursty 에서는 각각 켰을 때보다 함께 켰을 때가 낫고, 8 req/s bursty 에서는 반대다.*
 
 ### Q7 — 이 결과로 v1 을 설명할 수 있는가
 

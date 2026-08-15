@@ -114,6 +114,9 @@ def section_ci(base):
         e = d["c_i_estimators"]
         rows.append((d["model"], e))
     out = ["### c_i 추정기 (tokens/s)", "",
+           "![c_i 추정기 4종](plots/fig4_ci_estimators.png)", "",
+           "*추정기에 따라 최대 10배까지 갈린다. Algorithm 2 에 넣는 값은 "
+           "포화 상태의 총 prefill 처리량(E3sat)이다.*", "",
            "| 슬롯 | E1 비율 Σp/Σttft | E2 회귀 기울기 | E2 절편 (ms) | "
            "E3 실측 prefill, 단독 | E3 실측 prefill, 포화 | **사용값** |",
            "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
@@ -153,6 +156,9 @@ def section_calibration(base):
     if not rows:
         return ""
     out = ["### 부하 calibration (released prototype, steady, 짧은 런)", "",
+           "![부하 calibration](plots/fig5_calibration.png)", "",
+           "*처리율은 끝까지 유입률을 따라간다. 무너지는 것은 달성률뿐이므로 "
+           "이 실험 구간은 용량 포화가 아니라 SLO 바운드다.*", "",
            "| 유입률 (req/s) | 처리율 | TTFT p50 (ms) | TTFT p99 (ms) | "
            "TPOT p50 (ms) | Joint 달성률 | Goodput | 최대 큐 |",
            "| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
@@ -208,11 +214,38 @@ def section_workloads(base, root):
     return "\n".join(out) + "\n"
 
 
+FIGS = {
+    "results": [
+        ("plots/fig2_joint_attainment.png",
+         "부하별 Joint SLO 달성률. 왼쪽이 steady, 오른쪽이 shifting-bursty."),
+        ("plots/fig8_ttft_p99.png",
+         "TTFT p99 (로그 축). Algorithm 2 가 실제로 개선하는 지표."),
+    ],
+    "comparison": [
+        ("plots/fig1_crossover.png",
+         "**이 연구의 헤드라인.** 도착 타이밍만 바꿨을 때 Prism 의 상대 이득이 "
+         "2~8 req/s 사이에서 부호를 한 번 바꾼다."),
+        ("plots/fig6_scheduler_actions.png",
+         "축출과 활성화는 bursty 에서만 발생한다 — 페어링 워크로드가 의도한 "
+         "메커니즘을 분리했다는 증거."),
+        ("plots/fig7_ablation.png",
+         "Algorithm 1 / Algorithm 2 를 따로 켰을 때."),
+    ],
+}
+
+
+def figures(key):
+    out = []
+    for path, cap in FIGS.get(key, []):
+        out += [f"![{cap}]({path})", "", f"*{cap}*", ""]
+    return out
+
+
 def section_results(base):
     summ = read_csv(os.path.join(base, "processed", "summary.csv"))
     if not summ:
         return "## 6. 결과\n\n_(집계된 런 없음)_\n"
-    out = ["## 6. 결과", ""]
+    out = ["## 6. 결과", ""] + figures("results")
     by_rate = defaultdict(list)
     for r in summ:
         by_rate[r["rate"]].append(r)

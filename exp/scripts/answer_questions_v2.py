@@ -67,6 +67,14 @@ def main():
     add = L.append
 
     add("## 7. Steady 대 Bursty 비교\n")
+    add("![도착 타이밍만 바꿨을 때 Prism 의 상대 이득 변화](plots/fig1_crossover.png)\n")
+    add("***이 연구의 헤드라인.*** 같은 request set, 같은 모델별 요청 수, 같은 평균 "
+        "offered load 에서 도착 시각만 바꿨을 때 Prism 의 상대 이득이 2~8 req/s "
+        "사이에서 부호를 한 번 바꾼다.\n")
+    add("![이 실험은 TPOT 바운드다](plots/fig3_bottleneck.png)\n")
+    add("*TTFT 달성률은 거의 항상 충족되고 무너지는 것은 TPOT 뿐이다. 따라서 joint "
+        "달성률은 사실상 TPOT 달성률이며, TTFT 를 최적화하는 Algorithm 2 의 이득은 "
+        "대표 지표에 나타나지 않는다.*\n")
     if not rows:
         add("_집계된 런 없음._\n")
         open(a.out, "w").write("\n".join(L))
@@ -168,6 +176,9 @@ def main():
     add("")
 
     add("### Q4 — bursty 에서 스케줄러가 실제로 더 많이 움직이는가\n")
+    add("![스케줄러 동작 횟수](plots/fig6_scheduler_actions.png)\n")
+    add("*축출과 활성화는 bursty 에서만 발생했다. 페어링된 워크로드가 의도한 "
+        "메커니즘을 분리해 냈다는 증거다.*\n")
     add("| 워크로드 | 유입률 | 마이그레이션 | 활성화 | 축출 | Alg-1 사이클 | "
         "peak-KVPR 변동계수 | GPU 간 KVPR 분리 평균 |")
     add("| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |")
@@ -242,6 +253,11 @@ def main():
                 "알고리즘 자체를 반영한다.")
     add("")
 
+    add("### 참고 - Ablation\n")
+    add("![Ablation](plots/fig7_ablation.png)\n")
+    add("*Algorithm 1 과 Algorithm 2 를 따로 켰을 때. 두 알고리즘의 효과가 서로 "
+        "독립적이지 않다 — 2 req/s bursty 에서는 각각 켰을 때보다 함께 켰을 때가 "
+        "낫고, 8 req/s bursty 에서는 반대다.*\n")
     add("### Q7 — 이 결과로 v1 을 설명할 수 있는가\n")
     add("v1 은 3 x Llama-3.1-8B 를 일정 유입률로 돌리면서 Algorithm 2 에 "
         "`c_i = 4,214 tok/s` 를 넣었다. 이 값은 **경합 상태** 런에서 "

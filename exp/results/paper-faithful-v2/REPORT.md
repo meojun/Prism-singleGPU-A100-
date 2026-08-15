@@ -1,6 +1,6 @@
 # Paper-Faithful Prism v2 — Shifting-Bursty 대 Steady
 
-_`exp/scripts/build_report_v2.py` 가 생성. 하네스 커밋 `dc30ecd`._
+_`exp/scripts/build_report_v2.py` 가 생성. 하네스 커밋 `5742c9c`._
 
 ## 0. 읽기 전에 — 이 보고서가 무엇이고 무엇이 아닌가
 
@@ -65,7 +65,7 @@ seed 를 늘리기 전까지 이 보고서의 어떤 단일 비교도 통계적 
 | prism-research commit | 595ec1f170e75a43897a7a2ad58ac5a9820aa2e8 |
 | kvcached commit (prism/shm) | d78649d0c2b7d2ff32eb48a423df7bf60054f4c9 |
 | Prism harness branch | exp/paper-faithful-v2 |
-| Prism harness commit | dc30ecdeaa2411133d9b4e0901f8ed4ec0217e1d |
+| Prism harness commit | 5742c9c12528b16461befd9241099abe92d74716 |
 
 ## 2. 모델
 
@@ -177,6 +177,10 @@ size 가 파라미터 수와 단조가 아닌 6모델을 쓴다.
 
 ### c_i 추정기 (tokens/s)
 
+![c_i 추정기 4종](plots/fig4_ci_estimators.png)
+
+*추정기에 따라 최대 10배까지 갈린다. Algorithm 2 에 넣는 값은 포화 상태의 총 prefill 처리량(E3sat)이다.*
+
 | 슬롯 | E1 비율 Σp/Σttft | E2 회귀 기울기 | E2 절편 (ms) | E3 실측 prefill, 단독 | E3 실측 prefill, 포화 | **사용값** |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | model_1 | 38925 | 107492 | 9.9 | 49408 | 53634 | **53634** |
@@ -205,6 +209,10 @@ size 가 파라미터 수와 단조가 아닌 6모델을 쓴다.
 Hard 실패: **0건** — 게이트 통과, 본 실험 진행됨.
 
 ### 부하 calibration (released prototype, steady, 짧은 런)
+
+![부하 calibration](plots/fig5_calibration.png)
+
+*처리율은 끝까지 유입률을 따라간다. 무너지는 것은 달성률뿐이므로 이 실험 구간은 용량 포화가 아니라 SLO 바운드다.*
 
 | 유입률 (req/s) | 처리율 | TTFT p50 (ms) | TTFT p99 (ms) | TPOT p50 (ms) | Joint 달성률 | Goodput | 최대 큐 |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -255,6 +263,14 @@ Hard 실패: **0건** — 게이트 통과, 본 실험 진행됨.
 
 ## 6. 결과
 
+![부하별 Joint SLO 달성률. 왼쪽이 steady, 오른쪽이 shifting-bursty.](plots/fig2_joint_attainment.png)
+
+*부하별 Joint SLO 달성률. 왼쪽이 steady, 오른쪽이 shifting-bursty.*
+
+![TTFT p99 (로그 축). Algorithm 2 가 실제로 개선하는 지표.](plots/fig8_ttft_p99.png)
+
+*TTFT p99 (로그 축). Algorithm 2 가 실제로 개선하는 지표.*
+
 ### 유입률 1 req/s
 
 | 시스템 | 워크로드 | TTFT p50 | TTFT p95 | TTFT p99 | TPOT p50 | TPOT p95 | TPOT p99 | TTFT 달성률 | TPOT 달성률 | Joint 달성률 | 처리율 | Goodput | 마이그 | 활성화 | 축출 | 최대 큐 |
@@ -304,6 +320,14 @@ Hard 실패: **0건** — 게이트 통과, 본 실험 진행됨.
 
 ## 7. Steady 대 Bursty 비교
 
+![도착 타이밍만 바꿨을 때 Prism 의 상대 이득 변화](plots/fig1_crossover.png)
+
+***이 연구의 헤드라인.*** 같은 request set, 같은 모델별 요청 수, 같은 평균 offered load 에서 도착 시각만 바꿨을 때 Prism 의 상대 이득이 2~8 req/s 사이에서 부호를 한 번 바꾼다.
+
+![이 실험은 TPOT 바운드다](plots/fig3_bottleneck.png)
+
+*TTFT 달성률은 거의 항상 충족되고 무너지는 것은 TPOT 뿐이다. 따라서 joint 달성률은 사실상 TPOT 달성률이며, TTFT 를 최적화하는 Algorithm 2 의 이득은 대표 지표에 나타나지 않는다.*
+
 각 부하에서의 Joint SLO 달성률과, released prototype 대비 Prism 의 상대 이득. 동일한 request set, 동일한 모델별 요청 수, 동일한 평균 offered load — 도착 타이밍만 다르다.
 
 | 유입률 | 기준선 steady | Prism steady | 이득 (steady) | 기준선 bursty | Prism bursty | 이득 (bursty) | bursty − steady |
@@ -342,6 +366,10 @@ Hard 실패: **0건** — 게이트 통과, 본 실험 진행됨.
 
 ### Q4 — bursty 에서 스케줄러가 실제로 더 많이 움직이는가
 
+![스케줄러 동작 횟수](plots/fig6_scheduler_actions.png)
+
+*축출과 활성화는 bursty 에서만 발생했다. 페어링된 워크로드가 의도한 메커니즘을 분리해 냈다는 증거다.*
+
 | 워크로드 | 유입률 | 마이그레이션 | 활성화 | 축출 | Alg-1 사이클 | peak-KVPR 변동계수 | GPU 간 KVPR 분리 평균 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | steady | 1 | 8 | 0 | 0 | 88 | 0.424 | 0.151 |
@@ -376,6 +404,12 @@ bursty 에서 KVPR 변동계수가 더 크다는 것은 배치 목적함수가 �
 | bursty | 10 | 0.962 | 0 | 0 | 0 | 15 |
 
 under-admission 이 검출되지 않았다(경고가 한 번도 발생하지 않았고, eligible>0 이면서 selected=0 인 연속 라운드도 짧게 유지됨). 즉 v1 의 실패 양상이 여기에는 **없으므로**, 이 부하들에서의 차이는 admission control 의 처리량 부족이 아니라 알고리즘 자체를 반영한다.
+
+### 참고 - Ablation
+
+![Ablation](plots/fig7_ablation.png)
+
+*Algorithm 1 과 Algorithm 2 를 따로 켰을 때. 두 알고리즘의 효과가 서로 독립적이지 않다 — 2 req/s bursty 에서는 각각 켰을 때보다 함께 켰을 때가 낫고, 8 req/s bursty 에서는 반대다.*
 
 ### Q7 — 이 결과로 v1 을 설명할 수 있는가
 
