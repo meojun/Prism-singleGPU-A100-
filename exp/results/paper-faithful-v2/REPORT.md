@@ -1,6 +1,54 @@
 # Paper-Faithful Prism v2 — Shifting-Bursty 대 Steady
 
-_`exp/scripts/build_report_v2.py` 가 생성. 하네스 커밋 `2558631`._
+_`exp/scripts/build_report_v2.py` 가 생성. 하네스 커밋 `dc30ecd`._
+
+## 0. 읽기 전에 — 이 보고서가 무엇이고 무엇이 아닌가
+
+숫자를 보기 전에 이 절을 읽으세요. 아래 여섯 가지는 표만 보면 반대로 읽히기 쉽습니다.
+
+**① 여기서 "Prism" 은 저자들의 구현이 아니다.**
+비교한 두 시스템은 다음과 같다.
+
+| 이름 | 실체 |
+| --- | --- |
+| `released-prototype` | 공개된 `Multi-LLM/prism-research @ 595ec1f` 를 **그대로** 실행. 우리가 추가한 코드 경로는 전부 플래그 뒤에 있어 이 arm 에서는 한 줄도 실행되지 않는다 |
+| `paper-faithful` | 논문(arXiv 2505.04021v3) 의 Algorithm 1·2 의사코드를 **우리가** 옮겨 심은 것 |
+
+따라서 이 보고서가 측정한 것은 **공개 프로토타입 대 논문 알고리즘**이지,
+**저자 구현 대 논문**이 아니다. 저자들의 실제 시스템은 공개되어 있지 않다.
+"Prism 이 졌다/이겼다" 로 읽으면 안 되고, "이 구성에서 논문 알고리즘이 공개
+프로토타입의 휴리스틱보다 나았다/못했다" 로 읽어야 한다.
+
+**② 사용한 LLM 은 논문의 모델 세트가 아니다.**
+논문의 정확한 구성은 공개되어 있지 않다. §2 의 6모델은 우리가 고른 것이며,
+선정 기준은 성능이 아니라 **KV cell size 가 파라미터 수와 단조가 아닐 것** 하나였다.
+그래야 KVPR 이 "상주 가중치의 재라벨링" 으로 퇴화하지 않는다. 모델의 품질·정확도는
+이 실험과 무관하다 — 모든 요청이 `ignore_eos=True` 로 고정 길이를 생성하므로
+출력 내용은 측정에 전혀 들어가지 않는다.
+
+**③ joint 달성률이 0.12~0.76 인 것은 시스템 고장이 아니다.**
+SLO 를 이 장비의 **무경합 단독 p95 × (TTFT 5배, TPOT 3배)** 로 잡았기 때문이다.
+GPU 한 장에 모델 3개가 상주해 디코딩을 나눠 쓰는 구성에서 이 목표는 저부하에서도
+빡빡하다. 처리율은 **모든 부하에서 유입률을 정확히 따라갔고**(1.03 / 2.09 / 8.04 /
+10.16 req/s), 실패 요청은 0건, 최대 큐는 0~16 이었다. 즉 어느 런도 용량 포화나
+붕괴 상태가 아니었다. 낮은 달성률은 **일부러 엄격하게 잡은 목표선**의 결과다.
+
+**④ 이 실험 전체가 TPOT 바운드다. 그래서 Algorithm 2 의 이득이 대표 지표에 안 보인다.**
+TTFT 달성률은 모든 런에서 0.89~0.99 이므로 joint 달성률은 사실상 TPOT 달성률이다.
+Algorithm 2 는 TTFT 를 최적화하는 알고리즘이고 실제로 잘 작동했다 — 10 req/s bursty
+에서 TTFT p99 를 8,370 ms 에서 2,374 ms 로 3.5배 줄였다. 그런데 그 지표가 병목이
+아니었으므로 joint 달성률은 오히려 낮게 나온다. **"Algorithm 2 가 성능을 떨어뜨렸다"
+로 읽으면 틀린다.** 이 구성이 그 알고리즘이 겨냥한 지표를 측정하지 못한 것이다.
+
+**⑤ 부하 수준당 seed 가 1개다.**
+따라서 개별 지점의 차이(예: 8 req/s 의 0.174 대 0.204)를 유의하다고 주장하지 않는다.
+근거로 삼는 것은 **부호가 부하에 대해 단조롭게 뒤집힌다**는 패턴이지 개별 숫자가 아니다.
+seed 를 늘리기 전까지 이 보고서의 어떤 단일 비교도 통계적 주장으로 쓰면 안 된다.
+
+**⑥ `c_i` 와 SLO 기준선은 이 장비 전용이다.**
+`exp/configs/v2/` 의 값은 A100-SXM4-80GB 에서 측정한 것이고, Algorithm 2 의
+실행가능성 판정과 Algorithm 1 의 KVPR 가중을 직접 결정한다. 다른 장비에서 재사용하면
+안 되며, `exp/scripts/run_profiling_v2.sh` 로 다시 재야 한다.
 
 ## 1. 실험 환경
 
@@ -17,7 +65,7 @@ _`exp/scripts/build_report_v2.py` 가 생성. 하네스 커밋 `2558631`._
 | prism-research commit | 595ec1f170e75a43897a7a2ad58ac5a9820aa2e8 |
 | kvcached commit (prism/shm) | d78649d0c2b7d2ff32eb48a423df7bf60054f4c9 |
 | Prism harness branch | exp/paper-faithful-v2 |
-| Prism harness commit | 25586317b54fa0e251e58f123b27d987e0ccbf95 |
+| Prism harness commit | dc30ecdeaa2411133d9b4e0901f8ed4ec0217e1d |
 
 ## 2. 모델
 
@@ -33,101 +81,98 @@ _`exp/scripts/build_report_v2.py` 가 생성. 하네스 커밋 `2558631`._
 KV cell size 가 파라미터 수와 **단조가 아니도록** 일부러 골랐다. `model_3` 은 같은 크기의 `model_4` 보다 토큰당 KV 를 3.1배, `model_5` 는 `model_6` 보다 2.3배 쓴다. 이렇게 하지 않으면 KVPR 이 상주 가중치의 재라벨링으로 퇴화해 Algorithm 1 의 목적함수가 평평해진다 — v1 의 3 x Llama-3.1-8B 구성에서 실제로 그랬다.
 TTFT/TPOT p95 는 이 장비에서 잰 무경합 단독 측정값이다(논문 §7.1 방식). 아래에서 쓰는 SLO 는 이 값에 스케일을 곱한 것이다.
 
-## 3. Implementation Status
+## 3. 구현 상태
 
-Audited line-by-line against arXiv **2505.04021v3** (the OSDI revision) and the
-pinned prototype `Multi-LLM/prism-research @ 595ec1f`.
+arXiv **2505.04021v3** (OSDI 개정판) 원문과 핀 고정된 프로토타입
+`Multi-LLM/prism-research @ 595ec1f` 를 줄 단위로 대조했다.
 
-### 3.1 Paper-specified — implemented as written
+### 3.1 논문에 명시된 것 — 쓰인 그대로 구현
 
-| Paper | Where |
+| 논문 | 구현 위치 |
 | --- | --- |
-| Alg. 1 line 1: sort models by `t_j * tz_j / s_j` descending | `kvpr_global.py::_greedy_placement` |
-| Alg. 1 lines 2-3: `shared_kv_i <- C`, `w_token_rate_i <- 0` | same |
-| Alg. 1 line 6: pick the GPU minimising `w_token_rate_i / shared_kv_i` | same |
-| Alg. 1 lines 9-11: assign, then update both accumulators | same |
-| `tz_j` = KV bytes per token | `model_info.json::cell_size` |
-| Alg. 2 line 1: sort ascending by `d_i = a_i + s_i` | `moore_hodgson.py::select` |
-| Alg. 2 lines 4-6: `e_r = p_r / c_r`, append, `clock += e_r` | same |
-| Alg. 2 lines 7-11: on overflow drop the **longest** job and rewind the clock | same |
-| Alg. 2 line 12: dispatch `S` in schedule order | `request_queue_mh.py` |
-| Shared per-GPU request queue (Sec. 6.2) | prototype's `RequestQueue`, reused |
-| Idle model eviction / reactivation on arrival | prototype's `SimpleGlobalPolicy`, inherited |
-| TP anti-affinity | implemented; never fires — every model here is TP=1 |
-| GPU memory ballooning (Sec. 5) | pinned `kvcached` `prism/shm`, unmodified, identical in both arms |
+| Alg. 1 line 1: 모델을 `t_j * tz_j / s_j` 내림차순 정렬 | `kvpr_global.py::_greedy_placement` |
+| Alg. 1 lines 2-3: `shared_kv_i <- C`, `w_token_rate_i <- 0` | 동일 |
+| Alg. 1 line 6: `w_token_rate_i / shared_kv_i` 를 최소화하는 GPU 선택 | 동일 |
+| Alg. 1 lines 9-11: 배정 후 두 누적기 갱신 | 동일 |
+| `tz_j` = 토큰당 KV 바이트 | `model_info.json::cell_size` |
+| Alg. 2 line 1: `d_i = a_i + s_i` 오름차순 정렬 | `moore_hodgson.py::select` |
+| Alg. 2 lines 4-6: `e_r = p_r / c_r`, 추가, `clock += e_r` | 동일 |
+| Alg. 2 lines 7-11: 초과 시 **가장 긴** 작업 제거 후 시계 되감기 | 동일 |
+| Alg. 2 line 12: `S` 를 스케줄 순서로 디스패치 | `request_queue_mh.py` |
+| GPU 별 공유 요청 큐 (§6.2) | 프로토타입 `RequestQueue` 재사용 |
+| 유휴 모델 축출 / 요청 도착 시 재활성화 | 프로토타입 `SimpleGlobalPolicy` 상속 |
+| TP anti-affinity | 구현했으나 한 번도 발동 안 함 — 전 구성이 TP=1 |
+| GPU 메모리 벌루닝 (§5) | 핀 고정 `kvcached` `prism/shm`, 무수정, 두 arm 동일 |
 
-`released-prototype` runs the upstream code path bit-for-bit: every new code
-path sits behind `--policy kvpr-global` / `--enable-moore-hodgson`.
+`released-prototype` 은 상류 코드 경로를 그대로 실행한다. 우리가 추가한 모든 경로는
+`--policy kvpr-global` / `--enable-moore-hodgson` 뒤에 있어 그 arm 에서는 실행되지 않는다.
+런마다 서버 로그의 `[PAPER-ALG1]` / `[PAPER-ALG2]` 표식 개수로 이를 검증했다(§4 검사 0).
 
-### 3.2 Our assumptions — the paper does not fix these
+### 3.2 우리의 가정 — 논문이 정하지 않은 것들
 
-| Item | Paper | Our decision | Why |
+| 항목 | 논문 | 우리 결정 | 이유 |
 | --- | --- | --- | --- |
-| `tau` units | Alg. 1 line 8 tests `current_r - best_r > tau`, but KVPR is dimensioned and no value is given | dimensionless: relative reduction of the cluster's **peak** KVPR, default 0.35 | "Bounding the maximum KVPR across the cluster" is the paper's own stated objective for this greedy step (Analysis / App. A.2); a relative test is comparable across setups, an absolute one is not |
-| Alg. 1 line 10 accumulator | printed as `+= r_k / s_k`, contradicting the line-1 key `t_j*tz_j/s_j` | `t_k*tz_k/s_k` for both | line 10 is a leftover from arXiv v1, where the numerator was a request rate |
-| `s_j` in KVPR | "latency SLO" | **TPOT** SLO baseline x `--kvpr-tpot-slo-scale` | KVPR models memory pressure, and memory headroom is what governs TPOT (paper Sec. 6.2 Analysis) |
-| `t_j` definition | "token rate" | admitted input tokens/s over a sliding window **+** engine-reported decode tokens/s | the rate at which the KV cache actually grows |
-| token-rate window | unspecified | 30 s | matches the prototype's own `ModelRequestTracker` window, so window length is not a confound between arms |
-| global scheduler period | unspecified | 5 s | the prototype's hard-coded `SCHEDULE_INTERVAL`; identical in both arms |
-| migration cooldown | not in the paper at all | 30 s | decisions are made every 5 s but the rate estimate is a 30 s average, so consecutive passes share 25/30 of their input and are not independent observations |
-| migrations per cycle | unspecified | at most 1 | matches the prototype; a migration is stop-the-world here |
-| never empty a GPU | unspecified | enforced | the launcher only starts a GPU scheduler for GPUs in the initial placement, so an emptied GPU stays dead for the rest of the run |
-| `c_i` | "a chunked-prefill speed determined by the model that serves it" — no value, no method | **measured**: aggregate prefill token throughput under a saturating prefill burst, from the engine's own `out_queue -> prefill_finish` timestamps | see Sec. 3.4 |
-| fate of Alg-2-excluded requests | unspecified | `d_i > now` requeued; `d_i <= now` dispatched after `S` at lowest priority | Moore-Hodgson minimises the *number* of late jobs assuming all jobs still run. Holding back already-late requests is a livelock — the verdict is identical every round (regression-tested, `test_moore_hodgson.py` #9) |
-| idle eviction threshold | "empirical", App. A.4 cites ~45 s | prototype's `MODEL_IDLE_THRESHOLD = 50 s`, unchanged | consistent with the paper and identical in both arms |
-| SLO absolute values | authors' hardware | re-measured on this box, Sec. 7.1 method, x5 TTFT / x3 TPOT | the paper's numbers are not this machine's baseline |
-| Joint-SLO goodput | not a paper metric | defined here: completed requests meeting both SLOs / measurement window | — |
+| `tau` 의 단위 | Alg. 1 line 8 이 `current_r - best_r > tau` 로 절대 비교하는데, KVPR 은 차원을 가지며 단위도 값도 제시하지 않음 | 무차원. 클러스터 **peak** KVPR 의 상대 감소분, 기본 0.35 | "클러스터 최대 KVPR 을 억제한다" 가 이 greedy 근사에 대한 논문 자신의 목표 서술(Analysis / App. A.2)이다. 상대 기준은 구성이 달라도 비교 가능하지만 절대 기준은 그렇지 않다 |
+| Alg. 1 line 10 누적항 | `+= r_k / s_k` 로 인쇄되어 line 1 의 정렬 키 `t_j*tz_j/s_j` 와 모순 | 양쪽 모두 `t_k*tz_k/s_k` | line 10 은 분자가 요청률이던 arXiv v1 의 잔재다 |
+| KVPR 의 `s_j` | "latency SLO" | **TPOT** SLO 기준선 × `--kvpr-tpot-slo-scale` | KVPR 은 메모리 압력을 모델링하고, 메모리 여유가 지배하는 것은 TPOT 이다(논문 §6.2 Analysis) |
+| `t_j` 정의 | "token rate" | 슬라이딩 창 기준 admit 된 입력 tok/s **+** 엔진 보고 디코드 tok/s | KV 캐시가 실제로 자라는 속도 |
+| 토큰율 측정 창 | 미지정 | 30초 | 프로토타입의 `ModelRequestTracker` 창과 맞춰, 창 길이가 두 arm 사이 교란변수가 되지 않게 함 |
+| 전역 스케줄러 주기 | 미지정 | 5초 | 프로토타입 하드코딩 `SCHEDULE_INTERVAL`. 두 arm 동일 |
+| 마이그레이션 쿨다운 | 논문에 항목 자체가 없음 | 30초 | 결정은 5초마다지만 비율 추정은 30초 평균이라, 연속 패스는 입력의 25/30 을 공유해 독립 관측이 아니다 |
+| 사이클당 마이그레이션 수 | 미지정 | 최대 1회 | 프로토타입과 동일. 여기서 마이그레이션은 stop-the-world 다 |
+| GPU 를 비우지 않음 | 미지정 | 강제 | 런처가 초기 배치에 있는 GPU 에만 스케줄러를 띄우므로, 비워진 GPU 는 런 내내 죽어 있다 |
+| `c_i` | "모델이 결정하는 chunked-prefill 속도" — 값도 방법도 없음 | **측정값**: 포화 상태 prefill burst 에서의 총 prefill 토큰 처리량. 엔진의 `out_queue -> prefill_finish` 타임스탬프 기준 | §3.4 참조 |
+| Alg-2 가 제외한 요청의 처리 | 미지정 | `d_i > now` 재큐잉, `d_i <= now` 는 `S` 뒤 최하위로 디스패치 | Moore-Hodgson 은 모든 작업이 실행된다는 전제에서 *늦은 작업의 개수*를 최소화한다. 이미 늦은 것을 붙잡아 두면 livelock 이며 판정이 매 라운드 동일하다(회귀 테스트 `test_moore_hodgson.py` #9) |
+| 유휴 축출 임계 | "경험적", App. A.4 가 약 45초 인용 | 프로토타입의 `MODEL_IDLE_THRESHOLD = 50초` 그대로 | 논문과 정합적이고 두 arm 에 동일 적용 |
+| SLO 절대값 | 저자 하드웨어 기준 | 이 장비에서 §7.1 방식으로 재측정, TTFT ×5 / TPOT ×3 | 논문 수치는 이 장비의 기준선이 아니다 |
+| Joint-SLO goodput | 논문 지표가 아님 | 여기서 정의: 두 SLO 를 모두 만족한 완료 요청 수 / 측정 구간 | — |
 
-### 3.3 Remaining mismatch — present in the paper, absent here
+### 3.3 남은 불일치 — 논문에 있으나 여기에 없는 것
 
-| Paper | Status | Note |
+| 논문 | 상태 | 비고 |
 | --- | --- | --- |
-| Overlapped migration (source keeps serving until destination is ready) | **not implemented** | the prototype deactivates the source *then* activates the destination, with `evict_waiting_requests=True`. Stop-the-world. |
-| Reusable pre-initialised engine pool | partially — worker pool exists, contexts are not pre-warmed | |
-| Parallel weight loading (Sec. 5.3) | **partial** | `model_sevice.py` computes `broker_gpu_id = (broker_id + target_gpu_id + 1) % num_gpus`; with 2 GPUs there is one non-target broker, so parallelism is 2-way at best |
-| NVLink / GPUDirect weight+KV transfer | **not implemented** | |
-| CPU DRAM eviction tier | not exercised | |
-| Production traces (Hyperbolic / Novita / Arena) | **not public** | `--csv-trace` parses but is unused. Our workloads are ShareGPT content with synthetic arrivals. |
-| Baselines MuxServe++ / QLM / ServerlessLLM | not installed | conflicting torch/vllm pins; each needs its own venv |
-| Sec. 7.4 scale (58 models / 32 GPUs) | out of reach | 2 GPUs |
-| TP > 1 | not exercised | every model here is TP=1 |
+| 오버랩 마이그레이션 (대상이 준비될 때까지 원본이 계속 서비스) | **미구현** | 프로토타입은 원본을 비활성화한 *뒤* 대상을 활성화하며 `evict_waiting_requests=True` 다. stop-the-world |
+| 재사용 가능한 사전 초기화 엔진 풀 | **부분** | worker pool 은 있으나 컨텍스트 사전 예열은 없음 |
+| 병렬 가중치 로딩 (§5.3) | **부분** | `model_sevice.py` 가 `broker_gpu_id = (broker_id + target_gpu_id + 1) % num_gpus` 를 계산하므로, GPU 2장에서는 비대상 broker 가 하나뿐이라 병렬도가 최대 2 |
+| NVLink / GPUDirect 가중치·KV 전송 | **미구현** | — |
+| CPU DRAM 축출 계층 | 사용 안 함 | — |
+| 프로덕션 트레이스 (Hyperbolic / Novita / Arena) | **비공개** | `--csv-trace` 는 파싱만 되고 쓰이지 않는다. 여기 워크로드는 ShareGPT 내용 + 합성 도착 시각이다 |
+| 기준선 MuxServe++ / QLM / ServerlessLLM | 미설치 | torch/vllm 핀이 충돌해 각각 자기 venv 가 필요하다 |
+| §7.4 규모 (모델 58개 / GPU 32장) | 불가능 | GPU 2장 |
+| TP > 1 | 사용 안 함 | 전 구성이 TP=1 |
 
-### 3.4 What changed from v1, and why
+### 3.4 v1 에서 무엇이 왜 바뀌었나
 
-**`c_i`.** v1 used `sum(prompt_tokens) / sum(TTFT)` over a *contended* run and
-got ~4,214 tok/s, on the argument that `e_i = p_i / c_i` has no intercept so
-`c_i` must reproduce total prefill time. The flaw is the denominator: under
-contention TTFT is mostly queueing, so that ratio measures queue delay, not
-prefill speed. The paper calls `c_i` "a chunked-prefill speed determined by the
-model", and its optimality argument (Sec. 6.2 Analysis) assumes prefill runs at
-every inference step at rate `c` — that is an **engine throughput**, not the
-reciprocal of one request's latency.
+**`c_i`.** v1 은 `Σ prompt tokens / Σ TTFT` 를 **경합 상태** 런에서 계산해
+`c_i = 4,214 tok/s` 를 얻었고, `e_i = p_i / c_i` 에 절편 항이 없으니 `c_i` 는 전체
+prefill 시간을 재현하는 양이어야 한다는 논리를 근거로 삼았다. 문제는 분모다. 경합
+상태의 TTFT 는 대부분 큐 대기이므로 그 비율은 prefill 속도가 아니라 큐 지연을 잰다.
+논문은 `c_i` 를 "모델이 결정하는 chunked-prefill 속도" 라고 부르고, 최적성 논증
+(§6.2 Analysis)은 prefill 이 매 inference step 에서 속도 `c` 로 돈다고 전제한다 —
+이는 **엔진 처리량**이지 한 요청 지연의 역수가 아니다.
 
-This matters because it decides whether the single-machine feasibility test
-`clock += e_i` is even the right model. With `c_i` read as an *aggregate*
-capacity, requests genuinely do share one prefill pipeline of that capacity and
-the sequential accumulation is correct. With `c_i` read as a *per-request*
-speed, the test charges each request the full serial cost and under-admits.
-v1's under-admission is therefore consistent with a `c_i`/machine-model
-mismatch rather than with a defect in Algorithm 2 as written.
+이 구분이 중요한 이유는, 단일 기계 실행가능성 검사 `clock += e_i` 가 옳은 모델인지를
+그것이 결정하기 때문이다. `c_i` 를 **총 용량**으로 읽으면 요청들은 실제로 그 용량의
+단일 prefill 파이프라인을 두고 줄을 서므로 누적 방식이 맞고, 배치 병렬도 보정은
+필요 없다. **요청당 속도**로 읽으면 같은 검사가 이중 계산을 하고 과소 수용한다.
+v1 의 under-admission 은 Algorithm 2 의 결함이 아니라 `c_i` 와 기계 모델의 불일치와
+정합적이다.
 
-v2 measures the prefill interval directly, from the engine's own
-`out_queue_timestamp -> prefill_finish_timestamp`, and reports four estimators
-side by side (Sec. 3.5). The value fed to Algorithm 2 is the saturated
-aggregate.
+v2 는 prefill 구간을 엔진의 `out_queue_timestamp -> prefill_finish_timestamp` 로
+직접 재고, 네 가지 추정기를 나란히 보고한다(§3.5). Algorithm 2 에 넣는 값은 포화
+상태의 총 처리량이다.
 
-**Model set.** v1 used 3 x Llama-3.1-8B, which makes KVPR identical for every
-placement (`2w / (C - 2*15.08)` whichever pair you colocate) and leaves
-Algorithm 1 nothing to decide. v2 uses six models whose KV cell size is not
-monotone in parameter count.
+**모델 세트.** v1 은 동일한 Llama-3.1-8B 3개를 썼는데, 이러면 어느 쌍을 겹치든
+KVPR 이 `2w / (C - 2×15.08)` 로 같아 Algorithm 1 이 결정할 것이 없다. v2 는 KV cell
+size 가 파라미터 수와 단조가 아닌 6모델을 쓴다.
 
-**Workload.** v1 used a constant-rate ShareGPT trace, so no model was ever idle
-and there was never reclaimable memory to move. v2 adds the shifting-bursty
-workload and its exactly-paired steady control.
+**워크로드.** v1 은 일정 유입률 ShareGPT 트레이스라 어떤 모델도 유휴가 되지 않고
+회수할 메모리가 애초에 없었다. v2 는 shifting-bursty 와 정확히 페어링된 steady
+대조군을 추가한다.
 
-**Instrumentation.** Both algorithms now emit a structured record per decision,
-and Algorithm 2 raises `[PAPER-ALG2-WARN]` after 20 consecutive rounds with
-`eligible > 0 and selected = 0` — the exact pathology v1 discovered by hand.
+**계측.** 두 알고리즘이 이제 결정마다 구조화된 기록을 남기고, Algorithm 2 는
+`eligible > 0 이면서 selected = 0` 이 20라운드 연속되면 `[PAPER-ALG2-WARN]` 을
+띄운다 — v1 이 손으로 찾아낸 바로 그 병리다.
 
 
 ### c_i 추정기 (tokens/s)
@@ -141,21 +186,21 @@ and Algorithm 2 raises `[PAPER-ALG2-WARN]` after 20 consecutive rounds with
 | model_5 | 11122 | 15761 | 15.9 | 12307 | 13702 | **13702** |
 | model_6 | 11670 | 16889 | 15.8 | 13203 | 14759 | **14759** |
 
-## 4. Sanity Check
+## 4. Sanity 게이트
 
 | 검사 | 결과 | 통과 여부 |
 | --- | --- | --- |
-| 0 Algorithm 1 executed | [PAPER-ALG1] log lines = 45 (migrations 2) | PASS |
-| 0 Algorithm 2 executed | [PAPER-ALG2] log lines = 2 | PASS |
-| A c_i vs measured prefill | median predicted/measured = 0.071 over n=1619; model_1:0.06, model_2:0.06, model_3:0.04, model_4:0.11, model_5:0.13, model_6:0.12 | PASS |
-| B alg2 under-admission | pathological rounds=0/479, max consecutive eligible>0&selected=0 streak=0, selected/eligible=0.940 | PASS |
-| B2 alg2 selected ratio | selected/eligible=0.940 | PASS |
-| C gpu idle vs queue | 0/95 samples with GPU util<20% and queue>20 | PASS |
-| D kvpr varies over time | peak KVPR cv=0.353 over 42 cycles (min=2.41e+05, max=1.11e+08) | PASS |
-| E gpu candidates differ | mean per-cycle (max-min)/max KVPR across GPUs = 0.597 | PASS |
-| F scheduler acts | migrations=4 activations=4 idle_evictions=4 | PASS |
-| G latency sane | n_ttft=1619 p50=57.4ms p99=4073.7ms | n_tpot=1619 p50=23.92ms p99=70.84ms | PASS |
-| H reproducible | bursty_r8_s77.pkl: db0726e69b23 vs rebuilt db0726e69b23 | PASS |
+| 0. Algorithm 1 이 실제로 실행됨 | [PAPER-ALG1] 로그 45줄 (마이그레이션 2) | PASS |
+| 0. Algorithm 2 가 실제로 실행됨 | [PAPER-ALG2] 로그 2줄 | PASS |
+| A. c_i 예측 대 실측 prefill | 예측/실측 중앙값 0.071 (n=1619). 모델별 model_1:0.06, model_2:0.06, model_3:0.04, model_4:0.11, model_5:0.13, model_6:0.12. e_i 는 배치로 함께 처리된 요청 하나의 몫이므로 벽시계 구간보다 작은 것이 정상이며, 자릿수 오류만 잡는 검사다 | PASS |
+| B. Algorithm 2 과소 수용 | pathological 라운드 0/479, eligible>0 이면서 selected=0 인 최대 연속 0회, selected/eligible=0.940 | PASS |
+| B2. Algorithm 2 선택 비율 | selected/eligible=0.940 | PASS |
+| C. GPU 유휴인데 큐 증가 | GPU 사용률<20% 이면서 큐>20 인 샘플 0/95 | PASS |
+| D. KVPR 이 시간에 따라 변함 | peak KVPR 변동계수 0.353 (42사이클, 최소 2.41e+05, 최대 1.11e+08) | PASS |
+| E. GPU 후보 간 KVPR 분리 | 사이클별 GPU 간 (max-min)/max KVPR 평균 0.597 | PASS |
+| F. 스케줄러가 실제로 동작 | 마이그레이션 4, 활성화 4, 유휴 축출 4 | PASS |
+| G. 지연 지표 정합성 | TTFT n=1619 p50=57.4ms p99=4073.7ms, TPOT n=1619 p50=23.92ms p99=70.84ms | PASS |
+| H. 워크로드 재현성 | bursty_r8_s77.pkl: 원본 db0726e69b23 대 재생성 db0726e69b23 (SHA256) | PASS |
 
 Hard 실패: **0건** — 게이트 통과, 본 실험 진행됨.
 
@@ -452,3 +497,51 @@ Prism 이 마이그레이션을 0회 한 반면 프로토타입은 2~5회 했다
   여기서 측정된 차이는 *프로토타입 대 논문 알고리즘* 이지 *저자 구현 대 논문* 이 아니다.
 - **전 구성이 TP=1 이다.** TP anti-affinity 제약은 구현되어 있으나 한 번도 발동하지
   않았으므로 이 연구가 그것을 검증하지 못한다.
+## 11. 구현에 존재하는 변수 전부
+
+두 arm 에 **동일하게** 적용되며, 어느 것도 부하별·arm 별로 튜닝하지 않았다.
+논문이 값을 정하지 않은 항목은 "논문 미지정" 으로 표시했다.
+
+| 변수 | 값 | 출처 | 바꾸면 무엇이 달라지나 |
+| --- | --- | --- | --- |
+| `c_i` (모델별 chunked-prefill 속도) | 13,702~53,634 tok/s, 모델별 실측 | **논문 미지정** — 우리가 측정 | Algorithm 2 의 `e_i = p_i/c_i` 를 통해 실행가능성 판정 전체. v1 의 지배적 오차원 |
+| `tau` (마이그레이션 임계) | 0.35, peak KVPR 의 **상대** 감소분 | **논문 미지정** (단위도 값도 없음) | Algorithm 1 이 얼마나 자주 움직이는가. 고부하에서 억제되는 원인(§9) |
+| `s_j` (KVPR 의 SLO 항) | TPOT 기준선 × 3 | 논문은 "latency SLO" 라고만 함 | 모델별 가중치 순위, 따라서 배치 우선순위 |
+| 토큰율 측정 창 | 30초 슬라이딩 | **논문 미지정** | `t_j` 추정의 민감도와 잡음 |
+| 전역 스케줄러 주기 | 5초 | 프로토타입 하드코딩 `SCHEDULE_INTERVAL` | 배치 반응 속도 |
+| 마이그레이션 쿨다운 | 30초 | **논문에 항목 자체가 없음** | 연속 마이그레이션(스래싱) 억제 |
+| 사이클당 최대 마이그레이션 | 1회 | 프로토타입과 동일 | stop-the-world 비용의 상한 |
+| 유휴 축출 임계 | 50초 | 프로토타입 값, 논문 §A.4 의 약 45초와 정합 | 축출/활성화 빈도 |
+| TTFT / TPOT SLO 배수 | ×5 / ×3 | v1 과 동일 | 달성률의 절대 수준. **이 실험이 TPOT 바운드인 직접적 원인** |
+| `max-mem-usage` (GPU 예산) | 67.28 GiB | v1 과 동일 | `shared_kv`, 따라서 KVPR 분모 |
+| `max_memory_pool_size` | 모델당 20 GiB (kvcached 하에서는 가상 상한) | — | 벌루닝 여유 |
+| 초기 배치 | weight-balanced (LPT) | 우리 선택 | 출발점. 두 GPU 의 `shared_kv` 를 44.08 / 43.99 로 거의 같게 만들어, 이후 나타나는 KVPR 차이가 전부 워크로드에서 오도록 함 |
+| Alg-2 제외 요청 처리 | `d_i > now` 재큐잉, `d_i ≤ now` 후순위 디스패치 | **논문 미지정** | 전부 재큐잉하면 livelock (v1 에서 실측) |
+| workers-per-gpu | 4 (GPU당 모델 3 + 여유 1) | — | 마이그레이션 대상 슬롯 확보 |
+| 워크로드: 위상 길이 / hot 개수 / 배수 | 30~90초 / 1~3개 / HOT 3~6배, MED 0.8~1.5, LOW 0.1~0.4, IDLE 0 | 우리 설계 | bursty 의 강도. 집계 유입률은 항상 일정하게 정규화됨 |
+## 12. 후속 실험 후보
+
+이번 결과에서 직접 도출되는 것들이다. 우선순위 순.
+
+1. **seed 확장 (필수).** 부하당 seed 3개. 지금은 1개라 개별 지점의 차이를
+   통계적으로 주장할 수 없다. 약 5시간이면 본 실험 16런 × 2 seed 를 더 돌린다.
+2. **`tau` 민감도.** §9 의 핵심 발견은 상대 임계값이 고부하에서 스스로 보수적이
+   된다는 것이다. `tau ∈ {0.05, 0.15, 0.35, 0.60}` 을 8 / 10 req/s bursty 에서
+   쓸어보면, 고부하 열세가 tau 때문인지 마이그레이션 자체가 손해인지 갈린다.
+   **절대 기준(예: peak KVPR 의 절대 감소량)과의 비교**도 같은 스윕에서 가능하다.
+3. **TTFT 바운드 구성.** 이 실험은 TPOT 바운드라 Algorithm 2 를 사실상 측정하지
+   못했다. GPU당 모델 수를 줄이거나 TPOT 배수를 키워 TTFT 가 병목이 되게 하면,
+   Algorithm 2 가 겨냥한 지표에서 그 값을 잴 수 있다. TTFT p99 3.5배 개선이 이미
+   그 방향을 가리킨다.
+4. **배치 병렬도 보정 arm.** v1 이 제안한 `clock += e_i / B`. 이번 결과는 c_i 를
+   총 용량으로 읽으면 보정이 불필요함을 시사하지만, 별도 arm 으로 라벨링해 돌리면
+   확인된다. **paper-faithful arm 에 섞으면 안 된다** — 논문에 없는 항이다.
+5. **오버랩 마이그레이션.** 논문 §6.1 은 대상이 준비될 때까지 원본이 계속
+   서비스한다. 프로토타입은 stop-the-world 다. 이것을 구현하면 저부하 bursty 의
+   이득이 커지고 고부하의 손해가 줄어야 한다 — 검증 가능한 예측이다.
+6. **burst 전환 빈도 / 동시 hot 모델 수 스윕.** 위상 길이를 10~30초로 줄이거나
+   hot 개수를 4~6개로 늘려, 회수 가능한 메모리가 사라지는 지점을 찾는다.
+   §9 의 교차점이 그 축에서 어디로 움직이는지가 관심사다.
+7. **GPU 수 확장.** 2장에서는 모든 배치 결정이 이진이라 Algorithm 1 의 표현력이
+   구조적으로 제한된다. 4장 이상에서 KVPR 의 greedy 배치가 실제로 무엇을 하는지는
+   이 실험으로 알 수 없다.

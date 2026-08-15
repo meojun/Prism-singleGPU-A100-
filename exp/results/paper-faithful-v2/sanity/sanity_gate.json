@@ -1,70 +1,70 @@
 {
   "results": [
     {
-      "check": "0 Algorithm 1 executed",
+      "check": "0. Algorithm 1 \uc774 \uc2e4\uc81c\ub85c \uc2e4\ud589\ub428",
       "hard": true,
       "pass": true,
-      "detail": "[PAPER-ALG1] log lines = 45 (migrations 2)"
+      "detail": "[PAPER-ALG1] \ub85c\uadf8 45\uc904 (\ub9c8\uc774\uadf8\ub808\uc774\uc158 2)"
     },
     {
-      "check": "0 Algorithm 2 executed",
+      "check": "0. Algorithm 2 \uac00 \uc2e4\uc81c\ub85c \uc2e4\ud589\ub428",
       "hard": true,
       "pass": true,
-      "detail": "[PAPER-ALG2] log lines = 2"
+      "detail": "[PAPER-ALG2] \ub85c\uadf8 2\uc904"
     },
     {
-      "check": "A c_i vs measured prefill",
+      "check": "A. c_i \uc608\uce21 \ub300 \uc2e4\uce21 prefill",
       "hard": true,
       "pass": true,
-      "detail": "median predicted/measured = 0.071 over n=1619; model_1:0.06, model_2:0.06, model_3:0.04, model_4:0.11, model_5:0.13, model_6:0.12"
+      "detail": "\uc608\uce21/\uc2e4\uce21 \uc911\uc559\uac12 0.071 (n=1619). \ubaa8\ub378\ubcc4 model_1:0.06, model_2:0.06, model_3:0.04, model_4:0.11, model_5:0.13, model_6:0.12. e_i \ub294 \ubc30\uce58\ub85c \ud568\uaed8 \ucc98\ub9ac\ub41c \uc694\uccad \ud558\ub098\uc758 \ubaab\uc774\ubbc0\ub85c \ubcbd\uc2dc\uacc4 \uad6c\uac04\ubcf4\ub2e4 \uc791\uc740 \uac83\uc774 \uc815\uc0c1\uc774\uba70, \uc790\ub9bf\uc218 \uc624\ub958\ub9cc \uc7a1\ub294 \uac80\uc0ac\ub2e4"
     },
     {
-      "check": "B alg2 under-admission",
+      "check": "B. Algorithm 2 \uacfc\uc18c \uc218\uc6a9",
       "hard": true,
       "pass": true,
-      "detail": "pathological rounds=0/479, max consecutive eligible>0&selected=0 streak=0, selected/eligible=0.940"
+      "detail": "pathological \ub77c\uc6b4\ub4dc 0/479, eligible>0 \uc774\uba74\uc11c selected=0 \uc778 \ucd5c\ub300 \uc5f0\uc18d 0\ud68c, selected/eligible=0.940"
     },
     {
-      "check": "B2 alg2 selected ratio",
+      "check": "B2. Algorithm 2 \uc120\ud0dd \ube44\uc728",
       "hard": false,
       "pass": true,
       "detail": "selected/eligible=0.940"
     },
     {
-      "check": "C gpu idle vs queue",
+      "check": "C. GPU \uc720\ud734\uc778\ub370 \ud050 \uc99d\uac00",
       "hard": true,
       "pass": true,
-      "detail": "0/95 samples with GPU util<20% and queue>20"
+      "detail": "GPU \uc0ac\uc6a9\ub960<20% \uc774\uba74\uc11c \ud050>20 \uc778 \uc0d8\ud50c 0/95"
     },
     {
-      "check": "D kvpr varies over time",
+      "check": "D. KVPR \uc774 \uc2dc\uac04\uc5d0 \ub530\ub77c \ubcc0\ud568",
       "hard": true,
       "pass": true,
-      "detail": "peak KVPR cv=0.353 over 42 cycles (min=2.41e+05, max=1.11e+08)"
+      "detail": "peak KVPR \ubcc0\ub3d9\uacc4\uc218 0.353 (42\uc0ac\uc774\ud074, \ucd5c\uc18c 2.41e+05, \ucd5c\ub300 1.11e+08)"
     },
     {
-      "check": "E gpu candidates differ",
+      "check": "E. GPU \ud6c4\ubcf4 \uac04 KVPR \ubd84\ub9ac",
       "hard": true,
       "pass": true,
-      "detail": "mean per-cycle (max-min)/max KVPR across GPUs = 0.597"
+      "detail": "\uc0ac\uc774\ud074\ubcc4 GPU \uac04 (max-min)/max KVPR \ud3c9\uade0 0.597"
     },
     {
-      "check": "F scheduler acts",
+      "check": "F. \uc2a4\ucf00\uc904\ub7ec\uac00 \uc2e4\uc81c\ub85c \ub3d9\uc791",
       "hard": false,
       "pass": true,
-      "detail": "migrations=4 activations=4 idle_evictions=4"
+      "detail": "\ub9c8\uc774\uadf8\ub808\uc774\uc158 4, \ud65c\uc131\ud654 4, \uc720\ud734 \ucd95\ucd9c 4"
     },
     {
-      "check": "G latency sane",
+      "check": "G. \uc9c0\uc5f0 \uc9c0\ud45c \uc815\ud569\uc131",
       "hard": true,
       "pass": true,
-      "detail": "n_ttft=1619 p50=57.4ms p99=4073.7ms | n_tpot=1619 p50=23.92ms p99=70.84ms"
+      "detail": "TTFT n=1619 p50=57.4ms p99=4073.7ms, TPOT n=1619 p50=23.92ms p99=70.84ms"
     },
     {
-      "check": "H reproducible",
+      "check": "H. \uc6cc\ud06c\ub85c\ub4dc \uc7ac\ud604\uc131",
       "hard": true,
       "pass": true,
-      "detail": "bursty_r8_s77.pkl: db0726e69b23 vs rebuilt db0726e69b23"
+      "detail": "bursty_r8_s77.pkl: \uc6d0\ubcf8 db0726e69b23 \ub300 \uc7ac\uc0dd\uc131 db0726e69b23 (SHA256)"
     }
   ],
   "hard_failures": 0

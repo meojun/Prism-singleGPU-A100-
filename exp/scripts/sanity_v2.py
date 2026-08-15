@@ -36,7 +36,9 @@ RESULTS = []
 
 
 def check(name, hard, ok, detail):
-    RESULTS.append({"check": name, "hard": hard, "pass": bool(ok), "detail": detail})
+    # a literal "|" would break the markdown table this lands in
+    RESULTS.append({"check": name, "hard": hard, "pass": bool(ok),
+                    "detail": str(detail).replace("|", "/")})
     tag = "PASS" if ok else ("FAIL" if hard else "WARN")
     print(f"  [{tag}] {name}: {detail}")
 
@@ -158,14 +160,14 @@ def main():
                 kv[k] = v
     a1 = int(kv.get("alg1_log_lines", 0) or 0)
     a2 = int(kv.get("alg2_log_lines", 0) or 0)
-    check("0 Algorithm 1 executed", True, a1 > 0,
-          f"[PAPER-ALG1] log lines = {a1} (migrations {kv.get('alg1_migrations', '?')})")
-    check("0 Algorithm 2 executed", True, a2 > 0,
-          f"[PAPER-ALG2] log lines = {a2}")
+    check("0. Algorithm 1 이 실제로 실행됨", True, a1 > 0,
+          f"[PAPER-ALG1] 로그 {a1}줄 (마이그레이션 {kv.get('alg1_migrations', '?')})")
+    check("0. Algorithm 2 가 실제로 실행됨", True, a2 > 0,
+          f"[PAPER-ALG2] 로그 {a2}줄")
 
     print("== A. c_i vs measured prefill interval (under load)")
     if not ok:
-        check("A c_i vs measured prefill", True, False, "no usable request records")
+        check("A. c_i 예측 대 실측 prefill", True, False, "쓸 수 있는 요청 기록 없음")
     else:
         ratios, per_model = [], {}
         for r in ok:
@@ -186,30 +188,32 @@ def main():
         # e_i is an estimate of one request's share of a batched prefill, so it
         # is expected to sit BELOW the wall-clock interval that request spent in
         # a shared batch. Two orders of magnitude either way means c_i is wrong.
-        check("A c_i vs measured prefill", True, 0.01 <= med <= 10.0,
-              f"median predicted/measured = {med:.3f} over n={len(ratios)}; "
-              + ", ".join(f"{m}:{statistics.median(v):.2f}" for m, v in sorted(per_model.items())))
+        check("A. c_i 예측 대 실측 prefill", True, 0.01 <= med <= 10.0,
+              f"예측/실측 중앙값 {med:.3f} (n={len(ratios)}). 모델별 "
+              + ", ".join(f"{m}:{statistics.median(v):.2f}" for m, v in sorted(per_model.items()))
+              + ". e_i 는 배치로 함께 처리된 요청 하나의 몫이므로 벽시계 구간보다 작은 것이 정상이며, 자릿수 오류만 잡는 검사다")
 
     print("== B. Algorithm 2 under-admission")
     rounds = alg2_rounds(a.bursty_dir)
     if not rounds:
-        check("B alg2 under-admission", False, True, "no Algorithm 2 log (prototype arm or Alg2 off)")
+        check("B. Algorithm 2 과소 수용", False, True, "Algorithm 2 로그 없음 (프로토타입 arm 이거나 Alg2 비활성)")
     else:
         path = [r for r in rounds if r["pathological"]]
         worst = max((r["zero_streak"] for r in rounds), default=0)
         sel = sum(r["selected_requests"] for r in rounds)
         elig = sum(r["eligible_requests"] for r in rounds)
         ratio = sel / elig if elig else float("nan")
-        check("B alg2 under-admission", True, worst < 200,
-              f"pathological rounds={len(path)}/{len(rounds)}, max consecutive "
-              f"eligible>0&selected=0 streak={worst}, selected/eligible={ratio:.3f}")
-        check("B2 alg2 selected ratio", False, ratio > 0.10,
+        check("B. Algorithm 2 과소 수용", True, worst < 200,
+              f"pathological 라운드 {len(path)}/{len(rounds)}, "
+              f"eligible>0 이면서 selected=0 인 최대 연속 {worst}회, "
+              f"selected/eligible={ratio:.3f}")
+        check("B2. Algorithm 2 선택 비율", False, ratio > 0.10,
               f"selected/eligible={ratio:.3f}")
 
     print("== C. GPU idle while the queue grows")
     gs = gpu_series(a.bursty_dir)
     if not rounds or not gs:
-        check("C gpu idle vs queue", False, True, "insufficient data")
+        check("C. GPU 유휴인데 큐 증가", False, True, "데이터 부족")
     else:
         # bucket Alg-2 rounds by second, pair with the nearest GPU sample
         by_t = {}
@@ -220,27 +224,27 @@ def main():
             q = by_t.get(int(t))
             if q and u < 20.0 and statistics.mean(q) > 20:
                 bad += 1
-        check("C gpu idle vs queue", True, bad <= max(3, 0.05 * len(gs)),
-              f"{bad}/{len(gs)} samples with GPU util<20% and queue>20")
+        check("C. GPU 유휴인데 큐 증가", True, bad <= max(3, 0.05 * len(gs)),
+              f"GPU 사용률<20% 이면서 큐>20 인 샘플 {bad}/{len(gs)}")
 
     print("== D/E. Algorithm 1 KVPR variation and candidate separation")
     cyc = alg1_cycles(a.bursty_dir)
     if not cyc:
-        check("D kvpr varies", False, True, "no Algorithm 1 log (prototype arm)")
+        check("D. KVPR 이 시간에 따라 변함", False, True, "Algorithm 1 로그 없음 (프로토타입 arm)")
     else:
         peaks = [c["peak_kvpr"] for c in cyc if c.get("peak_kvpr")]
         cv = (statistics.stdev(peaks) / statistics.fmean(peaks)) if len(peaks) > 1 and statistics.fmean(peaks) else 0.0
-        check("D kvpr varies over time", True, cv > 0.05,
-              f"peak KVPR cv={cv:.3f} over {len(peaks)} cycles "
-              f"(min={min(peaks):.3g}, max={max(peaks):.3g})" if peaks else "no peaks")
+        check("D. KVPR 이 시간에 따라 변함", True, cv > 0.05,
+              f"peak KVPR 변동계수 {cv:.3f} ({len(peaks)}사이클, "
+              f"최소 {min(peaks):.3g}, 최대 {max(peaks):.3g})" if peaks else "peak 없음")
         seps = []
         for c in cyc:
             v = [x for x in (c.get("kvpr") or {}).values() if x]
             if len(v) > 1 and max(v) > 0:
                 seps.append((max(v) - min(v)) / max(v))
         msep = statistics.fmean(seps) if seps else 0.0
-        check("E gpu candidates differ", True, msep > 0.02,
-              f"mean per-cycle (max-min)/max KVPR across GPUs = {msep:.3f}")
+        check("E. GPU 후보 간 KVPR 분리", True, msep > 0.02,
+              f"사이클별 GPU 간 (max-min)/max KVPR 평균 {msep:.3f}")
 
     print("== F. decisions actually happen")
     def count(run_dir, needle, logname="server.log.global_controller.log"):
@@ -252,8 +256,8 @@ def main():
     mig = count(a.bursty_dir, "[PAPER-ALG1] MIGRATE") + count(a.bursty_dir, "Reason: migrate model")
     act = count(a.bursty_dir, "ACTION: activate")
     evi = count(a.bursty_dir, "Reason: idle instance eviction")
-    check("F scheduler acts", False, (mig + act + evi) > 0,
-          f"migrations={mig} activations={act} idle_evictions={evi}")
+    check("F. 스케줄러가 실제로 동작", False, (mig + act + evi) > 0,
+          f"마이그레이션 {mig}, 활성화 {act}, 유휴 축출 {evi}")
 
     print("== G. TTFT / TPOT sanity")
     t = [r["ttft"] for r in reqs if r.get("success") and r.get("ttft")]
@@ -261,15 +265,15 @@ def main():
     good = bool(t and p and min(t) > 0 and min(p) > 0
                 and np.percentile(t, 50) <= np.percentile(t, 99)
                 and np.percentile(p, 50) <= np.percentile(p, 99))
-    check("G latency sane", True, good,
-          f"n_ttft={len(t)} p50={1000*np.percentile(t,50):.1f}ms p99={1000*np.percentile(t,99):.1f}ms | "
-          f"n_tpot={len(p)} p50={1000*np.percentile(p,50):.2f}ms p99={1000*np.percentile(p,99):.2f}ms"
-          if t and p else "missing latency records")
+    check("G. 지연 지표 정합성", True, good,
+          f"TTFT n={len(t)} p50={1000*np.percentile(t,50):.1f}ms p99={1000*np.percentile(t,99):.1f}ms, "
+          f"TPOT n={len(p)} p50={1000*np.percentile(p,50):.2f}ms p99={1000*np.percentile(p,99):.2f}ms"
+          if t and p else "지연 기록 없음")
 
     print("== H. workload reproducibility (same seed -> identical trace)")
     pkls = sorted(glob.glob(os.path.join(a.workload_dir, "bursty_*.pkl")))
     if not pkls:
-        check("H reproducible", True, False, "no workload pkl found")
+        check("H. 워크로드 재현성", True, False, "워크로드 pkl 없음")
     else:
         src = pkls[0]
         base = os.path.basename(src)                       # bursty_r<rate>_s<seed>.pkl
@@ -289,11 +293,11 @@ def main():
         r = subprocess.run(cmd, capture_output=True, text=True)
         rebuilt = os.path.join(tmp, base)
         if r.returncode != 0 or not os.path.exists(rebuilt):
-            check("H reproducible", True, False, f"rebuild failed: {r.stderr[-300:]}")
+            check("H. 워크로드 재현성", True, False, f"재생성 실패: {r.stderr[-300:]}")
         else:
             h2 = hashlib.sha256(open(rebuilt, "rb").read()).hexdigest()
-            check("H reproducible", True, h1 == h2,
-                  f"{base}: {h1[:12]} vs rebuilt {h2[:12]}")
+            check("H. 워크로드 재현성", True, h1 == h2,
+                  f"{base}: 원본 {h1[:12]} 대 재생성 {h2[:12]} (SHA256)")
 
     hard_fail = [r for r in RESULTS if r["hard"] and not r["pass"]]
     json.dump({"results": RESULTS, "hard_failures": len(hard_fail)},

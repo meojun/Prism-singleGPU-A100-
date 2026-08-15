@@ -130,7 +130,7 @@ def section_ci(base):
 
 def section_sanity(base):
     p = os.path.join(base, "sanity", "sanity_gate.json")
-    out = ["## 4. Sanity Check", "", "| 검사 | 결과 | 통과 여부 |", "| --- | --- | --- |"]
+    out = ["## 4. Sanity 게이트", "", "| 검사 | 결과 | 통과 여부 |", "| --- | --- | --- |"]
     if not os.path.exists(p):
         out.append("| (미실행) | | |")
         return "\n".join(out) + "\n"
@@ -267,6 +267,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", required=True)
     ap.add_argument("--root", default="/workspace/prism-exp")
+    ap.add_argument("--preface", default=None,
+                    help="markdown fragment placed immediately after the title "
+                         "(section 0: how to read this report)")
     ap.add_argument("--impl-status", default=None,
                     help="markdown fragment for Section 3 (implementation status)")
     ap.add_argument("--narrative", default=None,
@@ -276,6 +279,8 @@ def main():
 
     parts = ["# Paper-Faithful Prism v2 — Shifting-Bursty 대 Steady", "",
              f"_`exp/scripts/build_report_v2.py` 가 생성. 하네스 커밋 `{sh(f'git -C {a.root} rev-parse --short HEAD')}`._", ""]
+    if a.preface and os.path.exists(a.preface):
+        parts.append(open(a.preface).read())
     parts.append(section_env(a.base, a.root))
     parts.append(section_models(a.base))
     if a.impl_status and os.path.exists(a.impl_status):
