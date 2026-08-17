@@ -74,3 +74,12 @@ dump.rdb
 # scheduler_proof.txt keep everything the report cites.
 /exp/results/paper-faithful-v2/**/requests/
 /exp/results/paper-faithful-v2/**/server-logs/
+
+# --- paper-faithful-v3 ---------------------------------------------------
+# Keep canonical metrics/proofs and generated report artifacts. Expanded
+# request dumps/server logs and diagnostic retry archives remain local.
+/exp/results/paper-faithful-v3/**/requests/
+/exp/results/paper-faithful-v3/**/server-logs/
+/exp/results/paper-faithful-v3/raw/**/seed_*_failed*/
+/exp/results/paper-faithful-v3/raw/**/seed_*_invalid*/
+/exp/results/paper-faithful-v3/raw/**/.seed_*

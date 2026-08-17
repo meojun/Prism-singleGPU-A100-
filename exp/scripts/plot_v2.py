@@ -36,9 +36,11 @@ SURFACE, GRID = "#fcfcfb", "#e3e2dd"
 SYS = {                      # 계열 -> 색은 엔티티에 고정, 순위에 따라 바뀌지 않음
     "released-prototype": (C1, "Released prototype"),
     "paper-faithful":     (C2, "Paper-faithful Prism"),
+    "paper-faithful-v3":  (C2, "Paper-faithful Prism v3"),
     "paper-alg1-only":    (C3, "Algorithm 1 only"),
     "paper-alg2-only":    (C4, "Algorithm 2 only"),
 }
+PAPER_SYSTEM = "paper-faithful"
 
 # 한글 라벨을 쓰므로 한글 글리프가 있는 폰트를 강제한다. 없으면 matplotlib 는
 # 경고만 내고 모든 한글을 두부(□)로 그린다 -- 조용히 읽을 수 없는 그림이 된다.
@@ -96,7 +98,8 @@ def idx(rows):
     return {(r["system"], r["workload"], r["rate"]): r for r in rows}
 
 
-def rates_of(rows, systems=("released-prototype", "paper-faithful")):
+def rates_of(rows, systems=None):
+    systems = systems or ("released-prototype", PAPER_SYSTEM)
     rs = {r["rate"] for r in rows if r["system"] in systems}
     return sorted(rs, key=float)
 
@@ -109,9 +112,9 @@ def fig_crossover(rows, out):
     for rate in rates_of(rows):
         try:
             bs = num(I[("released-prototype", "steady", rate)]["joint_attainment"])
-            ps = num(I[("paper-faithful", "steady", rate)]["joint_attainment"])
+            ps = num(I[(PAPER_SYSTEM, "steady", rate)]["joint_attainment"])
             bb = num(I[("released-prototype", "bursty", rate)]["joint_attainment"])
-            pb = num(I[("paper-faithful", "bursty", rate)]["joint_attainment"])
+            pb = num(I[(PAPER_SYSTEM, "bursty", rate)]["joint_attainment"])
         except KeyError:
             continue
         if None in (bs, ps, bb, pb) or not bs or not bb:
@@ -152,7 +155,8 @@ def fig_crossover(rows, out):
 
 # ------------------------------------------------------------------ fig 2
 def fig_panel_lines(rows, metric, title, ylabel, out, pct=False, logy=False,
-                    systems=("released-prototype", "paper-faithful")):
+                    systems=None):
+    systems = systems or ("released-prototype", PAPER_SYSTEM)
     fig, axes = plt.subplots(1, 2, figsize=(10.2, 4.2), sharey=True)
     for ax, wl, wln in zip(axes, ("steady", "bursty"), ("Steady", "Shifting-bursty")):
         for sysname in systems:
@@ -311,7 +315,7 @@ def fig_scheduler(rows, out):
         for i, (key, label, color) in enumerate(cats):
             vals = []
             for rate in rates:
-                r = I.get(("paper-faithful", wl, rate))
+                r = I.get((PAPER_SYSTEM, wl, rate))
                 if key == "migrations":
                     v = (num(r.get("migrations_alg1")) or 0) + (num(r.get("migrations_proto")) or 0) if r else 0
                 else:
@@ -382,10 +386,13 @@ def fig_ablation(rows, out):
 
 
 def main():
+    global PAPER_SYSTEM
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", required=True)
     ap.add_argument("-o", "--out", required=True)
+    ap.add_argument("--prism-system", default="paper-faithful")
     a = ap.parse_args()
+    PAPER_SYSTEM = a.prism_system
     os.makedirs(a.out, exist_ok=True)
     rows = load_summary(a.base)
     if not rows:

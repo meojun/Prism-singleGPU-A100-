@@ -115,26 +115,44 @@ def scheduler_stats(run_dir):
     gc = os.path.join(log, "server.log.global_controller.log")
     if os.path.exists(gc):
         with open(gc, errors="ignore") as f:
-            for line in f:
-                if "[PAPER-ALG1]" in line:
-                    if " MIGRATE " in line:
-                        st["migrations_alg1"] += 1
-                        continue
-                    st["alg1_cycles"] += 1
-                    m = re.search(r'\[PAPER-ALG1\] (\{.*\})\s*$', line)
-                    if m:
-                        try:
-                            st["kvpr_samples"].append(json.loads(m.group(1)))
-                        except json.JSONDecodeError:
-                            pass
-                if "Reason: migrate model" in line:
-                    st["migrations_proto"] += 1
-                if "ACTION: activate" in line:
-                    st["activations"] += 1
-                if "ACTION: deactivate" in line:
-                    st["deactivations"] += 1
-                if "Reason: idle instance eviction" in line:
-                    st["idle_evictions"] += 1
+            lines = list(f)
+        is_v3 = any("[PAPER-ALG1-V3]" in line for line in lines)
+        for line in lines:
+            if "[PAPER-ALG1-V3]" in line:
+                st["alg1_cycles"] += 1
+                m = re.search(r'\[PAPER-ALG1-V3\] (\{.*\})\s*$', line)
+                if m:
+                    try:
+                        sample = json.loads(m.group(1))
+                        if sample.get("migration_decision") == "MIGRATE":
+                            st["migrations_alg1"] += 1
+                        before, after = sample.get("peak_kvpr"), sample.get("peak_kvpr_after")
+                        sample["improvement"] = (
+                            before - after if before is not None and after is not None else None
+                        )
+                        st["kvpr_samples"].append(sample)
+                    except json.JSONDecodeError:
+                        pass
+                continue
+            if "[PAPER-ALG1]" in line:
+                if " MIGRATE " in line:
+                    st["migrations_alg1"] += 1
+                    continue
+                st["alg1_cycles"] += 1
+                m = re.search(r'\[PAPER-ALG1\] (\{.*\})\s*$', line)
+                if m:
+                    try:
+                        st["kvpr_samples"].append(json.loads(m.group(1)))
+                    except json.JSONDecodeError:
+                        pass
+            if "Reason: migrate model" in line and not is_v3:
+                st["migrations_proto"] += 1
+            if "ACTION: activate" in line:
+                st["activations"] += 1
+            if "ACTION: deactivate" in line:
+                st["deactivations"] += 1
+            if "Reason: idle instance eviction" in line:
+                st["idle_evictions"] += 1
 
     qlens = []
     for p in glob.glob(os.path.join(log, "*.alg2_gpu*.jsonl")):
@@ -292,12 +310,49 @@ def main():
     }
     res.update(scheduler_stats(a.run_dir))
     res.update(gpu_stats(a.run_dir))
+
+    # A server/process failure is not a valid one-off measurement. Retry it
+    # once; if the retry also fails, retain it as a reproduced system failure
+    # rather than retrying forever.  The counter lives beside seed_<N> so an
+    # archived failed run cannot reset it.
+    failed_requests = [r for r in win if not r.get("success")]
+    attempt_file = os.path.join(
+        os.path.dirname(a.run_dir),
+        f".{os.path.basename(a.run_dir)}_request_failure_attempts",
+    )
+    previous_attempts = 0
+    if os.path.exists(attempt_file):
+        try:
+            previous_attempts = int(open(attempt_file).read().strip())
+        except (OSError, ValueError):
+            previous_attempts = 0
+    res["failure_attempt"] = previous_attempts
+    res["failure_reproduced"] = False
+    retry_required = False
+    if failed_requests:
+        attempt = previous_attempts + 1
+        with open(attempt_file, "w") as f:
+            f.write(f"{attempt}\n")
+        res["failure_attempt"] = attempt
+        if attempt < 2:
+            retry_required = True
+        else:
+            res["failure_reproduced"] = True
+            with open(os.path.join(a.run_dir, "REPRODUCED_REQUEST_FAILURE"), "w") as f:
+                f.write(f"attempt={attempt} failed={len(failed_requests)}\n")
+    elif previous_attempts:
+        with open(os.path.join(a.run_dir, "RECOVERED_AFTER_RETRY"), "w") as f:
+            f.write(f"previous_failed_attempts={previous_attempts}\n")
+
     with open(a.out, "w") as f:
         json.dump(res, f, indent=2)
     print(f"{a.label or a.run_dir}: n={n} ok={len(ok)} "
           f"TTFTp50={res['ttft_p50_ms']:.0f}ms p99={res['ttft_p99_ms']:.0f}ms "
           f"TPOTp50={res['tpot_p50_ms']:.1f}ms joint={res['joint_attainment']:.3f} "
           f"goodput={res['goodput_req_s']:.2f} mig={res['migrations_alg1']+res['migrations_proto']}")
+    if retry_required:
+        print(f"retry required: {len(failed_requests)} failed requests on first attempt")
+        raise SystemExit(2)
 
 
 if __name__ == "__main__":

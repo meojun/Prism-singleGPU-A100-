@@ -234,9 +234,11 @@ FIGS = {
 }
 
 
-def figures(key):
+def figures(base, key):
     out = []
     for path, cap in FIGS.get(key, []):
+        if not os.path.exists(os.path.join(base, path)):
+            continue
         out += [f"![{cap}]({path})", "", f"*{cap}*", ""]
     return out
 
@@ -245,21 +247,22 @@ def section_results(base):
     summ = read_csv(os.path.join(base, "processed", "summary.csv"))
     if not summ:
         return "## 6. 결과\n\n_(집계된 런 없음)_\n"
-    out = ["## 6. 결과", ""] + figures("results")
+    out = ["## 6. 결과", ""] + figures(base, "results")
     by_rate = defaultdict(list)
     for r in summ:
         by_rate[r["rate"]].append(r)
     for rate in sorted(by_rate, key=lambda x: float(x)):
         out += [f"### 유입률 {rate} req/s", "",
-                "| 시스템 | 워크로드 | TTFT p50 | TTFT p95 | TTFT p99 | TPOT p50 | TPOT p95 | "
+                "| 시스템 | 워크로드 | 요청 (완료/실패) | TTFT p50 | TTFT p95 | TTFT p99 | TPOT p50 | TPOT p95 | "
                 "TPOT p99 | TTFT 달성률 | TPOT 달성률 | Joint 달성률 | 처리율 | Goodput | "
                 "마이그 | 활성화 | 축출 | 최대 큐 |",
-                "| --- | --- |" + " ---: |" * 15]
+                "| --- | --- |" + " ---: |" * 16]
         for r in sorted(by_rate[rate], key=lambda r: (r["workload"], r["system"])):
             mig = num(r.get("migrations_alg1")) or 0
             mig += num(r.get("migrations_proto")) or 0
             out.append(
                 f"| {r['system']} | {r['workload']} | "
+                f"{fmt(r['completed'], '{:.0f}')}/{fmt(r['failed'], '{:.0f}')} | "
                 f"{fmt(r['ttft_p50_ms'])} | {fmt(r['ttft_p95_ms'])} | {fmt(r['ttft_p99_ms'])} | "
                 f"{fmt(r['tpot_p50_ms'])} | {fmt(r['tpot_p95_ms'])} | {fmt(r['tpot_p99_ms'])} | "
                 f"{fmt(r['ttft_attainment'],'{:.3f}')} | {fmt(r['tpot_attainment'],'{:.3f}')} | "
@@ -278,7 +281,21 @@ def section_comparison(base):
     comp = read_csv(os.path.join(base, "processed", "comparison.csv"))
     if not comp:
         return "## 7. Steady vs Bursty Comparison\n\n_(pending)_\n"
-    out = ["## 7. Steady vs Bursty Comparison", "",
+    out = ["## 7. Steady vs Bursty Comparison", ""]
+    failures = [r for r in read_csv(os.path.join(base, "processed", "summary.csv"))
+                if (num(r.get("failed")) or 0) > 0]
+    if failures:
+        out += ["### 재현된 요청 실패", "",
+                "아래 실패는 동일 조건의 재시도에서도 재현되어 최종 결과에 포함했다. "
+                "달성률과 goodput의 분모에는 실패 요청이 포함된다.", "",
+                "| 시스템 | 워크로드 | 요청률 | 실패/전체 | 재시도 횟수 |",
+                "| --- | --- | ---: | ---: | ---: |"]
+        for r in failures:
+            out.append(f"| {r['system']} | {r['workload']} | {r['rate']} | "
+                       f"{fmt(r['failed'], '{:.0f}')}/{fmt(r['requests_in_window'], '{:.0f}')} | "
+                       f"{fmt(r.get('failure_attempt'), '{:.0f}')} |")
+        out.append("")
+    out += [
            "Relative improvement of each paper arm over `released-prototype` at the "
            "same workload and load. Positive = the paper arm wins.", "",
            "| System | Workload | Rate | Joint att (base) | Joint att (paper) | dpp | "
@@ -307,10 +324,13 @@ def main():
                     help="markdown fragment for Section 3 (implementation status)")
     ap.add_argument("--narrative", default=None,
                     help="markdown fragment for Sections 8-10")
+    ap.add_argument("--title", default="Paper-Faithful Prism v2 — Shifting-Bursty 대 Steady")
+    ap.add_argument("--include-comparison", action="store_true",
+                    help="append the direct prototype comparison table")
     ap.add_argument("-o", "--out", required=True)
     a = ap.parse_args()
 
-    parts = ["# Paper-Faithful Prism v2 — Shifting-Bursty 대 Steady", "",
+    parts = [f"# {a.title}", "",
              f"_`exp/scripts/build_report_v2.py` 가 생성. 하네스 커밋 `{sh(f'git -C {a.root} rev-parse --short HEAD')}`._", ""]
     if a.preface and os.path.exists(a.preface):
         parts.append(open(a.preface).read())
@@ -327,6 +347,8 @@ def main():
     # NB: no section_comparison() here -- answer_questions_v2.py emits its own
     # "## 7. Steady vs Bursty Comparison" with the per-load contrast, and
     # appending both produced a duplicate heading.
+    if a.include_comparison:
+        parts.append(section_comparison(a.base))
     if a.narrative and os.path.exists(a.narrative):
         parts.append(open(a.narrative).read())
     with open(a.out, "w") as f:

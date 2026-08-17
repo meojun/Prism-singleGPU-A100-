@@ -8,6 +8,7 @@
 #   paper-alg1-only     paper KVPR global               + prototype local
 #   paper-alg2-only     prototype global                + paper Moore-Hodgson
 #   paper-faithful      paper KVPR global               + paper Moore-Hodgson
+#   paper-faithful-v3   literal absolute-tau KVPR + Moore-Hodgson + overlap loading
 #
 # workload is a label only (bursty|steady); the trace file decides the arrivals.
 # GPUs, models, precision, kvcached, prompts, output lengths, seed, SLO scales,
@@ -72,6 +73,14 @@ case "$SYSTEM" in
                    --kvpr-migration-cooldown "$KVPR_COOLDOWN"
                    --kvpr-tpot-slo-scale "$TPOT_SCALE"
                    --enable-moore-hodgson --prefill-speed-file "$PREFILL_SPEED")
+      ;;
+  paper-faithful-v3)
+      CONTROLLER+=(--policy kvpr-global-v3 --kvpr-tau "$KVPR_TAU"
+                   --kvpr-rate-window "$KVPR_WINDOW" --slo-base-file "$SLO_BASE"
+                   --kvpr-migration-cooldown "$KVPR_COOLDOWN"
+                   --kvpr-tpot-slo-scale "$TPOT_SCALE"
+                   --enable-moore-hodgson --prefill-speed-file "$PREFILL_SPEED"
+                   --parallel-model-loading --overlap-migration)
       ;;
   *) echo "unknown system: $SYSTEM" >&2; exit 1 ;;
 esac
@@ -145,7 +154,7 @@ SAMPLER=$!
 
 cd "$PRISM_REPO/benchmark/multi-model"
 set +e
-python3 benchmark.py \
+timeout --signal=TERM --kill-after=30s "${BENCHMARK_TIMEOUT:-1800}" python3 benchmark.py \
   --base-url "http://127.0.0.1:$PORT" \
   --num-models "$NMODELS" --model-paths "${MODELS[@]}" \
   --exp-name "$EXP" --results-path "$OUTDIR" --request-path "$OUTDIR/requests" \
@@ -169,11 +178,20 @@ count_gc() { local n; n=$(grep -cF -- "$1" "$GC" 2>/dev/null || true); echo "${n
 count_gs() { local n; n=$(cat "$LOGDIR"/*gpu_scheduler*.log 2>/dev/null | grep -cF -- "$1" || true); echo "${n:-0}"; }
 {
   echo "system=$SYSTEM workload=$WORKLOAD rate=$RATE seed=$SEED"
-  echo "alg1_log_lines=$(count_gc '[PAPER-ALG1]')"
-  echo "alg1_migrations=$(count_gc '[PAPER-ALG1] MIGRATE')"
+  if [ "$SYSTEM" = "paper-faithful-v3" ]; then
+    echo "alg1_log_lines=$(count_gc '[PAPER-ALG1-V3]')"
+    echo "alg1_migrations=$(count_gc '"migration_decision": "MIGRATE"')"
+  else
+    echo "alg1_log_lines=$(count_gc '[PAPER-ALG1]')"
+    echo "alg1_migrations=$(count_gc '[PAPER-ALG1] MIGRATE')"
+  fi
   echo "alg2_log_lines=$(count_gs '[PAPER-ALG2]')"
   echo "alg2_underadmission_warnings=$(count_gs '[PAPER-ALG2-WARN]')"
-  echo "proto_migrations=$(count_gc 'Reason: migrate model')"
+  if [ "$SYSTEM" = "paper-faithful-v3" ]; then
+    echo "proto_migrations=0"
+  else
+    echo "proto_migrations=$(count_gc 'Reason: migrate model')"
+  fi
   echo "activations=$(count_gc 'ACTION: activate')"
   echo "deactivations=$(count_gc 'ACTION: deactivate')"
   echo "idle_evictions=$(count_gc 'Reason: idle instance eviction')"

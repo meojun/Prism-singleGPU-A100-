@@ -12,6 +12,7 @@ import csv
 import glob
 import json
 import os
+import re
 import statistics
 from collections import defaultdict
 
@@ -32,6 +33,7 @@ FIELDS = [
     "alg2_pathological_rounds", "alg2_max_zero_streak",
     "alg2_underadmission_warnings",
     "mean_queue_length", "max_queue_length",
+    "failure_attempt", "failure_reproduced",
 ]
 
 
@@ -39,6 +41,12 @@ def collect(base):
     rows = []
     for p in sorted(glob.glob(os.path.join(base, "raw", "*", "*", "rate_*", "seed_*", "metrics.json"))):
         parts = p.split(os.sep)
+        # Retry archives intentionally retain their metrics for diagnosis but
+        # are not independent seeds and must never enter the final aggregate.
+        if re.fullmatch(r"seed_\d+", parts[-2]) is None:
+            continue
+        if not os.path.isfile(os.path.join(os.path.dirname(p), "DONE")):
+            continue
         d = json.load(open(p))
         row = {
             "system": parts[-5], "workload": parts[-4],
@@ -75,7 +83,9 @@ def main():
         print("no metrics.json found yet")
         return
     with open(os.path.join(a.out, "results.csv"), "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=FIELDS, extrasaction="ignore")
+        w = csv.DictWriter(
+            f, fieldnames=FIELDS, extrasaction="ignore", lineterminator="\n"
+        )
         w.writeheader()
         w.writerows(rows)
     json.dump([{k: v for k, v in r.items()} for r in rows],
@@ -97,7 +107,9 @@ def main():
         summ.append(out)
     keys = list(dict.fromkeys(k for s in summ for k in s))
     with open(os.path.join(a.out, "summary.csv"), "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=keys, extrasaction="ignore")
+        w = csv.DictWriter(
+            f, fieldnames=keys, extrasaction="ignore", lineterminator="\n"
+        )
         w.writeheader()
         w.writerows(summ)
 
@@ -128,7 +140,9 @@ def main():
         })
     if comp:
         with open(os.path.join(a.out, "comparison.csv"), "w", newline="") as f:
-            w = csv.DictWriter(f, fieldnames=list(comp[0]))
+            w = csv.DictWriter(
+                f, fieldnames=list(comp[0]), lineterminator="\n"
+            )
             w.writeheader()
             w.writerows(comp)
 
