@@ -145,9 +145,12 @@ elif have redis-server; then
     redis-server --daemonize yes
     echo "  started redis-server (NOT supervised -- it dies on reboot)"
 else
-    echo "  !! redis missing. install it (apt-get install -y redis-server) or Prism"
-    echo "     will hang at startup with models stuck in 'activating'."
+    echo "  redis missing; installing the experiment's required local service"
+    apt-get update
+    apt-get install -y redis-server
+    redis-server --daemonize yes
 fi
+redis-cli ping >/dev/null 2>&1 || { echo "FATAL: redis is not answering on :6379" >&2; exit 1; }
 
 # --- models -------------------------------------------------------------------
 if [ "${SKIP_MODELS:-0}" != 1 ]; then
@@ -163,6 +166,7 @@ fi
 # prototype's code path is untouched.
 say "[8b/8] paper-faithful Algorithm 1 / Algorithm 2"
 python3 "$ROOT/patches/paper_faithful/apply_patches.py" --repo "$ROOT/prism-research"
+python3 "$ROOT/patches/paper_faithful_v3/apply_v3.py" --repo "$ROOT/prism-research"
 
 # --- verify -------------------------------------------------------------------
 say "verify"

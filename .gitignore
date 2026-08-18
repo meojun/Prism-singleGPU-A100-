@@ -83,3 +83,13 @@ dump.rdb
 /exp/results/paper-faithful-v3/raw/**/seed_*_failed*/
 /exp/results/paper-faithful-v3/raw/**/seed_*_invalid*/
 /exp/results/paper-faithful-v3/raw/**/.seed_*
+
+# --- paper-faithful-v3-validation ---------------------------------------
+# As with V3, publish canonical metrics/proofs/report artifacts and the compact
+# top-level run logs, but keep expanded server logs, request dumps, and failed
+# retry archives local. They are large and do not enter summary.csv.
+/exp/results/paper-faithful-v3-validation/**/requests/
+/exp/results/paper-faithful-v3-validation/**/server-logs/
+/exp/results/paper-faithful-v3-validation/raw/**/seed_*_failed*/
+/exp/results/paper-faithful-v3-validation/raw/**/seed_*_invalid*/
+/exp/results/paper-faithful-v3-validation/raw/**/.seed_*
