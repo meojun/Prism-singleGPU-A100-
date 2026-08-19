@@ -448,16 +448,23 @@ def main():
                          " | ".join(vals) + " |")
 
         R += ["", "### 4.2 마이그레이션", "",
-              "| Workload | Rate | Arm | count | latency p50 (ms) | p95 | downtime p50 (ms) | 전송 바이트 | 대역폭 (GB/s) | P2P 전송 |",
-              "| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
+              "`latency` 열은 컨트롤러가 마이그레이션을 결정한 시점부터 대상이 준비될 때까지다.",
+              "**released prototype 에는 readiness barrier 가 없어 제어 핸들러가 요청을 제출하는",
+              "순간 반환한다** — 그 arm 의 latency 는 가중치 전송 시간이 아니라 제출 시간이며,",
+              "`submission_only` 열이 1 인 행이 그것이다. 프로토타입의 실제 마이그레이션 비용은",
+              "§2 의 microbenchmark 가 통제된 조건에서 측정한 값이다.", "",
+              "| Workload | Rate | Arm | count | 결정 | submission_only | latency p50 (ms) | p95 | downtime p50 (ms) | 전송 바이트 | 대역폭 (GB/s) | P2P 전송 |",
+              "| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
         for (workload, rate) in sorted(groups):
             for arm in ARM_ORDER:
                 members = groups[(workload, rate)].get(arm)
                 if not members:
                     continue
-                R.append("| {} | {} | {} | {} | {} | {} | {} | {} | {} | {} |".format(
+                R.append("| {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} |".format(
                     workload, rate, ARM_LABEL.get(arm, arm),
                     cell([num(m["migration_count"]) for m in members], 1),
+                    cell([num(m.get("migration_decisions_logged")) for m in members], 1),
+                    int(num(members[0].get("migration_latency_is_submission_only"), 0)),
                     cell([num(m["migration_latency_p50"]) for m in members], 1),
                     cell([num(m["migration_latency_p95"]) for m in members], 1),
                     cell([num(m["service_downtime_p50"]) for m in members], 1),
