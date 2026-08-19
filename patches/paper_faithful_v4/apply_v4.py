@@ -90,10 +90,13 @@ class ModelService:
         "            # worker would pin the same pages N times for nothing.\n"
         "            import os as _os, zlib as _zlib\n"
         "            _n = int(_os.environ.get(\"PRISM_V4_NUM_SERVICE_WORKERS\", \"1\"))\n"
+        "            _own = {\n"
+        "                k: i % _n for i, k in enumerate(sorted(self.model_dict))\n"
+        "            } if _n > 1 else {}\n"
         "            summary = {\n"
         "                k: mod.register_host_memory(m.state_dict())\n"
         "                for k, m in self.model_dict.items()\n"
-        "                if _n <= 1 or _zlib.crc32(str(k).encode()) % _n == self.service_id\n"
+        "                if _n <= 1 or _own.get(k) == self.service_id\n"
         "            }\n"
         "            logging.info(\n"
         "                f\"[PAPER-LOAD-V4] worker {self.service_id}/{_n} \"\n"
@@ -126,15 +129,32 @@ class ModelService:
         '''class _ModelServiceRouter:
     """Queue facade that sends a model to a fixed worker.
 
-    ``hash()`` is salted per process and the engines are spawned, so the
-    mapping has to come from a stable checksum instead.
+    Fixed, because the record of which GPU currently holds a model lives
+    inside a worker: if two loads of the same model reach different
+    workers, the migration finds no source and silently falls back to
+    host memory.
+
+    The assignment is built once from the sorted model list and travels
+    with this object when it is pickled into the spawned processes, so
+    every process agrees on it -- ``hash()`` cannot be used here, being
+    salted per process.  Sorted round-robin also spreads models evenly,
+    which a checksum modulo does not: on this six-model set crc32
+    collides onto four workers and leaves two idle.
     """
 
-    def __init__(self, queues):
+    def __init__(self, queues, model_keys=()):
         self.queues = queues
+        self.mapping = {
+            key: i % len(queues) for i, key in enumerate(sorted(model_keys))
+        }
 
     def _index(self, model_key):
-        return zlib.crc32(str(model_key).encode()) % len(self.queues)
+        key = str(model_key)
+        if key in self.mapping:
+            return self.mapping[key]
+        # Anything absent at construction still has to land somewhere
+        # deterministic.
+        return zlib.crc32(key.encode()) % len(self.queues)
 
     def put(self, item, *args, **kwargs):
         key = item[1] if item and item[0] == "__release__" else item[0]
@@ -179,7 +199,7 @@ class ModelService:
     worker_queues = [
         torch.multiprocessing.Queue() for _ in range(num_model_service_workers)
     ]
-    input_queue = _ModelServiceRouter(worker_queues)
+    input_queue = _ModelServiceRouter(worker_queues, cpu_model_dict.keys())
     os.environ["PRISM_V4_NUM_SERVICE_WORKERS"] = str(num_model_service_workers)
     for service_worker_id in range(num_model_service_workers):
         p = torch.multiprocessing.Process(
@@ -189,7 +209,7 @@ class ModelService:
                 cpu_model_dict,
                 worker_queues[service_worker_id],
                 output_queues,""",
-        probe="_ModelServiceRouter(worker_queues)")
+        probe="_ModelServiceRouter(worker_queues, cpu_model_dict.keys())")
 
     # A release arrives as ("__release__", model_key, gpu_id, None): the engine
     # has dropped its GPU copy, so ours must go too.  Handled after the Empty
@@ -370,7 +390,7 @@ class ModelService:
     checks = {
         service: ["def _v4():", "self.v4_resident = {}", "mod.copy_model_to_gpu_v4(",
                   '__release__', "if not self.v4_p2p:", "class _ModelServiceRouter:"],
-        mm / "multi_model_server.py": ["_ModelServiceRouter(worker_queues)"],
+        mm / "multi_model_server.py": ["_ModelServiceRouter(worker_queues, cpu_model_dict.keys())"],
         runner: ["__release__"],
         controller: ["KVPRGlobalPolicyV4", 'in ("kvpr-global-v3", "kvpr-global-v4")',
                      "[PAPER-ACTION-V4]"],
