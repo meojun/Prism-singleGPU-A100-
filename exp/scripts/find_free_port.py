@@ -9,6 +9,8 @@ hard-coded base collides sooner or later and the run dies with
 "Port N is not available" after the models have already been loaded.
 """
 import argparse
+import os
+import random
 import socket
 
 
@@ -30,7 +32,14 @@ def main():
     ap.add_argument("--step", type=int, default=50)
     ap.add_argument("--tries", type=int, default=200)
     a = ap.parse_args()
-    base = a.start
+    # Start at a random offset rather than always at --from.  Consecutive runs
+    # in the sweep would otherwise both land on the same base, and a previous
+    # run's cleanup trap -- which kills by "launch_multi_model_server.*--port N"
+    # -- could then take down the next run's server while it was still loading.
+    # The observed symptom is a server that logs an orderly shutdown with no
+    # error, minutes into startup, and a run marked DIED.
+    ap_jitter = int(os.environ.get("PRISM_PORT_JITTER_SLOTS", "40"))
+    base = a.start + a.step * random.randrange(max(1, ap_jitter))
     for _ in range(a.tries):
         if all(free(base + i) for i in range(a.span)):
             print(base)
