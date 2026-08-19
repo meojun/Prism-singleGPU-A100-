@@ -61,3 +61,34 @@ rather than a tuning knob: models 1-5 never came close to 384 MiB, so raising
 it cannot change their numbers, and for model_6 it removes an artificial limit
 instead of granting an advantage.  The cost is 1 GiB less KV pool per GPU out
 of a 67.28 GiB budget, applied identically to every arm.
+
+## Algorithm 1's tau, and why it was left at the inherited value
+
+`tau = 0.00035` was calibrated on the v3 report's machine, and it is not
+obviously transferable: KVPR carries units of
+(tokens/s x bytes/token / SLO) / GiB, and this study re-derived the SLO
+baselines here, which rescales the numerator.  Measured on this box over a
+bursty 8 req/s run, the line-8 deltas have mean 0.0153 and sd 0.0329, with 90%
+of them below 0.0707 -- so 0.00035 sits two orders of magnitude under the
+distribution and admits 28.9% of all decisions.  Applying the project's own
+rule from `docs/paper_faithful/design_analysis.md` 5a (mean + 2 sd) to this
+box's numbers would instead put tau near 0.13, which admits under 1% and
+effectively turns migration off.
+
+It was kept at 0.00035 anyway, for two reasons.
+
+The migration rate it produces here -- 13 in a 300 s window -- is the rate the
+v3 study itself reported (14), so the arms remain comparable both to that work
+and to each other.  And a tau that suppresses migration would make this study
+unable to measure the thing it is about: v4's contribution is that a migration
+costs 2.2x less to load and up to 3.5x less to move, which is only observable
+when migrations happen.  Every arm runs the same tau, so it cannot favour one.
+
+What the first runs already show is that the cost is real.  At 8 req/s bursty
+the prototype and v3 push identical throughput (8.04 req/s) and Algorithm 2 is
+not under-admitting on either (v3 selects 1061 of 1102 eligible, 0 pathological
+rounds, max queue 12).  The whole difference is latency -- TTFT p50 71 -> 115
+ms, TPOT p50 31.7 -> 50.1 ms -- against v3's 13 migrations and 19
+deactivations versus the prototype's 2 and 9.  Each migration reloads up to
+14 GiB of weights onto a GPU already at 99% utilisation.  Whether v4's cheaper
+transfers recover that is the question the sweep answers.
