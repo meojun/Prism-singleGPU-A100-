@@ -104,13 +104,27 @@ def main():
     pool = StreamPool(gpu_ids, per_gpu=3)
     records = []
 
+    # Every model is read and page-locked up front and then kept alive for the
+    # whole run.  Freeing one model's shared mapping and reading the next lets
+    # the OS hand back the same virtual addresses, while CUDA still holds them
+    # registered -- the next allocation then fails with "part or all of the
+    # requested memory range is already mapped".  The server never hits this:
+    # its ModelService registers once at startup and never releases.
+    cpu_states, registrations = {}, {}
     for model_id in args.models:
-        cpu_state = load_cpu_state(model_id, args.hf_home)
-        payload = nbytes_of(cpu_state)
-        print(f"\n=== {model_id}: {payload/2**30:.2f} GiB", flush=True)
-        # V3 and V4 both run against page-locked host pages so that the only
+        cpu_states[model_id] = load_cpu_state(model_id, args.hf_home)
+        # V3 and V4 both run against page-locked host pages, so the only
         # difference between them is the transfer path, not the host mapping.
-        reg = register_host_memory(cpu_state)
+        registrations[model_id] = register_host_memory(cpu_states[model_id])
+        print(f"read + page-locked {model_id}: "
+              f"{nbytes_of(cpu_states[model_id])/2**30:.2f} GiB "
+              f"{registrations[model_id]}", flush=True)
+
+    for model_id in args.models:
+        cpu_state = cpu_states[model_id]
+        payload = nbytes_of(cpu_state)
+        reg = registrations[model_id]
+        print(f"\n=== {model_id}: {payload/2**30:.2f} GiB", flush=True)
 
         for arm in ("prototype-source-first", "v3-target-first", "v4-p2p-target-first"):
             for rep in range(1, args.reps + 1):
@@ -185,7 +199,6 @@ def main():
 
                 del target
                 torch.cuda.empty_cache()
-        del cpu_state
 
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     with open(args.out, "w") as fh:

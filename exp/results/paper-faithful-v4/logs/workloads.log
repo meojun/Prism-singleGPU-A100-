@@ -1,0 +1,47 @@
+rate=8.0 req/s  duration=420.0s  phases=7  total=3387
+  model_1     238 reqs  prompt_len mean=  276.7  output_len mean= 146.2
+  model_2     509 reqs  prompt_len mean=  290.9  output_len mean= 169.2
+  model_3     777 reqs  prompt_len mean=  323.4  output_len mean= 167.9
+  model_4     379 reqs  prompt_len mean=  306.3  output_len mean= 166.6
+  model_5     973 reqs  prompt_len mean=  315.0  output_len mean= 161.3
+  model_6     511 reqs  prompt_len mean=  295.1  output_len mean= 168.8
+wrote bursty_r8_s1.pkl / steady_r8_s1.pkl / paired_requests_r8_s1.json / phases_r8_s1.json  in /workspace/prism-exp/exp/workloads/paper-faithful-v4
+  model_1   n=  238  bursty span [38,419]  steady span [3,415]
+  model_2   n=  509  bursty span [0,418]  steady span [0,420]
+  model_3   n=  777  bursty span [3,339]  steady span [2,420]
+  model_4   n=  379  bursty span [39,419]  steady span [0,420]
+  model_5   n=  973  bursty span [0,419]  steady span [0,420]
+  model_6   n=  511  bursty span [5,420]  steady span [2,420]
+rate=20.0 req/s  duration=420.0s  phases=7  total=8423
+  model_1     640 reqs  prompt_len mean=  281.9  output_len mean= 162.5
+  model_2    1227 reqs  prompt_len mean=  309.7  output_len mean= 167.3
+  model_3    1904 reqs  prompt_len mean=  318.3  output_len mean= 164.9
+  model_4     947 reqs  prompt_len mean=  331.3  output_len mean= 154.3
+Token indices sequence length is longer than the specified maximum sequence length for this model (161271 > 131072). Running this sequence through the model will result in indexing errors
+  model_5    2410 reqs  prompt_len mean=  303.9  output_len mean= 160.6
+  model_6    1295 reqs  prompt_len mean=  298.4  output_len mean= 165.2
+wrote bursty_r20_s1.pkl / steady_r20_s1.pkl / paired_requests_r20_s1.json / phases_r20_s1.json  in /workspace/prism-exp/exp/workloads/paper-faithful-v4
+  model_1   n=  640  bursty span [39,419]  steady span [0,420]
+  model_2   n= 1227  bursty span [0,420]  steady span [0,420]
+  model_3   n= 1904  bursty span [1,340]  steady span [0,420]
+  model_4   n=  947  bursty span [38,420]  steady span [1,420]
+  model_5   n= 2410  bursty span [0,420]  steady span [0,420]
+  model_6   n= 1295  bursty span [0,420]  steady span [1,420]
+rate=8.0 req/s  duration=420.0s  phases=7  total=3365
+  model_1     555 reqs  prompt_len mean=  306.3  output_len mean= 153.7
+  model_2     262 reqs  prompt_len mean=  325.7  output_len mean= 173.9
+  model_3     572 reqs  prompt_len mean=  289.9  output_len mean= 167.5
+  model_4     478 reqs  prompt_len mean=  322.1  output_len mean= 157.8
+  model_5     709 reqs  prompt_len mean=  324.3  output_len mean= 161.3
+  model_6     789 reqs  prompt_len mean=  343.0  output_len mean= 162.7
+wrote bursty_r8_s2.pkl / steady_r8_s2.pkl / paired_requests_r8_s2.json / phases_r8_s2.json  in /workspace/prism-exp/exp/workloads/paper-faithful-v4
+  model_1   n=  555  bursty span [1,420]  steady span [1,420]
+  model_2   n=  262  bursty span [96,392]  steady span [2,419]
+  model_3   n=  572  bursty span [0,392]  steady span [1,420]
+  model_4   n=  478  bursty span [0,420]  steady span [5,419]
+  model_5   n=  709  bursty span [88,406]  steady span [1,419]
+  model_6   n=  789  bursty span [88,420]  steady span [0,420]
+rate=20.0 req/s  duration=420.0s  phases=7  total=8244
+  model_1    1287 reqs  prompt_len mean=  303.9  output_len mean= 163.6
+  model_2     683 reqs  prompt_len mean=  322.3  output_len mean= 156.1
+  model_3    1499 reqs  prompt_len mean=  331.5  output_len mean= 163.8

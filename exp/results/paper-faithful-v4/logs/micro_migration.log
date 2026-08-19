@@ -1,17 +1,17 @@
 peer access matrix: {'0->1': True, '1->0': True}
-Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1809.00it/s]
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1581.48it/s]
 
 === meta-llama/Llama-3.2-1B: 2.30 GiB
-  prototype-source-first   rep1: latency=0.179s downtime=0.142s 13.8 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
-  prototype-source-first   rep2: latency=0.277s downtime=0.236s 8.9 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
-  prototype-source-first   rep3: latency=0.190s downtime=0.159s 13.0 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
-  v3-target-first          rep1: latency=0.147s downtime=0.000s 16.9 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
-  v3-target-first          rep2: latency=0.151s downtime=0.000s 16.4 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
-  v3-target-first          rep3: latency=0.148s downtime=0.000s 16.7 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
-  v4-p2p-target-first      rep1: latency=0.106s downtime=0.000s 23.2 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
-  v4-p2p-target-first      rep2: latency=0.105s downtime=0.000s 23.5 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
-  v4-p2p-target-first      rep3: latency=0.116s downtime=0.000s 21.3 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
-Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2234.98it/s]
+  prototype-source-first   rep1: latency=0.178s downtime=0.156s 13.9 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  prototype-source-first   rep2: latency=0.287s downtime=0.246s 8.6 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  prototype-source-first   rep3: latency=0.191s downtime=0.161s 12.9 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  v3-target-first          rep1: latency=0.139s downtime=0.000s 17.8 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  v3-target-first          rep2: latency=0.139s downtime=0.000s 17.8 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  v3-target-first          rep3: latency=0.146s downtime=0.000s 16.9 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  v4-p2p-target-first      rep1: latency=0.118s downtime=0.000s 21.0 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
+  v4-p2p-target-first      rep2: latency=0.119s downtime=0.000s 20.8 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
+  v4-p2p-target-first      rep3: latency=0.116s downtime=0.000s 21.2 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 1877.39it/s]
 
 === meta-llama/Llama-3.2-3B: 5.98 GiB
 Traceback (most recent call last):

@@ -1,21 +1,28 @@
 peer access matrix: {'0->1': True, '1->0': True}
 reading weights into shared CPU memory ...
-Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1871.03it/s]
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1920.34it/s]
   meta-llama/Llama-3.2-1B: 2.30 GiB
-Fetching 6 files:   0%|          | 0/6 [00:00<?, ?it/s]Fetching 6 files: 100%|██████████| 6/6 [00:00<00:00, 1924.58it/s]
+Fetching 6 files:   0%|          | 0/6 [00:00<?, ?it/s]Fetching 6 files: 100%|██████████| 6/6 [00:00<00:00, 1919.88it/s]
   Qwen/Qwen2.5-1.5B-Instruct: 2.88 GiB
-Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 1865.42it/s]
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2053.68it/s]
   meta-llama/Llama-3.2-3B: 5.98 GiB
-Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 1934.64it/s]
-Traceback (most recent call last):
-  File "/workspace/prism-exp/exp/scripts/microbench_loading_v4.py", line 178, in <module>
-  File "/workspace/prism-exp/exp/scripts/microbench_loading_v4.py", line 98, in main
-  File "/workspace/prism-exp/exp/scripts/microbench_loading_v4.py", line 56, in load_cpu_state
-  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/_tensor.py", line 707, in share_memory_
-  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/storage.py", line 960, in _share_memory_
-  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/storage.py", line 337, in wrapper
-  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/storage.py", line 403, in share_memory_
-  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/storage.py", line 289, in share_memory_
-  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/storage.py", line 337, in wrapper
-  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/storage.py", line 407, in _share_fd_cpu_
-RuntimeError: unable to open shared memory object </torch_31033_1963762335_987> in read-write mode: Too many open files (24)
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 2107.03it/s]
+  Qwen/Qwen2.5-3B-Instruct: 5.75 GiB
+Fetching 11 files:   0%|          | 0/11 [00:00<?, ?it/s]Fetching 11 files: 100%|██████████| 11/11 [00:00<00:00, 2293.91it/s]
+  meta-llama/Llama-3.1-8B: 14.96 GiB
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 2395.24it/s]
+  Qwen/Qwen2.5-7B-Instruct: 14.19 GiB
+sequential rep1: 5.026s  9.84 GB/s  path=host-to-device-only
+sequential rep2: 5.767s  8.57 GB/s  path=host-to-device-only
+sequential rep3: 5.734s  8.62 GB/s  path=host-to-device-only
+v3-parallel-activation rep1: 4.468s  11.07 GB/s  path=host-to-device + helper-gpu-p2p
+v3-parallel-activation rep2: 4.356s  11.35 GB/s  path=host-to-device + helper-gpu-p2p
+v3-parallel-activation rep3: 4.210s  11.74 GB/s  path=host-to-device + helper-gpu-p2p
+page-locked host mappings: {'meta-llama/Llama-3.2-1B': {'locked': 146, 'already_locked': 0, 'failed': 0, 'seconds': 0.49531894399842713}, 'Qwen/Qwen2.5-1.5B-Instruct': {'locked': 338, 'already_locked': 0, 'failed': 0, 'seconds': 0.7062192020093789}, 'meta-llama/Llama-3.2-3B': {'locked': 254, 'already_locked': 0, 'failed': 0, 'seconds': 0.8207379450032022}, 'Qwen/Qwen2.5-3B-Instruct': {'locked': 434, 'already_locked': 0, 'failed': 0, 'seconds': 0.8242910179978935}, 'meta-llama/Llama-3.1-8B': {'locked': 291, 'already_locked': 0, 'failed': 0, 'seconds': 1.8132571559981443}, 'Qwen/Qwen2.5-7B-Instruct': {'locked': 339, 'already_locked': 0, 'failed': 0, 'seconds': 1.7722967099980451}}
+v4-parallel-loading rep1: 1.920s  25.76 GB/s  path=host-to-device + helper-gpu-p2p
+v4-parallel-loading rep2: 1.947s  25.40 GB/s  path=host-to-device + helper-gpu-p2p
+v4-parallel-loading rep3: 1.949s  25.38 GB/s  path=host-to-device + helper-gpu-p2p
+v4-pipelined-helper rep1: 4.046s  12.22 GB/s  path=host-to-device + helper-gpu-p2p
+v4-pipelined-helper rep2: 3.795s  13.03 GB/s  path=host-to-device + helper-gpu-p2p
+v4-pipelined-helper rep3: 3.880s  12.75 GB/s  path=host-to-device + helper-gpu-p2p
+wrote /workspace/prism-exp/exp/results/paper-faithful-v4/microbench/loading.json
