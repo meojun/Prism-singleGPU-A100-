@@ -92,3 +92,29 @@ ms, TPOT p50 31.7 -> 50.1 ms -- against v3's 13 migrations and 19
 deactivations versus the prototype's 2 and 9.  Each migration reloads up to
 14 GiB of weights onto a GPU already at 99% utilisation.  Whether v4's cheaper
 transfers recover that is the question the sweep answers.
+
+## What the v4 end-to-end arm actually ran
+
+The v4 arm in the sweep runs with **page-locked host weights on and GPU-to-GPU
+migration off** (`PRISM_V4_PAGELOCK=1`, `PRISM_V4_P2P_MIGRATION=0`).
+
+The first v4 attempt ran with P2P on and it worked -- 9 of 19 weight transfers
+went gpu-to-gpu -- but the run died of CUDA OOM on GPU 0 and lost 1300 of 3387
+requests, so the harness refused it and no results were kept.  The cause is a
+lifetime problem, not a transport one: to serve as a migration source the model
+service holds a CUDA IPC mapping of the engine's weights, and dropping the
+Python reference does not return that memory.  `empty_cache()` frees only the
+calling process's own allocator cache; an IPC mapping needs `ipc_collect()`.
+Twenty-four deactivations leaked their way into an OOM.
+
+`ipc_collect()` is now called on release and when a migration displaces a
+registry entry.  That fix is **not** validated end to end in the sweep: the
+sweep continued with P2P off so every v4 run shares one configuration, rather
+than mixing a fixed and an unfixed arm.  P2P migration's performance is
+measured in the microbenchmark instead, where NVLink counters confirm the
+whole model crosses the link (14.96 GiB for Llama-3.1-8B) at 72.9 GB/s against
+20.8 for the host path.
+
+None of this is taken on trust: every run's `weight_transfers.jsonl` records
+`host_registered` and `transfer_path` per transfer, so what each arm actually
+did is in its own raw data rather than in a configuration claim.
