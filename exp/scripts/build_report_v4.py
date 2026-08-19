@@ -348,7 +348,10 @@ def main():
                     continue
                 R.append("| " + arm + " | " + " | ".join(
                     fmt(np.mean(per_model_rows[arm][m])) for m in models) + " |")
-            R += ["", "_모델별 전송 시간 (초, 3회 평균)._", ""]
+            R += ["", "_모델별 전송 시간 (초, 3회 평균). **sequential 의 값이 작은 것은 빠르다는 "
+                  "뜻이 아니다** — 한 번에 한 모델만 옮기므로 각 모델이 링크를 독점하고, 대신 그것들이 "
+                  "차례로 일어나 위 표의 총 시간이 가장 길다. 나머지 arm 은 여섯 모델이 동시에 "
+                  "경합하므로 개별 시간은 길고 총 시간은 짧다._", ""]
     else:
         R += ["_아직 실행되지 않았다._", ""]
 
@@ -376,6 +379,29 @@ def main():
                 cell([r["effective_gbps"] for r in recs], 1),
                 recs[0]["transfer_path"],
                 np.mean(nvl)))
+        # Per model as well: the three differ by 6.5x in size, so an average
+        # over them hides the effect rather than showing it.
+        models = sorted({r["model"] for r in migration["records"]},
+                        key=lambda m: next(x["weight_bytes"] for x in migration["records"]
+                                           if x["model"] == m))
+        R += ["", "모델별로 나누어 보면(크기가 6.5배까지 차이나므로 평균은 효과를 가린다):", "",
+              "| 모델 | 크기 (GiB) | Arm | latency (s) | downtime (s) | GB/s | NVLink Rx (GiB) |",
+              "| --- | ---: | --- | ---: | ---: | ---: | ---: |"]
+        for model in models:
+            for arm in ("prototype-source-first", "v3-target-first", "v4-p2p-target-first"):
+                sub = [r for r in migration["records"]
+                       if r["model"] == model and r["arm"] == arm]
+                if not sub:
+                    continue
+                nvl = [((r.get("nvlink_delta_target_gpu") or {}).get("rx_bytes") or 0) / 2**30
+                       for r in sub]
+                R.append("| {} | {:.2f} | {} | {} | {} | {} | {:.2f} |".format(
+                    model.split("/")[-1], sub[0]["weight_bytes"] / 2**30, arm,
+                    cell([r["migration_latency_s"] for r in sub]),
+                    cell([r["service_downtime_s"] for r in sub]),
+                    cell([r["effective_gbps"] for r in sub], 1),
+                    float(np.mean(nvl))))
+
         R += ["", "NVLink Rx 는 드라이버의 링크 카운터를 전송 직전/직후에 읽어 뺀 값이다.",
               "broker 경로에서는 모델의 정확히 절반, P2P 경로에서는 모델 전체가 NVLink 를 건넌다 —",
               "즉 경로는 추정이 아니라 계측되었다. PCIe 상한(약 25 GB/s)을 넘는 대역폭도 같은 결론을",
