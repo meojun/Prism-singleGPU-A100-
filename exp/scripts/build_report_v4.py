@@ -543,10 +543,56 @@ def main():
     else:
         R += ["_아직 완료된 런이 없다._", ""]
 
-    if made:
-        R += ["## 5. 그림", ""] + [f"![{name}](figures/{name})" for name in made] + [""]
+    # ---- tau study
+    tau_dir = base / "tau-study"
+    tau_meta = tau_dir / "tau.json"
+    tau_sum = tau_dir / "summary.csv"
+    if tau_meta.exists() and tau_sum.exists():
+        meta = json.loads(tau_meta.read_text())
+        trows = read_csv(tau_sum)
+        R += ["## 5. tau 를 이 장비에서 다시 유도하면 — 마이그레이션은 비용인가 이득인가", "",
+              "본 스윕의 `tau = 0.00035` 는 v3 보고서의 장비에서 온 값이다. 이 장비에서 재면",
+              f"line-8 delta 의 분포에 비해 두 자릿수 작아 결정의 상당수를 통과시킨다. 프로젝트",
+              f"자신의 규칙(mean + 2 sd)을 이 장비의 측정값에 적용하면 **tau = {meta['tau']:.5f}** 이고,",
+              f"이는 line-8 결정의 {meta['fraction_of_all_decisions_above_tau']:.1%} 만 통과시킨다.", "",
+              "Algorithm 1 의 line 8 은 곧 '이득이 임계를 넘지 않으면 옮기지 마라' 는 규칙이다.",
+              "임계를 잘못 둔 채 '마이그레이션이 손해' 라고 보고하면 교정 실수를 알고리즘의 성질로",
+              "돌리게 되므로, 재유도한 tau 로 같은 조건을 다시 측정했다. 마이그레이션은 자기가",
+              "통제할 대상을 통해 자기를 재지 않도록 **억제한 상태**에서 분포를 측정했다.", "",
+              "| Workload | Rate | n | 마이그레이션 (tau 교정) | 본 스윕 | Goodput (tau 교정) | 본 스윕 |",
+              "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
+        main = defaultdict(list)
+        for row in rows:
+            if row["implementation"] == "paper-faithful-v4":
+                main[(row["workload"], int(row["request_rate"]))].append(row)
+        tg = defaultdict(list)
+        for row in trows:
+            tg[(row["workload"], int(row["request_rate"]))].append(row)
+        for key in sorted(tg):
+            tv, mv = tg[key], main.get(key, [])
+            R.append("| {} | {} | {} | {} | {} | {} | {} |".format(
+                key[0], key[1], len(tv),
+                cell([num(x["migration_count"]) for x in tv], 1),
+                cell([num(x["migration_count"]) for x in mv], 1) if mv else "—",
+                cell([num(x["goodput"]) for x in tv]),
+                cell([num(x["goodput"]) for x in mv]) if mv else "—"))
+        R += ["", "**결과는 예상과 반대다.** tau 를 올리자 마이그레이션은 의도대로 거의 사라졌지만,",
+              "goodput 은 모든 조건에서 **떨어졌다**. 그러므로 마이그레이션은 이 시스템에서 비용이",
+              "아니라 이득이며, 중부하에서 paper-faithful arm 이 released prototype 에 뒤지는 것은",
+              "마이그레이션 때문이 아니다 — 억제해도 회복되지 않고 더 나빠진다. 그 원인은",
+              "Algorithm 2 나 KVPR 배치 자체 등 다른 곳에 있고, 이 연구는 그것을 특정하지 못한다.", "",
+              "고부하에서의 이득이 어디서 오는지는 반대로 분명해진다. bursty 20 req/s 에서",
+              "마이그레이션을 억제하면 goodput 이 released prototype 수준으로 내려간다 —",
+              "즉 그 이득을 만드는 것은 Algorithm 1 의 마이그레이션이다.", "",
+              "이 절이 존재하는 이유를 남겨 둔다. 초기 분석은 arm 간 상관(마이그레이션이 많은 arm 이",
+              "goodput 이 낮다)을 인과로 읽었다. arm 은 Algorithm 2 등 다른 것도 함께 바꾸므로 그",
+              "상관만으로는 인과를 말할 수 없었고, 같은 arm 안에서 tau 만 바꾼 이 대조가 그것을",
+              "뒤집었다.", ""]
 
-    R += ["## 6. Raw data", "",
+    if made:
+        R += ["## 6. 그림", ""] + [f"![{name}](figures/{name})" for name in made] + [""]
+
+    R += ["## 7. Raw data", "",
           "집계가 raw data 를 대체하지 않는다. 다음이 모두 보존되어 있다.", "",
           "| 경로 | 내용 |", "| --- | --- |",
           "| `raw/requests/*.csv` | 요청 단위: 도착/완료 시각, 프롬프트·출력 토큰, TTFT/TPOT/E2E, SLO 충족 여부 |",
@@ -557,14 +603,19 @@ def main():
           "| `raw/gpu_metrics/*.csv` | GPU 4장 전부의 2초 간격 사용률·메모리 |",
           "| `microbench/*.json` | microbenchmark 원자료 |",
           "| `profiling/` | 이 장비에서 측정한 c_i 와 SLO 기준선 |",
-          "| `logs/` | 런별 실행 로그 |", "",
+          "| `logs/` | 런별 실행 로그 |",
+          "| `tau-study/` | tau 재유도와 그 tau 로 다시 돌린 런들 |", "",
           "GPU 샘플링 간격은 2 초다. `nvidia-smi` 호출 1 회/2 초는 벤치마크와 GPU 를 공유하지 않으므로",
           "측정에 영향을 주지 않는다.", "",
-          "## 7. 한계", "",
+          "## 8. 한계", "",
           "- KV-cache 마이그레이션은 어느 arm 에도 구현되어 있지 않다. 마이그레이션 바이트는 전부 가중치다.",
           "- RDMA 는 단일 노드라 측정 대상이 없다.",
           "- TP anti-affinity 는 전역 컨트롤러가 TP 그룹을 rank0 GPU 로 축약하므로 표현 자체가 불가능하다.",
           "- 결과는 A100 80GB 2장, 6모델, 이 SLO scale 에 한정된다.",
+          "- 중부하에서 paper-faithful arm 이 뒤지는 원인은 특정하지 못했다. 마이그레이션이 "
+          "아니라는 것까지만 보였다(§5).",
+          "- 20 req/s 는 이 구성의 포화점(5~10 req/s)을 크게 넘어선 지점이고, seed 간 분산이 "
+          "평균의 70~80% 다. 평균비만 인용하지 말고 seed 별 값을 함께 볼 것.",
           ]
     (base / "REPORT.md").write_text("\n".join(R) + "\n")
     print(f"wrote REPORT.md and IMPLEMENTATION_AUDIT.md ({len(made)} figures)")

@@ -59,29 +59,36 @@ TAU=$(python3 -c "import json;print(json.load(open('$OUT/tau.json'))['tau'])" 2>
 [ -z "$TAU" ] && { say "FATAL: no tau derived"; exit 1; }
 say "tau=$TAU"
 
-run() {  # run <system> <rate> <seed>
-    local sys=$1 rate=$2 seed=$3
-    local out="$OUT/raw/$sys/bursty/rate_$rate/seed_$seed"
-    [ -f "$out/DONE" ] && { say "skip $sys/$rate/$seed"; return 0; }
+run() {  # run <system> <workload> <rate> <seed>
+    local sys=$1 wl=$2 rate=$3 seed=$4
+    local out="$OUT/raw/$sys/$wl/rate_$rate/seed_$seed"
+    [ -f "$out/DONE" ] && { say "skip $sys/$wl/$rate/$seed"; return 0; }
     [ -d "$out" ] && mv "$out" "${out}_failed_$(date +%s)"
     mkdir -p "$out"
-    say "running $sys bursty $rate seed $seed at tau=$TAU"
-    KVPR_TAU=$TAU ./exp/scripts/run_v4_case.sh "$sys" bursty "$rate" "$seed" \
-        "$WL/bursty_r${rate}_s${seed}.pkl" "$out" >> "$LOG" 2>&1 || { say "FAILED $sys/$rate/$seed"; return 1; }
+    say "running $sys $wl $rate seed $seed at tau=$TAU"
+    KVPR_TAU=$TAU ./exp/scripts/run_v4_case.sh "$sys" "$wl" "$rate" "$seed" \
+        "$WL/${wl}_r${rate}_s${seed}.pkl" "$out" >> "$LOG" 2>&1 || { say "FAILED $sys/$wl/$rate/$seed"; return 1; }
     python3 exp/scripts/collect_v2_metrics.py --run-dir "$out" \
-        --slo-base "$SLO_BASE_FILE" --trace "$WL/bursty_r${rate}_s${seed}.pkl" \
+        --slo-base "$SLO_BASE_FILE" --trace "$WL/${wl}_r${rate}_s${seed}.pkl" \
         --ttft-scale 5 --tpot-scale 3 --warmup 60 --measure 300 \
-        --label "tau/$sys/$rate/$seed" -o "$out/metrics.json" >> "$LOG" 2>&1 \
+        --label "tau/$sys/$wl/$rate/$seed" -o "$out/metrics.json" >> "$LOG" 2>&1 \
         && touch "$out/DONE"
     pkill -f 'launch_multi_model[_]server' 2>/dev/null || true
     rm -f /dev/shm/ipc_[0-9]*_root /dev/shm/cuda.shm.* 2>/dev/null || true
     sleep 10
 }
 
+# steady first: hot sets do not move there, so a migration is hardest to
+# justify, and the main sweep still recorded 13 of them against the
+# prototype's 0 -- the clearest place to see whether a correct tau declines
+# them.  Then bursty, where migration can genuinely pay.
 for seed in 1 2 3; do
-    run paper-faithful-v4 8 "$seed"
+    run paper-faithful-v4 steady 8 "$seed"
 done
-run paper-faithful-v4 20 1
+for seed in 1 2 3; do
+    run paper-faithful-v4 bursty 8 "$seed"
+done
+run paper-faithful-v4 bursty 20 1
 
 python3 exp/scripts/collect_v4_metrics.py --base "$OUT" >> "$LOG" 2>&1 || true
 git add -A "$OUT" >> "$LOG" 2>&1
