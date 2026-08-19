@@ -1,29 +1,47 @@
 /workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
   from pkg_resources import resource_string
-[ModelConfig(model_name='model_5', model_path='meta-llama/Llama-3.1-8B', tokenizer_path='meta-llama/Llama-3.1-8B', tp_size=2, init_placements=[{'gpu_ids': [0, 1], 'on': True, 'max_memory_pool_size': 20.0}]), ModelConfig(model_name='model_1', model_path='meta-llama/Llama-3.2-1B', tokenizer_path='meta-llama/Llama-3.2-1B', tp_size=1, init_placements=[{'gpu_ids': [1], 'on': True, 'max_memory_pool_size': 20.0}])]
+[ModelConfig(model_name='model_5', model_path='meta-llama/Llama-3.1-8B', tokenizer_path='meta-llama/Llama-3.1-8B', tp_size=2, init_placements=[{'gpu_ids': [0, 1], 'on': True, 'max_memory_pool_size': 20.0}]), ModelConfig(model_name='model_1', model_path='meta-llama/Llama-3.2-1B', tokenizer_path='meta-llama/Llama-3.2-1B', tp_size=2, init_placements=[{'gpu_ids': [0, 1], 'on': True, 'max_memory_pool_size': 20.0}])]
 Initializing torch distributed...
 Torch distributed initialized.
 Loading 2 shared models to cpu...
-INFO 08-19 07:40:09 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-19 08:40:17 weight_utils.py:243] Using model weights format ['*.safetensors']
 Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
-Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:00<00:01,  2.62it/s]
-Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:01<00:02,  1.06s/it]
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:00<00:01,  2.64it/s]
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:01<00:02,  1.07s/it]
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:03<00:01,  1.36s/it]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:05<00:00,  1.48s/it]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:05<00:00,  1.33s/it]
+
+INFO 08-19 08:40:31 weight_utils.py:243] Using model weights format ['*.safetensors']
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:00<00:01,  2.90it/s]
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:01<00:02,  1.05s/it]
 Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:03<00:01,  1.34s/it]
-Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:05<00:00,  1.46s/it]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:05<00:00,  1.47s/it]
 Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:05<00:00,  1.31s/it]
 
-INFO 08-19 07:40:23 weight_utils.py:243] Using model weights format ['*.safetensors']
-Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
-Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:00<00:01,  2.88it/s]
-Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:01<00:02,  1.04s/it]
-Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:03<00:01,  1.33s/it]
-Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:05<00:00,  1.46s/it]
-Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:05<00:00,  1.30s/it]
-
-INFO 08-19 07:40:36 weight_utils.py:243] Using model weights format ['*.safetensors']
-INFO 08-19 07:40:37 weight_utils.py:288] No model.safetensors.index.json found in remote.
+INFO 08-19 08:40:44 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-19 08:40:44 weight_utils.py:288] No model.safetensors.index.json found in remote.
 Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.19s/it]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.19s/it]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  2.59it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  2.59it/s]
 
-Shared models loaded in 31.60 seconds.
+INFO 08-19 08:40:46 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-19 08:40:46 weight_utils.py:288] No model.safetensors.index.json found in remote.
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  2.89it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  2.88it/s]
+
+Shared models loaded in 30.74 seconds.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 0 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 1 started.
+Preparing engine for model_5 (meta-llama/Llama-3.1-8B) on GPU [0, 1] with initialize status on=True
+Preparing engine for model_1 (meta-llama/Llama-3.2-1B) on GPU [0, 1] with initialize status on=True
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string

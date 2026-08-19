@@ -1,5 +1,3 @@
-waiting for TP=2 server..................................... -> DIED
- -> ready=0 in 74.87s
 # TP=2 validation: FAIL
 
 - [FAIL] server_started
@@ -13,4 +11,3 @@ waiting for TP=2 server..................................... -> DIED
 
 startup: 74.9s
 TP rank -> GPU: not recoverable from logs
-### TP=2 validation written to /workspace/prism-exp/exp/results/paper-faithful-v4/tp-validation

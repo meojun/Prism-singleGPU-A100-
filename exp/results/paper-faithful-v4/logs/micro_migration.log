@@ -1,30 +1,42 @@
 peer access matrix: {'0->1': True, '1->0': True}
-Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1581.48it/s]
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1931.97it/s]
+read + page-locked meta-llama/Llama-3.2-1B: 2.30 GiB {'locked': 146, 'already_locked': 0, 'failed': 0, 'seconds': 0.4057153479952831}
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 1796.70it/s]
+read + page-locked meta-llama/Llama-3.2-3B: 5.98 GiB {'locked': 254, 'already_locked': 0, 'failed': 0, 'seconds': 0.8387505530117778}
+Fetching 11 files:   0%|          | 0/11 [00:00<?, ?it/s]Fetching 11 files: 100%|██████████| 11/11 [00:00<00:00, 2362.02it/s]
+read + page-locked meta-llama/Llama-3.1-8B: 14.96 GiB {'locked': 291, 'already_locked': 0, 'failed': 0, 'seconds': 1.843388331006281}
 
 === meta-llama/Llama-3.2-1B: 2.30 GiB
-  prototype-source-first   rep1: latency=0.178s downtime=0.156s 13.9 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
-  prototype-source-first   rep2: latency=0.287s downtime=0.246s 8.6 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
-  prototype-source-first   rep3: latency=0.191s downtime=0.161s 12.9 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
-  v3-target-first          rep1: latency=0.139s downtime=0.000s 17.8 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
-  v3-target-first          rep2: latency=0.139s downtime=0.000s 17.8 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
-  v3-target-first          rep3: latency=0.146s downtime=0.000s 16.9 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
-  v4-p2p-target-first      rep1: latency=0.118s downtime=0.000s 21.0 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
-  v4-p2p-target-first      rep2: latency=0.119s downtime=0.000s 20.8 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
-  v4-p2p-target-first      rep3: latency=0.116s downtime=0.000s 21.2 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
-Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 1877.39it/s]
+  prototype-source-first   rep1: latency=0.187s downtime=0.146s 13.2 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  prototype-source-first   rep2: latency=0.252s downtime=0.229s 9.8 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  prototype-source-first   rep3: latency=0.195s downtime=0.156s 12.7 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  v3-target-first          rep1: latency=0.151s downtime=0.000s 16.3 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  v3-target-first          rep2: latency=0.149s downtime=0.000s 16.5 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  v3-target-first          rep3: latency=0.152s downtime=0.000s 16.3 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  v4-p2p-target-first      rep1: latency=0.114s downtime=0.000s 21.6 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
+  v4-p2p-target-first      rep2: latency=0.111s downtime=0.000s 22.3 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
+  v4-p2p-target-first      rep3: latency=0.112s downtime=0.000s 22.0 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
 
 === meta-llama/Llama-3.2-3B: 5.98 GiB
-Traceback (most recent call last):
-  File "/workspace/prism-exp/exp/scripts/microbench_migration_v4.py", line 197, in <module>
-    main()
-  File "/workspace/prism-exp/exp/scripts/microbench_migration_v4.py", line 118, in main
-    source = empty_on(cpu_state, args.source_gpu)
-  File "/workspace/prism-exp/exp/scripts/microbench_migration_v4.py", line 78, in empty_on
-    return {k: torch.empty_like(v, device=f"cuda:{gpu}") for k, v in state.items()}
-  File "/workspace/prism-exp/exp/scripts/microbench_migration_v4.py", line 78, in <dictcomp>
-    return {k: torch.empty_like(v, device=f"cuda:{gpu}") for k, v in state.items()}
-RuntimeError: CUDA error: part or all of the requested memory range is already mapped
-CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
-For debugging consider passing CUDA_LAUNCH_BLOCKING=1
-Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+  prototype-source-first   rep1: latency=0.475s downtime=0.413s 13.5 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=2.99GiB
+  prototype-source-first   rep2: latency=0.482s downtime=0.402s 13.3 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=2.99GiB
+  prototype-source-first   rep3: latency=0.478s downtime=0.404s 13.5 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=2.99GiB
+  v3-target-first          rep1: latency=0.347s downtime=0.000s 18.5 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=2.99GiB
+  v3-target-first          rep2: latency=0.345s downtime=0.000s 18.6 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=2.99GiB
+  v3-target-first          rep3: latency=0.332s downtime=0.000s 19.4 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=2.99GiB
+  v4-p2p-target-first      rep1: latency=0.199s downtime=0.000s 32.3 GB/s path=gpu-to-gpu-p2p nvlink_rx=5.98GiB
+  v4-p2p-target-first      rep2: latency=0.189s downtime=0.000s 34.0 GB/s path=gpu-to-gpu-p2p nvlink_rx=5.98GiB
+  v4-p2p-target-first      rep3: latency=0.203s downtime=0.000s 31.6 GB/s path=gpu-to-gpu-p2p nvlink_rx=5.98GiB
 
+=== meta-llama/Llama-3.1-8B: 14.96 GiB
+  prototype-source-first   rep1: latency=0.969s downtime=0.857s 16.6 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=7.48GiB
+  prototype-source-first   rep2: latency=0.950s downtime=0.860s 16.9 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=7.48GiB
+  prototype-source-first   rep3: latency=0.959s downtime=0.871s 16.8 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=7.48GiB
+  v3-target-first          rep1: latency=0.806s downtime=0.000s 19.9 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=7.48GiB
+  v3-target-first          rep2: latency=0.776s downtime=0.000s 20.7 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=7.48GiB
+  v3-target-first          rep3: latency=0.737s downtime=0.000s 21.8 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=7.48GiB
+  v4-p2p-target-first      rep1: latency=0.218s downtime=0.000s 73.5 GB/s path=gpu-to-gpu-p2p nvlink_rx=14.96GiB
+  v4-p2p-target-first      rep2: latency=0.216s downtime=0.000s 74.2 GB/s path=gpu-to-gpu-p2p nvlink_rx=14.96GiB
+  v4-p2p-target-first      rep3: latency=0.227s downtime=0.000s 70.9 GB/s path=gpu-to-gpu-p2p nvlink_rx=14.96GiB
+
+wrote /workspace/prism-exp/exp/results/paper-faithful-v4/microbench/migration.json

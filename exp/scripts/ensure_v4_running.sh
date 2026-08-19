@@ -9,6 +9,8 @@
 #
 # Installed as a crontab entry running every minute. Does nothing while the
 # study is running or once it is complete.
+# cron runs with a minimal PATH and cannot find supervisorctl otherwise.
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$PATH
 LOG=/workspace/logs/prism_v4_ensure.log
 BASE=/workspace/prism-exp/exp/results/paper-faithful-v4
 

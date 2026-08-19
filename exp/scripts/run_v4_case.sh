@@ -94,6 +94,14 @@ case "$SYSTEM" in
                    --parallel-model-loading --overlap-migration)
       # Read by the ModelService process, which is forked from this env.
       export PRISM_V4_PAGELOCK=${PRISM_V4_PAGELOCK:-1}
+      # Filling a target from the source GPU means the model service holds a
+      # CUDA IPC mapping of the source weights.  torch.cuda.empty_cache() does
+      # not release those -- it only returns this process's own allocator cache
+      # -- so without torch.cuda.ipc_collect() the engine's deactivated weights
+      # stay resident and the run walks into an OOM (measured: 80 GiB on GPU 0
+      # against 60 for v3 and 43 for the prototype).  The release path collects
+      # them explicitly; set PRISM_V4_P2P_MIGRATION=0 to fall back to the host
+      # path.
       export PRISM_V4_P2P_MIGRATION=${PRISM_V4_P2P_MIGRATION:-1}
       ;;
   *) echo "unknown system: $SYSTEM" >&2; exit 1 ;;

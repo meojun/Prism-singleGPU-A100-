@@ -45,3 +45,46 @@ rate=20.0 req/s  duration=420.0s  phases=7  total=8244
   model_1    1287 reqs  prompt_len mean=  303.9  output_len mean= 163.6
   model_2     683 reqs  prompt_len mean=  322.3  output_len mean= 156.1
   model_3    1499 reqs  prompt_len mean=  331.5  output_len mean= 163.8
+  model_4    1131 reqs  prompt_len mean=  308.4  output_len mean= 160.9
+  model_5    1631 reqs  prompt_len mean=  309.6  output_len mean= 161.4
+  model_6    2013 reqs  prompt_len mean=  289.9  output_len mean= 165.4
+wrote bursty_r20_s2.pkl / steady_r20_s2.pkl / paired_requests_r20_s2.json / phases_r20_s2.json  in /workspace/prism-exp/exp/workloads/paper-faithful-v4
+  model_1   n= 1287  bursty span [0,420]  steady span [1,420]
+  model_2   n=  683  bursty span [89,395]  steady span [1,419]
+  model_3   n= 1499  bursty span [0,391]  steady span [0,420]
+  model_4   n= 1131  bursty span [0,420]  steady span [0,420]
+  model_5   n= 1631  bursty span [87,417]  steady span [1,419]
+  model_6   n= 2013  bursty span [87,420]  steady span [0,420]
+rate=8.0 req/s  duration=420.0s  phases=8  total=3372
+  model_1     250 reqs  prompt_len mean=  321.9  output_len mean= 169.5
+  model_2     325 reqs  prompt_len mean=  288.6  output_len mean= 159.2
+  model_3     460 reqs  prompt_len mean=  285.4  output_len mean= 181.9
+  model_4     538 reqs  prompt_len mean=  314.3  output_len mean= 168.6
+  model_5     751 reqs  prompt_len mean=  326.6  output_len mean= 163.7
+  model_6    1048 reqs  prompt_len mean=  319.1  output_len mean= 160.0
+wrote bursty_r8_s3.pkl / steady_r8_s3.pkl / paired_requests_r8_s3.json / phases_r8_s3.json  in /workspace/prism-exp/exp/workloads/paper-faithful-v4
+  model_1   n=  250  bursty span [0,419]  steady span [1,418]
+  model_2   n=  325  bursty span [0,419]  steady span [0,417]
+  model_3   n=  460  bursty span [0,314]  steady span [1,419]
+  model_4   n=  538  bursty span [51,420]  steady span [1,420]
+  model_5   n=  751  bursty span [0,419]  steady span [0,420]
+  model_6   n= 1048  bursty span [1,418]  steady span [1,420]
+rate=20.0 req/s  duration=420.0s  phases=8  total=8422
+  model_1     644 reqs  prompt_len mean=  297.3  output_len mean= 166.8
+  model_2     834 reqs  prompt_len mean=  302.2  output_len mean= 173.6
+  model_3    1177 reqs  prompt_len mean=  328.7  output_len mean= 162.6
+  model_4    1329 reqs  prompt_len mean=  317.9  output_len mean= 159.9
+rate=20.0 req/s  duration=420.0s  phases=8  total=8422
+  model_1     644 reqs  prompt_len mean=  297.3  output_len mean= 166.8
+  model_2     834 reqs  prompt_len mean=  302.2  output_len mean= 173.6
+  model_3    1177 reqs  prompt_len mean=  328.7  output_len mean= 162.6
+  model_4    1329 reqs  prompt_len mean=  317.9  output_len mean= 159.9
+  model_5    1811 reqs  prompt_len mean=  309.4  output_len mean= 159.9
+  model_6    2627 reqs  prompt_len mean=  305.2  output_len mean= 164.9
+wrote bursty_r20_s3.pkl / steady_r20_s3.pkl / paired_requests_r20_s3.json / phases_r20_s3.json  in /workspace/prism-exp/exp/workloads/paper-faithful-v4
+  model_1   n=  644  bursty span [0,420]  steady span [0,418]
+  model_2   n=  834  bursty span [3,420]  steady span [1,420]
+  model_3   n= 1177  bursty span [0,315]  steady span [0,420]
+  model_4   n= 1329  bursty span [44,420]  steady span [1,420]
+  model_5   n= 1811  bursty span [3,420]  steady span [0,420]
+  model_6   n= 2627  bursty span [0,420]  steady span [0,420]
