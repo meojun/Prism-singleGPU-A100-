@@ -58,12 +58,14 @@ def q1_migration_on_critical_path(base, out):
     print("\n" + "=" * 78)
     print("Q1  Is the deactivation / migration cost on the critical path?")
     print("=" * 78)
-    print("For each run: latency of requests arriving within +-W s of a migration,")
-    print("against requests arriving outside that window, in the same run.\n")
+    print("Requests arriving within +-10 s of a migration, against requests")
+    print("arriving within +-10 s of a SHAM time that has no migration near it.")
+    print("A plain 'everything else' control is unusable when migrations are")
+    print("frequent -- it covers 87% of the run and leaves only the quiet gaps.\n")
     W = 10.0
     rows_out = []
     print(f"{'arm':20} {'wl':7} {'rate':>4} {'sd':>3} {'mig':>4} "
-          f"{'near n':>7} {'far n':>7} {'TTFT near/far':>18} {'TPOT near/far':>18}")
+          f"{'near n':>7} {'sham n':>7} {'TTFT near/far':>18} {'TPOT near/far':>18}")
     for req_path in sorted(glob.glob(str(base / "raw/requests/*.csv"))):
         tag = Path(req_path).stem
         m = re.match(r"(.+)_(bursty|steady)_r(\d+)_s(\d+)$", tag)
@@ -79,10 +81,23 @@ def q1_migration_on_critical_path(base, out):
         mig_rel = [num(x["migration_start"]) - anchor for x in migs]
         reqs = [r for r in read_csv(req_path)
                 if r.get("in_measurement_window") == "1" and r.get("success") == "1"]
+        # "far" is not a usable control when migrations are frequent: with 13 of
+        # them in 300 s, +-10 s windows cover ~87% of the run and the control is
+        # a thin sliver taken from the quietest moments.  Use sham times instead
+        # -- one per migration, placed away from any real migration -- so both
+        # groups are drawn the same way and only the migration differs.
+        arrivals = [num(r["arrival_time"]) for r in reqs]
+        lo_t, hi_t = (min(arrivals), max(arrivals)) if arrivals else (0.0, 0.0)
+        step = (hi_t - lo_t) / (len(mig_rel) + 1) if mig_rel else 0.0
+        sham = [t for t in (lo_t + i * step for i in range(1, len(mig_rel) + 1))
+                if all(abs(t - m) > 2 * W for m in mig_rel)]
         near, far = [], []
         for r in reqs:
             a = num(r["arrival_time"])
-            (near if any(abs(a - t) <= W for t in mig_rel) else far).append(r)
+            if any(abs(a - t) <= W for t in mig_rel):
+                near.append(r)
+            elif any(abs(a - t) <= W for t in sham):
+                far.append(r)
 
         def med(rs, k):
             v = [num(x[k]) * 1000 for x in rs if x.get(k)]
