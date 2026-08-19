@@ -43,6 +43,17 @@ def main():
     if not mm.is_dir():
         raise RuntimeError(f"not a prism-research checkout: {repo}")
 
+    # bootstrap.sh installs the profiled model_info.json (cell_size and
+    # model_size per model path) over the upstream copy, which lists only 24
+    # models and none of the Qwen2.5 Instruct ones this study uses.  A
+    # `git checkout` inside prism-research silently reverts it, and the run
+    # then dies at GPU-scheduler start with "not found in the profiled model
+    # info file".  Re-assert it here so the patch chain alone can rebuild a
+    # clean checkout into a working tree.
+    profiled_info = ROOT / "setup/model_info.json"
+    if profiled_info.exists():
+        shutil.copyfile(profiled_info, mm / "utils/model_info.json")
+
     shutil.copyfile(HERE / "parallel_loading_v4.py", mm / "parallel_loading_v4.py")
     shutil.copyfile(HERE / "kvpr_global_v4.py", mm / "scheduling/policy/kvpr_global_v4.py")
 
@@ -397,6 +408,7 @@ class ModelService:
         args: ["kvpr-global-v4"],
         repo / "python/sglang/global_config.py": ["self.flashinfer_workspace_size = int("],
         mm / "parallel_loading_v4.py": ["register_host_memory"],
+        mm / "utils/model_info.json": ["Qwen/Qwen2.5-1.5B-Instruct"],
         mm / "scheduling/policy/kvpr_global_v4.py": ["KVPRGlobalPolicyV4"],
     }
     missing = [f"{p}: {n}" for p, needles in checks.items()
