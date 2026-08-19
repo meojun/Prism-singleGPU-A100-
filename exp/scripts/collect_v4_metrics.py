@@ -387,6 +387,18 @@ def process_run(run_dir, base, system, workload, rate, seed, slo_base,
         "alg1_placement_decisions": sum(len(a.get("line8", [])) for a in alg1),
         "alg1_migrate_decisions": sum(1 for a in alg1
                                       if a.get("migration_decision") == "MIGRATE"),
+        # Where a migration's wall time actually goes.  v4 optimises the
+        # transfer; whether the transfer is the expensive part is a question
+        # the run can answer rather than an assumption.
+        "activation_count": sum(1 for a in actions if a["action"] == "ActivateAction"),
+        "activation_total_s": sum(a["duration_s"] for a in actions
+                                  if a["action"] == "ActivateAction"),
+        "deactivation_count": sum(1 for a in actions if a["action"] == "DeactivateAction"),
+        "deactivation_total_s": sum(a["duration_s"] for a in actions
+                                    if a["action"] == "DeactivateAction"),
+        "weight_transfer_total_s": sum(t.get("seconds", 0.0) for t in transfers),
+        "weight_transfer_mean_gbps": (
+            float(np.mean([t["payload_gbps"] for t in transfers])) if transfers else float("nan")),
         "weight_transfers": len(transfers),
         "p2p_weight_transfers": sum(1 for t in transfers
                                     if t.get("transfer_path") == "gpu-to-gpu-p2p"),

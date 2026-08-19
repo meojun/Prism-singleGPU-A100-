@@ -498,7 +498,31 @@ def main():
                     cell([num(m["migration_bandwidth"]) for m in members], 1),
                     cell([num(m["p2p_weight_transfers"]) for m in members], 1)))
 
-        R += ["", "### 4.3 스케줄러 / Algorithm 1", "",
+        R += ["", "### 4.3 마이그레이션 비용의 내역 — 전송은 어디까지인가", "",
+              "v4 가 최적화하는 것은 가중치 전송이다. 전송이 마이그레이션 비용의 어느 정도를",
+              "차지하는지는 가정할 것이 아니라 런이 답할 수 있는 질문이므로, 제어 액션의 벽시계를",
+              "활성화·비활성화·전송으로 나누어 기록한다.", "",
+              "| Workload | Rate | Arm | 활성화 (회/총 s) | 비활성화 (회/총 s) | 전송 총 s | 전송 대역폭 GB/s | 제어 액션 총 s |",
+              "| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: |"]
+        for (workload, rate) in sorted(groups):
+            for arm in ARM_ORDER:
+                members = groups[(workload, rate)].get(arm)
+                if not members:
+                    continue
+                act_n = cell([num(m.get("activation_count")) for m in members], 1)
+                act_s = cell([num(m.get("activation_total_s")) for m in members], 1)
+                de_n = cell([num(m.get("deactivation_count")) for m in members], 1)
+                de_s = cell([num(m.get("deactivation_total_s")) for m in members], 1)
+                tot = cell([num(m.get("activation_total_s")) + num(m.get("deactivation_total_s"))
+                            for m in members], 1)
+                R.append(f"| {workload} | {rate} | {ARM_LABEL.get(arm, arm)} | {act_n} / {act_s} | "
+                         f"{de_n} / {de_s} | "
+                         f"{cell([num(m.get('weight_transfer_total_s')) for m in members], 1)} | "
+                         f"{cell([num(m.get('weight_transfer_mean_gbps')) for m in members], 1)} | {tot} |")
+        R += ["", "**released prototype 의 액션 시간은 제출 시간이므로 이 표에서 비교 대상이 아니다**",
+              "(§4.2 참조). 비교는 v3 대 v4 다.", ""]
+
+        R += ["", "### 4.4 스케줄러 / Algorithm 1", "",
               "| Workload | Rate | Arm | alg1 cycles | placement decisions | MIGRATE | tau 억제 | 메모리 거부 | 수렴 gap | 큐 max |",
               "| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
         for (workload, rate) in sorted(groups):
