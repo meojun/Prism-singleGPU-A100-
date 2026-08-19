@@ -74,7 +74,7 @@ ARGS=(
 )
 
 tmux kill-session -t "$SESSION" 2>/dev/null || true
-rm -f /dev/shm/ipc_0_model_*_root 2>/dev/null || true
+rm -f /dev/shm/ipc_[0-9]*_root /dev/shm/cuda.shm.* /dev/shm/ipc_0_model_*_root 2>/dev/null || true
 T_LAUNCH=$(date +%s.%N)
 tmux new-session -d -s "$SESSION" \
   "export CUDA_VISIBLE_DEVICES=$VISIBLE && cd $PRISM_REPO/benchmark/multi-model && \

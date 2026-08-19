@@ -46,7 +46,7 @@ while ! complete; do
   # holding both GPUs. Clear that orphan before resuming, or the next run
   # contends with it and fails for a reason that has nothing to do with it.
   pkill -f 'launch_multi_model[_]server' 2>/dev/null || true
-  rm -f /dev/shm/ipc_0_model_*_root 2>/dev/null || true
+  rm -f /dev/shm/ipc_[0-9]*_root /dev/shm/cuda.shm.* /dev/shm/ipc_0_model_*_root 2>/dev/null || true
   sleep 5
 
   cd "$ROOT" || exit 1
@@ -65,7 +65,7 @@ while ! complete; do
   fi
 
   pkill -f 'launch_multi_model[_]server' 2>/dev/null || true
-  rm -f /dev/shm/ipc_0_model_*_root 2>/dev/null || true
+  rm -f /dev/shm/ipc_[0-9]*_root /dev/shm/cuda.shm.* /dev/shm/ipc_0_model_*_root 2>/dev/null || true
   printf 'RESTARTING attempt=%d last_rc=%d runs=%s/%s at=%s\n' \
     "$attempt" "$rc" "$(done_runs)" "$EXPECTED_RUNS" "$(date -Is)" > "$STATUS"
   sleep 30

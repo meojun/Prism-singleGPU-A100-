@@ -123,7 +123,7 @@ if ! is_done tp2; then
   say "STAGE 4 TP=2 validation"
   mark_state tp2 RUNNING
   pkill -f 'launch_multi_model[_]server' 2>/dev/null || true
-  rm -f /dev/shm/ipc_0_model_*_root 2>/dev/null || true
+  rm -f /dev/shm/ipc_[0-9]*_root /dev/shm/cuda.shm.* /dev/shm/ipc_0_model_*_root 2>/dev/null || true
   timeout 3600 ./exp/scripts/run_tp2_validation.sh "$BASE/tp-validation" \
       > "$BASE/logs/tp2.log" 2>&1
   # A TP=2 failure is a finding, not a reason to abandon the study.
@@ -170,7 +170,7 @@ run_case() {   # run_case <system> <workload> <rate> <seed>
     echo "FAILED $key"; mark_state "$key" FAILED; FAILED=1
   fi
   pkill -f 'launch_multi_model[_]server' 2>/dev/null || true
-  rm -f /dev/shm/ipc_0_model_*_root 2>/dev/null || true
+  rm -f /dev/shm/ipc_[0-9]*_root /dev/shm/cuda.shm.* /dev/shm/ipc_0_model_*_root 2>/dev/null || true
   sleep 10
 }
 

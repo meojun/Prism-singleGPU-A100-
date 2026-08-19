@@ -149,7 +149,7 @@ trap cleanup EXIT
 tmux kill-session -t "$SESSION" 2>/dev/null || true
 # A killed run leaves /dev/shm/ipc_0_model_*_root behind under the same names
 # the next launch wants; clear them so a stale segment cannot be inherited.
-rm -f /dev/shm/ipc_0_model_*_root 2>/dev/null || true
+rm -f /dev/shm/ipc_[0-9]*_root /dev/shm/cuda.shm.* /dev/shm/ipc_0_model_*_root 2>/dev/null || true
 # tmux keeps ONE server per user and every new-session inherits the environment
 # that server was first started with -- not this shell's.  The v4 switches are
 # read by the forked ModelService process, so they have to be written into the
