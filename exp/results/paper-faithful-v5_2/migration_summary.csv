@@ -1,0 +1,10 @@
+implementation,workload,request_rate,seed,migration_count,migration_decisions_logged,migration_success,migration_failed,migration_latency_is_submission_only,migration_latency_mean,migration_latency_p50,migration_latency_p95,migration_latency_p99,migration_latency_max,migration_total_time,migration_weight_bytes,migration_kv_bytes,migration_total_bytes,migration_bandwidth,migration_bandwidth_p50,migration_paths,service_downtime_mean,service_downtime_p50,service_downtime_p95,service_downtime_p99,weight_transfers,p2p_weight_transfers,page_locked_transfers
+paper-faithful-v3,bursty,8,1,13,26,13,0,0,1259.344302690946,1201.4257907867432,1941.8423652648921,2113.4771919250484,2156.385898590088,168.33153581619263,97703946240,0,97703946240,7.843718695785099,6.070627719935398,host-to-device + helper-gpu-p2p,0.0,0.0,0.0,0.0,25,0,0
+paper-faithful-v3,bursty,8,2,11,25,11,0,0,2715.513987974687,1834.4461917877197,7747.637391090393,10694.568562507631,11431.301355361938,211.63276505470276,99183586304,0,99183586304,6.828008738261227,5.5370786910404215,host-to-device + helper-gpu-p2p,1039.2092141238127,0.0,5715.650677680969,10288.171219825748,27,0,0
+paper-faithful-v3,bursty,8,3,12,26,12,0,0,4288.8263463974,1568.4130191802979,17311.138927936532,30896.67488336565,34293.0588722229,109.51509356498718,86145094656,0,86145094656,6.832841445683772,5.524951691416047,host-to-device + helper-gpu-p2p,2857.754906018575,0.0,15431.876492500282,30520.8223962784,26,0,0
+paper-faithful-v3-alg2only,steady,8,1,0,0,0,0,1,nan,nan,nan,nan,nan,0,0,0,0,nan,nan,,nan,nan,nan,nan,6,0,0
+paper-faithful-v3-alg2only,steady,8,2,0,0,0,0,1,nan,nan,nan,nan,nan,0,0,0,0,nan,nan,,nan,nan,nan,nan,6,0,0
+paper-faithful-v3-alg2only,steady,8,3,0,0,0,0,1,nan,nan,nan,nan,nan,0,0,0,0,nan,nan,,nan,nan,nan,nan,6,0,0
+released-prototype,steady,8,1,0,0,0,0,1,nan,nan,nan,nan,nan,0,0,0,0,nan,nan,,nan,nan,nan,nan,6,0,0
+released-prototype,steady,8,2,0,0,0,0,1,nan,nan,nan,nan,nan,0,0,0,0,nan,nan,,nan,nan,nan,nan,6,0,0
+released-prototype,steady,8,3,0,0,0,0,1,nan,nan,nan,nan,nan,0,0,0,0,nan,nan,,nan,nan,nan,nan,6,0,0
