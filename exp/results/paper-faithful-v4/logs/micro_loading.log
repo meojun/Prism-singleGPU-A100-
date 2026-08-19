@@ -1,0 +1,21 @@
+peer access matrix: {'0->1': True, '1->0': True}
+reading weights into shared CPU memory ...
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1871.03it/s]
+  meta-llama/Llama-3.2-1B: 2.30 GiB
+Fetching 6 files:   0%|          | 0/6 [00:00<?, ?it/s]Fetching 6 files: 100%|██████████| 6/6 [00:00<00:00, 1924.58it/s]
+  Qwen/Qwen2.5-1.5B-Instruct: 2.88 GiB
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 1865.42it/s]
+  meta-llama/Llama-3.2-3B: 5.98 GiB
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 1934.64it/s]
+Traceback (most recent call last):
+  File "/workspace/prism-exp/exp/scripts/microbench_loading_v4.py", line 178, in <module>
+  File "/workspace/prism-exp/exp/scripts/microbench_loading_v4.py", line 98, in main
+  File "/workspace/prism-exp/exp/scripts/microbench_loading_v4.py", line 56, in load_cpu_state
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/_tensor.py", line 707, in share_memory_
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/storage.py", line 960, in _share_memory_
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/storage.py", line 337, in wrapper
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/storage.py", line 403, in share_memory_
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/storage.py", line 289, in share_memory_
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/storage.py", line 337, in wrapper
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/torch/storage.py", line 407, in _share_fd_cpu_
+RuntimeError: unable to open shared memory object </torch_31033_1963762335_987> in read-write mode: Too many open files (24)

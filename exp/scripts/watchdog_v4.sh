@@ -11,6 +11,8 @@
 # autorestart is what makes "it cannot be interrupted" true rather than hoped.
 # The model servers themselves still run in tmux, one session per run.
 set -uo pipefail
+# See run_pipeline_v4.sh: supervisord's children start at 1024 fds.
+ulimit -n 65535 2>/dev/null || true
 
 ROOT=/workspace/prism-exp
 BASE=$ROOT/exp/results/paper-faithful-v4

@@ -1,0 +1,90 @@
+gpu_pair=0,1
+index, name, memory.total [MiB], compute_cap, driver_version
+0, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0, 580.105.08
+1, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0, 580.105.08
+2, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0, 580.105.08
+3, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0, 580.105.08
+--- topology
+	[4mGPU0	GPU1	GPU2	GPU3	NIC0	CPU Affinity	NUMA Affinity	GPU NUMA ID[0m
+GPU0	 X 	NV12	NV12	NV12	SYS	32-63,96-127	1		N/A
+GPU1	NV12	 X 	NV12	NV12	SYS	32-63,96-127	1		N/A
+GPU2	NV12	NV12	 X 	NV12	SYS	32-63,96-127	1		N/A
+GPU3	NV12	NV12	NV12	 X 	SYS	32-63,96-127	1		N/A
+NIC0	SYS	SYS	SYS	SYS	 X 				
+
+Legend:
+
+  X    = Self
+  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node
+  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)
+  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)
+  PIX  = Connection traversing at most a single PCIe bridge
+  NV#  = Connection traversing a bonded set of # NVLinks
+
+NIC Legend:
+
+  NIC0: rocep49s0
+
+--- nvlink
+GPU 0: NVIDIA A100-SXM4-80GB (UUID: GPU-e04968e9-3302-841c-b00f-f388d7a8f56f)
+	 Link 0: 25 GB/s
+	 Link 1: 25 GB/s
+	 Link 2: 25 GB/s
+	 Link 3: 25 GB/s
+	 Link 4: 25 GB/s
+	 Link 5: 25 GB/s
+	 Link 6: 25 GB/s
+	 Link 7: 25 GB/s
+	 Link 8: 25 GB/s
+	 Link 9: 25 GB/s
+	 Link 10: 25 GB/s
+	 Link 11: 25 GB/s
+GPU 1: NVIDIA A100-SXM4-80GB (UUID: GPU-fd26179c-de1f-3f6f-f298-383b36269b35)
+	 Link 0: 25 GB/s
+	 Link 1: 25 GB/s
+	 Link 2: 25 GB/s
+	 Link 3: 25 GB/s
+	 Link 4: 25 GB/s
+	 Link 5: 25 GB/s
+	 Link 6: 25 GB/s
+	 Link 7: 25 GB/s
+	 Link 8: 25 GB/s
+	 Link 9: 25 GB/s
+	 Link 10: 25 GB/s
+	 Link 11: 25 GB/s
+GPU 2: NVIDIA A100-SXM4-80GB (UUID: GPU-60619e5a-d4b4-3305-17ff-190a5474ada5)
+	 Link 0: 25 GB/s
+	 Link 1: 25 GB/s
+	 Link 2: 25 GB/s
+	 Link 3: 25 GB/s
+	 Link 4: 25 GB/s
+	 Link 5: 25 GB/s
+	 Link 6: 25 GB/s
+	 Link 7: 25 GB/s
+	 Link 8: 25 GB/s
+	 Link 9: 25 GB/s
+	 Link 10: 25 GB/s
+	 Link 11: 25 GB/s
+GPU 3: NVIDIA A100-SXM4-80GB (UUID: GPU-ca841b49-69a5-890b-d980-1bd4f98161d8)
+	 Link 0: 25 GB/s
+	 Link 1: 25 GB/s
+	 Link 2: 25 GB/s
+	 Link 3: 25 GB/s
+	 Link 4: 25 GB/s
+	 Link 5: 25 GB/s
+	 Link 6: 25 GB/s
+	 Link 7: 25 GB/s
+	 Link 8: 25 GB/s
+	 Link 9: 25 GB/s
+	 Link 10: 25 GB/s
+	 Link 11: 25 GB/s
+--- cpu
+CPU(s):                               128
+Model name:                           AMD EPYC 7532 32-Core Processor
+CPU(s) scaling MHz:                   70%
+NUMA node(s):                         2
+--- free
+               total        used        free      shared  buff/cache   available
+Mem:            1877          34        1573           0         279        1842
+idle_gpus_outside_pair=confirmed

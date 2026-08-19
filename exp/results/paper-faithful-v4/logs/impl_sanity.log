@@ -1,0 +1,128 @@
+  copied python/sglang/multi_model/scheduling/gpu/moore_hodgson.py
+  copied python/sglang/multi_model/scheduling/gpu/request_queue_mh.py
+  copied python/sglang/multi_model/scheduling/policy/kvpr_global.py
+  edited scheduling/gpu/request_queue.py
+  edited scheduling/gpu/gpu_scheduler.py
+  edited scheduling/controller_global.py
+  edited multi_model_server_args.py
+  edited benchmark/multi-model/trace.py
+  edited python/sglang/srt/server_args.py
+  verified 13 landing points
+PAPER-FAITHFUL patches applied.
+paper-faithful-v3 applied
+paper-faithful-v4 applied (9 files, all landing points verified)
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+== 1. worked example: one infeasible job is shed ==
+  PASS  selected == A,B,D
+  PASS  deferred == C
+  PASS  selection is feasible
+== 2. drop-the-longest, not drop-the-latest ==
+  PASS  evicts the LONGEST job A
+  PASS  keeps B and C
+  PASS  selection is feasible
+== 3. beats plain EDF on number of on-time jobs ==
+  PASS  MH keeps 3 jobs
+  PASS  MH sheds the blocker A
+  PASS  MH selection is feasible
+  PASS  plain EDF would only make 1 on time
+== 4. everything feasible -> nothing deferred ==
+  PASS  all selected
+== 5. nothing feasible -> everything deferred ==
+  PASS  all deferred
+== 6. `now` offset is honoured ==
+  PASS  same result as example 1
+== 7. empty input ==
+  PASS  empty in, empty out
+== 8. output is in dispatch (ascending deadline) order ==
+  PASS  ascending deadline
+== 9. past-deadline jobs are separable (no starvation) ==
+  PASS  feasible job is selected
+  PASS  both expired jobs are deferred
+  PASS  nothing feasible is left requeued
+  PASS  verdict is stable across rounds (hence the livelock)
+== 10. maximum cardinality vs brute force (randomised) ==
+  PASS  optimal on 300 random instances
+
+ALL MOORE-HODGSON TESTS PASSED
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+== 1. weighted_token_rate = token_rate * token_size / SLO ==
+  PASS  input token rate
+  PASS  decode token rate
+  PASS  token_rate = input + decode
+  PASS  weighted = rate*size/slo
+== 2. tighter TPOT SLO raises the weight proportionally ==
+  PASS  half the SLO -> double the weight
+== 3. shared_kv = budget - sum(weights on that GPU) ==
+  PASS  GPU0 shared_kv
+  PASS  GPU1 shared_kv
+== 4. KVPR = aggregate weighted rate / shared_kv ==
+  PASS  GPU0 KVPR
+  PASS  GPU1 KVPR
+  PASS  the 2-model GPU is the more pressured one
+== 5. models are considered in DESCENDING weighted token rate ==
+  PASS  descending order
+== 6. migration fires and picks the LOWEST resulting KVPR ==
+  PASS  exactly one migration
+  PASS  moves a hot model off GPU1
+  PASS  target is GPU0
+== 7. tau gates the migration ==
+  PASS  no migration when tau is unreachable
+== 8. balanced load -> no migration ==
+  PASS  symmetric placement is left alone
+== 9. a GPU is never emptied ==
+  PASS  last model on a GPU stays put
+== 10. insufficient target memory blocks the move ==
+  PASS  no migration without room for the weights
+== 11. zero measured load -> no migration ==
+  PASS  idle system is left alone
+
+ALL KVPR PLACEMENT TESTS PASSED
+_slice_bounds
+  PASS  size=8 parts=2 covers exactly
+  PASS  size=8 parts=2 contiguous
+  PASS  size=8 parts=2 no empty slice
+  PASS  size=7 parts=2 covers exactly
+  PASS  size=7 parts=2 contiguous
+  PASS  size=7 parts=2 no empty slice
+  PASS  size=1 parts=4 covers exactly
+  PASS  size=1 parts=4 contiguous
+  PASS  size=1 parts=4 no empty slice
+  PASS  size=100 parts=7 covers exactly
+  PASS  size=100 parts=7 contiguous
+  PASS  size=100 parts=7 no empty slice
+  PASS  size=0 parts=3 covers exactly
+  PASS  size=0 parts=3 contiguous
+  PASS  size=0 parts=3 no empty slice
+  PASS  size=5 parts=5 covers exactly
+  PASS  size=5 parts=5 contiguous
+  PASS  size=5 parts=5 no empty slice
+  PASS  size=3 parts=8 covers exactly
+  PASS  size=3 parts=8 contiguous
+  PASS  size=3 parts=8 no empty slice
+  PASS  odd rows do not raise
+_broker_for
+  PASS  direct policy always targets the target
+  PASS  paper policy matches the prototype formula
+  PASS  paper policy is symmetric in the target
+  PASS  single gpu degenerates to direct
+transfers
+  PASS  peer access is available both ways
+  PASS  direct: every tensor arrives bit-exact
+  PASS  direct: payload accounting matches the tensors
+  PASS  direct: reported path is consistent with the byte split
+  PASS  paper: every tensor arrives bit-exact
+  PASS  paper: payload accounting matches the tensors
+  PASS  paper: reported path is consistent with the byte split
+  PASS  v4: every tensor arrives bit-exact
+  PASS  v4: payload accounting matches the tensors
+  PASS  v4: reported path is consistent with the byte split
+  PASS  p2p: every tensor arrives bit-exact
+  PASS  p2p: reported as a gpu-to-gpu transfer
+  PASS  p2p: no host-to-device bytes are counted
+  PASS  host registration locks every tensor
+  PASS  page-locked source still arrives bit-exact
+
+41 passed, 0 failed
+ALL V4 LOADING TESTS PASSED

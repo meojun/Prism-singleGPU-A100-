@@ -1,0 +1,30 @@
+peer access matrix: {'0->1': True, '1->0': True}
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 1809.00it/s]
+
+=== meta-llama/Llama-3.2-1B: 2.30 GiB
+  prototype-source-first   rep1: latency=0.179s downtime=0.142s 13.8 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  prototype-source-first   rep2: latency=0.277s downtime=0.236s 8.9 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  prototype-source-first   rep3: latency=0.190s downtime=0.159s 13.0 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  v3-target-first          rep1: latency=0.147s downtime=0.000s 16.9 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  v3-target-first          rep2: latency=0.151s downtime=0.000s 16.4 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  v3-target-first          rep3: latency=0.148s downtime=0.000s 16.7 GB/s path=host-to-device + helper-gpu-p2p nvlink_rx=1.15GiB
+  v4-p2p-target-first      rep1: latency=0.106s downtime=0.000s 23.2 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
+  v4-p2p-target-first      rep2: latency=0.105s downtime=0.000s 23.5 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
+  v4-p2p-target-first      rep3: latency=0.116s downtime=0.000s 21.3 GB/s path=gpu-to-gpu-p2p nvlink_rx=2.30GiB
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2234.98it/s]
+
+=== meta-llama/Llama-3.2-3B: 5.98 GiB
+Traceback (most recent call last):
+  File "/workspace/prism-exp/exp/scripts/microbench_migration_v4.py", line 197, in <module>
+    main()
+  File "/workspace/prism-exp/exp/scripts/microbench_migration_v4.py", line 118, in main
+    source = empty_on(cpu_state, args.source_gpu)
+  File "/workspace/prism-exp/exp/scripts/microbench_migration_v4.py", line 78, in empty_on
+    return {k: torch.empty_like(v, device=f"cuda:{gpu}") for k, v in state.items()}
+  File "/workspace/prism-exp/exp/scripts/microbench_migration_v4.py", line 78, in <dictcomp>
+    return {k: torch.empty_like(v, device=f"cuda:{gpu}") for k, v in state.items()}
+RuntimeError: CUDA error: part or all of the requested memory range is already mapped
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+

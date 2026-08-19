@@ -8,6 +8,11 @@
 # GPUs: exactly two, fixed for the whole study.  GPUs outside the pair are
 # never made visible to any child process.
 set -uo pipefail
+# supervisord hands its children a soft limit of 1024 open files. The
+# microbenchmark calls share_memory_() on every weight tensor of six
+# models -- about 1500 of them, one fd each -- and dies with "Too many
+# open files". The hard limit here is 524288, so raise the soft one.
+ulimit -n 65535 2>/dev/null || true
 cd /workspace/prism-exp
 source exp/scripts/env.sh
 
