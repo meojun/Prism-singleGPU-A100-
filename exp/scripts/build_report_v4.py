@@ -220,10 +220,16 @@ def audit_table(loading, migration, tp2, rows):
         ("TP anti-affinity", "NOT IMPLEMENTED", "NOT IMPLEMENTED", "NOT IMPLEMENTED",
          "The global controller collapses a TP group to its rank-0 GPU "
          "(`controller_global.py`: \"For TP case, only consider rank0 state\"), so no "
-         "placement code can express, let alone enforce, an anti-affinity constraint."),
-        ("TP=2 runtime validation", "NOT IMPLEMENTED", "NOT IMPLEMENTED", tp_verdict,
-         "`tp-validation/tp2_validation.json` — startup, rank-to-GPU mapping, NCCL, "
-         "inference and per-GPU memory, each read back from the run's own logs."),
+         "placement code can express, let alone enforce, an anti-affinity constraint. "
+         "There is also nothing to constrain: TP>1 cannot run in the worker-pool path "
+         "at all -- see `tp-validation/FINDING.md`."),
+        ("TP=2 runtime validation", "NOT SUPPORTED BY PROTOTYPE",
+         "NOT SUPPORTED BY PROTOTYPE", tp_verdict,
+         "Two configurations, mixed-TP and uniform-TP, both die at activation with "
+         "\"not found in shared cpu models\". Worker-pool engines are built one per "
+         "(GPU, worker slot), each bound to a single GPU, so TP shards cannot span "
+         "GPUs -- and that path is where the GPU scheduler and migration live. "
+         "`tp-validation/FINDING.md`, `tp2_validation.json`, and both runs' logs."),
         ("Placement convergence", "NOT IMPLEMENTED", "NOT IMPLEMENTED", "FULL",
          "Measured, not assumed: `convergence_gap` per cycle in "
          "`raw/scheduler/*_alg1.jsonl`."),
