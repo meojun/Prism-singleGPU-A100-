@@ -88,86 +88,140 @@ def read_transfers(run_dir):
     return out
 
 
-def pair_migrations(actions, transfers, alg1):
-    """Reconstruct migrations from the action stream.
+PROTO_MIGRATION_RE = re.compile(
+    r"ACTION: deactivate (\S+) on GPU (\d+) and activate \S+ on GPU (\d+)\. "
+    r"Reason: migrate model")
 
-    A migration is an Activate of a model on one GPU followed by a Deactivate
-    of the same model on another.  Ordering decides the two headline numbers:
-    with target-first the source is still serving while the target loads, so
-    downtime is zero and latency is the load; with the prototype's
-    deactivate-first ordering the model is resident nowhere in between and the
-    gap between the two actions is real downtime.
+
+def read_migration_decisions(run_dir, alg1):
+    """The migrations the controller actually decided on, from its own log.
+
+    Counting Activate/Deactivate pairs instead over-counts badly: an idle
+    eviction on one GPU and an unrelated activation on the other look exactly
+    like a move.  On one prototype run the controller decided 2 migrations and
+    logged 92 idle evictions, and pair-counting reported 4.  The decision log is
+    the authority for *whether* a migration happened; the action records below
+    supply *how long* it took.
     """
-    by_model = defaultdict(list)
-    for act in actions:
-        if act.get("model"):
-            by_model[act["model"]].append(act)
+    out = []
+    for a in alg1:
+        if a.get("migration_decision") != "MIGRATE":
+            continue
+        cand = a.get("candidate") or {}
+        if cand.get("model") is None:
+            continue
+        out.append({"timestamp": a.get("timestamp"), "model": cand["model"],
+                    "source_gpu": cand.get("from"), "target_gpu": cand.get("to"),
+                    "peak_kvpr_before": a.get("peak_kvpr"),
+                    "peak_kvpr_after": cand.get("peak_kvpr_after"),
+                    "tau": a.get("tau"), "alg1_cycle": a.get("cycle")})
+    for path in glob.glob(os.path.join(run_dir, "server-logs", "*global_controller*")):
+        with open(path, errors="replace") as fh:
+            for line in fh:
+                m = PROTO_MIGRATION_RE.search(line)
+                if m:
+                    out.append({"timestamp": None, "model": m.group(1),
+                                "source_gpu": int(m.group(2)),
+                                "target_gpu": int(m.group(3))})
+    return out
 
-    weight_by_model = defaultdict(list)
+
+def pair_migrations(actions, transfers, alg1, run_dir, slot_to_path, overlap,
+                    window_s=120.0):
+    """Attach action timings and byte counts to each decided migration.
+
+    ``overlap`` says whether this arm ran with the readiness barrier.  Without
+    it the control handler returns as soon as the request is *submitted*, so an
+    action lasts ~15 ms regardless of how long the weights actually take.  The
+    flag is carried into every row so a submission time is never read as a
+    migration latency.
+    """
+    decisions = read_migration_decisions(run_dir, alg1)
+    acts = defaultdict(list)
+    for a in actions:
+        if a.get("model"):
+            acts[(a["model"], a["action"], a.get("gpu_id"))].append(a)
+    for v in acts.values():
+        v.sort(key=lambda a: a["start"])
+
+    # Join activations to the transfers they caused.  The records are tagged
+    # with the model *path* while the actions carry the config's slot name, and
+    # they carry no timestamp -- but the router sends every load of a given
+    # model to one fixed service worker, which appends one line per completed
+    # transfer.  So for a given (model, target GPU) the file order IS the
+    # activation order, and the two can be matched by position.
+    by_key = defaultdict(list)
     for rec in transfers:
         tag = rec.get("tag") or ""
-        model = tag.split("|")[0] if "|" in tag else None
-        weight_by_model[model].append(rec)
+        path = tag.split("|")[0] if "|" in tag else tag
+        by_key[(path, rec.get("target_gpu"))].append(rec)
 
-    decisions = [a for a in alg1 if a.get("migration_decision") == "MIGRATE"]
+    ordinal, seen = {}, defaultdict(int)
+    for a in sorted((x for x in actions if x["action"] == "ActivateAction"),
+                    key=lambda x: x["start"]):
+        key = (slot_to_path.get(a.get("model")), a.get("gpu_id"))
+        ordinal[id(a)] = seen[key]
+        seen[key] += 1
+
+    used = set()
     migrations = []
-    for model, acts in by_model.items():
-        activates = [a for a in acts if a["action"] == "ActivateAction"]
-        deactivates = [a for a in acts if a["action"] == "DeactivateAction"]
-        for act in activates:
-            # The Deactivate that retires a *different* GPU's copy, nearest in time.
-            partner = None
-            for dea in deactivates:
-                if dea.get("gpu_id") == act.get("gpu_id"):
-                    continue
-                if abs(dea["start"] - act["start"]) > 900:
-                    continue
-                if partner is None or abs(dea["start"] - act["start"]) < abs(partner["start"] - act["start"]):
-                    partner = dea
-            if partner is None:
-                continue
-            target_first = partner["start"] >= act["start"]
-            start = min(act["start"], partner["start"])
-            end = max(act["end"], partner["end"])
-            downtime = 0.0 if target_first else max(0.0, act["end"] - partner["start"])
-            # Weight transfer for this activation, if one was recorded.
-            wrec = None
-            best = None
-            for rec in weight_by_model.get(model, []):
-                if rec.get("target_gpu") != act.get("gpu_id"):
-                    continue
-                if best is None:
-                    best, wrec = 0, rec
-            migrations.append({
-                "model": model,
-                "source_gpu": partner.get("gpu_id"),
-                "target_gpu": act.get("gpu_id"),
-                "migration_start": start,
-                "target_ready_time": act["end"],
-                "migration_end": end,
-                "migration_latency_s": act["end"] - start,
-                "service_downtime_s": downtime,
-                "migration_total_s": end - start,
-                "ordering": "target-first" if target_first else "source-first",
-                "weight_bytes": (wrec or {}).get("payload_bytes", 0),
-                "kv_bytes": 0,
-                "total_bytes": (wrec or {}).get("payload_bytes", 0),
-                "transfer_path": (wrec or {}).get("transfer_path"),
-                "effective_gbps": (wrec or {}).get("payload_gbps"),
-                "success": bool(act.get("success")) and bool(partner.get("success")),
-            })
+    for dec in decisions:
+        model, src, dst = dec["model"], dec["source_gpu"], dec["target_gpu"]
+        cand_a = [a for a in acts.get((model, "ActivateAction", dst), [])
+                  if id(a) not in used]
+        cand_d = [a for a in acts.get((model, "DeactivateAction", src), [])
+                  if id(a) not in used]
+        if not cand_a or not cand_d:
+            continue
+        ref = dec["timestamp"] or cand_a[0]["start"]
+        act = min(cand_a, key=lambda a: abs(a["start"] - ref))
+        dea = min(cand_d, key=lambda a: abs(a["start"] - act["start"]))
+        if abs(dea["start"] - act["start"]) > window_s:
+            continue
+        used.add(id(act)); used.add(id(dea))
+
+        target_first = dea["start"] >= act["start"]
+        begin = min(act["start"], dea["start"])
+        end = max(act["end"], dea["end"])
+        downtime = 0.0 if target_first else max(0.0, act["end"] - dea["start"])
+        path = slot_to_path.get(model)
+        pool = by_key.get((path, dst), [])
+        idx = ordinal.get(id(act))
+        wrec = pool[idx] if idx is not None and idx < len(pool) else None
+        migrations.append({
+            "model": model, "model_path": path,
+            "source_gpu": src, "target_gpu": dst,
+            "migration_start": begin,
+            "target_ready_time": act["end"],
+            "migration_end": end,
+            "migration_latency_s": (
+                act["end"] - begin if overlap or wrec is None
+                else wrec.get("seconds", act["end"] - begin)),
+            "service_downtime_s": (
+                downtime if overlap or wrec is None or target_first
+                else wrec.get("seconds", downtime)),
+            "migration_total_s": (
+                end - begin if overlap or wrec is None
+                else wrec.get("seconds", end - begin)),
+            "timing_source": "control-path" if overlap else (
+                "weight-transfer" if wrec is not None else "submission-only"),
+            "ordering": "target-first" if target_first else "source-first",
+            "readiness_barrier": bool(overlap),
+            "latency_is_submission_only": not bool(overlap),
+            "weight_bytes": (wrec or {}).get("payload_bytes", 0),
+            "kv_bytes": 0,
+            "total_bytes": (wrec or {}).get("payload_bytes", 0),
+            "transfer_path": (wrec or {}).get("transfer_path"),
+            "effective_gbps": (wrec or {}).get("payload_gbps"),
+            "success": bool(act.get("success")) and bool(dea.get("success")),
+            "peak_kvpr_before": dec.get("peak_kvpr_before"),
+            "peak_kvpr_after": dec.get("peak_kvpr_after"),
+            "tau": dec.get("tau"), "alg1_cycle": dec.get("alg1_cycle"),
+        })
+
     migrations.sort(key=lambda m: m["migration_start"])
     for i, mig in enumerate(migrations):
         mig["migration_id"] = i
-    # Attach the KVPR the planner saw for the nearest decision.
-    for mig in migrations:
-        near = min(decisions, key=lambda d: abs(d.get("timestamp", 0) - mig["migration_start"]),
-                   default=None) if decisions else None
-        if near:
-            mig["peak_kvpr_before"] = near.get("peak_kvpr")
-            mig["peak_kvpr_after"] = (near.get("candidate") or {}).get("peak_kvpr_after")
-            mig["tau"] = near.get("tau")
-            mig["alg1_cycle"] = near.get("cycle")
     return migrations
 
 
@@ -203,7 +257,8 @@ def read_gpu_timeline(run_dir):
 
 # ------------------------------------------------------------------ per run
 def process_run(run_dir, base, system, workload, rate, seed, slo_base,
-                ttft_scale, tpot_scale, warmup, measure, trace_dir):
+                ttft_scale, tpot_scale, warmup, measure, trace_dir,
+                slot_to_path):
     metrics_path = os.path.join(run_dir, "metrics.json")
     metrics = json.load(open(metrics_path)) if os.path.exists(metrics_path) else {}
 
@@ -267,13 +322,20 @@ def process_run(run_dir, base, system, workload, rate, seed, slo_base,
     actions = read_actions(run_dir)
     alg1 = read_alg1(run_dir)
     transfers = read_transfers(run_dir)
-    migrations = pair_migrations(actions, transfers, alg1)
+    # Only the paper-faithful arms run with --overlap-migration, and only they
+    # therefore have a readiness barrier making an action's duration mean
+    # anything. Read it off the arm rather than guessing from the timings.
+    overlap = system in ("paper-faithful-v3", "paper-faithful-v4")
+    migrations = pair_migrations(actions, transfers, alg1, run_dir,
+                                 slot_to_path, overlap)
+    controller_count = len(migrations)
     mig_path = Path(base) / "raw/migrations" / f"{tag}.csv"
     mig_path.parent.mkdir(parents=True, exist_ok=True)
-    cols = ["migration_id", "model", "source_gpu", "target_gpu", "migration_start",
+    cols = ["migration_id", "model", "model_path", "source_gpu", "target_gpu", "migration_start",
             "target_ready_time", "migration_end", "migration_latency_s",
-            "service_downtime_s", "migration_total_s", "ordering", "weight_bytes",
+            "service_downtime_s", "migration_total_s", "timing_source", "ordering", "weight_bytes",
             "kv_bytes", "total_bytes", "transfer_path", "effective_gbps", "success",
+            "ordering", "readiness_barrier", "latency_is_submission_only",
             "peak_kvpr_before", "peak_kvpr_after", "tau", "alg1_cycle"]
     with open(mig_path, "w", newline="") as fh:
         writer = csv.DictWriter(fh, fieldnames=cols, extrasaction="ignore")
@@ -331,6 +393,13 @@ def process_run(run_dir, base, system, workload, rate, seed, slo_base,
     mstats, dstats = stats(lat_ms), stats(down_ms)
     row.update({
         "migration_count": len(migrations),
+        "migration_count_controller": controller_count,
+        "migration_timing_source": ";".join(sorted(
+            {m["timing_source"] for m in ok_migs})) or "",
+        # The controller's own count, so a mismatch with the paired count is
+        # visible in the data instead of being silently averaged away.
+        "migration_decisions_logged": len(read_migration_decisions(run_dir, alg1)),
+        "migration_latency_is_submission_only": int(not overlap),
         "migration_success": len(ok_migs),
         "migration_failed": len(migrations) - len(ok_migs),
         "migration_latency_mean": mstats["mean"], "migration_latency_p50": mstats["p50"],
@@ -400,6 +469,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", required=True)
     ap.add_argument("--slo-base", default=None)
+    ap.add_argument("--config",
+                    default="/workspace/prism-exp/exp/configs/v2/6model_2gpu.json",
+                    help="model config; supplies the slot -> model path map that "
+                         "joins control actions to weight transfers")
     ap.add_argument("--trace-dir", default="/workspace/prism-exp/exp/workloads/paper-faithful-v4")
     ap.add_argument("--ttft-scale", type=float, default=5.0)
     ap.add_argument("--tpot-scale", type=float, default=3.0)
@@ -408,6 +481,8 @@ def main():
     a = ap.parse_args()
     base = Path(a.base)
     slo_base = a.slo_base or "/workspace/prism-exp/exp/configs/v2/slo_base.json"
+    slot_to_path = {m["model_name"]: m["model_path"]
+                    for m in json.load(open(a.config))}
 
     rows, model_rows, all_migs = [], [], []
     pattern = str(base / "raw/*/*/rate_*/seed_*/DONE")
@@ -421,7 +496,8 @@ def main():
         try:
             row, per_model, migs = process_run(
                 run_dir, base, system, workload, rate, seed, slo_base,
-                a.ttft_scale, a.tpot_scale, a.warmup, a.measure, a.trace_dir)
+                a.ttft_scale, a.tpot_scale, a.warmup, a.measure, a.trace_dir,
+                slot_to_path)
         except (Exception, SystemExit) as exc:                  # noqa: BLE001
             # load_requests raises SystemExit when a dump is missing, and
             # SystemExit is not an Exception -- without naming it here one bad
@@ -459,11 +535,12 @@ def main():
           for k in ("mean", "p50", "p95", "p99", "max")]])
     write_csv(base / "migration_summary.csv", rows, cols=[
         "implementation", "workload", "request_rate", "seed", "migration_count",
-        "migration_success", "migration_failed",
+        "migration_decisions_logged", "migration_success", "migration_failed",
         "migration_latency_mean", "migration_latency_p50", "migration_latency_p95",
         "migration_latency_p99", "migration_latency_max", "migration_total_time",
         "migration_weight_bytes", "migration_kv_bytes", "migration_total_bytes",
         "migration_bandwidth", "migration_bandwidth_p50", "migration_paths",
+        "migration_timing_source",
         "service_downtime_mean", "service_downtime_p50", "service_downtime_p95",
         "service_downtime_p99", "weight_transfers", "p2p_weight_transfers"])
     if model_rows:
