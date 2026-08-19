@@ -229,14 +229,18 @@ class ModelService:
         '            logging.info(f"Model key: {model_key}, engine id: {engine_id}, target gpu id: {target_gpu_id}")\n',
         '            if model_key == "__release__":\n'
         '                released_key, released_gpu = engine_id, target_gpu_id\n'
-        '                held = self.v4_resident.get(released_key)\n'
-        '                if held is not None and held[0] == released_gpu:\n'
-        '                    del self.v4_resident[released_key]\n'
-        '                    gc.collect()\n'
-        '                    torch.cuda.empty_cache()\n'
-        '                    logging.info(\n'
-        '                        f"[PAPER-LOAD-V4] released resident {released_key} "\n'
-        '                        f"on gpu {released_gpu}")\n'
+        '                held = self.v4_resident.pop(released_key, None)\n'
+        '                # empty_cache() only returns this process\'s own\n'
+        '                # allocator cache.  A CUDA IPC mapping of another\n'
+        '                # process\'s memory is reclaimed by ipc_collect(), and\n'
+        '                # without it the engine\'s freed weights stay resident\n'
+        '                # -- 24 deactivations leaked their way to an OOM.\n'
+        '                gc.collect()\n'
+        '                torch.cuda.ipc_collect()\n'
+        '                torch.cuda.empty_cache()\n'
+        '                logging.info(\n'
+        '                    f"[PAPER-LOAD-V4] release {released_key} gpu {released_gpu} "\n'
+        '                    f"held={None if held is None else held[0]}")\n'
         '                continue\n'
         '            logging.info(f"Model key: {model_key}, engine id: {engine_id}, target gpu id: {target_gpu_id}")\n',
         probe='if model_key == "__release__":')
@@ -281,7 +285,14 @@ class ModelService:
                         tag=f"{model_key}|engine={engine_id}|src={None if source_sd is None else resident[0]}",
                     )
                     if self.v4_p2p:
+                        prev = self.v4_resident.get(model_key)
                         self.v4_resident[model_key] = (target_gpu_id, gpu_model.state_dict())
+                        if prev is not None and prev[0] != target_gpu_id:
+                            # The copy we just migrated away from is about to be
+                            # deactivated; let go of the mapping now.
+                            del prev
+                            gc.collect()
+                            torch.cuda.ipc_collect()
                     t1 = time.perf_counter()''',
         probe="mod.copy_model_to_gpu_v4(")
 
