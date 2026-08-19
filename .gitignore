@@ -93,3 +93,13 @@ dump.rdb
 /exp/results/paper-faithful-v3-validation/raw/**/seed_*_failed*/
 /exp/results/paper-faithful-v3-validation/raw/**/seed_*_invalid*/
 /exp/results/paper-faithful-v3-validation/raw/**/.seed_*
+
+# --- paper-faithful-v4 -------------------------------------------------------
+# Exclude only the bulky per-run server output. The raw tables the study is FOR
+# -- raw/requests, raw/migrations, raw/scheduler, raw/gpu_metrics -- live at
+# fixed depth-2 paths and are deliberately NOT matched by these rules.
+/exp/results/paper-faithful-v4/raw/*/*/*/*/server-logs/
+/exp/results/paper-faithful-v4/raw/*/*/*/*/requests/
+/exp/results/paper-faithful-v4/raw/*/*/*/*/*_output_requests.json
+/exp/results/paper-faithful-v4/raw/*/*_failed_attempt_*/
+/exp/results/paper-faithful-v4/tp-validation/server-logs/
