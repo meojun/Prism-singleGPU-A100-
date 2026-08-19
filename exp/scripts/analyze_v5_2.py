@@ -193,6 +193,101 @@ def q3_kv_resident_at_migration(base, out):
         print("  A migration with no in-flight request has no KV worth moving.")
 
 
+def q4_reprefill_cost_of_a_discarded_kv(base, out):
+    """Does losing the KV on migration actually cost the affected requests?
+
+    The engine releases the KV pool on deactivate without draining, so a
+    request of the migrated model that was mid-flight loses its cache.  If a
+    KV migration is worth building, those requests should be measurably worse
+    than requests of the SAME model that did not span a migration -- same
+    model, same run, so load and model size are controlled.
+    """
+    print("\n" + "=" * 78)
+    print("Q4  What does discarding the KV cost the requests it happens to?")
+    print("=" * 78)
+    rows_out = []
+    print("Control = requests spanning a SHAM time with no migration near it, so")
+    print("both groups are equally biased towards long requests.\n")
+    print(f"{'arm':22} {'wl':7} {'rate':>4} {'sd':>3} {'affected':>9} {'placebo':>8} "
+          f"{'TPOT aff/ctl (ms)':>21} {'E2E aff/ctl (ms)':>22}")
+    for req_path in sorted(glob.glob(str(base / "raw/requests/*.csv"))):
+        tag = Path(req_path).stem
+        m = re.match(r"(.+)_(bursty|steady)_r(\d+)_s(\d+)$", tag)
+        if not m:
+            continue
+        arm, wl, rate, seed = m.group(1), m.group(2), int(m.group(3)), int(m.group(4))
+        migs = read_csv(base / "raw/migrations" / f"{tag}.csv")
+        anchor_t = trace_epoch_anchor(base, tag)
+        if not migs or anchor_t is None:
+            continue
+        mig_by_model = defaultdict(list)
+        for x in migs:
+            mig_by_model[x["model"]].append(num(x["migration_start"]) - anchor_t)
+        # Selecting requests that SPAN a migration selects long requests, so a
+        # plain comparison measures duration, not the migration -- the first
+        # cut of this showed E2E 2.2x higher and TPOT *lower*, both artefacts.
+        # Placebo control: for every real migration time, a matched sham time
+        # in the same run with no migration within 20 s.  Spanning a sham
+        # selects long requests in exactly the same way, so what survives the
+        # difference is the migration itself.
+        all_t = sorted(t for ts in mig_by_model.values() for t in ts)
+        arrivals = [num(r["arrival_time"]) for r in read_csv(req_path)
+                    if not math.isnan(num(r["arrival_time"]))]
+        lo_t, hi_t = (min(arrivals), max(arrivals)) if arrivals else (0.0, 0.0)
+        sham_by_model = {}
+        for model, ts in mig_by_model.items():
+            shams, step = [], (hi_t - lo_t) / (len(ts) + 1 or 1)
+            for i in range(1, len(ts) + 1):
+                cand = lo_t + i * step
+                if all(abs(cand - t) > 20.0 for t in all_t):
+                    shams.append(cand)
+            sham_by_model[model] = shams
+
+        aff, ctl = [], []
+        for r in read_csv(req_path):
+            if r.get("success") != "1" or r.get("in_measurement_window") != "1":
+                continue
+            times = mig_by_model.get(r["model"])
+            if not times:
+                continue
+            a, c = num(r["arrival_time"]), num(r["completion_time"])
+            if math.isnan(a) or math.isnan(c):
+                continue
+            if any(a <= t <= c for t in times):
+                aff.append(r)
+            elif any(a <= t <= c for t in sham_by_model.get(r["model"], [])):
+                ctl.append(r)
+
+        def med(rs, k):
+            v = [num(x[k]) * 1000 for x in rs if x.get(k)]
+            return float(np.median(v)) if v else float("nan")
+
+        if not aff or not ctl:
+            continue
+        pa, pc = med(aff, "tpot_s"), med(ctl, "tpot_s")
+        ea, ec = med(aff, "e2e_s"), med(ctl, "e2e_s")
+        print(f"{arm:22} {wl:7} {rate:>4} {seed:>3} {len(aff):>9} {len(ctl):>8} "
+              f"{pa:>9.1f}/{pc:<10.1f} {ea:>10.1f}/{ec:<11.1f}")
+        rows_out.append({"arm": arm, "workload": wl, "rate": rate, "seed": seed,
+                         "affected_n": len(aff), "control_n": len(ctl),
+                         "tpot_affected_ms": pa, "tpot_control_ms": pc,
+                         "e2e_affected_ms": ea, "e2e_control_ms": ec,
+                         "tpot_ratio": pa / pc if pc else float("nan"),
+                         "e2e_ratio": ea / ec if ec else float("nan")})
+    if rows_out:
+        tr = [r["tpot_ratio"] for r in rows_out if not math.isnan(r["tpot_ratio"])]
+        er = [r["e2e_ratio"] for r in rows_out if not math.isnan(r["e2e_ratio"])]
+        print(f"\n  across {len(rows_out)} runs: TPOT affected/control median "
+              f"{np.median(tr):.2f}, E2E {np.median(er):.2f}")
+        print("  A ratio near 1.0 means losing the KV cost these requests little,")
+        print("  and a KV migration would have little to recover -- build it only")
+        print("  if this is meaningfully above 1.")
+        with open(out / "q4_reprefill_cost.csv", "w", newline="") as fh:
+            w = csv.DictWriter(fh, fieldnames=list(rows_out[0]))
+            w.writeheader(); w.writerows(rows_out)
+    return rows_out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", default="/workspace/prism-exp/exp/results/paper-faithful-v4")
@@ -204,6 +299,7 @@ def main():
     q1_migration_on_critical_path(base, out)
     q2_where_the_deficit_comes_from(base, out)
     q3_kv_resident_at_migration(base, out)
+    q4_reprefill_cost_of_a_discarded_kv(base, out)
     print(f"\nwrote {out}/")
 
 
