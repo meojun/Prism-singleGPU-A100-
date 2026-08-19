@@ -74,7 +74,14 @@ ARGS=(
   --slo-base-file "$PRISM_EXP/configs/v2/slo_base.json"
   --kvpr-migration-cooldown 30 --kvpr-tpot-slo-scale 3
   --enable-moore-hodgson --prefill-speed-file "$PRISM_EXP/configs/v2/prefill_speed.json"
-  --enable-model-service --enable-worker-pool
+  # NO --enable-worker-pool.  Worker-pool engines are created per
+  # (gpu_id, worker_id) and bound to a single-GPU list [gpu_id]
+  # (multi_model_server.py), so nothing there can form a TP group -- two
+  # configurations died at activation with "not found in shared cpu models"
+  # before this was read out of the code.  launch_model_engines takes
+  # instance_config.gpu_ids whole, so it is the only path that can host TP>1.
+  # Prism's own serving mode is the worker-pool one, which is the finding.
+  --enable-model-service
   --workers-per-gpu 2 --num-model-service-workers 2
   --num-gpus 2 --tensor-parallel-size 2
 )
