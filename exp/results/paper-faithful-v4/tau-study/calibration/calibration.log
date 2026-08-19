@@ -1,0 +1,21 @@
+### paper-faithful-v4_bursty_rate8_seed1  port=42400 trace=bursty_r8_s1.pkl workers=4 models=6
+waiting for server.............................................................................................. -> ready
+system=paper-faithful-v4 workload=bursty rate=8 seed=1
+alg1_log_lines=87
+alg1_migrations=0
+v4_weight_transfers=12
+v4_p2p_transfers=0
+0
+alg2_log_lines=3
+alg2_underadmission_warnings=0
+proto_migrations=0
+activations=6
+deactivations=7
+idle_evictions=7
+### paper-faithful-v4_bursty_rate8_seed1 done
+
+tau = 0.146062
+  from 179 decisions where a move was available (of 466 total, 87 cycles)
+  delta mean=0.0467375 sd=0.0496622 p90=0.120581 max=0.191403
+  this tau would admit 0.9% of all line-8 decisions
+wrote /workspace/prism-exp/exp/results/paper-faithful-v4/tau-study/calibration/tau.json
