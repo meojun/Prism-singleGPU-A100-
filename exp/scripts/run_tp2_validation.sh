@@ -22,10 +22,16 @@ LOGDIR=$OUT/server-logs
 mkdir -p "$LOGDIR"
 
 CFG=$OUT/tp2_config.json
-# model_5 spans both GPUs at TP=2.  model_1 is a TP=1 tenant pinned to GPU 1:
-# the launcher only starts a GPU scheduler for GPUs that appear in the initial
-# placement, and a TP group is registered under its rank-0 GPU only, so without
-# this second model GPU 1 would have no scheduler and the run would hang.
+# BOTH models at TP=2, and --tensor-parallel-size 2 to match.
+#
+# A first attempt mixed one TP=2 model with one TP=1 model and died at
+# activation with "Model model_5 not found in shared cpu models".  Worker-pool
+# engines are generic -- they are built with the SERVER's tp_size, not the
+# model's -- and the CPU weights are keyed by (model_path, tp_size), so an
+# engine built at tp_size=1 can never find a model registered at tp_size=2.
+# The prototype therefore supports one global TP degree per server, and a
+# mixed-TP placement is not expressible.  That is a finding in its own right;
+# what this run tests is whether a uniform TP=2 server works at all.
 cat > "$CFG" <<JSON
 [
   {
@@ -37,8 +43,8 @@ cat > "$CFG" <<JSON
   {
     "model_name": "model_1",
     "model_path": "meta-llama/Llama-3.2-1B",
-    "tp_size": 1,
-    "init_placements": [{"gpu_ids": [1], "on": true, "max_memory_pool_size": 20.0}]
+    "tp_size": 2,
+    "init_placements": [{"gpu_ids": [0, 1], "on": true, "max_memory_pool_size": 20.0}]
   }
 ]
 JSON
@@ -69,8 +75,8 @@ ARGS=(
   --kvpr-migration-cooldown 30 --kvpr-tpot-slo-scale 3
   --enable-moore-hodgson --prefill-speed-file "$PRISM_EXP/configs/v2/prefill_speed.json"
   --enable-model-service --enable-worker-pool
-  --workers-per-gpu 3 --num-model-service-workers 2
-  --num-gpus 2 --tensor-parallel-size 1
+  --workers-per-gpu 2 --num-model-service-workers 2
+  --num-gpus 2 --tensor-parallel-size 2
 )
 
 tmux kill-session -t "$SESSION" 2>/dev/null || true

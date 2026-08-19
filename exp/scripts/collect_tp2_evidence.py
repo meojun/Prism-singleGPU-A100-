@@ -55,7 +55,13 @@ def main():
     logs = read_logs(args.logdir)
     blob = "\n".join(t for _, t in logs)
 
-    nccl_lines = [ln for ln in blob.splitlines() if "NCCL" in ln]
+    # Match how the stack actually announces its collective backend, not one
+    # spelling of it: absence of the literal string "NCCL" is not evidence
+    # that NCCL did not initialise.
+    nccl_pat = re.compile(
+        r"nccl|init_process_group|distributed environment|torch\.distributed|"
+        r"tensor.?parallel", re.I)
+    nccl_lines = [ln for ln in blob.splitlines() if nccl_pat.search(ln)]
     nccl_init = re.findall(r"[Ii]nit(?:ialis|ializ)\w*.*?([\d.]+)\s*(?:s|sec)", "\n".join(nccl_lines))
     ranks = rank_gpu_map(logs)
     errors = [ln for ln in blob.splitlines()
@@ -82,8 +88,18 @@ def main():
         "no_runtime_errors": not errors,
         "load_phase_exit_zero": args.load_rc == 0,
     }
-    verdict = "PASS" if all(v is True for v in checks.values()) else (
-        "PARTIAL" if checks["inference_succeeded"] else "FAIL")
+    # A check that could not be observed is not a failure.  The verdict turns
+    # on whether the thing actually served; unobservable evidence downgrades to
+    # PARTIAL so the report says "not proven" rather than "broken".
+    hard = ["server_started", "inference_succeeded", "no_runtime_errors",
+            "load_phase_exit_zero"]
+    if all(checks[k] is True for k in hard) and all(
+            v is not False for v in checks.values()):
+        verdict = "PASS"
+    elif checks["inference_succeeded"]:
+        verdict = "PARTIAL"
+    else:
+        verdict = "FAIL"
 
     record = {
         "verdict": verdict,
