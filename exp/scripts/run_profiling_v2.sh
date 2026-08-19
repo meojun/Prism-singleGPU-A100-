@@ -71,6 +71,7 @@ profile_one() {   # profile_one <slot> <gpu> <port>
   if launch_solo "$slot" "$gpu" "$port"; then
     python3 "$SCRIPT_DIR/profile_v2.py" --url "http://127.0.0.1:$port" \
       --model "$slot" --model-path "${PATHS[$slot]}" -o "$OUT/$slot.json" \
+      --sat-concurrency "${SAT_CONCURRENCY:-48}" \
       2>&1 | stdbuf -oL sed "s/^/  /"
   fi
   tmux kill-session -t "prof-$slot" 2>/dev/null || true

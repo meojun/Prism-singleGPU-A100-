@@ -85,14 +85,112 @@ class ModelService:
         "        self.v4_resident = {}\n"
         "        self.v4_peer = mod.enable_peer_access(gpu_ids)\n"
         "        if pagelock:\n"
-        "            summary = {k: mod.register_host_memory(m.state_dict())\n"
-        "                       for k, m in self.model_dict.items()}\n"
-        "            logging.info(f\"[PAPER-LOAD-V4] host page-lock: {summary}\")\n"
+        "            # Only this worker's own models: the router sends a given\n"
+        "            # model to a fixed worker, so locking all of them in every\n"
+        "            # worker would pin the same pages N times for nothing.\n"
+        "            import os as _os, zlib as _zlib\n"
+        "            _n = int(_os.environ.get(\"PRISM_V4_NUM_SERVICE_WORKERS\", \"1\"))\n"
+        "            summary = {\n"
+        "                k: mod.register_host_memory(m.state_dict())\n"
+        "                for k, m in self.model_dict.items()\n"
+        "                if _n <= 1 or _zlib.crc32(str(k).encode()) % _n == self.service_id\n"
+        "            }\n"
+        "            logging.info(\n"
+        "                f\"[PAPER-LOAD-V4] worker {self.service_id}/{_n} \"\n"
+        "                f\"host page-lock: {summary}\")\n"
         "        logging.info(f\"[PAPER-LOAD-V4] peer access: {self.v4_peer} p2p={p2p}\")\n",
         probe="self.v4_resident = {}")
 
     # Release control message: the engine tells us when its copy is gone, so we
     # never pin another process's freed GPU memory.
+    replace(service,
+        "    model_service = ModelService(\n"
+        "        cpu_model_dict, input_queue, output_queues, max_threads, gpu_ids, num_shards\n"
+        "    )\n",
+        "    model_service = ModelService(\n"
+        "        cpu_model_dict, input_queue, output_queues, max_threads, gpu_ids,\n"
+        "        num_shards, instance,\n"
+        "    )\n",
+        probe="num_shards, instance,")
+
+    # The model service runs several worker processes sharing ONE queue, so a
+    # model can be loaded by worker A and later reloaded by worker B -- and the
+    # registry of what is resident where lives inside a worker.  Give each
+    # worker its own queue and route by model, so every load of a given model
+    # lands on the same worker and its registry stays coherent.  Different
+    # models still go to different workers, so cross-model concurrency is
+    # unchanged.  Routing is applied to every arm, not just v4, so it is not a
+    # difference between them.
+    replace(service,
+        "class ModelService:\n",
+        '''class _ModelServiceRouter:
+    """Queue facade that sends a model to a fixed worker.
+
+    ``hash()`` is salted per process and the engines are spawned, so the
+    mapping has to come from a stable checksum instead.
+    """
+
+    def __init__(self, queues):
+        self.queues = queues
+
+    def _index(self, model_key):
+        return zlib.crc32(str(model_key).encode()) % len(self.queues)
+
+    def put(self, item, *args, **kwargs):
+        key = item[1] if item and item[0] == "__release__" else item[0]
+        self.queues[self._index(key)].put(item, *args, **kwargs)
+
+    def __len__(self):
+        return len(self.queues)
+
+
+class ModelService:
+''',
+        probe="class _ModelServiceRouter:")
+
+    replace(service, "import gc\n", "import gc\nimport zlib\n", probe="import zlib")
+
+    server = mm / "multi_model_server.py"
+    replace(server,
+        """    input_queue = torch.multiprocessing.Queue()
+    output_queues = {
+        engine_id: torch.multiprocessing.Queue() for engine_id in engine_ids
+    }
+    max_loading_threads = min(4, num_devices)
+    num_shards = 1
+    num_model_service_workers = multi_model_server_args.num_model_service_workers
+    from sglang.multi_model.model_sevice import run_model_service
+    for service_worker_id in range(num_model_service_workers):
+        p = torch.multiprocessing.Process(
+            target=run_model_service,
+            args=(
+                multi_model_server_args,
+                cpu_model_dict,
+                input_queue,
+                output_queues,""",
+        """    output_queues = {
+        engine_id: torch.multiprocessing.Queue() for engine_id in engine_ids
+    }
+    max_loading_threads = min(4, num_devices)
+    num_shards = 1
+    num_model_service_workers = multi_model_server_args.num_model_service_workers
+    from sglang.multi_model.model_sevice import _ModelServiceRouter, run_model_service
+    # One queue per worker; the router picks a worker per model.
+    worker_queues = [
+        torch.multiprocessing.Queue() for _ in range(num_model_service_workers)
+    ]
+    input_queue = _ModelServiceRouter(worker_queues)
+    os.environ["PRISM_V4_NUM_SERVICE_WORKERS"] = str(num_model_service_workers)
+    for service_worker_id in range(num_model_service_workers):
+        p = torch.multiprocessing.Process(
+            target=run_model_service,
+            args=(
+                multi_model_server_args,
+                cpu_model_dict,
+                worker_queues[service_worker_id],
+                output_queues,""",
+        probe="_ModelServiceRouter(worker_queues)")
+
     # A release arrives as ("__release__", model_key, gpu_id, None): the engine
     # has dropped its GPU copy, so ours must go too.  Handled after the Empty
     # guard so the queue-drain path is untouched.
@@ -187,6 +285,22 @@ class ModelService:
             self.model = None''',
         probe="__release__")
 
+    # flashinfer sizes its prefill scratch buffer from FLASHINFER_WORKSPACE_SIZE,
+    # but reads it straight out of the environment as a string -- so setting the
+    # variable at all makes torch.empty() fail.  The default 384 MiB is too small
+    # for Qwen2.5-7B's GQA ratio here (it asks for ~420 MiB and the run dies with
+    # "Failed to allocate memory for batch_prefill_tmp_v"), so the variable has to
+    # work.  Applies to every arm.
+    gcfg = repo / "python/sglang/global_config.py"
+    replace(gcfg,
+        "        self.flashinfer_workspace_size = os.environ.get(\n"
+        "            \"FLASHINFER_WORKSPACE_SIZE\", 384 * 1024 * 1024\n"
+        "        )\n",
+        "        self.flashinfer_workspace_size = int(\n"
+        "            os.environ.get(\"FLASHINFER_WORKSPACE_SIZE\", 384 * 1024 * 1024)\n"
+        "        )\n",
+        probe="self.flashinfer_workspace_size = int(")
+
     # -------------------------------------------------------------- policy v4
     controller = mm / "scheduling/controller_global.py"
     replace(controller,
@@ -255,11 +369,13 @@ class ModelService:
 
     checks = {
         service: ["def _v4():", "self.v4_resident = {}", "mod.copy_model_to_gpu_v4(",
-                  '__release__', "if not self.v4_p2p:"],
+                  '__release__', "if not self.v4_p2p:", "class _ModelServiceRouter:"],
+        mm / "multi_model_server.py": ["_ModelServiceRouter(worker_queues)"],
         runner: ["__release__"],
         controller: ["KVPRGlobalPolicyV4", 'in ("kvpr-global-v3", "kvpr-global-v4")',
                      "[PAPER-ACTION-V4]"],
         args: ["kvpr-global-v4"],
+        repo / "python/sglang/global_config.py": ["self.flashinfer_workspace_size = int("],
         mm / "parallel_loading_v4.py": ["register_host_memory"],
         mm / "scheduling/policy/kvpr_global_v4.py": ["KVPRGlobalPolicyV4"],
     }

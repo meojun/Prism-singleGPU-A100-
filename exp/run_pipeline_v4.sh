@@ -12,7 +12,10 @@ cd /workspace/prism-exp
 source exp/scripts/env.sh
 
 BASE=${V4_BASE:-/workspace/prism-exp/exp/results/paper-faithful-v4}
-WL=${V4_WORKLOAD_DIR:-/workspace/prism-exp/exp/workloads/paper-faithful-v2}
+# Its own directory: the traces embed the per-request SLOs, which come from
+# THIS box's baselines, so writing them next to v3's would silently replace
+# v3's committed artefacts with numbers measured somewhere else.
+WL=${V4_WORKLOAD_DIR:-/workspace/prism-exp/exp/workloads/paper-faithful-v4}
 STATE=$BASE/state
 RATES=(${V4_RATES:-8 20})
 SEEDS=(${V4_SEEDS:-1 2 3})

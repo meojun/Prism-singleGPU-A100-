@@ -400,7 +400,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", required=True)
     ap.add_argument("--slo-base", default=None)
-    ap.add_argument("--trace-dir", default="/workspace/prism-exp/exp/workloads/paper-faithful-v2")
+    ap.add_argument("--trace-dir", default="/workspace/prism-exp/exp/workloads/paper-faithful-v4")
     ap.add_argument("--ttft-scale", type=float, default=5.0)
     ap.add_argument("--tpot-scale", type=float, default=3.0)
     ap.add_argument("--warmup", type=float, default=60.0)
@@ -422,7 +422,10 @@ def main():
             row, per_model, migs = process_run(
                 run_dir, base, system, workload, rate, seed, slo_base,
                 a.ttft_scale, a.tpot_scale, a.warmup, a.measure, a.trace_dir)
-        except Exception as exc:                                # noqa: BLE001
+        except (Exception, SystemExit) as exc:                  # noqa: BLE001
+            # load_requests raises SystemExit when a dump is missing, and
+            # SystemExit is not an Exception -- without naming it here one bad
+            # run directory would take the whole collection down.
             print(f"WARN {run_dir}: {type(exc).__name__}: {exc}")
             continue
         rows.append(row)

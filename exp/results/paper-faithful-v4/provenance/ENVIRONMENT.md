@@ -35,3 +35,29 @@ assertion.
 were measured on.  The committed copies from the other box are preserved beside
 this file as `*_committed_other_box.json` and were **not** used; both were
 re-profiled here under `exp/results/paper-faithful-v4/profiling/`.
+
+## flashinfer prefill workspace
+
+Profiling Qwen2.5-7B (`model_6`) died three times with
+
+    RuntimeError: Failed to allocate memory for batch_prefill_tmp_v
+                  with size 454164480 ... in AlignedAllocator
+
+This is flashinfer's fixed prefill scratch buffer, not GPU memory: the default
+is 384 MiB and this model asks for roughly 420-450 MiB.  It is the only one of
+the six that does — its GQA ratio is 28 query heads to 4 KV heads, against
+32-to-8 for Llama-3.1-8B, which changes how flashinfer sizes the buffer.
+Lowering the saturating concurrency from 48 to 24 did not help, because the
+engine batches whatever is queued regardless.
+
+`FLASHINFER_WORKSPACE_SIZE` exists for exactly this, but reading it back is
+broken upstream: `global_config.py` takes it straight from the environment as a
+**string**, and `torch.empty("1073741824", ...)` raises.  Setting the variable
+therefore replaced one crash with another until the value was cast to `int`.
+That one-line fix is part of the v4 patch set and applies to every arm.
+
+The buffer is now 1 GiB for all runs and all arms.  It is a capacity ceiling
+rather than a tuning knob: models 1-5 never came close to 384 MiB, so raising
+it cannot change their numbers, and for model_6 it removes an artificial limit
+instead of granting an advantage.  The cost is 1 GiB less KV pool per GPU out
+of a 67.28 GiB budget, applied identically to every arm.
