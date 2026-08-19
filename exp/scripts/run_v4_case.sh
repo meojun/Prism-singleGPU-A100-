@@ -85,6 +85,21 @@ case "$SYSTEM" in
                    --enable-moore-hodgson --prefill-speed-file "$PREFILL_SPEED"
                    --parallel-model-loading --overlap-migration)
       ;;
+  paper-faithful-v3-alg1only)
+      # v3 minus Algorithm 2: isolates what the KVPR placement costs.
+      CONTROLLER+=(--policy kvpr-global-v3 --kvpr-tau "$KVPR_TAU"
+                   --kvpr-rate-window "$KVPR_WINDOW" --slo-base-file "$SLO_BASE"
+                   --kvpr-migration-cooldown "$KVPR_COOLDOWN"
+                   --kvpr-tpot-slo-scale "$TPOT_SCALE"
+                   --parallel-model-loading --overlap-migration)
+      ;;
+  paper-faithful-v3-alg2only)
+      # v3 minus Algorithm 1: isolates what Moore-Hodgson costs.  The global
+      # policy falls back to the prototype's, as in the released code.
+      CONTROLLER+=(--policy simple-global
+                   --enable-moore-hodgson --prefill-speed-file "$PREFILL_SPEED"
+                   --parallel-model-loading --overlap-migration)
+      ;;
   paper-faithful-v4)
       CONTROLLER+=(--policy kvpr-global-v4 --kvpr-tau "$KVPR_TAU"
                    --kvpr-rate-window "$KVPR_WINDOW" --slo-base-file "$SLO_BASE"
@@ -93,7 +108,9 @@ case "$SYSTEM" in
                    --enable-moore-hodgson --prefill-speed-file "$PREFILL_SPEED"
                    --parallel-model-loading --overlap-migration)
       # Read by the ModelService process, which is forked from this env.
-      export PRISM_V4_PAGELOCK=${PRISM_V4_PAGELOCK:-1}
+      # env.sh re-sources /workspace/.env with `set -a`, which clobbers a
+      # caller's PRISM_V4_* choice; V5_* is not in that file, so it wins.
+      export PRISM_V4_PAGELOCK=${V5_PAGELOCK:-${PRISM_V4_PAGELOCK:-1}}
       # Filling a target from the source GPU means the model service holds a
       # CUDA IPC mapping of the source weights.  torch.cuda.empty_cache() does
       # not release those -- it only returns this process's own allocator cache
@@ -102,7 +119,7 @@ case "$SYSTEM" in
       # against 60 for v3 and 43 for the prototype).  The release path collects
       # them explicitly; set PRISM_V4_P2P_MIGRATION=0 to fall back to the host
       # path.
-      export PRISM_V4_P2P_MIGRATION=${PRISM_V4_P2P_MIGRATION:-1}
+      export PRISM_V4_P2P_MIGRATION=${V5_P2P:-${PRISM_V4_P2P_MIGRATION:-1}}
       ;;
   *) echo "unknown system: $SYSTEM" >&2; exit 1 ;;
 esac
