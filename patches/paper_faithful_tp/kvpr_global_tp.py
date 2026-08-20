@@ -64,6 +64,11 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
         self.anti_affinity = bool(
             getattr(server_args, "enable_tp_anti_affinity", False)
         )
+        # Off by default: the paper's rule is the second-lowest-KVPR fallback,
+        # not a hard filter.  See _greedy_placement_tp.
+        self.anti_affinity_strict = bool(
+            getattr(server_args, "enable_tp_anti_affinity_strict", False)
+        )
         self._model_tp_sizes: Dict[str, int] = {
             mc.model_name: int(getattr(mc, "tp_size", 1) or 1)
             for mc in (getattr(server_args, "model_configs", None) or [])
@@ -81,12 +86,15 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
             "shards_placed": 0,
             "aa_violations": 0,   # unconstrained argmin would have doubled up
             "aa_diverted": 0,     # the filter actually changed the choice
-            "aa_infeasible": 0,   # filter left no candidate; fell back
+            "aa_infeasible": 0,   # no candidate left; fell back
+            # The paper's rule permits this; counted, not repaired.
+            "aa_second_also_collides": 0,
         }
         logger.info(
             "[PAPER-ALG1-TP] init "
             + json.dumps({
                 "anti_affinity": self.anti_affinity,
+                "anti_affinity_strict": self.anti_affinity_strict,
                 "model_tp_sizes": self._model_tp_sizes,
             })
         )
@@ -186,22 +194,45 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
                     and (i in current or gpu_available_memory.get(i, 0.0) >= shard_size)
                 ] or [cur]
 
-                # The paper's constraint, as a filter on the candidate set.
-                allowed = feasible
-                filtered_out = [i for i in feasible if i in chosen_gpus]
-                if k > 1 and self.anti_affinity:
-                    allowed = [i for i in feasible if i not in chosen_gpus]
-                    if not allowed:
-                        # Cannot satisfy it here.  Say so rather than quietly
-                        # emitting a placement that violates the constraint.
-                        self._tp_audit["aa_infeasible"] += 1
-                        allowed = feasible
-
                 def ratio(i):
                     return w_rate[i] / shared_kv[i] if shared_kv[i] > 0 else float("inf")
 
-                best_unconstrained = min(feasible, key=lambda i: (ratio(i), i))
-                best = min(allowed, key=lambda i: (ratio(i), i))
+                order_by_kvpr = sorted(feasible, key=lambda i: (ratio(i), i))
+                best_unconstrained = order_by_kvpr[0]
+
+                # The paper's rule, verbatim (Appendix A.2.2):
+                #
+                #   "if assigning a TP part to the GPU with the minimum KVPR
+                #    would result in collocating it with another part of the
+                #    same original model, we instead assign it to the GPU
+                #    exhibiting the second-lowest KVPR."
+                #
+                # Note what that does NOT say: it does not re-check the
+                # second-lowest GPU.  For tp_size=2 the distinction is empty --
+                # only one part is placed, so the second-lowest cannot collide.
+                # From tp_size=3 up it is not empty: the second-lowest GPU may
+                # already hold a part, and the literal rule places there anyway.
+                # So the paper's rule reduces collocation, it does not forbid
+                # it.  ``strict`` implements the forbidding version and is kept
+                # separate rather than folded in, because silently strengthening
+                # the paper's rule would misreport what was reproduced.
+                filtered_out = [i for i in feasible if i in chosen_gpus]
+                best = best_unconstrained
+                if k > 1 and self.anti_affinity and best_unconstrained in chosen_gpus:
+                    if self.anti_affinity_strict:
+                        allowed = [i for i in order_by_kvpr if i not in chosen_gpus]
+                        if allowed:
+                            best = allowed[0]
+                        else:
+                            self._tp_audit["aa_infeasible"] += 1
+                    elif len(order_by_kvpr) > 1:
+                        best = order_by_kvpr[1]          # second-lowest KVPR
+                        if best in chosen_gpus:
+                            # The paper's rule allows this; record it rather
+                            # than quietly repairing it.
+                            self._tp_audit["aa_second_also_collides"] += 1
+                    else:
+                        self._tp_audit["aa_infeasible"] += 1
 
                 if k > 1 and best_unconstrained in chosen_gpus:
                     # The unconstrained argmin would have stacked two shards of

@@ -146,7 +146,8 @@ def main():
         "    # reproduced exactly unless they are asked for.\n"
         "    enable_tp_worker_pool: bool = False\n"
         "    tp_max_groups: int = 0            # 0 = every k-subset of the GPUs\n"
-        "    enable_tp_anti_affinity: bool = False\n",
+        "    enable_tp_anti_affinity: bool = False\n"
+        "    enable_tp_anti_affinity_strict: bool = False\n",
         probe="enable_tp_worker_pool: bool")
 
     replace(args_py,
@@ -163,8 +164,13 @@ def main():
         "            help=\"Cap on TP groups enumerated per tp_size (0 = all). Dropped \"\n"
         "                 \"groups are logged, never silently omitted.\")\n"
         "        parser.add_argument(\"--enable-tp-anti-affinity\", action=\"store_true\",\n"
-        "            help=\"Paper constraint: the k shards of a tp_size=k model are placed \"\n"
-        "                 \"on k distinct GPUs (Algorithm 1 candidate filter).\")\n",
+        "            help=\"Paper Appendix A.2.2: a TP part whose minimum-KVPR GPU already \"\n"
+        "                 \"holds another part of the same model goes to the second-lowest \"\n"
+        "                 \"KVPR GPU instead.\")\n"
+        "        parser.add_argument(\"--enable-tp-anti-affinity-strict\", action=\"store_true\",\n"
+        "            help=\"Stronger than the paper: pick the lowest-KVPR GPU that holds no \"\n"
+        "                 \"part of this model. Differs from A.2.2 only for tp_size>=3, where \"\n"
+        "                 \"the paper's second-lowest GPU may itself collide.\")\n",
         probe="--enable-tp-worker-pool")
 
     # The multi-model args are splatted into ServerArgs after keys_to_remove is
@@ -180,6 +186,7 @@ def main():
         "            \"enable_tp_worker_pool\",   # PAPER-FAITHFUL-TP\n"
         "            \"tp_max_groups\",\n"
         "            \"enable_tp_anti_affinity\",\n"
+        "            \"enable_tp_anti_affinity_strict\",\n"
         "        }\n",
         probe="\"enable_tp_worker_pool\",   # PAPER-FAITHFUL-TP")
 
