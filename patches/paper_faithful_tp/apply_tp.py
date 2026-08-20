@@ -177,17 +177,18 @@ def main():
     # applied, so any field that exists only on MultiModelServerArgs must be
     # listed there or ServerArgs.__init__ rejects it.  Same treatment the v2
     # flags already get two lines above.
+    # Anchored on parallel_model_loading alone, NOT on the set's closing brace.
+    # The v6 KV-migration patch appends its own key just before that brace, so
+    # an anchor spanning it matches only when this patch runs first -- and the
+    # two patches are developed on separate branches with no fixed order.  This
+    # line is unique in the file and neither patch consumes it.
     replace(repo / "python/sglang/srt/server_args.py",
+        "            \"parallel_model_loading\",\n",
         "            \"parallel_model_loading\",\n"
-        "            \"overlap_migration\",\n"
-        "        }\n",
-        "            \"parallel_model_loading\",\n"
-        "            \"overlap_migration\",\n"
         "            \"enable_tp_worker_pool\",   # PAPER-FAITHFUL-TP\n"
         "            \"tp_max_groups\",\n"
         "            \"enable_tp_anti_affinity\",\n"
-        "            \"enable_tp_anti_affinity_strict\",\n"
-        "        }\n",
+        "            \"enable_tp_anti_affinity_strict\",\n",
         probe="\"enable_tp_worker_pool\",   # PAPER-FAITHFUL-TP")
 
     # ---------------------------------------------------------------- server
