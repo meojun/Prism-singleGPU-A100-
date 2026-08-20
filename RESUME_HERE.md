@@ -29,8 +29,10 @@ cat exp/results/paper-faithful-v6/sweep/SUMMARY.txt   # 있으면 스윕이 끝�
 | B — KV migration 모듈 + 25개 단위테스트 | ✅ 통과 |
 | B — 배선 패치 (5개 지점, opt-in) | ✅ 적용, 체인 멱등 확인 |
 | B — e2e 검증: v4 대조군 | ✅ 통과 — 요청 3387, 가중치 전송 24 (P2P 7), KV 마커 0 |
-| B — e2e 검증: v6 처리군 | ⚠️ **부분 성공** — 캡처 O, 전달 X. `e2e/FINDING.md` |
-| B — 스윕 (효과가 있는가) | ⛔ **던지지 않았다.** 아래 2.1 |
+| B — e2e 검증: v6 처리군 | ⚠️ **미완** — 캡처 O, 주입 X. `e2e/FINDING.md` |
+| B — 전달 채널 수정 1차 시도 | ❌ **행 걸려서 revert.** `e2e/attempt-4th-message/FINDING.md` |
+| **대조군 스윕 (v4, 6런)** | 🔄 **07:28 발사, 무인.** 아래 2.2 |
+| B — v6 스윕 | ⛔ 주입이 될 때까지 던지지 마라 |
 
 **환경 값은 절대 다른 박스 것을 쓰지 마라.** 이 박스 값은
 `exp/results/paper-faithful-v6/profiling/*_this_box.json` 이고
@@ -77,6 +79,34 @@ e2e** 로 동작한다.
 **수정 후 절차**: 단위테스트 → v6 단독 검증(`exp/scripts/run_v6_validation.sh`,
 약 10분) → `inject > 0` 과 `kv_transfers.jsonl` 존재 확인 → 그 다음에 스윕.
 
+### 2.2 돌고 있는 것 — 대조군 스윕
+
+`tmux ls` 에 `sweep_ctl` 이 있으면 그것이다. `paper-faithful-v4` 만 6런
+(bursty/steady × seed 1-3, r8), 약 1시간. **끝나면 스스로 집계하고 커밋하고
+푸시한다** — `git log` 에 `v6 sweep:` 커밋이 있으면 끝난 것이고
+`exp/results/paper-faithful-v6/sweep/SUMMARY.txt` 를 읽으면 된다.
+
+왜 v4 만 돌리는가: v6 는 아직 주입이 안 되므로 지금 돌리면 두 arm 이 사실상
+같은 시스템이다. 반면 v4 쪽 숫자는 KV 수정과 무관하게(플래그로 격리돼 있다)
+계속 유효하므로, 나중에 v6 가 고쳐졌을 때 비교 대상이 이미 준비되어 있다.
+v6 가 준비되면 `SWEEP_ARMS=paper-faithful-v6` 로 같은 스크립트를 돌려라 —
+끝난 런은 DONE 마커로 건너뛴다.
+
+### 2.3 1차 수정 시도가 왜 실패했는지 (반복하지 마라)
+
+`NEXT_FIX.md` 의 "핸드셰이크에 4번째 메시지" 안을 구현해서 돌렸다
+(`49c360e`) → **경합은 없앴는데 런이 행 걸렸다** → revert 했다 (`dbcb3f5`).
+
+* 좋았던 것: `fetch timed out` 4 → **0**, 서비스가 실제로 전달
+  (`handover ... -> 1_2: 4 reqs`), 캡처는 계속 정상
+* 나빴던 것: GPU 0% 로 12분간 정지, 벤치가 `Waiting for task` 에서 멈춤.
+  이전 상태는 최소한 3387요청 완료는 했다 — **안 끝나는 건 더 나쁘다**
+
+교훈은 `e2e/attempt-4th-message/FINDING.md` 에 있고 핵심은 하나다:
+**가중치 핸드셰이크를 공유하는 어떤 방식도 안전하지 않다.** 읽히지 않은
+메시지 하나가 무관한 프로토콜을 망가뜨린다. 남은 선택지는 전용 큐이며,
+`NEXT_FIX.md` 가 그걸 제외했던 이유는 정확성이 아니라 비용이었다.
+
 ## 3. 스윕이 중간에 죽었다면
 
 **resumable 이다.** 끝난 런은 `DONE` 마커가 있어 건너뛴다. 그대로 다시 던져라:
@@ -109,7 +139,9 @@ nvidia-smi --query-compute-apps=pid,used_memory --format=csv
 
 ## 5. 다음에 할 일 (권고 순서)
 
-1. **전달 채널 수정** (§2.1). 이것 말고 다른 것을 먼저 하지 마라.
+1. **전달 채널 수정** — 전용 per-engine 큐. §2.1 의 진단은 여전히 유효하고,
+   §2.3 이 4번째-메시지 안을 왜 못 쓰는지 말해준다. 시작 전에 TP 세션과
+   조율해라 — 관통시켜야 할 5개 시그니처가 전부 그쪽 구역이다.
 2. 수정 후 검증이 통과하면 — `IMPLEMENTATION_AUDIT.md` 의 KV-cache migration 행을
    `NOT IMPLEMENTED` 에서 갱신하고 근거를 raw data 로 가리켜라.
    `build_report_v4.py` 가 그 표를 생성하므로 **생성기를 고쳐야 한다.**

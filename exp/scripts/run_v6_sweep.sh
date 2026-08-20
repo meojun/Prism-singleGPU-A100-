@@ -38,7 +38,7 @@ export V2_DURATION=420 V2_WARMUP=60 V2_MEASURE=300
 
 WL=$R/exp/workloads/paper-faithful-v4
 BASE=$R/exp/results/paper-faithful-v6/sweep
-ARMS="paper-faithful-v4 paper-faithful-v6"
+ARMS=${SWEEP_ARMS:-"paper-faithful-v4 paper-faithful-v6"}
 WORKLOADS=${SWEEP_WORKLOADS:-"bursty steady"}
 RATES=${SWEEP_RATES:-"8"}
 SEEDS=${SWEEP_SEEDS:-"1 2 3"}
