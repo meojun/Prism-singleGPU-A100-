@@ -1,0 +1,89 @@
+[2026-08-20 14:13:59.042] Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.4.0+cu121).
+[2026-08-20 14:13:59.062] Ignore import error when loading sglang.srt.models.llava. Failed to import transformers.models.clip.modeling_clip because of the following error (look up to see its traceback):
+module 'torch' has no attribute 'int1'
+[2026-08-20 14:13:59.064] Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.4.0+cu121).
+[2026-08-20 14:13:59.066] Ignore import error when loading sglang.srt.models.llavavid. Failed to import transformers.models.clip.modeling_clip because of the following error (look up to see its traceback):
+module 'torch' has no attribute 'int1'
+[2026-08-20 14:13:59.070] Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.4.0+cu121).
+[2026-08-20 14:13:59.071] Ignore import error when loading sglang.srt.models.mllama. Failed to import transformers.modeling_utils because of the following error (look up to see its traceback):
+module 'torch' has no attribute 'int1'
+[2026-08-20 14:14:00.423] Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.4.0+cu121).
+[2026-08-20 14:14:00.426] Ignore import error when loading sglang.srt.models.yivl. Failed to import transformers.models.clip.modeling_clip because of the following error (look up to see its traceback):
+module 'torch' has no attribute 'int1'
+[2026-08-20 14:16:19.780] [PAPER-TP] slot plan: {"num_gpus": 4, "workers_per_gpu": 2, "slots": [{"worker_id": 0, "tp_size": 1, "gpu_ids": [0], "owner_gpu": 0}, {"worker_id": 0, "tp_size": 1, "gpu_ids": [1], "owner_gpu": 1}, {"worker_id": 0, "tp_size": 1, "gpu_ids": [2], "owner_gpu": 2}, {"worker_id": 0, "tp_size": 1, "gpu_ids": [3], "owner_gpu": 3}, {"worker_id": 1, "tp_size": 1, "gpu_ids": [0], "owner_gpu": 0}, {"worker_id": 1, "tp_size": 1, "gpu_ids": [1], "owner_gpu": 1}, {"worker_id": 1, "tp_size": 1, "gpu_ids": [2], "owner_gpu": 2}, {"worker_id": 1, "tp_size": 1, "gpu_ids": [3], "owner_gpu": 3}, {"worker_id": 2, "tp_size": 2, "gpu_ids": [0, 1], "owner_gpu": 0}, {"worker_id": 3, "tp_size": 2, "gpu_ids": [0, 2], "owner_gpu": 0}, {"worker_id": 4, "tp_size": 2, "gpu_ids": [0, 3], "owner_gpu": 0}, {"worker_id": 5, "tp_size": 2, "gpu_ids": [1, 2], "owner_gpu": 1}, {"worker_id": 6, "tp_size": 2, "gpu_ids": [1, 3], "owner_gpu": 1}, {"worker_id": 7, "tp_size": 2, "gpu_ids": [2, 3], "owner_gpu": 2}], "slots_per_gpu": {"0": [0, 1, 2, 3, 4], "1": [0, 1, 2, 5, 6], "2": [0, 1, 3, 5, 7], "3": [0, 1, 4, 6, 7]}}
+[2026-08-20 14:16:28.926 GPU=0 Worker=0 TP0] Scheduler: Worker 0 bound to gpu_scheduler_0_to_worker_0
+[2026-08-20 14:16:29.496 GPU=0 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=1 model_service=True
+[2026-08-20 14:16:29.496 GPU=0 Worker=0 TP0] Init torch distributed begin.
+[2026-08-20 14:16:29.816 GPU=1 Worker=1 TP0] Scheduler: Worker 1 bound to gpu_scheduler_1_to_worker_1
+[2026-08-20 14:16:30.255 GPU=3 Worker=0 TP0] Scheduler: Worker 0 bound to gpu_scheduler_3_to_worker_0
+[2026-08-20 14:16:30.324 GPU=3 Worker=1 TP0] Scheduler: Worker 1 bound to gpu_scheduler_3_to_worker_1
+[2026-08-20 14:16:30.378 GPU=1 Worker=1 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=1 tp_size=1 model_service=True
+[2026-08-20 14:16:30.378 GPU=1 Worker=1 TP0] Init torch distributed begin.
+[2026-08-20 14:16:30.801 GPU=3 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=3 tp_size=1 model_service=True
+[2026-08-20 14:16:30.802 GPU=3 Worker=0 TP0] Init torch distributed begin.
+[2026-08-20 14:16:31.294 GPU=3 Worker=1 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=3 tp_size=1 model_service=True
+[2026-08-20 14:16:31.294 GPU=3 Worker=1 TP0] Init torch distributed begin.
+[2026-08-20 14:16:31.406 GPU=0 Worker=3 TP0] Scheduler: Worker 3 bound to gpu_scheduler_0_to_worker_3
+[2026-08-20 14:16:31.469 GPU=2 Worker=1 TP0] Scheduler: Worker 1 bound to gpu_scheduler_2_to_worker_1
+[2026-08-20 14:16:31.968 GPU=0 Worker=3 TP0] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 14:16:31.968 GPU=0 Worker=3 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=2 model_service=False
+[2026-08-20 14:16:31.969 GPU=0 Worker=3 TP0] Init torch distributed begin.
+[2026-08-20 14:16:32.041 GPU=2 Worker=1 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=2 tp_size=1 model_service=True
+[2026-08-20 14:16:32.042 GPU=2 Worker=1 TP0] Init torch distributed begin.
+[2026-08-20 14:16:32.153 GPU=1 Worker=0 TP0] Scheduler: Worker 0 bound to gpu_scheduler_1_to_worker_0
+[2026-08-20 14:16:32.315 GPU=2 Worker=0 TP0] Scheduler: Worker 0 bound to gpu_scheduler_2_to_worker_0
+[2026-08-20 14:16:32.563 GPU=0 Worker=4 TP0] Scheduler: Worker 4 bound to gpu_scheduler_0_to_worker_4
+[2026-08-20 14:16:32.573 GPU=2 Worker=7 TP0] Scheduler: Worker 7 bound to gpu_scheduler_2_to_worker_7
+[2026-08-20 14:16:32.684 GPU=0 Worker=2 TP0] Scheduler: Worker 2 bound to gpu_scheduler_0_to_worker_2
+[2026-08-20 14:16:32.712 GPU=1 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=1 tp_size=1 model_service=True
+[2026-08-20 14:16:32.712 GPU=1 Worker=0 TP0] Init torch distributed begin.
+[2026-08-20 14:16:32.814 GPU=1 Worker=6 TP0] Scheduler: Worker 6 bound to gpu_scheduler_1_to_worker_6
+[2026-08-20 14:16:32.862 GPU=2 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=2 tp_size=1 model_service=True
+[2026-08-20 14:16:32.862 GPU=2 Worker=0 TP0] Init torch distributed begin.
+[2026-08-20 14:16:33.111 GPU=0 Worker=4 TP0] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 14:16:33.113 GPU=0 Worker=4 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=2 model_service=False
+[2026-08-20 14:16:33.113 GPU=0 Worker=4 TP0] Init torch distributed begin.
+[2026-08-20 14:16:33.124 GPU=0 Worker=1 TP0] Scheduler: Worker 1 bound to gpu_scheduler_0_to_worker_1
+[2026-08-20 14:16:33.132 GPU=1 Worker=5 TP0] Scheduler: Worker 5 bound to gpu_scheduler_1_to_worker_5
+[2026-08-20 14:16:33.202 GPU=2 Worker=7 TP0] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 14:16:33.203 GPU=2 Worker=7 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=2 tp_size=2 model_service=False
+[2026-08-20 14:16:33.203 GPU=2 Worker=7 TP0] Init torch distributed begin.
+[2026-08-20 14:16:33.224 GPU=0 Worker=2 TP0] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 14:16:33.224 GPU=0 Worker=2 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=2 model_service=False
+[2026-08-20 14:16:33.224 GPU=0 Worker=2 TP0] Init torch distributed begin.
+[2026-08-20 14:16:33.401 GPU=1 Worker=6 TP0] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 14:16:33.401 GPU=1 Worker=6 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=1 tp_size=2 model_service=False
+[2026-08-20 14:16:33.401 GPU=1 Worker=6 TP0] Init torch distributed begin.
+[2026-08-20 14:16:33.672 GPU=1 Worker=5 TP0] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 14:16:33.672 GPU=1 Worker=5 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=1 tp_size=2 model_service=False
+[2026-08-20 14:16:33.672 GPU=1 Worker=5 TP0] Init torch distributed begin.
+[2026-08-20 14:16:33.674 GPU=0 Worker=1 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=1 model_service=True
+[2026-08-20 14:16:33.674 GPU=0 Worker=1 TP0] Init torch distributed begin.
+[2026-08-20 14:16:42.684 GPU=3 Worker=4 TP1] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 14:16:42.685 GPU=3 Worker=4 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=3 tp_size=2 model_service=False
+[2026-08-20 14:16:42.685 GPU=3 Worker=4 TP1] Init torch distributed begin.
+[2026-08-20 14:16:42.880 GPU=2 Worker=3 TP1] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 14:16:42.880 GPU=2 Worker=3 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=2 tp_size=2 model_service=False
+[2026-08-20 14:16:42.880 GPU=2 Worker=3 TP1] Init torch distributed begin.
+[2026-08-20 14:16:44.032 GPU=1 Worker=2 TP1] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 14:16:44.032 GPU=1 Worker=2 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=1 tp_size=2 model_service=False
+[2026-08-20 14:16:44.032 GPU=1 Worker=2 TP1] Init torch distributed begin.
+[2026-08-20 14:16:44.363 GPU=3 Worker=7 TP1] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 14:16:44.364 GPU=3 Worker=7 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=3 tp_size=2 model_service=False
+[2026-08-20 14:16:44.364 GPU=3 Worker=7 TP1] Init torch distributed begin.
+[2026-08-20 14:16:44.581 GPU=2 Worker=5 TP1] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 14:16:44.582 GPU=2 Worker=5 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=2 tp_size=2 model_service=False
+[2026-08-20 14:16:44.582 GPU=2 Worker=5 TP1] Init torch distributed begin.
+[2026-08-20 14:16:45.201 GPU=3 Worker=6 TP1] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 14:16:45.201 GPU=3 Worker=6 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=3 tp_size=2 model_service=False
+[2026-08-20 14:16:45.201 GPU=3 Worker=6 TP1] Init torch distributed begin.
+[2026-08-20 14:16:54.105 GPU=0 Worker=0 TP0] Initialize req_to_token pool end. Takes 0.0293s. Wait time: 0.0020s. Init time: 0.0293s
+[2026-08-20 14:16:54.105 GPU=0 Worker=0 TP0] Create req_to_token_pool end. Time cost: 0.0328s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:16:57.007 GPU=0 Worker=0 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:16:57.008] Worker 0 of GPU 0 loaded in process 369764
+[2026-08-20 14:17:13.003 GPU=1 Worker=1 TP0] Initialize req_to_token pool end. Takes 0.0204s. Wait time: 0.0015s. Init time: 0.0205s
+[2026-08-20 14:17:13.004 GPU=1 Worker=1 TP0] Create req_to_token_pool end. Time cost: 0.0244s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:15.487 GPU=1 Worker=1 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:15.492] Worker 1 of GPU 1 loaded in process 369831
+[2026-08-20 14:17:16.702 GPU=3 Worker=1 TP0] Initialize req_to_token pool end. Takes 0.0178s. Wait time: 0.0004s. Init time: 0.0178s
+[2026-08-20 14:17:16.703 GPU=3 Worker=1 TP0] Create req_to_token_pool end. Time cost: 0.0197s. req_to_token_pool memory=0.25 GB
