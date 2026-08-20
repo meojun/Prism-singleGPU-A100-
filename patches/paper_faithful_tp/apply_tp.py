@@ -115,6 +115,27 @@ def main():
     # every per-GPU scheduler process compute it independently and agree.
     shutil.copyfile(HERE / "tp_slots.py", mm / "tp_slots.py")
 
+    # A model the GPU scheduler has never been told about kills it at startup:
+    #   ValueError: Model path ... not found in the profiled model info file
+    # and the traceback is then masked by GPUScheduler.__del__ raising
+    # AttributeError on a half-built object.  The 70B TP target is added here
+    # rather than in v4's copy of model_info.json, so the two patches do not
+    # fight over the same file's contents.
+    #
+    # cell_size is 2 (K and V) x layers x kv_heads x head_dim x dtype_bytes,
+    # which reproduces the committed 131072 for Llama-3.1-8B exactly.
+    # model_size is the measured on-disk safetensors total in GiB.
+    # NOTE: the upstream file's own large-model rows are not trustworthy --
+    # meta-llama/Llama-3.3-70B-Instruct is listed at model_size 17.5 GiB, which
+    # is off by ~7.5x.  Only the row added here was checked against the weights.
+    import json as _json
+    _info_path = mm / "utils/model_info.json"
+    _info = _json.loads(_info_path.read_text())
+    _extra = _json.loads((HERE / "tp_model_info.json").read_text())
+    if any(_info.get(k) != v for k, v in _extra.items()):
+        _info.update(_extra)
+        _info_path.write_text(_json.dumps(_info, indent=4))
+
     # ------------------------------------------------------------------ args
     replace(args_py,
         "    parallel_model_loading: bool = False  # PAPER-FAITHFUL-V3\n"
@@ -607,6 +628,7 @@ def main():
     # ------------------------------------------------------------- verify
     checks = {
         mm / "tp_slots.py": ["def build_slot_plan(", "def plan_for_server_args("],
+        mm / "utils/model_info.json": ["meta-llama/Llama-3.1-70B"],
         args_py: ["enable_tp_worker_pool: bool", "--enable-tp-anti-affinity"],
         server: ["plan_for_server_args as tp_slot_plan_for", "server_args.tp_size = _slot.tp_size",
                  "list(_slot.gpu_ids)"],

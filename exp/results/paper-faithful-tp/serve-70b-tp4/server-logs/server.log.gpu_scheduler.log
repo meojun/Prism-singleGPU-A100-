@@ -1,0 +1,12 @@
+[2026-08-20 07:08:25.572 GPU_Scheduler_0] starting GPU scheduler for GPU 0
+[2026-08-20 07:08:25.574 GPU_Scheduler_0] Traceback (most recent call last):
+  File "/workspace/prism-exp/prism-research/python/sglang/multi_model/scheduling/gpu/gpu_scheduler.py", line 521, in run_gpu_scheduler_process
+    gpu_scheduler = GPUScheduler(
+  File "/workspace/prism-exp/prism-research/python/sglang/multi_model/scheduling/gpu/gpu_scheduler.py", line 63, in __init__
+    model_name_to_cell_size = self._get_model_name_to_cell_size()
+  File "/workspace/prism-exp/prism-research/python/sglang/multi_model/scheduling/gpu/gpu_scheduler.py", line 436, in _get_model_name_to_cell_size
+    cell_sizes = get_model_path_to_cell_size(model_paths)
+  File "/workspace/prism-exp/prism-research/python/sglang/multi_model/utils/get_memory_pool_size.py", line 76, in get_model_path_to_cell_size
+    raise ValueError(
+ValueError: Model path meta-llama/Llama-3.1-70B not found in the profiled model info file.
+
