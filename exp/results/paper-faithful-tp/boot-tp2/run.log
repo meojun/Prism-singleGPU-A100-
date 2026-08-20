@@ -1,0 +1,53 @@
+=== TP boot test: tp_size=2 ngpu=2 workers/gpu=1 model=meta-llama/Llama-3.2-1B
+[
+  {
+    "model_name": "model_1",
+    "model_path": "meta-llama/Llama-3.2-1B",
+    "tp_size": 2,
+    "init_placements": [{"gpu_ids": [0, 1], "on": true, "max_memory_pool_size": 20.0}]
+  }
+]
+server pid=35802  log=/workspace/prism-exp/exp/results/paper-faithful-tp/boot-tp2/server-logs/stdout.log
+waiting for server.............................. -> ready
+startup: 61s
+=== sending requests
+  ok  ( 1.46s) 'The capital of France is' -> {"text":" due to have the longest street closure in the world. The whole stretch that starts from the Louvre Museum, runs across",
+  ok  ( 0.22s) 'Explain in one sentence why the ' -> {"text":" Chemical bonds which hold together all of the elements of the atmosphere – water vapour, oxygen, nitrogen, sulphur dioxi
+  ok  ( 0.23s) 'List three prime numbers:' -> {"text":" 29, 59, 101, 157 how can i compare three primes?\n\n407\n\nPrime numbers are integers","meta_info":{"prompt_tokens":6,"c
+  ok  ( 0.21s) 'Translate to French: good mornin' -> {"text":" I don't think, the online tour games with friends, — it's my bf who's on. Published on ","meta_info":{"prompt_tokens":8,
+=== requests: 4 ok / 0 failed
+=== rank -> GPU, straight from the engines' own logs
+[2026-08-20 06:40:08.304 GPU=0 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=1 model_service=True
+[2026-08-20 06:40:08.304 GPU=0 Worker=1 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=2 model_service=False
+[2026-08-20 06:40:08.304 GPU=1 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=1 tp_size=1 model_service=True
+[2026-08-20 06:40:15.892 GPU=1 Worker=1 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=1 tp_size=2 model_service=False
+[2026-08-20 06:43:53.273 GPU=0 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=1 model_service=True
+[2026-08-20 06:43:53.464 GPU=0 Worker=1 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=2 model_service=False
+[2026-08-20 06:43:53.630 GPU=1 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=1 tp_size=1 model_service=True
+[2026-08-20 06:44:00.822 GPU=1 Worker=1 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=1 tp_size=2 model_service=False
+[2026-08-20 06:53:02.653 GPU=0 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=1 model_service=True
+[2026-08-20 06:53:03.038 GPU=1 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=1 tp_size=1 model_service=True
+[2026-08-20 06:53:03.053 GPU=0 Worker=1 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=2 model_service=False
+[2026-08-20 06:53:11.070 GPU=1 Worker=1 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=1 tp_size=2 model_service=False
+=== slot plan
+[2026-08-20 06:39:59.713] [PAPER-TP] slot plan: {"num_gpus": 2, "workers_per_gpu": 1, "slots": [{"worker_id": 0, "tp_size": 1, "gpu_ids": [0], "owner_gpu": 0}, {"worker_id": 0, "tp_size": 1, "gpu_ids": [1], "owner_gpu": 1}, {"worker_id": 1, "tp_size": 2, "gpu_ids": [0, 1], "owner_gpu": 0}], "slots_per_gpu": {"0": [0, 1], "1": [0, 1]}}
+=== worker pools
+[2026-08-20 06:40:28.250 GPU_Scheduler_0] [PAPER-TP] WorkerPool gpu=0 owned=[0, 1] shadow=[] {0: 1, 1: 2}
+[2026-08-20 06:40:37.551 GPU_Scheduler_1] [PAPER-TP] WorkerPool gpu=1 owned=[0] shadow=[1] {0: 1, 1: 2}
+[2026-08-20 06:44:12.338 GPU_Scheduler_0] [PAPER-TP] WorkerPool gpu=0 owned=[0, 1] shadow=[] {0: 1, 1: 2}
+[2026-08-20 06:44:20.325 GPU_Scheduler_1] [PAPER-TP] WorkerPool gpu=1 owned=[0] shadow=[1] {0: 1, 1: 2}
+[2026-08-20 06:53:22.819 GPU_Scheduler_0] [PAPER-TP] WorkerPool gpu=0 owned=[0, 1] shadow=[] {0: 1, 1: 2}
+[2026-08-20 06:53:31.677 GPU_Scheduler_1] [PAPER-TP] WorkerPool gpu=1 owned=[0] shadow=[1] {0: 1, 1: 2}
+# TP=2 validation: PASS
+
+- [PASS] server_started
+- [PASS] tp_size_2_configured
+- [PASS] both_gpus_in_placement
+- [PASS] ranks_observed_on_distinct_gpus
+- [PASS] nccl_mentioned_in_logs
+- [PASS] inference_succeeded
+- [PASS] no_runtime_errors
+- [PASS] load_phase_exit_zero
+
+startup: 61.0s
+TP rank -> GPU: {'0': [0, 1], '1': [1]}

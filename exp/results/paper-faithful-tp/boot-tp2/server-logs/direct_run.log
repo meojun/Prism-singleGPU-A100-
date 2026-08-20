@@ -1,0 +1,471 @@
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+[ModelConfig(model_name='model_1', model_path='meta-llama/Llama-3.2-1B', tokenizer_path='meta-llama/Llama-3.2-1B', tp_size=2, init_placements=[{'gpu_ids': [0, 1], 'on': True, 'max_memory_pool_size': 20.0}])]
+Initializing torch distributed...
+Torch distributed initialized.
+Loading 1 shared models to cpu...
+[2026-08-20 06:39:46.959] Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.4.0+cu121).
+[2026-08-20 06:39:46.979] Ignore import error when loading sglang.srt.models.llava. Failed to import transformers.models.clip.modeling_clip because of the following error (look up to see its traceback):
+module 'torch' has no attribute 'int1'
+[2026-08-20 06:39:46.981] Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.4.0+cu121).
+[2026-08-20 06:39:46.982] Ignore import error when loading sglang.srt.models.llavavid. Failed to import transformers.models.clip.modeling_clip because of the following error (look up to see its traceback):
+module 'torch' has no attribute 'int1'
+[2026-08-20 06:39:46.986] Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.4.0+cu121).
+[2026-08-20 06:39:46.987] Ignore import error when loading sglang.srt.models.mllama. Failed to import transformers.modeling_utils because of the following error (look up to see its traceback):
+module 'torch' has no attribute 'int1'
+[2026-08-20 06:39:47.062] Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.4.0+cu121).
+[2026-08-20 06:39:47.063] Ignore import error when loading sglang.srt.models.yivl. Failed to import transformers.models.clip.modeling_clip because of the following error (look up to see its traceback):
+module 'torch' has no attribute 'int1'
+INFO 08-20 06:39:47 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-20 06:39:47 weight_utils.py:288] No model.safetensors.index.json found in remote.
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.06s/it]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.06s/it]
+
+INFO 08-20 06:39:49 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-20 06:39:50 weight_utils.py:288] No model.safetensors.index.json found in remote.
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  1.26it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  1.26it/s]
+
+Shared models loaded in 5.87 seconds.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+[2026-08-20 06:39:59.711 Model_Service_0] [PAPER-LOAD-V4] peer access: {'0->1': True, '1->0': True} p2p=False
+Model service worker 0 started.
+[2026-08-20 06:39:59.713] [PAPER-TP] slot plan: {"num_gpus": 2, "workers_per_gpu": 1, "slots": [{"worker_id": 0, "tp_size": 1, "gpu_ids": [0], "owner_gpu": 0}, {"worker_id": 0, "tp_size": 1, "gpu_ids": [1], "owner_gpu": 1}, {"worker_id": 1, "tp_size": 2, "gpu_ids": [0, 1], "owner_gpu": 0}], "slots_per_gpu": {"0": [0, 1], "1": [0, 1]}}
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+[2026-08-20 06:40:04.718 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:40:08.152 GPU=1 Worker=0 TP0] Scheduler: Worker 0 bound to gpu_scheduler_1_to_worker_0
+[2026-08-20 06:40:08.156 GPU=0 Worker=0 TP0] Scheduler: Worker 0 bound to gpu_scheduler_0_to_worker_0
+[2026-08-20 06:40:08.159 GPU=0 Worker=1 TP0] Scheduler: Worker 1 bound to gpu_scheduler_0_to_worker_1
+[2026-08-20 06:40:08.304 GPU=0 Worker=1 TP0] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 06:40:08.304 GPU=0 Worker=1 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=2 model_service=False
+[2026-08-20 06:40:08.304 GPU=1 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=1 tp_size=1 model_service=True
+[2026-08-20 06:40:08.304 GPU=0 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=1 model_service=True
+[2026-08-20 06:40:08.304 GPU=0 Worker=1 TP0] Init torch distributed begin.
+[2026-08-20 06:40:08.304 GPU=1 Worker=0 TP0] Init torch distributed begin.
+[2026-08-20 06:40:08.304 GPU=0 Worker=0 TP0] Init torch distributed begin.
+[2026-08-20 06:40:09.978 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:40:10.697 GPU=0 Worker=0 TP0] Initialize req_to_token pool end. Takes 0.0082s. Wait time: 0.0001s. Init time: 0.0083s
+[2026-08-20 06:40:10.697 GPU=0 Worker=0 TP0] Create req_to_token_pool end. Time cost: 0.0090s. req_to_token_pool memory=0.25 GB
+[2026-08-20 06:40:10.704 GPU=1 Worker=0 TP0] Initialize req_to_token pool end. Takes 0.0086s. Wait time: 0.0001s. Init time: 0.0086s
+[2026-08-20 06:40:10.704 GPU=1 Worker=0 TP0] Create req_to_token_pool end. Time cost: 0.0092s. req_to_token_pool memory=0.25 GB
+[2026-08-20 06:40:11.263 GPU=0 Worker=0 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 06:40:11.264] Worker 0 of GPU 0 loaded in process 29417
+[2026-08-20 06:40:11.331 GPU=1 Worker=0 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 06:40:11.332] Worker 0 of GPU 1 loaded in process 29415
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+[2026-08-20 06:40:15.217 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:40:15.891 GPU=1 Worker=1 TP1] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 06:40:15.892 GPU=1 Worker=1 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=1 tp_size=2 model_service=False
+[2026-08-20 06:40:15.892 GPU=1 Worker=1 TP1] Init torch distributed begin.
+[2026-08-20 06:40:19.968 GPU=1 Worker=1 TP1] Initialize req_to_token pool end. Takes 0.0007s. Wait time: 0.0006s. Init time: 0.0007s
+[2026-08-20 06:40:19.969 GPU=1 Worker=1 TP1] Create req_to_token_pool end. Time cost: 0.0020s. req_to_token_pool memory=0.25 GB
+[2026-08-20 06:40:20.006 GPU=0 Worker=1 TP0] Initialize req_to_token pool end. Takes 0.0009s. Wait time: 0.0007s. Init time: 0.0009s
+[2026-08-20 06:40:20.007 GPU=0 Worker=1 TP0] Create req_to_token_pool end. Time cost: 0.0025s. req_to_token_pool memory=0.25 GB
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+[2026-08-20 06:40:20.452 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:40:20.599 GPU=0 Worker=1 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 06:40:20.599 GPU=1 Worker=1 TP1] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 06:40:20.600] Worker 1 of GPU 0 loaded in process 29888
+[2026-08-20 06:40:20.601] All 3 engines prepared in 20.89 seconds.
+Controller process started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+[2026-08-20 06:40:25.694 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:40:28.248 GPU_Scheduler_0] starting GPU scheduler for GPU 0
+[2026-08-20 06:40:28.250 GPU_Scheduler_0] Model states init: {'model_1': 'deactivated'}
+[2026-08-20 06:40:28.250 GPU_Scheduler_0] [PAPER-TP] WorkerPool gpu=0 owned=[0, 1] shadow=[] {0: 1, 1: 2}
+[2026-08-20 06:40:28.266 GlobalController] All assigned GPU ids: [0, 1]
+[2026-08-20 06:40:28.295 GPU_Scheduler_0] [PAPER-TP] activating model_1 tp_size=2 on gpus=[0, 1] slot=1 (owner gpu=0)
+[2026-08-20 06:40:28.295 GPU_Scheduler_0] Assign worker 1 to model_1. Current model_to_worker: {'model_1': 1}
+[2026-08-20 06:40:28.296 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.296 GPU=0 Worker=1 TP0] Scheduler: Received 1 requests from gpu scheduler
+[2026-08-20 06:40:28.296 GPU=0 Worker=1 TP0] Processing activate request
+[2026-08-20 06:40:28.296 GPU=0 Worker=1 TP0] Scheduler receives the activate request with rid: 7593dc2f342f410ca652e8679577cdc3
+[2026-08-20 06:40:28.296 GPU=1 Worker=1 TP1] Scheduler: Received 1 requests from gpu scheduler
+[2026-08-20 06:40:28.297 GPU=1 Worker=1 TP1] Processing activate request
+[2026-08-20 06:40:28.297 GPU=1 Worker=1 TP1] Scheduler receives the activate request with rid: 7593dc2f342f410ca652e8679577cdc3
+[2026-08-20 06:40:28.305 GlobalController] Total single GPU memory: 79.25 GB
+[2026-08-20 06:40:28.306 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.317 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.327 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.338 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.348 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.358 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.369 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.379 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.389 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.400 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.410 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.421 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.431 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.441 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.452 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.462 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.472 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.483 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.493 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.503 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.513 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.524 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.534 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.545 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.555 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.565 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.576 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.586 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.596 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.607 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.617 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.628 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.638 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.648 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.654 GlobalController] GPU 0, memory: 74.86 GB
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-20 06:40:28.659 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.669 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.680 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.690 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.700 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.711 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.721 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.731 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.742 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.752 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.763 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.773 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.783 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.794 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.804 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.814 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.825 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.835 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.845 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.856 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.866 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.869 GPU=1 Worker=1 TP1] Load GPU model end. Time cost: 0.5656s. Current available memory: 74.65 GB, model GPU memory usage: 1.40 GB
+Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_1_1_root
+[2026-08-20 06:40:28.877 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+Started page preallocation thread
+[2026-08-20 06:40:28.877 GPU=1 Worker=1 TP1] Elastic memory: kv_cache_manager_v0 initialized
+[2026-08-20 06:40:28.887 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.897 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.907 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.918 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.927 GPU=0 Worker=1 TP0] Load GPU model end. Time cost: 0.6280s. Current available memory: 74.26 GB, model GPU memory usage: 1.40 GB
+[2026-08-20 06:40:28.928 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_0_1_root
+Started page preallocation thread
+[2026-08-20 06:40:28.935 GPU=0 Worker=1 TP0] Elastic memory: kv_cache_manager_v0 initialized
+[2026-08-20 06:40:28.939 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.949 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.959 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.969 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.980 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:28.990 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.000 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.010 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.021 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.031 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.041 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.050 GlobalController] GPU 1, memory: 73.12 GB
+[2026-08-20 06:40:29.050 GlobalController] Time for checking GPU memory: 0.7448s
+[2026-08-20 06:40:29.051 GlobalController] Model weight information loaded successfully
+[2026-08-20 06:40:29.051 GlobalController] Using policy: SimpleGlobalPolicy
+[2026-08-20 06:40:29.051 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.051 GlobalController] Starting schedule statistic thread
+[2026-08-20 06:40:29.052 GlobalController] Waiting for the first generate request to start model scheduling
+[2026-08-20 06:40:29.052 GlobalController] Schedule statistics will be logged to /workspace/prism-exp/prism-research/benchmark/multi-model/benchmark/multi-model/stats_2026-08-20T06:40:29.052219.log
+[2026-08-20 06:40:29.052 GlobalController] Loading model weight information for statistics
+[2026-08-20 06:40:29.052 GlobalController] Loaded model weights from /workspace/prism-exp/prism-research/python/sglang/multi_model/scheduling/../utils/model_info.json
+[2026-08-20 06:40:29.053 GlobalController] Loading model config and mapping weights
+[2026-08-20 06:40:29.053 GlobalController] Mapped 1 models to their weights
+[2026-08-20 06:40:29.053 GlobalController] Set GPU total memory: {0: 80, 1: 80}
+[2026-08-20 06:40:29.062 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.072 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.082 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.092 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.103 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.113 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.123 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.133 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.143 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.154 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.164 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.174 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.185 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.195 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.205 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating'}
+[2026-08-20 06:40:29.208 GPU=1 Worker=1 TP1] Init attention backend end. Time cost: 0.3309s
+[2026-08-20 06:40:29.209 GPU=1 Worker=1 TP1] Activate model model_1 (meta-llama/Llama-3.2-1B) time cost: 0.9119s.
+[2026-08-20 06:40:29.209 GPU=0 Worker 1 (model_1) TP=1] Model runner activated
+[2026-08-20 06:40:29.209 GPU=0 Worker 1 (model_1) TP=1] max_total_num_tokens=1638400, max_prefill_tokens=16384, max_running_requests=513, 
+[2026-08-20 06:40:29.209 GPU=0 Worker 1 (model_1) TP=1] Memory pool updated
+[2026-08-20 06:40:29.209 GPU=0 Worker 1 (model_1) TP=1] Waiting requests restored
+[2026-08-20 06:40:29.209 GPU=0 Worker 1 (model_1) TP=1] Scheduler activated. Activation takes 0.91 s
+[2026-08-20 06:40:29.209 GPU=0 Worker=1 TP0] Init attention backend end. Time cost: 0.2736s
+[2026-08-20 06:40:29.209 GPU=0 Worker=1 TP0] Activate model model_1 (meta-llama/Llama-3.2-1B) time cost: 0.9128s.
+[2026-08-20 06:40:29.209 GPU=0 Worker 1 (model_1) TP=0] Model runner activated
+[2026-08-20 06:40:29.209 GPU=0 Worker 1 (model_1) TP=0] max_total_num_tokens=1638400, max_prefill_tokens=16384, max_running_requests=513, 
+[2026-08-20 06:40:29.210 GPU=0 Worker 1 (model_1) TP=0] Memory pool updated
+[2026-08-20 06:40:29.210 GPU=0 Worker 1 (model_1) TP=0] Waiting requests restored
+[2026-08-20 06:40:29.210 GPU=0 Worker 1 (model_1) TP=0] Scheduler activated. Activation takes 0.91 s
+[2026-08-20 06:40:29.211] Detokenizer: Received activate request for model_1
+[2026-08-20 06:40:29.216 GPU_Scheduler_0] Model model_1 (instance 0) activation succeeded on GPU 0
+[2026-08-20 06:40:29.216] GPU scheduler process started for GPU 0
+[2026-08-20 06:40:29.218 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:30.225 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:30.958 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:40:31.228 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:32.231 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:33.233 GPU_Scheduler_0] net_available: inf, queue_len: 0
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+[2026-08-20 06:40:34.218 GPU_Scheduler_0] [V5-LOOP] {"iters": 481, "t_mem": 0.007362226955592632, "t_redis": 0.14302795100957155, "t_admit": 0.0049456998240202665, "t_send": 0.0005167224444448948, "t_iter": 0.15585260023362935, "admitted": 0, "iter_max": 0.0017706351354718208, "gpu_id": 0, "window_s": 5.000695705413818}
+[2026-08-20 06:40:34.239 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:35.241 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:36.182 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:40:36.244 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:37.252 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:37.548 GPU_Scheduler_1] starting GPU scheduler for GPU 1
+[2026-08-20 06:40:37.551 GPU_Scheduler_1] Model states init: {'model_1': 'deactivated'}
+[2026-08-20 06:40:37.551 GPU_Scheduler_1] [PAPER-TP] WorkerPool gpu=1 owned=[0] shadow=[1] {0: 1, 1: 2}
+[2026-08-20 06:40:37.596] GPU scheduler process started for GPU 1
+[2026-08-20 06:40:37.597 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:37.620] Waiting for the server to be ready for model model_1...
+[2026-08-20 06:40:37] INFO:     Started server process [28986]
+[2026-08-20 06:40:37] INFO:     Waiting for application startup.
+[2026-08-20 06:40:37] INFO:     Application startup complete.
+[2026-08-20 06:40:37] INFO:     Uvicorn running on http://127.0.0.1:41540 (Press CTRL+C to quit)
+[2026-08-20 06:40:38.254 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:38.601 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:38] INFO:     127.0.0.1:53582 - "GET /get_model_names HTTP/1.1" 200 OK
+[2026-08-20 06:40:38.631] State not found for received <class 'sglang.srt.managers.io_struct.ActivateReqOutput'> with rid 7593dc2f342f410ca652e8679577cdc3
+[2026-08-20 06:40:38.637 GPU_Scheduler_0] Admitted 1 requests for model_1
+[2026-08-20 06:40:38.638 GPU=0 Worker 1 (model_1) TP=0] Received 1 generation requests
+[2026-08-20 06:40:38.639 GPU=0 Worker 1 (model_1) TP=1] Received 1 generation requests
+[2026-08-20 06:40:38.640 GPU=0 Worker 1 (model_1) TP=0] Prefill batch. #new-seq: 1, #new-token: 7, #cached-token: 0, cache hit rate: 0.00%, token usage: 0.01, #running-req: 0, #queue-req: 0
+[2026-08-20 06:40:38.676 GlobalController] model_1: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: N/A, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-20 06:40:39.224 GPU_Scheduler_0] [V5-LOOP] {"iters": 484, "t_mem": 0.006407021079212427, "t_redis": 0.113148472039029, "t_admit": 0.0038954901974648237, "t_send": 0.0008620328735560179, "t_iter": 0.12431301618926227, "admitted": 1, "iter_max": 0.000758256996050477, "gpu_id": 0, "window_s": 5.005878210067749}
+[2026-08-20 06:40:39.255 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:39.606 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:40.258 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:40] INFO:     127.0.0.1:53586 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-20 06:40:40.284] The server for model_1 is fired up and ready to roll!
+[2026-08-20 06:40:40.609 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:41.266 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:41.404 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:40:41.609 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:42.277 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:42.600 GPU_Scheduler_1] [V5-LOOP] {"iters": 491, "t_mem": 0.01517556607723236, "t_redis": 0.0038766919169574976, "t_admit": 0.011475767008960247, "t_send": 0.0008784409146755934, "t_iter": 0.0314064659178257, "admitted": 0, "iter_max": 0.001176981022581458, "gpu_id": 1, "window_s": 5.002357721328735}
+[2026-08-20 06:40:42.611 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:43.280 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:43.621 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:44.230 GPU_Scheduler_0] [V5-LOOP] {"iters": 482, "t_mem": 0.00797330867499113, "t_redis": 0.12925766850821674, "t_admit": 0.005036977585405111, "t_send": 0.0005238954909145832, "t_iter": 0.14279185025952756, "admitted": 0, "iter_max": 0.0044522390235215425, "gpu_id": 0, "window_s": 5.006204605102539}
+[2026-08-20 06:40:44.284 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:44.621 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:45.284 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:45.623 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:46.286 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:46.626 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:46.646 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:40:47.287 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:47.608 GPU_Scheduler_1] [V5-LOOP] {"iters": 493, "t_mem": 0.011998413363471627, "t_redis": 0.0024303037207573652, "t_admit": 0.009520082734525204, "t_send": 0.0006067119538784027, "t_iter": 0.0245555117726326, "admitted": 0, "iter_max": 0.001958936918526888, "gpu_id": 1, "window_s": 5.007587432861328}
+[2026-08-20 06:40:47.629 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:48.290 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:48.632 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:49.240 GPU_Scheduler_0] [V5-LOOP] {"iters": 471, "t_mem": 0.012305802898481488, "t_redis": 0.2318063594866544, "t_admit": 0.007485205307602882, "t_send": 0.0009530435781925917, "t_iter": 0.25255041127093136, "admitted": 0, "iter_max": 0.001128060044720769, "gpu_id": 0, "window_s": 5.008952617645264}
+[2026-08-20 06:40:49.293 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:49.634 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:50.294 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:50.636 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:51.297 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:51.639 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:51.888 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:40:52.297 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:52.611 GPU_Scheduler_1] [V5-LOOP] {"iters": 494, "t_mem": 0.00804747873917222, "t_redis": 0.0015075404662638903, "t_admit": 0.005296263145282865, "t_send": 0.00042489287443459034, "t_iter": 0.015276175225153565, "admitted": 0, "iter_max": 0.00037052296102046967, "gpu_id": 1, "window_s": 5.002273321151733}
+[2026-08-20 06:40:52.642 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:53.308 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:53.645 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:54.245 GPU_Scheduler_0] [V5-LOOP] {"iters": 470, "t_mem": 0.011800412554293871, "t_redis": 0.23860029433853924, "t_admit": 0.007436077110469341, "t_send": 0.0009651810396462679, "t_iter": 0.2588019650429487, "admitted": 0, "iter_max": 0.0012385710142552853, "gpu_id": 0, "window_s": 5.004788160324097}
+[2026-08-20 06:40:54.309 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:54.654 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:55.318 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:55.654 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:56.323 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:56.664 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:57.114 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:40:57.328 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:57.612 GPU_Scheduler_1] [V5-LOOP] {"iters": 491, "t_mem": 0.015327274100854993, "t_redis": 0.00336248567327857, "t_admit": 0.010046951239928603, "t_send": 0.000870764721184969, "t_iter": 0.029607475735247135, "admitted": 0, "iter_max": 0.0006344751454889774, "gpu_id": 1, "window_s": 5.000659704208374}
+[2026-08-20 06:40:57.674 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:58.332 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:58.684 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:40:59.251 GPU_Scheduler_0] [V5-LOOP] {"iters": 469, "t_mem": 0.011554931057617068, "t_redis": 0.24851542944088578, "t_admit": 0.007041814969852567, "t_send": 0.0009426169563084841, "t_iter": 0.2680547924246639, "admitted": 0, "iter_max": 0.0010482189245522022, "gpu_id": 0, "window_s": 5.005285263061523}
+[2026-08-20 06:40:59.336 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:40:59.684 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:00.337 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:00.684 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:01.341 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:01.684 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:02.348 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:02.370 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:41:02.623 GPU_Scheduler_1] [V5-LOOP] {"iters": 491, "t_mem": 0.017459983937442303, "t_redis": 0.00391667359508574, "t_admit": 0.01085174479521811, "t_send": 0.0010170217137783766, "t_iter": 0.03324542404152453, "admitted": 0, "iter_max": 0.0005520649719983339, "gpu_id": 1, "window_s": 5.01027250289917}
+[2026-08-20 06:41:02.685 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:03.349 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:03.685 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:04.257 GPU_Scheduler_0] [V5-LOOP] {"iters": 470, "t_mem": 0.011617515236139297, "t_redis": 0.23944876319728792, "t_admit": 0.0070357429794967175, "t_send": 0.0009588273242115974, "t_iter": 0.25906084873713553, "admitted": 0, "iter_max": 0.0018285249825567007, "gpu_id": 0, "window_s": 5.005350828170776}
+[2026-08-20 06:41:04.353 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:04.685 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:05.354 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:05.695 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:06.356 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:06.705 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:07.356 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:07.601 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:41:07.633 GPU_Scheduler_1] [V5-LOOP] {"iters": 491, "t_mem": 0.01759113767184317, "t_redis": 0.003974542953073978, "t_admit": 0.010613720631226897, "t_send": 0.0010100456420332193, "t_iter": 0.033189446898177266, "admitted": 0, "iter_max": 0.0004717539995908737, "gpu_id": 1, "window_s": 5.0095534324646}
+[2026-08-20 06:41:07.705 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:08.357 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:08.715 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:09.264 GPU_Scheduler_0] [V5-LOOP] {"iters": 470, "t_mem": 0.011672965018078685, "t_redis": 0.24170886888168752, "t_admit": 0.006782435346394777, "t_send": 0.000962595921009779, "t_iter": 0.26112686516717076, "admitted": 0, "iter_max": 0.0010201290715485811, "gpu_id": 0, "window_s": 5.006436824798584}
+[2026-08-20 06:41:09.360 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:09.724 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:10.361 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:10.734 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:11.364 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:11.744 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:12.366 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:12.642 GPU_Scheduler_1] [V5-LOOP] {"iters": 491, "t_mem": 0.017418964533135295, "t_redis": 0.003932858584448695, "t_admit": 0.010852763429284096, "t_send": 0.0010346164926886559, "t_iter": 0.03323920303955674, "admitted": 0, "iter_max": 0.0005918650422245264, "gpu_id": 1, "window_s": 5.008325576782227}
+[2026-08-20 06:41:12.745 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:12.834 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:41:13.368 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:13.755 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:14.264 GPU_Scheduler_0] [V5-LOOP] {"iters": 469, "t_mem": 0.011689297622069716, "t_redis": 0.24516071961261332, "t_admit": 0.0070867466274648905, "t_send": 0.0009795424994081259, "t_iter": 0.26491630636155605, "admitted": 0, "iter_max": 0.0018924970645457506, "gpu_id": 0, "window_s": 5.000105381011963}
+[2026-08-20 06:41:14.371 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:14.763 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:15.373 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:15.773 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:16.375 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:16.782 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:17.376 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:17.649 GPU_Scheduler_1] [V5-LOOP] {"iters": 491, "t_mem": 0.016813608817756176, "t_redis": 0.0038196570239961147, "t_admit": 0.010517931776121259, "t_send": 0.0009730090387165546, "t_iter": 0.032124206656590104, "admitted": 0, "iter_max": 0.0005620850715786219, "gpu_id": 1, "window_s": 5.006318092346191}
+[2026-08-20 06:41:17.782 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:18.055 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:41:18.379 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:18.792 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:19.274 GPU_Scheduler_0] [V5-LOOP] {"iters": 470, "t_mem": 0.011648925486952066, "t_redis": 0.24324288126081228, "t_admit": 0.006824866635724902, "t_send": 0.0009625237435102463, "t_iter": 0.2626791971269995, "admitted": 0, "iter_max": 0.0010198091622442007, "gpu_id": 0, "window_s": 5.008974552154541}
+[2026-08-20 06:41:19.380 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:19.801 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:20.382 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:20.811 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:21.383 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:21.821 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:22.385 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:22.658 GPU_Scheduler_1] [V5-LOOP] {"iters": 491, "t_mem": 0.017403744626790285, "t_redis": 0.003957116277888417, "t_admit": 0.01055950322188437, "t_send": 0.0010295824613422155, "t_iter": 0.03294994658790529, "admitted": 0, "iter_max": 0.0005401549860835075, "gpu_id": 1, "window_s": 5.008236408233643}
+[2026-08-20 06:41:22.821 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:23.286 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:41:23.386 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:23.831 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:24.282 GPU_Scheduler_0] [V5-LOOP] {"iters": 470, "t_mem": 0.011523510795086622, "t_redis": 0.2432888422627002, "t_admit": 0.006772799650207162, "t_send": 0.0009648911654949188, "t_iter": 0.2625500438734889, "admitted": 0, "iter_max": 0.0009287281427532434, "gpu_id": 0, "window_s": 5.008046865463257}
+[2026-08-20 06:41:24.389 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:24.831 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:25.393 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:25.831 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:26.397 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:26.832 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:27.398 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:27.658 GPU_Scheduler_1] [V5-LOOP] {"iters": 490, "t_mem": 0.017606830457225442, "t_redis": 0.003949696896597743, "t_admit": 0.01056363177485764, "t_send": 0.0010039438493549824, "t_iter": 0.03312410297803581, "admitted": 0, "iter_max": 0.0005668150261044502, "gpu_id": 1, "window_s": 5.000061988830566}
+[2026-08-20 06:41:27.832 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:28.399 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:28.509 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:41:28.832 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:29.283 GPU_Scheduler_0] [V5-LOOP] {"iters": 469, "t_mem": 0.01194041408598423, "t_redis": 0.2444502569269389, "t_admit": 0.007104665273800492, "t_send": 0.0009656241163611412, "t_iter": 0.26446096040308475, "admitted": 0, "iter_max": 0.001098009990528226, "gpu_id": 0, "window_s": 5.000537872314453}
+[2026-08-20 06:41:29.401 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:29.832 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:30.401 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:30.841 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:31.404 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:31.851 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:32.407 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:32.668 GPU_Scheduler_1] [V5-LOOP] {"iters": 491, "t_mem": 0.01744644157588482, "t_redis": 0.00394065584987402, "t_admit": 0.010707646375522017, "t_send": 0.001007121056318283, "t_iter": 0.03310186485759914, "admitted": 0, "iter_max": 0.0005705549847334623, "gpu_id": 1, "window_s": 5.009556770324707}
+[2026-08-20 06:41:32.852 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:33.411 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:33.728 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:41:33.862 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:34.288 GPU_Scheduler_0] [V5-LOOP] {"iters": 469, "t_mem": 0.012669971911236644, "t_redis": 0.24786966806277633, "t_admit": 0.007003703387454152, "t_send": 0.0010026346426457167, "t_iter": 0.26854597800411284, "admitted": 0, "iter_max": 0.0009642280638217926, "gpu_id": 0, "window_s": 5.004338979721069}
+[2026-08-20 06:41:34.416 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:34.870 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:35.418 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:35.874 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:36.425 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:36.875 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:37.425 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:37.671 GPU_Scheduler_1] [V5-LOOP] {"iters": 491, "t_mem": 0.01566548296250403, "t_redis": 0.0036728214472532272, "t_admit": 0.009795501828193665, "t_send": 0.0009357181843370199, "t_iter": 0.03006952442228794, "admitted": 0, "iter_max": 0.0005867048166692257, "gpu_id": 1, "window_s": 5.0026397705078125}
+[2026-08-20 06:41:37.875 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:38.426 GPU_Scheduler_0] net_available: inf, queue_len: 0
+[2026-08-20 06:41:38.885 GPU_Scheduler_1] net_available: inf, queue_len: 0
+[2026-08-20 06:41:38.943 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-20 06:41:38.959 GPU_Scheduler_1] Received signal to shutdown
+[2026-08-20 06:41:38.967] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 06:41:38.968 GPU_Scheduler_1] Cleaning up GPUScheduler GPU 1 ZMQ sockets and IPC files
+[2026-08-20 06:41:38.968] Removed IPC file: /tmp/tmpnb70hli_
+[2026-08-20 06:41:38.968] DetokenizerManager cleanup completed
+[2026-08-20 06:41:38.968 GPU_Scheduler_1] Removed IPC file: request_handler_to_gpu_scheduler_1
+[2026-08-20 06:41:38.968 GPU_Scheduler_1] GPUScheduler GPU 1 cleanup completed
+[2026-08-20 06:41:38.968 GPU_Scheduler_1] Cleaning up WorkerPool GPU 1 ZMQ sockets and IPC files
+[2026-08-20 06:41:38.969 GPU_Scheduler_1] Removed IPC file: gpu_scheduler_1_to_worker_0
+[2026-08-20 06:41:38.969 GPU_Scheduler_1] WorkerPool GPU 1 cleanup completed
+[2026-08-20 06:41:38.971 GlobalController] Received signal to shutdown
+[2026-08-20 06:41:38.971 GPU=0 Worker 1 (model_1) TP=0] Successfully unlinked shared memory: ipc_0_1_root
+[2026-08-20 06:41:38.976 GPU_Scheduler_0] Received signal to shutdown
+[2026-08-20 06:41:38.980 GPU=0 Worker 1 (model_1) TP=1] Successfully unlinked shared memory: ipc_1_1_root
+[2026-08-20 06:41:38.982] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 06:41:38.982] Removed IPC file: /tmp/tmpk1pj_i4e
+[2026-08-20 06:41:38.982] DetokenizerManager cleanup completed
+[2026-08-20 06:41:38.988 GPU_Scheduler_0] Cleaning up GPUScheduler GPU 0 ZMQ sockets and IPC files
+[2026-08-20 06:41:38.988 GPU_Scheduler_0] Removed IPC file: request_handler_to_gpu_scheduler_0
+[2026-08-20 06:41:38.988 GPU_Scheduler_0] GPUScheduler GPU 0 cleanup completed
+[2026-08-20 06:41:38.988 GPU_Scheduler_0] Cleaning up WorkerPool GPU 0 ZMQ sockets and IPC files
+[2026-08-20 06:41:38.989 GPU_Scheduler_0] Removed IPC file: gpu_scheduler_0_to_worker_0
+[2026-08-20 06:41:38.989 GPU_Scheduler_0] WorkerPool GPU 0 cleanup completed
+[2026-08-20 06:41:38.992 GPU=1 Worker=0 TP0] Successfully unlinked shared memory: ipc_1_0_root
+[2026-08-20 06:41:39.028 GPU=0 Worker=0 TP0] Successfully unlinked shared memory: ipc_0_0_root
+[2026-08-20 06:41:39.030] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 06:41:39.030] Removed IPC file: /tmp/tmpwvn_uqln
+[2026-08-20 06:41:39.030] DetokenizerManager cleanup completed
+[2026-08-20 06:41:39.044 GPU_Scheduler_0] Cleaning up GPUScheduler GPU 0 ZMQ sockets and IPC files
+[2026-08-20 06:41:39.044 GPU_Scheduler_0] GPUScheduler GPU 0 cleanup completed
+[2026-08-20 06:41:39.044 GPU_Scheduler_0] Cleaning up WorkerPool GPU 0 ZMQ sockets and IPC files
+[2026-08-20 06:41:39.044 GPU_Scheduler_0] WorkerPool GPU 0 cleanup completed
+[2026-08-20 06:41:39] INFO:     Shutting down
+[2026-08-20 06:41:39] INFO:     Waiting for application shutdown.
+[2026-08-20 06:41:39] INFO:     Application shutdown complete.
+[2026-08-20 06:41:39] INFO:     Finished server process [28986]
+[2026-08-20 06:41:39.318] Cleaning up RequestHandlerWorkerPool ZMQ sockets and IPC files
+[2026-08-20 06:41:39.319] Removed IPC file: /tmp/tmps_h99nvp
+[2026-08-20 06:41:39.319] RequestHandlerWorkerPool cleanup completed
+[2026-08-20 06:41:39.319] Error during cleanup: asyncio.run() cannot be called from a running event loop
+/workspace/prism-exp/prism-research/python/sglang/multi_model/request_handler_worker_pool.py:238: RuntimeWarning: coroutine 'AsyncRedisClient.close' was never awaited
+  logger.error(f"Error during cleanup: {e}")
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+W0820 06:41:39.359000 140315004364480 torch/_inductor/compile_worker/subproc_pool.py:126] SubprocPool unclean exit
+[2026-08-20 06:41:39.395 GPU_Scheduler_1] Cleaning up GPUScheduler GPU 1 ZMQ sockets and IPC files
+[2026-08-20 06:41:39.395 GPU_Scheduler_1] GPUScheduler GPU 1 cleanup completed
+[2026-08-20 06:41:39.395 GPU_Scheduler_1] Cleaning up WorkerPool GPU 1 ZMQ sockets and IPC files
+[2026-08-20 06:41:39.395 GPU_Scheduler_1] WorkerPool GPU 1 cleanup completed
+[rank0]:W0820 06:41:42.118000 140557561886400 torch/_inductor/compile_worker/subproc_pool.py:126] SubprocPool unclean exit
+[rank1]:W0820 06:41:42.165000 140000076691136 torch/_inductor/compile_worker/subproc_pool.py:126] SubprocPool unclean exit

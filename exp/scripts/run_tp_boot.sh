@@ -19,7 +19,9 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 cd /workspace/prism-exp
 source "$SCRIPT_DIR/env.sh"
 
-OUT=${1:?outdir required}
+OUT=$(mkdir -p "${1:?outdir required}" && cd "$1" && pwd)   # absolute: the
+# server cd's into benchmark/multi-model, so a relative --model-config-file
+# resolves against the wrong directory and dies before any engine exists.
 TP=${2:-2}
 NGPU=${3:-2}
 WORKERS=${4:-1}
@@ -67,23 +69,45 @@ ARGS=(
 [ -n "${TP_ANTI_AFFINITY:-}" ] && ARGS+=(--enable-tp-anti-affinity)
 
 VISIBLE=$(seq -s, 0 $((NGPU - 1)))
-SESSION=$(echo "tpboot-tp${TP}-g${NGPU}-w${WORKERS}" | tr '.' '_')
-tmux kill-session -t "$SESSION" 2>/dev/null
 
-# Stale segments from a dead run make the next one fail in a way that looks
-# like a TP bug (CLAUDE.md 8 / HANDOVER 5.6: the names are ipc_<gpu>_<worker>_*).
-rm -f /dev/shm/ipc_* /dev/shm/mp-* 2>/dev/null
+# Not tmux.  The first two attempts here died 10 s in with a zero-byte
+# stdout.log, which reads exactly like a TP crash; tmux was the obvious suspect
+# (CLAUDE.md 8.2 records sessions dying on this box).  It was not tmux -- it was
+# a relative --model-config-file resolving against the server's own working
+# directory.  Kept as a plain background process anyway, because that is what
+# captured the traceback that identified it: tmux swallowed it.
+rm -f /dev/shm/ipc_* /dev/shm/mp-* 2>/dev/null   # HANDOVER 5.6: ipc_<gpu>_<worker>_*
 
 LOAD_RC=0
-tmux new-session -d -s "$SESSION" \
-  "export CUDA_VISIBLE_DEVICES=$VISIBLE && cd $PRISM_REPO/benchmark/multi-model && \
-   source $SCRIPT_DIR/env.sh && export CUDA_VISIBLE_DEVICES=$VISIBLE && \
-   python3 -m sglang.launch_multi_model_server ${ARGS[*]} 2>&1 | tee $LOGDIR/stdout.log"
+(
+  cd "$PRISM_REPO/benchmark/multi-model" || exit 1
+  export CUDA_VISIBLE_DEVICES=$VISIBLE
+  exec python3 -m sglang.launch_multi_model_server "${ARGS[@]}"
+) > "$LOGDIR/stdout.log" 2>&1 &
+SERVER_PID=$!
+echo "server pid=$SERVER_PID  log=$LOGDIR/stdout.log"
 
 cleanup() {
-  # Only ever signal what we started.  Never `kill 0` (CLAUDE.md 8.1).
-  tmux kill-session -t "$SESSION" 2>/dev/null
-  sleep 3
+  # Only ever signal a PID we actually started.  Never `kill 0` (CLAUDE.md 8.1).
+  if [ -n "${SERVER_PID:-}" ] && kill -0 "$SERVER_PID" 2>/dev/null; then
+      kill -TERM "$SERVER_PID" 2>/dev/null
+      for _ in $(seq 1 20); do kill -0 "$SERVER_PID" 2>/dev/null || break; sleep 1; done
+      kill -KILL "$SERVER_PID" 2>/dev/null
+  fi
+  # sglang starts its scheduler workers with the *spawn* method, so they are
+  # reparented to init and outlive the server they belong to.  Killing the
+  # parent alone leaves them holding GPU memory, which then looks like the next
+  # run OOMing.  Match them by the venv interpreter running spawn_main.
+  for _p in $(pgrep -f "prism-venv/bin/python3 -c from multiprocessing.spawn import spawn_main" 2>/dev/null); do
+      [ "$_p" = "$$" ] && continue
+      kill -TERM "$_p" 2>/dev/null
+  done
+  sleep 5
+  for _p in $(pgrep -f "prism-venv/bin/python3 -c from multiprocessing.spawn import spawn_main" 2>/dev/null); do
+      [ "$_p" = "$$" ] && continue
+      kill -KILL "$_p" 2>/dev/null
+  done
+  sleep 2
   rm -f /dev/shm/ipc_* /dev/shm/mp-* 2>/dev/null
 }
 trap cleanup EXIT
@@ -93,7 +117,7 @@ T0=$(date +%s)
 READY=0
 for _ in $(seq 1 450); do
     if curl -sf "http://127.0.0.1:$PORT/get_model_names" >/dev/null 2>&1; then READY=1; break; fi
-    if ! tmux has-session -t "$SESSION" 2>/dev/null; then
+    if ! kill -0 "$SERVER_PID" 2>/dev/null; then
         echo " -> DIED"; LOAD_RC=1; break
     fi
     echo -n "."; sleep 2
@@ -110,46 +134,7 @@ echo "startup: ${STARTUP}s"
 REQ_JSON=$OUT/tp2_requests.json
 if [ "$READY" = 1 ]; then
     echo "=== sending requests"
-    python3 - "$PORT" "$MODEL_NAME" "$REQ_JSON" <<'PY'
-import json, sys, time
-import urllib.request
-
-port, model, out = sys.argv[1], sys.argv[2], sys.argv[3]
-prompts = [
-    "The capital of France is",
-    "Explain in one sentence why the sky is blue:",
-    "List three prime numbers:",
-    "Translate to French: good morning.",
-]
-ok, failed, errors, lat = 0, 0, [], []
-for p in prompts:
-    body = json.dumps({
-        "text": p, "model_name": model,
-        "sampling_params": {"max_new_tokens": 24, "temperature": 0.0},
-    }).encode()
-    req = urllib.request.Request(
-        f"http://127.0.0.1:{port}/generate", data=body,
-        headers={"Content-Type": "application/json"})
-    t0 = time.time()
-    try:
-        with urllib.request.urlopen(req, timeout=180) as r:
-            payload = r.read().decode()
-        lat.append(time.time() - t0)
-        ok += 1
-        print(f"  ok  {p[:34]!r} -> {payload[:110]}")
-    except Exception as e:
-        failed += 1
-        errors.append(f"{type(e).__name__}: {e}")
-        print(f"  FAIL {p[:34]!r}: {e}")
-
-json.dump({"summary": {
-    "requests": len(prompts), "successful": ok, "failed": failed,
-    "errors": errors,
-    "latency_s": {"mean": (sum(lat)/len(lat)) if lat else None,
-                  "all": lat},
-}}, open(out, "w"), indent=2)
-print(f"=== requests: {ok} ok / {failed} failed")
-PY
+    python3 "$SCRIPT_DIR/tp_probe_requests.py" "$PORT" "$MODEL_NAME" "$REQ_JSON"
 fi
 
 # --- evidence ----------------------------------------------------------------

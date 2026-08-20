@@ -63,13 +63,38 @@ HERE = Path(__file__).resolve().parent
 
 
 def replace(path, old, new, probe=None):
+    """Apply one edit, idempotently, and refuse to guess which site was meant.
+
+    Two failure modes this guards against, both of which have actually bitten
+    this project:
+
+    * a non-unique anchor.  ``text.replace(old, new, 1)`` silently takes the
+      FIRST match, so an anchor that also appears in, say, ``__init__`` inserts
+      the edit somewhere harmless-looking and the server dies at startup.  An
+      ambiguous anchor is a bug in the patch, not something to resolve by
+      position, so it raises.
+    * a non-unique probe.  If the probe string is one another edit already
+      wrote, this edit is skipped without a word.  So the probe is required to
+      be absent-or-ours, and it must not match more than once.
+    """
     text = path.read_text()
-    if probe and probe in text:
-        return
-    if old not in text:
+    if probe is not None:
+        hits = text.count(probe)
+        if hits > 1:
+            raise RuntimeError(
+                f"probe is not unique in {path} ({hits} matches): {probe[:100]!r}"
+            )
+        if hits == 1:
+            return
+    n = text.count(old)
+    if n == 0:
         if new in text:
             return
         raise RuntimeError(f"anchor not found in {path}: {old[:140]!r}")
+    if n > 1:
+        raise RuntimeError(
+            f"anchor is not unique in {path} ({n} matches): {old[:140]!r}"
+        )
     path.write_text(text.replace(old, new, 1))
 
 
@@ -120,6 +145,22 @@ def main():
         "            help=\"Paper constraint: the k shards of a tp_size=k model are placed \"\n"
         "                 \"on k distinct GPUs (Algorithm 1 candidate filter).\")\n",
         probe="--enable-tp-worker-pool")
+
+    # The multi-model args are splatted into ServerArgs after keys_to_remove is
+    # applied, so any field that exists only on MultiModelServerArgs must be
+    # listed there or ServerArgs.__init__ rejects it.  Same treatment the v2
+    # flags already get two lines above.
+    replace(repo / "python/sglang/srt/server_args.py",
+        "            \"parallel_model_loading\",\n"
+        "            \"overlap_migration\",\n"
+        "        }\n",
+        "            \"parallel_model_loading\",\n"
+        "            \"overlap_migration\",\n"
+        "            \"enable_tp_worker_pool\",   # PAPER-FAITHFUL-TP\n"
+        "            \"tp_max_groups\",\n"
+        "            \"enable_tp_anti_affinity\",\n"
+        "        }\n",
+        probe="\"enable_tp_worker_pool\",   # PAPER-FAITHFUL-TP")
 
     # ---------------------------------------------------------------- server
     replace(server,
@@ -508,12 +549,13 @@ def main():
         resource: ["self._worker_ids", "self._model_tp_sizes.get(model_name, 1)"],
         gpu_sched: ["slot_plan=self._tp_slot_plan", "plan_for_server_args as tp_slot_plan_for"],
         runner: ["[PAPER-TP] engine rank:"],
+        repo / "python/sglang/srt/server_args.py": ["\"enable_tp_worker_pool\","],
     }
     missing = [f"{p}: {n}" for p, names in checks.items() for n in names
                if n not in p.read_text()]
     if missing:
         raise RuntimeError("paper-faithful-tp verification failed:\n" + "\n".join(missing))
-    print("paper-faithful-tp applied (7 files, all landing points verified)")
+    print("paper-faithful-tp applied (8 files, all landing points verified)")
 
 
 if __name__ == "__main__":
