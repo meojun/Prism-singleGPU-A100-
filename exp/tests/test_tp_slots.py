@@ -55,8 +55,10 @@ def case_group_enumeration():
     plan = build_slot_plan(num_gpus=4, workers_per_gpu=2, tp_sizes=[1, 2])
     groups = plan.groups(2)
     check(len(groups) == 6, "C(4,2) = 6 groups")
+    # gpu_ids order carries the rank assignment (rank r runs on gpu_ids[r]) and
+    # rank0 is spread across GPUs on purpose (case 5b), so compare as sets.
     check(
-        {g.gpu_ids for g in groups} == set(combinations(range(4), 2)),
+        {tuple(sorted(g.gpu_ids)) for g in groups} == set(combinations(range(4), 2)),
         "the six pairs are exactly the 2-subsets of {0,1,2,3}",
     )
     # Placement freedom is the whole point: with one candidate the constraint
@@ -114,6 +116,39 @@ def case_owner_and_shadow_roles():
     # A shadow slot must never be handed out by its GPU's pool.
     gpu1_owned = {s.worker_id for s in plan.owned_slots_on(1)}
     check(2 not in gpu1_owned, "GPU1 does not own slot 2, which GPU0 drives")
+
+
+def case_every_gpu_owns_a_group():
+    print("case 5b: rank0 is spread, so every GPU can accept a TP activation")
+    # A group's control socket is bound only on rank0's GPU (scheduler.py:157-168),
+    # so a GPU owning no group can never accept a TP activation.  That matters
+    # because reactivation does not go through this module: simple_global picks
+    # the lowest-KVPR GPU (the paper's rule, 6.1) and addresses the activation
+    # there.  With plain lexicographic ordering the highest GPU owns nothing and
+    # every such activation is refused -- measured, with 1826 requests queued
+    # behind one TP model.
+    from collections import Counter
+    for n, k in ((4, 2), (8, 2), (8, 4)):
+        plan = build_slot_plan(n, 2, tp_sizes=[1, k])
+        owners = Counter(g.owner_gpu for g in plan.groups(k))
+        missing = [g for g in range(n) if owners[g] == 0]
+        check(not missing, f"num_gpus={n} tp={k}: every GPU owns a group {missing or ''}")
+        # Perfect balance is not reachable -- a group's owner must be one of its
+        # own k GPUs, so the low-numbered GPUs are eligible far more often.  What
+        # the runtime needs is only that nobody owns zero; the spread is reported
+        # rather than asserted tightly.
+        spread = max(owners.values()) - min(owners.values())
+        print(f"       (ownership {dict(sorted(owners.items()))}, spread={spread})")
+        check(min(owners.values()) >= 1,
+              f"num_gpus={n} tp={k}: no GPU is left owning nothing")
+
+    # k == n is the one case that cannot be spread: there is exactly one group,
+    # so exactly one GPU owns it.  Recorded rather than papered over -- a
+    # reactivation addressed to any other GPU will be refused.
+    plan = build_slot_plan(4, 2, tp_sizes=[4])
+    check(len(plan.groups(4)) == 1, "tp_size == num_gpus yields a single group")
+    check(len({g.owner_gpu for g in plan.groups(4)}) == 1,
+          "and only one GPU can own it -- a known limitation, not a bug")
 
 
 def case_determinism():
@@ -186,6 +221,7 @@ def main():
         case_worker_id_free_on_every_gpu_it_spans,
         case_distinct_gpus_per_group,
         case_owner_and_shadow_roles,
+        case_every_gpu_owns_a_group,
         case_determinism,
         case_tp_larger_than_cluster,
         case_cap_records_what_it_drops,

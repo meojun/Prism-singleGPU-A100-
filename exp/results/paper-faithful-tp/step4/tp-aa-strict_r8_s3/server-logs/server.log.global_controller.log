@@ -1,0 +1,18 @@
+[2026-08-20 16:21:55.375 GlobalController] All assigned GPU ids: [0, 1, 2, 3]
+[2026-08-20 16:21:55.434 GlobalController] Total single GPU memory: 79.25 GB
+[2026-08-20 16:21:59.046 GlobalController] GPU 0, memory: 64.81 GB
+[2026-08-20 16:22:03.691 GlobalController] GPU 1, memory: 68.78 GB
+[2026-08-20 16:22:07.740 GlobalController] GPU 2, memory: 68.63 GB
+[2026-08-20 16:22:11.959 GlobalController] GPU 3, memory: 68.35 GB
+[2026-08-20 16:22:11.959 GlobalController] Time for checking GPU memory: 16.5251s
+[2026-08-20 16:22:11.959 GlobalController] Model weight information loaded successfully
+[2026-08-20 16:22:11.961 GlobalController] [PAPER-ALG1-TP] init {"anti_affinity": true, "anti_affinity_strict": true, "model_tp_sizes": {"model_1": 2, "model_2": 1, "model_3": 1, "model_4": 1, "model_5": 1, "model_6": 1}}
+[2026-08-20 16:22:11.961 GlobalController] Using policy: KVPRGlobalPolicyTP
+[2026-08-20 16:22:11.961 GlobalController] Starting schedule statistic thread
+[2026-08-20 16:22:11.962 GlobalController] Waiting for the first generate request to start model scheduling
+[2026-08-20 16:22:11.962 GlobalController] Schedule statistics will be logged to /workspace/prism-exp/prism-research/benchmark/multi-model/benchmark/multi-model/stats_2026-08-20T16:22:11.962414.log
+[2026-08-20 16:22:11.962 GlobalController] Loading model weight information for statistics
+[2026-08-20 16:22:11.963 GlobalController] Loaded model weights from /workspace/prism-exp/prism-research/python/sglang/multi_model/scheduling/../utils/model_info.json
+[2026-08-20 16:22:11.963 GlobalController] Loading model config and mapping weights
+[2026-08-20 16:22:11.963 GlobalController] Mapped 6 models to their weights
+[2026-08-20 16:22:11.963 GlobalController] Set GPU total memory: {0: 80, 1: 80, 2: 80, 3: 80}

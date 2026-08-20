@@ -189,8 +189,24 @@ def build_slot_plan(
             continue
         combos = list(combinations(range(num_gpus), k))
         keep = combos if max_groups_per_tp_size is None else combos[:max_groups_per_tp_size]
+        # Spread rank0 across GPUs instead of always giving it to the lowest id.
+        #
+        # This is not cosmetic.  Reactivation does not go through this module's
+        # placement: simple_global picks the GPU with the lowest KV pressure
+        # ratio (the paper's own rule, 6.1) and addresses the activation there.
+        # A group's control socket is bound only on rank0's GPU, so a GPU that
+        # owns no group can never accept a TP activation -- and with plain
+        # lexicographic ordering the highest GPU owns nothing at all
+        # (n=4, k=2: owners 0,0,0,1,1,2 -- GPU 3 owns none).  Measured
+        # consequence: "activate inactive model model_1 on GPU 3" was refused
+        # every time and the model stayed down with 1826 requests queued.
+        owned = {g: 0 for g in range(num_gpus)}
         for combo in keep:
-            slots.append(TPSlot(worker_id=next_id, tp_size=k, gpu_ids=tuple(combo)))
+            rank0 = min(combo, key=lambda g: (owned[g], g))
+            rest = [g for g in combo if g != rank0]
+            gpu_ids = (rank0, *rest)
+            owned[rank0] += 1
+            slots.append(TPSlot(worker_id=next_id, tp_size=k, gpu_ids=gpu_ids))
             next_id += 1
         for combo in combos[len(keep):]:
             dropped.append((k, combo))
