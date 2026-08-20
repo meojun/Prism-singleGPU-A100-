@@ -1,0 +1,71 @@
+[2026-08-20 09:36:31.070 GlobalController] All assigned GPU ids: [0, 1, 2, 3]
+[2026-08-20 09:36:31.130 GlobalController] Total single GPU memory: 79.25 GB
+[2026-08-20 09:36:34.483 GlobalController] GPU 0, memory: 71.17 GB
+[2026-08-20 09:36:38.347 GlobalController] GPU 1, memory: 70.15 GB
+[2026-08-20 09:36:41.866 GlobalController] GPU 2, memory: 71.69 GB
+[2026-08-20 09:36:44.626 GlobalController] GPU 3, memory: 71.69 GB
+[2026-08-20 09:36:44.627 GlobalController] Time for checking GPU memory: 13.4961s
+[2026-08-20 09:36:44.627 GlobalController] Model weight information loaded successfully
+[2026-08-20 09:36:44.630 GlobalController] [PAPER-ALG1-TP] init {"anti_affinity": false, "anti_affinity_strict": false, "model_tp_sizes": {"model_1": 2}}
+[2026-08-20 09:36:44.630 GlobalController] Using policy: KVPRGlobalPolicyTP
+[2026-08-20 09:36:44.631 GlobalController] Starting schedule statistic thread
+[2026-08-20 09:36:44.632 GlobalController] Waiting for the first generate request to start model scheduling
+[2026-08-20 09:36:44.632 GlobalController] Schedule statistics will be logged to /workspace/prism-exp/prism-research/benchmark/multi-model/benchmark/multi-model/stats_2026-08-20T09:36:44.632026.log
+[2026-08-20 09:36:44.632 GlobalController] Loading model weight information for statistics
+[2026-08-20 09:36:44.632 GlobalController] Loaded model weights from /workspace/prism-exp/prism-research/python/sglang/multi_model/scheduling/../utils/model_info.json
+[2026-08-20 09:36:44.632 GlobalController] Loading model config and mapping weights
+[2026-08-20 09:36:44.632 GlobalController] Mapped 1 models to their weights
+[2026-08-20 09:36:44.633 GlobalController] Set GPU total memory: {0: 80, 1: 80, 2: 80, 3: 80}
+[2026-08-20 09:37:09.379 GlobalController] model_1: num_unfinished_reqs: 1, num_waiting_reqs: 1, num_running_reqs: 0, last_arrival_time_ref: 0:00:38.211991, earliest_arrived_req_in_queue: 0:00:38.211991, last_finish_time_ref: N/A
+[2026-08-20 09:37:09.379 GlobalController] Schedule interval: 5 seconds
+[2026-08-20 09:37:09.379 GlobalController] Starting model scheduling
+[2026-08-20 09:37:09.379 GlobalController] Time for preprocessing data structures: 0.0000s
+[2026-08-20 09:37:09.379 GlobalController] Model model_1:
+[2026-08-20 09:37:09.379 GlobalController]   Instance 0: ACTIVE, memory usage: 2.28 GB, gpu_ids: [0], init_memory_pool_size: 0 GB
+[2026-08-20 09:37:09.379 GlobalController]   Instance 1: INACTIVE, memory usage: 2.28 GB, gpu_ids: [1], init_memory_pool_size: 0 GB
+[2026-08-20 09:37:09.379 GlobalController]   Instance 2: INACTIVE, memory usage: 2.28 GB, gpu_ids: [2], init_memory_pool_size: 0 GB
+[2026-08-20 09:37:09.379 GlobalController]   Instance 3: INACTIVE, memory usage: 2.28 GB, gpu_ids: [3], init_memory_pool_size: 0 GB
+[2026-08-20 09:37:09.379 GlobalController] first request time: 1787218629.2825227
+[2026-08-20 09:37:09.379 GlobalController] Model model_1 has been idle for 0.10 seconds, its own last request or global first request time is 1787218629.2825227
+[2026-08-20 09:37:09.379 GlobalController] Model model_1 has waiting/running requests: True
+[2026-08-20 09:37:09.380 GlobalController] Time for idle instance eviction: 0.0001s
+[2026-08-20 09:37:09.385 GlobalController] GPU 0, mem 68.9827880859375
+[2026-08-20 09:37:09.386 GlobalController] GPU 1, mem 68.9827880859375
+[2026-08-20 09:37:09.391 GlobalController] GPU 2, mem 71.6937255859375
+[2026-08-20 09:37:09.391 GlobalController] GPU 3, mem 71.6937255859375
+[2026-08-20 09:37:09.391 GlobalController] Time for checking GPU memory: 0.0116s
+[2026-08-20 09:37:09.391 GlobalController] [PAPER-ALG1-V4] {"cycle": 1, "timestamp": 1787218629.3916502, "tau_mode": "absolute-line8", "tau": 0.17108602804407128, "kvpr": {"0": 1.0415304959017292e-05, "1": 0.0, "2": 0.0, "3": 0.0}, "peak_kvpr": 1.0415304959017292e-05, "line8": [{"model": "model_1", "tp_size": 2, "rank": 0, "current_gpu": 0, "best_gpu": 0, "best_gpu_unconstrained": 0, "anti_affinity_filtered": [], "current_r": 0.0, "best_r": 0.0, "absolute_delta": 0.0, "tau": 0.17108602804407128, "chosen_gpu": 0}, {"model": "model_1", "tp_size": 2, "rank": 1, "current_gpu": 0, "best_gpu": 1, "best_gpu_unconstrained": 1, "anti_affinity_filtered": [0], "current_r": 5.1316732649063955e-06, "best_r": 0.0, "absolute_delta": 5.1316732649063955e-06, "tau": 0.17108602804407128, "chosen_gpu": 0}], "placement_plan": {"model_1": 0}, "current_placement": {"model_1": 0}, "plan_wants_moved": [], "blocked": [], "convergence_gap": 0, "misplaced_models": [], "cooldown_active": false, "candidate": null, "migration_decision": null, "migration_reason": "line-8 placement unchanged or every candidate blocked", "audit_totals": {"cycles": 1, "placement_decisions": 2, "migrations_emitted": 0, "suppressed_by_tau": 1, "rejected_by_memory": 0, "rejected_last_model_on_gpu": 0, "deferred_by_cooldown": 0, "not_best_candidate": 0}}
+[2026-08-20 09:37:09.391 GlobalController] [PAPER-ALG1-TP] {"cycle": 1, "timestamp": 1787218629.3918533, "anti_affinity": false, "any_tp_group_active": true, "current_groups": {"model_1": [0, 1]}, "tracked_groups": {"model_1": [0, 0]}, "group_plan": {"model_1": [0, 0]}, "tp_audit": {"cycles": 1, "shards_placed": 2, "aa_violations": 0, "aa_diverted": 0, "aa_infeasible": 0, "aa_second_also_collides": 0}}
+[2026-08-20 09:37:09.391 GlobalController] Time for finding migrations: 0.0003s
+[2026-08-20 09:37:09.391 GlobalController] Time for planning inactive model activation: 0.0000s
+[2026-08-20 09:37:09.391 GlobalController] Time for creating action list: 0.0000s
+[2026-08-20 09:37:09.392 GlobalController] Total time for global scheduling: 0.0124s
+[2026-08-20 09:37:09.579 GlobalController] model_1: num_unfinished_reqs: 1, num_waiting_reqs: 1, num_running_reqs: 0, last_arrival_time_ref: 0:00:38.211991, earliest_arrived_req_in_queue: 0:00:38.211991, last_finish_time_ref: N/A
+[2026-08-20 09:37:09.980 GlobalController] model_1: num_unfinished_reqs: 1, num_waiting_reqs: 0, num_running_reqs: 1, last_arrival_time_ref: 0:00:38.211991, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-20 09:37:11.884 GlobalController] model_1: num_unfinished_reqs: 1, num_waiting_reqs: 0, num_running_reqs: 1, last_arrival_time_ref: 0:00:38.211991, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-20 09:37:13.586 GlobalController] model_1: num_unfinished_reqs: 1, num_waiting_reqs: 0, num_running_reqs: 1, last_arrival_time_ref: 0:00:42.468985, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: 0:00:42.466157
+[2026-08-20 09:37:13.887 GlobalController] model_1: num_unfinished_reqs: 1, num_waiting_reqs: 0, num_running_reqs: 1, last_arrival_time_ref: 0:00:42.724168, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: 0:00:42.722285
+[2026-08-20 09:37:14.394 GlobalController] Time for preprocessing data structures: 0.0000s
+[2026-08-20 09:37:14.394 GlobalController] Model model_1:
+[2026-08-20 09:37:14.394 GlobalController]   Instance 0: ACTIVE, memory usage: 2.28 GB, gpu_ids: [0], init_memory_pool_size: 0 GB
+[2026-08-20 09:37:14.394 GlobalController]   Instance 1: INACTIVE, memory usage: 2.28 GB, gpu_ids: [1], init_memory_pool_size: 0 GB
+[2026-08-20 09:37:14.394 GlobalController]   Instance 2: INACTIVE, memory usage: 2.28 GB, gpu_ids: [2], init_memory_pool_size: 0 GB
+[2026-08-20 09:37:14.394 GlobalController]   Instance 3: INACTIVE, memory usage: 2.28 GB, gpu_ids: [3], init_memory_pool_size: 0 GB
+[2026-08-20 09:37:14.394 GlobalController] Model model_1 has been idle for 0.60 seconds, its own last request or global first request time is 1787218633.7946994
+[2026-08-20 09:37:14.394 GlobalController] Model model_1 has waiting/running requests: True
+[2026-08-20 09:37:14.394 GlobalController] Time for idle instance eviction: 0.0001s
+[2026-08-20 09:37:14.395 GlobalController] GPU 0, mem 68.3753662109375
+[2026-08-20 09:37:14.457 GlobalController] GPU 1, mem 68.3753662109375
+[2026-08-20 09:37:14.457 GlobalController] GPU 2, mem 71.6937255859375
+[2026-08-20 09:37:14.457 GlobalController] GPU 3, mem 71.6937255859375
+[2026-08-20 09:37:14.457 GlobalController] Time for checking GPU memory: 0.0629s
+[2026-08-20 09:37:14.457 GlobalController] [PAPER-ALG1-V4] {"cycle": 2, "timestamp": 1787218634.4577708, "tau_mode": "absolute-line8", "tau": 0.17108602804407128, "kvpr": {"0": 0.0033452333053695204, "1": 0.0, "2": 0.0, "3": 0.0}, "peak_kvpr": 0.0033452333053695204, "line8": [{"model": "model_1", "tp_size": 2, "rank": 0, "current_gpu": 0, "best_gpu": 0, "best_gpu_unconstrained": 0, "anti_affinity_filtered": [], "current_r": 0.0, "best_r": 0.0, "absolute_delta": 0.0, "tau": 0.17108602804407128, "chosen_gpu": 0}, {"model": "model_1", "tp_size": 2, "rank": 1, "current_gpu": 0, "best_gpu": 1, "best_gpu_unconstrained": 1, "anti_affinity_filtered": [0], "current_r": 0.0016482133154609934, "best_r": 0.0, "absolute_delta": 0.0016482133154609934, "tau": 0.17108602804407128, "chosen_gpu": 0}], "placement_plan": {"model_1": 0}, "current_placement": {"model_1": 0}, "plan_wants_moved": [], "blocked": [], "convergence_gap": 0, "misplaced_models": [], "cooldown_active": false, "candidate": null, "migration_decision": null, "migration_reason": "line-8 placement unchanged or every candidate blocked", "audit_totals": {"cycles": 2, "placement_decisions": 4, "migrations_emitted": 0, "suppressed_by_tau": 2, "rejected_by_memory": 0, "rejected_last_model_on_gpu": 0, "deferred_by_cooldown": 0, "not_best_candidate": 0}}
+[2026-08-20 09:37:14.457 GlobalController] [PAPER-ALG1-TP] {"cycle": 2, "timestamp": 1787218634.4579318, "anti_affinity": false, "any_tp_group_active": true, "current_groups": {"model_1": [0, 0]}, "tracked_groups": {"model_1": [0, 0]}, "group_plan": {"model_1": [0, 0]}, "tp_audit": {"cycles": 2, "shards_placed": 4, "aa_violations": 0, "aa_diverted": 0, "aa_infeasible": 0, "aa_second_also_collides": 0}}
+[2026-08-20 09:37:14.457 GlobalController] Time for finding migrations: 0.0002s
+[2026-08-20 09:37:14.458 GlobalController] Time for planning inactive model activation: 0.0000s
+[2026-08-20 09:37:14.458 GlobalController] Time for creating action list: 0.0000s
+[2026-08-20 09:37:14.458 GlobalController] Total time for global scheduling: 0.0637s
+[2026-08-20 09:37:14.989 GlobalController] model_1: num_unfinished_reqs: 1, num_waiting_reqs: 1, num_running_reqs: 0, last_arrival_time_ref: 0:00:43.876635, earliest_arrived_req_in_queue: 0:00:43.876635, last_finish_time_ref: 0:00:43.874637
+[2026-08-20 09:37:15.090 GlobalController] model_1: num_unfinished_reqs: 1, num_waiting_reqs: 0, num_running_reqs: 1, last_arrival_time_ref: 0:00:43.876635, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: 0:00:43.874637
+[2026-08-20 09:37:15.591 GlobalController] model_1: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: 0:00:43.876635, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: 0:00:44.504262
+[2026-08-20 09:37:16.715 GlobalController] Received signal to shutdown

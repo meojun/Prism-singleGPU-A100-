@@ -271,23 +271,39 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
                 self._tp_audit["shards_placed"] += 1
 
             target[name] = tuple(chosen_gpus)
-            if k > 1:
-                # Remember where we put it; the shared instance state only ever
-                # reports rank0, so this is the sole record of the full group.
-                self._group_of[name] = tuple(chosen_gpus)
+        # NOTE: _group_of is deliberately NOT updated here.  A plan is not a
+        # placement -- v4 emits at most one migration per cycle and blocks
+        # others, so most of this plan never happens.  Recording it as "where
+        # the model is" made the next cycle read a group that does not exist
+        # (observed: an OFF-arm plan of [0, 0] became current_groups [0, 0],
+        # a placement no engine could hold).  Only an emitted move updates it.
         return target
 
-    # v4's audit calls _greedy_placement and expects model -> gpu.  Keep that
-    # contract for TP=1 models so the inherited logging stays truthful, and
-    # expose the group form separately.
     def _greedy_placement(self, weights, current_gpu, gpu_available_memory):
-        groups = self._greedy_placement_tp(
-            weights,
-            {m: (g,) if isinstance(g, int) else tuple(g) for m, g in current_gpu.items()},
-            gpu_available_memory,
-        )
-        self._last_group_plan = groups
-        return {m: g[0] for m, g in groups.items()}
+        """v4 calls this with ``{model: single_gpu}`` and expects the same back.
+
+        The single GPU is rank0's -- v4 built the dict from
+        ``gpu_to_model_mapping`` and kept whichever GPU it saw last.  Wrapping
+        that as a 1-tuple and handing it to the per-shard planner is wrong and
+        was: with ``current = [0]``, shard 1 read ``current[-1] = 0`` as its
+        current GPU, so staying put meant staying on GPU 0 and the plan came out
+        ``[0, 0]``.  The group has to be recovered first.
+
+        The dict returned to v4 keeps its shape (rank0's GPU per model); the
+        full group is exposed separately as ``_last_group_plan``.
+        """
+        groups = {}
+        for name, g in current_gpu.items():
+            rank0 = g[0] if isinstance(g, (tuple, list)) else g
+            k = self.tp_size_of(name)
+            groups[name] = (
+                tuple(g) if isinstance(g, (tuple, list)) and len(g) == k
+                else self._group_containing(name, rank0, k) if k > 1
+                else (rank0,)
+            )
+        plan = self._greedy_placement_tp(weights, groups, gpu_available_memory)
+        self._last_group_plan = plan
+        return {m: g[0] for m, g in plan.items()}
 
     # ------------------------------------------------------------ entry point
     def _find_optimal_migrations(
@@ -302,6 +318,7 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
         current_groups = self._current_groups(gpu_to_model_mapping)
         has_tp = any(len(g) > 1 for g in current_groups.values())
 
+        before = dict(self._group_of)
         out = super()._find_optimal_migrations(
             model_instance_state_dict,
             model_queues,
@@ -309,6 +326,14 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
             model_violation_stats,
             gpu_to_model_mapping,
         )
+
+        # A move was actually emitted: that, and only that, changes the group.
+        for name, _src, _dst in out:
+            planned = getattr(self, "_last_group_plan", {}).get(name)
+            if planned and self.tp_size_of(name) > 1:
+                self._group_of[name] = tuple(planned)
+        if self._group_of != before:
+            logger.info(f"[PAPER-ALG1-TP] group moved: {before} -> {self._group_of}")
 
         # One line per cycle carrying the group view and the counterfactual, so
         # "did the constraint bind" is answered from raw data, not from a claim.
