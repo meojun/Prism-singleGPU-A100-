@@ -1,0 +1,228 @@
+[2026-08-20 07:29:42.002] Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.4.0+cu121).
+[2026-08-20 07:29:42.021] Ignore import error when loading sglang.srt.models.llava. Failed to import transformers.models.clip.modeling_clip because of the following error (look up to see its traceback):
+module 'torch' has no attribute 'int1'
+[2026-08-20 07:29:42.024] Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.4.0+cu121).
+[2026-08-20 07:29:42.025] Ignore import error when loading sglang.srt.models.llavavid. Failed to import transformers.models.clip.modeling_clip because of the following error (look up to see its traceback):
+module 'torch' has no attribute 'int1'
+[2026-08-20 07:29:42.029] Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.4.0+cu121).
+[2026-08-20 07:29:42.030] Ignore import error when loading sglang.srt.models.mllama. Failed to import transformers.modeling_utils because of the following error (look up to see its traceback):
+module 'torch' has no attribute 'int1'
+[2026-08-20 07:29:42.092] Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.4.0+cu121).
+[2026-08-20 07:29:42.093] Ignore import error when loading sglang.srt.models.yivl. Failed to import transformers.models.clip.modeling_clip because of the following error (look up to see its traceback):
+module 'torch' has no attribute 'int1'
+[2026-08-20 07:29:55.331] [PAPER-TP] slot plan: {"num_gpus": 4, "workers_per_gpu": 1, "slots": [{"worker_id": 0, "tp_size": 1, "gpu_ids": [0], "owner_gpu": 0}, {"worker_id": 0, "tp_size": 1, "gpu_ids": [1], "owner_gpu": 1}, {"worker_id": 0, "tp_size": 1, "gpu_ids": [2], "owner_gpu": 2}, {"worker_id": 0, "tp_size": 1, "gpu_ids": [3], "owner_gpu": 3}, {"worker_id": 1, "tp_size": 2, "gpu_ids": [0, 1], "owner_gpu": 0}, {"worker_id": 2, "tp_size": 2, "gpu_ids": [0, 2], "owner_gpu": 0}, {"worker_id": 3, "tp_size": 2, "gpu_ids": [0, 3], "owner_gpu": 0}, {"worker_id": 4, "tp_size": 2, "gpu_ids": [1, 2], "owner_gpu": 1}, {"worker_id": 5, "tp_size": 2, "gpu_ids": [1, 3], "owner_gpu": 1}, {"worker_id": 6, "tp_size": 2, "gpu_ids": [2, 3], "owner_gpu": 2}], "slots_per_gpu": {"0": [0, 1, 2, 3], "1": [0, 1, 4, 5], "2": [0, 2, 4, 6], "3": [0, 3, 5, 6]}}
+[2026-08-20 07:30:03.355 GPU=3 Worker=0 TP0] Scheduler: Worker 0 bound to gpu_scheduler_3_to_worker_0
+[2026-08-20 07:30:03.461 GPU=3 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=3 tp_size=1 model_service=True
+[2026-08-20 07:30:03.461 GPU=3 Worker=0 TP0] Init torch distributed begin.
+[2026-08-20 07:30:03.828 GPU=2 Worker=6 TP0] Scheduler: Worker 6 bound to gpu_scheduler_2_to_worker_6
+[2026-08-20 07:30:03.887 GPU=1 Worker=4 TP0] Scheduler: Worker 4 bound to gpu_scheduler_1_to_worker_4
+[2026-08-20 07:30:03.934 GPU=2 Worker=6 TP0] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 07:30:03.934 GPU=2 Worker=6 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=2 tp_size=2 model_service=False
+[2026-08-20 07:30:03.935 GPU=2 Worker=6 TP0] Init torch distributed begin.
+[2026-08-20 07:30:04.006 GPU=1 Worker=4 TP0] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 07:30:04.006 GPU=1 Worker=4 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=1 tp_size=2 model_service=False
+[2026-08-20 07:30:04.007 GPU=1 Worker=4 TP0] Init torch distributed begin.
+[2026-08-20 07:30:04.829 GPU=2 Worker=0 TP0] Scheduler: Worker 0 bound to gpu_scheduler_2_to_worker_0
+[2026-08-20 07:30:04.943 GPU=2 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=2 tp_size=1 model_service=True
+[2026-08-20 07:30:04.944 GPU=2 Worker=0 TP0] Init torch distributed begin.
+[2026-08-20 07:30:05.104 GPU=0 Worker=3 TP0] Scheduler: Worker 3 bound to gpu_scheduler_0_to_worker_3
+[2026-08-20 07:30:05.151 GPU=0 Worker=0 TP0] Scheduler: Worker 0 bound to gpu_scheduler_0_to_worker_0
+[2026-08-20 07:30:05.211 GPU=0 Worker=3 TP0] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 07:30:05.211 GPU=0 Worker=3 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=2 model_service=False
+[2026-08-20 07:30:05.211 GPU=0 Worker=3 TP0] Init torch distributed begin.
+[2026-08-20 07:30:05.306 GPU=0 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=1 model_service=True
+[2026-08-20 07:30:05.307 GPU=0 Worker=0 TP0] Init torch distributed begin.
+[2026-08-20 07:30:05.525 GPU=0 Worker=2 TP0] Scheduler: Worker 2 bound to gpu_scheduler_0_to_worker_2
+[2026-08-20 07:30:05.635 GPU=0 Worker=2 TP0] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 07:30:05.636 GPU=0 Worker=2 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=2 model_service=False
+[2026-08-20 07:30:05.636 GPU=0 Worker=2 TP0] Init torch distributed begin.
+[2026-08-20 07:30:05.737 GPU=0 Worker=1 TP0] Scheduler: Worker 1 bound to gpu_scheduler_0_to_worker_1
+[2026-08-20 07:30:05.842 GPU=0 Worker=1 TP0] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 07:30:05.842 GPU=0 Worker=1 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=2 model_service=False
+[2026-08-20 07:30:05.843 GPU=0 Worker=1 TP0] Init torch distributed begin.
+[2026-08-20 07:30:05.876 GPU=1 Worker=0 TP0] Scheduler: Worker 0 bound to gpu_scheduler_1_to_worker_0
+[2026-08-20 07:30:05.930 GPU=1 Worker=5 TP0] Scheduler: Worker 5 bound to gpu_scheduler_1_to_worker_5
+[2026-08-20 07:30:05.984 GPU=1 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=1 tp_size=1 model_service=True
+[2026-08-20 07:30:05.984 GPU=1 Worker=0 TP0] Init torch distributed begin.
+[2026-08-20 07:30:06.046 GPU=1 Worker=5 TP0] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 07:30:06.047 GPU=1 Worker=5 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=1 tp_size=2 model_service=False
+[2026-08-20 07:30:06.047 GPU=1 Worker=5 TP0] Init torch distributed begin.
+[2026-08-20 07:30:10.177 GPU=3 Worker=0 TP0] Initialize req_to_token pool end. Takes 0.0108s. Wait time: 0.0002s. Init time: 0.0108s
+[2026-08-20 07:30:10.178 GPU=3 Worker=0 TP0] Create req_to_token_pool end. Time cost: 0.0119s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:10.767 GPU=3 Worker=0 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:30:10.768] Worker 0 of GPU 3 loaded in process 94578
+[2026-08-20 07:30:11.870 GPU=0 Worker=0 TP0] Initialize req_to_token pool end. Takes 0.0095s. Wait time: 0.0003s. Init time: 0.0095s
+[2026-08-20 07:30:11.870 GPU=0 Worker=0 TP0] Create req_to_token_pool end. Time cost: 0.0109s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:11.952 GPU=2 Worker=0 TP0] Initialize req_to_token pool end. Takes 0.0121s. Wait time: 0.0003s. Init time: 0.0121s
+[2026-08-20 07:30:11.953 GPU=2 Worker=0 TP0] Create req_to_token_pool end. Time cost: 0.0137s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:12.067 GPU=1 Worker=0 TP0] Initialize req_to_token pool end. Takes 0.0092s. Wait time: 0.0002s. Init time: 0.0092s
+[2026-08-20 07:30:12.068 GPU=1 Worker=0 TP0] Create req_to_token_pool end. Time cost: 0.0108s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:12.590 GPU=0 Worker=0 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:30:12.591] Worker 0 of GPU 0 loaded in process 94575
+[2026-08-20 07:30:12.671 GPU=2 Worker=0 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:30:12.671] Worker 0 of GPU 2 loaded in process 94577
+[2026-08-20 07:30:12.843 GPU=3 Worker=6 TP1] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 07:30:12.843 GPU=3 Worker=6 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=3 tp_size=2 model_service=False
+[2026-08-20 07:30:12.844 GPU=3 Worker=6 TP1] Init torch distributed begin.
+[2026-08-20 07:30:12.915 GPU=1 Worker=0 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:30:12.919] Worker 0 of GPU 1 loaded in process 94576
+[2026-08-20 07:30:13.212 GPU=2 Worker=4 TP1] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 07:30:13.212 GPU=2 Worker=4 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=2 tp_size=2 model_service=False
+[2026-08-20 07:30:13.213 GPU=2 Worker=4 TP1] Init torch distributed begin.
+[2026-08-20 07:30:14.719 GPU=3 Worker=3 TP1] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 07:30:14.719 GPU=3 Worker=3 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=3 tp_size=2 model_service=False
+[2026-08-20 07:30:14.719 GPU=3 Worker=3 TP1] Init torch distributed begin.
+[2026-08-20 07:30:15.260 GPU=1 Worker=1 TP1] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 07:30:15.261 GPU=1 Worker=1 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=1 tp_size=2 model_service=False
+[2026-08-20 07:30:15.261 GPU=1 Worker=1 TP1] Init torch distributed begin.
+[2026-08-20 07:30:15.534 GPU=2 Worker=2 TP1] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 07:30:15.534 GPU=2 Worker=2 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=2 tp_size=2 model_service=False
+[2026-08-20 07:30:15.534 GPU=2 Worker=2 TP1] Init torch distributed begin.
+[2026-08-20 07:30:15.864 GPU=3 Worker=5 TP1] Tensor parallelism is enabled, model service will not be used.
+[2026-08-20 07:30:15.864 GPU=3 Worker=5 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=3 tp_size=2 model_service=False
+[2026-08-20 07:30:15.865 GPU=3 Worker=5 TP1] Init torch distributed begin.
+[2026-08-20 07:30:56.748 GPU=0 Worker=1 TP0] Initialize req_to_token pool end. Takes 0.0045s. Wait time: 0.0085s. Init time: 0.0045s
+[2026-08-20 07:30:56.749 GPU=0 Worker=1 TP0] Create req_to_token_pool end. Time cost: 0.0157s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:58.734 GPU=1 Worker=5 TP0] Initialize req_to_token pool end. Takes 0.0409s. Wait time: 0.1185s. Init time: 0.0409s
+[2026-08-20 07:30:58.735 GPU=1 Worker=5 TP0] Create req_to_token_pool end. Time cost: 0.1629s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:59.680 GPU=2 Worker=6 TP0] Initialize req_to_token pool end. Takes 0.0047s. Wait time: 0.0050s. Init time: 0.0047s
+[2026-08-20 07:30:59.681 GPU=2 Worker=6 TP0] Create req_to_token_pool end. Time cost: 0.0123s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:59.702 GPU=3 Worker=6 TP1] Initialize req_to_token pool end. Takes 0.0033s. Wait time: 0.0046s. Init time: 0.0033s
+[2026-08-20 07:30:59.703 GPU=3 Worker=6 TP1] Create req_to_token_pool end. Time cost: 0.0144s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:59.770 GPU=2 Worker=4 TP1] Initialize req_to_token pool end. Takes 0.0013s. Wait time: 0.0028s. Init time: 0.0014s
+[2026-08-20 07:30:59.770 GPU=2 Worker=4 TP1] Create req_to_token_pool end. Time cost: 0.0081s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:59.772 GPU=2 Worker=2 TP1] Initialize req_to_token pool end. Takes 0.0013s. Wait time: 0.0029s. Init time: 0.0013s
+[2026-08-20 07:30:59.773 GPU=2 Worker=2 TP1] Create req_to_token_pool end. Time cost: 0.0080s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:59.784 GPU=1 Worker=4 TP0] Initialize req_to_token pool end. Takes 0.0033s. Wait time: 0.0034s. Init time: 0.0033s
+[2026-08-20 07:30:59.785 GPU=1 Worker=4 TP0] Create req_to_token_pool end. Time cost: 0.0083s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:59.858 GPU=3 Worker=5 TP1] Initialize req_to_token pool end. Takes 0.0018s. Wait time: 0.0022s. Init time: 0.0018s
+[2026-08-20 07:30:59.861 GPU=3 Worker=5 TP1] Create req_to_token_pool end. Time cost: 0.0101s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:59.911 GPU=3 Worker=3 TP1] Initialize req_to_token pool end. Takes 0.0016s. Wait time: 0.0019s. Init time: 0.0016s
+[2026-08-20 07:30:59.913 GPU=3 Worker=3 TP1] Create req_to_token_pool end. Time cost: 0.0092s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:59.940 GPU=0 Worker=2 TP0] Initialize req_to_token pool end. Takes 0.0023s. Wait time: 0.0043s. Init time: 0.0023s
+[2026-08-20 07:30:59.941 GPU=0 Worker=2 TP0] Create req_to_token_pool end. Time cost: 0.0083s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:59.975 GPU=0 Worker=3 TP0] Initialize req_to_token pool end. Takes 0.0017s. Wait time: 0.0013s. Init time: 0.0018s
+[2026-08-20 07:30:59.976 GPU=0 Worker=3 TP0] Create req_to_token_pool end. Time cost: 0.0052s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:30:59.988 GPU=1 Worker=1 TP1] Initialize req_to_token pool end. Takes 0.0009s. Wait time: 0.0009s. Init time: 0.0010s
+[2026-08-20 07:30:59.988 GPU=1 Worker=1 TP1] Create req_to_token_pool end. Time cost: 0.0079s. req_to_token_pool memory=0.25 GB
+[2026-08-20 07:31:00.328 GPU=2 Worker=6 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:31:00.328 GPU=3 Worker=6 TP1] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:31:00.330] Worker 6 of GPU 2 loaded in process 96123
+[2026-08-20 07:31:00.436 GPU=1 Worker=4 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:31:00.437 GPU=2 Worker=4 TP1] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:31:00.438] Worker 4 of GPU 1 loaded in process 96129
+[2026-08-20 07:31:00.458 GPU=3 Worker=5 TP1] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:31:00.458 GPU=1 Worker=5 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:31:00.459] Worker 5 of GPU 1 loaded in process 96943
+[2026-08-20 07:31:00.575 GPU=0 Worker=2 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:31:00.576 GPU=2 Worker=2 TP1] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:31:00.577] Worker 2 of GPU 0 loaded in process 96618
+[2026-08-20 07:31:00.710 GPU=3 Worker=3 TP1] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:31:00.710 GPU=0 Worker=3 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:31:00.712] Worker 3 of GPU 0 loaded in process 96414
+[2026-08-20 07:31:00.825 GPU=1 Worker=1 TP1] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:31:00.825 GPU=0 Worker=1 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 07:31:00.827] Worker 1 of GPU 0 loaded in process 96802
+[2026-08-20 07:31:00.829] All 10 engines prepared in 65.50 seconds.
+[2026-08-20 07:31:16.628 GPU=0 Worker=1 TP0] Scheduler: Received 1 requests from gpu scheduler
+[2026-08-20 07:31:16.628 GPU=0 Worker=1 TP0] Processing activate request
+[2026-08-20 07:31:16.629 GPU=0 Worker=1 TP0] Scheduler receives the activate request with rid: 1ff1f8eec56b4bb794214ded5e1a5ad1
+[2026-08-20 07:31:16.628 GPU=1 Worker=1 TP1] Scheduler: Received 1 requests from gpu scheduler
+[2026-08-20 07:31:16.629 GPU=1 Worker=1 TP1] Processing activate request
+[2026-08-20 07:31:16.629 GPU=1 Worker=1 TP1] Scheduler receives the activate request with rid: 1ff1f8eec56b4bb794214ded5e1a5ad1
+[2026-08-20 07:31:20.737 GPU=0 Worker=1 TP0] Load GPU model end. Time cost: 4.0475s. Current available memory: 70.30 GB, model GPU memory usage: 1.40 GB
+[2026-08-20 07:31:20.746 GPU=0 Worker=1 TP0] Elastic memory: kv_cache_manager_v0 initialized
+[2026-08-20 07:31:22.377 GPU=1 Worker=1 TP1] Load GPU model end. Time cost: 5.7279s. Current available memory: 70.30 GB, model GPU memory usage: 1.40 GB
+[2026-08-20 07:31:22.387 GPU=1 Worker=1 TP1] Elastic memory: kv_cache_manager_v0 initialized
+[2026-08-20 07:31:24.046 GPU=0 Worker=1 TP0] Init attention backend end. Time cost: 0.0371s
+[2026-08-20 07:31:24.047 GPU=0 Worker=1 TP0] Activate model model_1 (meta-llama/Llama-3.2-1B) time cost: 7.4180s.
+[2026-08-20 07:31:24.047 GPU=0 Worker 1 (model_1) TP=0] Model runner activated
+[2026-08-20 07:31:24.048 GPU=0 Worker 1 (model_1) TP=0] max_total_num_tokens=1638400, max_prefill_tokens=16384, max_running_requests=513, 
+[2026-08-20 07:31:24.048 GPU=0 Worker 1 (model_1) TP=0] Memory pool updated
+[2026-08-20 07:31:24.048 GPU=0 Worker 1 (model_1) TP=0] Waiting requests restored
+[2026-08-20 07:31:24.048 GPU=0 Worker 1 (model_1) TP=0] Scheduler activated. Activation takes 7.42 s
+[2026-08-20 07:31:24.054 GPU=1 Worker=1 TP1] Init attention backend end. Time cost: 1.6661s
+[2026-08-20 07:31:24.054 GPU=1 Worker=1 TP1] Activate model model_1 (meta-llama/Llama-3.2-1B) time cost: 7.4250s.
+[2026-08-20 07:31:24.055 GPU=0 Worker 1 (model_1) TP=1] Model runner activated
+[2026-08-20 07:31:24.055 GPU=0 Worker 1 (model_1) TP=1] max_total_num_tokens=1638400, max_prefill_tokens=16384, max_running_requests=513, 
+[2026-08-20 07:31:24.055 GPU=0 Worker 1 (model_1) TP=1] Memory pool updated
+[2026-08-20 07:31:24.055 GPU=0 Worker 1 (model_1) TP=1] Waiting requests restored
+[2026-08-20 07:31:24.056 GPU=0 Worker 1 (model_1) TP=1] Scheduler activated. Activation takes 7.43 s
+[2026-08-20 07:31:24.058] Detokenizer: Received activate request for model_1
+[2026-08-20 07:31:24.069] GPU scheduler process started for GPU 0
+[2026-08-20 07:31:33.468] GPU scheduler process started for GPU 1
+[2026-08-20 07:31:42.483] GPU scheduler process started for GPU 2
+[2026-08-20 07:31:51.270] GPU scheduler process started for GPU 3
+[2026-08-20 07:31:51.280] Waiting for the server to be ready for model model_1...
+[2026-08-20 07:31:52.299] State not found for received <class 'sglang.srt.managers.io_struct.ActivateReqOutput'> with rid 1ff1f8eec56b4bb794214ded5e1a5ad1
+[2026-08-20 07:31:52.451 GPU=0 Worker 1 (model_1) TP=0] Received 1 generation requests
+[2026-08-20 07:31:52.452 GPU=0 Worker 1 (model_1) TP=1] Received 1 generation requests
+[2026-08-20 07:31:52.454 GPU=0 Worker 1 (model_1) TP=0] Prefill batch. #new-seq: 1, #new-token: 7, #cached-token: 0, cache hit rate: 0.00%, token usage: 0.01, #running-req: 0, #queue-req: 0
+[2026-08-20 07:31:55.257 GPU=0 Worker 1 (model_1) TP=0] Received 1 generation requests
+[2026-08-20 07:31:55.258 GPU=0 Worker 1 (model_1) TP=1] Received 1 generation requests
+[2026-08-20 07:31:55.298 GPU=0 Worker 1 (model_1) TP=0] Prefill batch. #new-seq: 1, #new-token: 6, #cached-token: 0, cache hit rate: 0.00%, token usage: 0.01, #running-req: 1, #queue-req: 0
+[2026-08-20 07:31:57.195] The server for model_1 is fired up and ready to roll!
+[2026-08-20 07:31:58.713 GPU=0 Worker 1 (model_1) TP=0] Received 1 generation requests
+[2026-08-20 07:31:58.714 GPU=0 Worker 1 (model_1) TP=1] Received 1 generation requests
+[2026-08-20 07:31:58.922 GPU=0 Worker 1 (model_1) TP=0] Prefill batch. #new-seq: 1, #new-token: 12, #cached-token: 0, cache hit rate: 0.00%, token usage: 0.01, #running-req: 1, #queue-req: 0
+[2026-08-20 07:32:00.976 GPU=0 Worker 1 (model_1) TP=0] Decode batch. #running-req: 1, #token: 20509, token usage: 0.01, gen throughput (token/s): 0.78, #queue-req: 0
+[2026-08-20 07:32:01.743 GPU=0 Worker 1 (model_1) TP=0] Received 1 generation requests
+[2026-08-20 07:32:01.743 GPU=0 Worker 1 (model_1) TP=1] Received 1 generation requests
+[2026-08-20 07:32:01.744 GPU=0 Worker 1 (model_1) TP=0] Prefill batch. #new-seq: 1, #new-token: 6, #cached-token: 0, cache hit rate: 0.00%, token usage: 0.01, #running-req: 0, #queue-req: 0
+[2026-08-20 07:32:01.972 GPU=0 Worker 1 (model_1) TP=0] Received 1 generation requests
+[2026-08-20 07:32:01.972 GPU=0 Worker 1 (model_1) TP=1] Received 1 generation requests
+[2026-08-20 07:32:01.972 GPU=0 Worker 1 (model_1) TP=0] Prefill batch. #new-seq: 1, #new-token: 8, #cached-token: 0, cache hit rate: 0.00%, token usage: 0.01, #running-req: 0, #queue-req: 0
+[2026-08-20 07:32:02.078 GPU=0 Worker 1 (model_1) TP=0] Decode batch. #running-req: 1, #token: 20499, token usage: 0.01, gen throughput (token/s): 36.30, #queue-req: 0
+[2026-08-20 07:32:02.337] Cleaning up RequestHandlerWorkerPool ZMQ sockets and IPC files
+[2026-08-20 07:32:02.337] Removed IPC file: request_handler_to_gpu_scheduler_0
+[2026-08-20 07:32:02.337] Removed IPC file: /tmp/tmpl93gzfux
+[2026-08-20 07:32:02.337] Removed IPC file: request_handler_to_gpu_scheduler_1
+[2026-08-20 07:32:02.337] Removed IPC file: request_handler_to_gpu_scheduler_3
+[2026-08-20 07:32:02.338] Removed IPC file: request_handler_to_gpu_scheduler_2
+[2026-08-20 07:32:02.338] RequestHandlerWorkerPool cleanup completed
+[2026-08-20 07:32:02.339] Error during cleanup: asyncio.run() cannot be called from a running event loop
+[2026-08-20 07:32:03.329] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 07:32:03.329] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 07:32:03.329] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 07:32:03.329] Removed IPC file: /tmp/tmpjl0zfr0_
+[2026-08-20 07:32:03.329] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 07:32:03.329] DetokenizerManager cleanup completed
+[2026-08-20 07:32:03.329] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 07:32:03.329] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 07:32:03.329] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 07:32:03.329] Removed IPC file: /tmp/tmpq4mlunva
+[2026-08-20 07:32:03.329] DetokenizerManager cleanup completed
+[2026-08-20 07:32:03.329] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 07:32:03.330] Removed IPC file: /tmp/tmp7q1ojz29
+[2026-08-20 07:32:03.329 GPU=3 Worker=6 TP1] Successfully unlinked shared memory: ipc_3_6_root
+[2026-08-20 07:32:03.330] DetokenizerManager cleanup completed
+[2026-08-20 07:32:03.330] Removed IPC file: /tmp/tmptf_w5d55
+[2026-08-20 07:32:03.329] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 07:32:03.330] DetokenizerManager cleanup completed
+[2026-08-20 07:32:03.329 GPU=2 Worker=2 TP1] Successfully unlinked shared memory: ipc_2_2_root
+[2026-08-20 07:32:03.330] Removed IPC file: /tmp/tmpw41tjx64
+[2026-08-20 07:32:03.330] Removed IPC file: /tmp/tmplz8fyuit
+[2026-08-20 07:32:03.330] Removed IPC file: /tmp/tmp0txrqoju
+[2026-08-20 07:32:03.331] Removed IPC file: /tmp/tmpxpe62zlz
+[2026-08-20 07:32:03.331] Removed IPC file: /tmp/tmpm7eez2n2
+[2026-08-20 07:32:03.330 GPU=0 Worker=3 TP0] Successfully unlinked shared memory: ipc_0_3_root
+[2026-08-20 07:32:03.331 GPU=1 Worker=0 TP0] Successfully unlinked shared memory: ipc_1_0_root
+[2026-08-20 07:32:03.331 GPU=0 Worker=2 TP0] Successfully unlinked shared memory: ipc_0_2_root
+[2026-08-20 07:32:03.332 GPU=3 Worker=5 TP1] Successfully unlinked shared memory: ipc_3_5_root
+[2026-08-20 07:32:03.333] DetokenizerManager cleanup completed
+[2026-08-20 07:32:03.333] DetokenizerManager cleanup completed
+[2026-08-20 07:32:03.333] DetokenizerManager cleanup completed
+[2026-08-20 07:32:03.333] DetokenizerManager cleanup completed
+[2026-08-20 07:32:03.333] DetokenizerManager cleanup completed
+[2026-08-20 07:32:03.332 GPU=2 Worker=4 TP1] Successfully unlinked shared memory: ipc_2_4_root
+[2026-08-20 07:32:03.332 GPU=1 Worker=4 TP0] Successfully unlinked shared memory: ipc_1_4_root
+[2026-08-20 07:32:03.332 GPU=3 Worker=3 TP1] Successfully unlinked shared memory: ipc_3_3_root
+[2026-08-20 07:32:03.329 GPU=3 Worker=0 TP0] Successfully unlinked shared memory: ipc_3_0_root
+[2026-08-20 07:32:03.329 GPU=0 Worker=0 TP0] Successfully unlinked shared memory: ipc_0_0_root
+[2026-08-20 07:32:03.329 GPU=2 Worker=6 TP0] Successfully unlinked shared memory: ipc_2_6_root
+[2026-08-20 07:32:03.342 GPU=1 Worker=5 TP0] Successfully unlinked shared memory: ipc_1_5_root
+[2026-08-20 07:32:03.329] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 07:32:03.329 GPU=2 Worker=0 TP0] Successfully unlinked shared memory: ipc_2_0_root
+[2026-08-20 07:32:03.345] Removed IPC file: /tmp/tmpy3v7_47w
+[2026-08-20 07:32:03.346] DetokenizerManager cleanup completed
+[2026-08-20 07:32:03.478 GPU=0 Worker 1 (model_1) TP=0] Successfully unlinked shared memory: ipc_0_1_root

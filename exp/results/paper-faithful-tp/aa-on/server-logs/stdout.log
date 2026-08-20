@@ -4,19 +4,19 @@
 Initializing torch distributed...
 Torch distributed initialized.
 Loading 1 shared models to cpu...
-INFO 08-20 09:07:35 weight_utils.py:243] Using model weights format ['*.safetensors']
-INFO 08-20 09:07:35 weight_utils.py:288] No model.safetensors.index.json found in remote.
+INFO 08-20 07:29:42 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-20 07:29:42 weight_utils.py:288] No model.safetensors.index.json found in remote.
 Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  1.38it/s]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  1.38it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.16s/it]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.16s/it]
 
-INFO 08-20 09:07:38 weight_utils.py:243] Using model weights format ['*.safetensors']
-INFO 08-20 09:07:38 weight_utils.py:288] No model.safetensors.index.json found in remote.
+INFO 08-20 07:29:45 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-20 07:29:45 weight_utils.py:288] No model.safetensors.index.json found in remote.
 Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  1.92it/s]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  1.92it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  1.30it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  1.30it/s]
 
-Shared models loaded in 5.28 seconds.
+Shared models loaded in 5.90 seconds.
 /workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
   from pkg_resources import resource_string
 Model service worker 0 started.
@@ -78,63 +78,39 @@ Controller process started.
 /workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
   from pkg_resources import resource_string
 WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+WARNING: current device is not 2, but 0,  which may cause useless memory allocation for torch CUDA context.
+WARNING: current device is not 3, but 0,  which may cause useless memory allocation for torch CUDA context.
 Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_0_1_root
 Started page preallocation thread
 Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_1_1_root
 Started page preallocation thread
-WARNING: current device is not 2, but 0,  which may cause useless memory allocation for torch CUDA context.
-WARNING: current device is not 3, but 0,  which may cause useless memory allocation for torch CUDA context.
 /workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
   from pkg_resources import resource_string
 /workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
   from pkg_resources import resource_string
 /workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
   from pkg_resources import resource_string
-[2026-08-20 09:09:48] INFO:     Started server process [140171]
-[2026-08-20 09:09:48] INFO:     Waiting for application startup.
-[2026-08-20 09:09:48] INFO:     Application startup complete.
-[2026-08-20 09:09:48] INFO:     Uvicorn running on http://127.0.0.1:42800 (Press CTRL+C to quit)
-[2026-08-20 09:09:49] INFO:     127.0.0.1:54276 - "GET /get_model_names HTTP/1.1" 200 OK
-[2026-08-20 09:09:49] INFO:     127.0.0.1:38012 - "GET /get_model_names HTTP/1.1" 200 OK
+[2026-08-20 07:31:51] INFO:     Started server process [93962]
+[2026-08-20 07:31:51] INFO:     Waiting for application startup.
+[2026-08-20 07:31:51] INFO:     Application startup complete.
+[2026-08-20 07:31:51] INFO:     Uvicorn running on http://127.0.0.1:42050 (Press CTRL+C to quit)
+[2026-08-20 07:31:52] INFO:     127.0.0.1:60808 - "GET /get_model_names HTTP/1.1" 200 OK
+[2026-08-20 07:31:52] INFO:     127.0.0.1:60824 - "GET /get_model_names HTTP/1.1" 200 OK
 WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
 WARNING: current device is not 2, but 0,  which may cause useless memory allocation for torch CUDA context.
 WARNING: current device is not 3, but 0,  which may cause useless memory allocation for torch CUDA context.
-[2026-08-20 09:09:53] INFO:     127.0.0.1:54280 - "POST /generate HTTP/1.1" 200 OK
-[2026-08-20 09:09:53] INFO:     127.0.0.1:38028 - "POST /generate HTTP/1.1" 200 OK
-[2026-08-20 09:09:53] INFO:     127.0.0.1:38042 - "POST /generate HTTP/1.1" 200 OK
-[2026-08-20 09:09:53] INFO:     127.0.0.1:38044 - "POST /generate HTTP/1.1" 200 OK
-[2026-08-20 09:09:54] INFO:     127.0.0.1:38054 - "POST /generate HTTP/1.1" 200 OK
-/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/fastapi/routing.py:352: FastAPIDeprecationWarning: ORJSONResponse is deprecated, FastAPI now serializes data directly to JSON bytes via Pydantic when a return type or response model is set, which is faster and doesn't need a custom response class. Read more in the FastAPI docs: https://fastapi.tiangolo.com/advanced/custom-response/#orjson-or-response-model and https://fastapi.tiangolo.com/tutorial/response-model/
-  return await dependant.call(**values)
-[2026-08-20 09:09:54] INFO:     127.0.0.1:38056 - "POST /deactivate HTTP/1.1" 200 OK
+[2026-08-20 07:31:57] INFO:     127.0.0.1:60810 - "POST /generate HTTP/1.1" 200 OK
 WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
 WARNING: current device is not 2, but 0,  which may cause useless memory allocation for torch CUDA context.
 WARNING: current device is not 3, but 0,  which may cause useless memory allocation for torch CUDA context.
-WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
-WARNING: current device is not 2, but 0,  which may cause useless memory allocation for torch CUDA context.
-WARNING: current device is not 3, but 0,  which may cause useless memory allocation for torch CUDA context.
-[2026-08-20 09:10:04] INFO:     127.0.0.1:43212 - "POST /activate HTTP/1.1" 200 OK
-WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
-WARNING: current device is not 2, but 0,  which may cause useless memory allocation for torch CUDA context.
-WARNING: current device is not 3, but 0,  which may cause useless memory allocation for torch CUDA context.
-Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_2_2_root
-Started page preallocation thread
-Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_0_2_root
-Started page preallocation thread
-WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
-WARNING: current device is not 2, but 0,  which may cause useless memory allocation for torch CUDA context.
-WARNING: current device is not 3, but 0,  which may cause useless memory allocation for torch CUDA context.
-WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
-WARNING: current device is not 2, but 0,  which may cause useless memory allocation for torch CUDA context.
-WARNING: current device is not 3, but 0,  which may cause useless memory allocation for torch CUDA context.
-[2026-08-20 09:10:18] INFO:     127.0.0.1:39570 - "POST /generate HTTP/1.1" 200 OK
-[2026-08-20 09:10:19] INFO:     127.0.0.1:39584 - "POST /generate HTTP/1.1" 200 OK
-[2026-08-20 09:10:19] INFO:     127.0.0.1:39594 - "POST /generate HTTP/1.1" 200 OK
-[2026-08-20 09:10:19] INFO:     127.0.0.1:39602 - "POST /generate HTTP/1.1" 200 OK
-[2026-08-20 09:10:19] INFO:     Shutting down
-[2026-08-20 09:10:19] INFO:     Waiting for application shutdown.
-[2026-08-20 09:10:19] INFO:     Application shutdown complete.
-[2026-08-20 09:10:19] INFO:     Finished server process [140171]
+[2026-08-20 07:31:58] INFO:     127.0.0.1:60838 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-20 07:32:01] INFO:     127.0.0.1:60854 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-20 07:32:01] INFO:     127.0.0.1:59282 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-20 07:32:02] INFO:     127.0.0.1:59298 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-20 07:32:02] INFO:     Shutting down
+[2026-08-20 07:32:02] INFO:     Waiting for application shutdown.
+[2026-08-20 07:32:02] INFO:     Application shutdown complete.
+[2026-08-20 07:32:02] INFO:     Finished server process [93962]
 /workspace/prism-exp/prism-research/python/sglang/multi_model/request_handler_worker_pool.py:238: RuntimeWarning: coroutine 'AsyncRedisClient.close' was never awaited
   logger.error(f"Error during cleanup: {e}")
 RuntimeWarning: Enable tracemalloc to get the object allocation traceback

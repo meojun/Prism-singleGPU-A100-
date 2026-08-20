@@ -102,35 +102,46 @@ hit() {  # hit <label>
     python3 "$SCRIPT_DIR/tp_probe_requests.py" "$PORT" "$MODEL_NAME" "$OUT/requests_$1.json" 8 \
         2>&1 | tail -6
 }
-ctl() {  # ctl <activate|deactivate>
-    python3 - "$PORT" "$1" "$MODEL_NAME" <<'PY'
+CTL_RC=0
+ctl() {  # ctl <activate|deactivate> <owner_gpu>
+    python3 - "$PORT" "$1" "$MODEL_NAME" "${2:-0}" <<'PY'
 import json, sys, urllib.request
-port, what, model = sys.argv[1], sys.argv[2], sys.argv[3]
-# Field names are benchmark.py's (send_activate_request / send_deactivate_request).
+port, what, model, gpu = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
+# gpu_id is REQUIRED on ActivateReqInput (io_struct.py:453 -- no default), and
+# omitting it is a FastAPI 422 that looks like a server fault.  For a TP group
+# it is rank0's GPU, which is exactly what the upstream comment on that field
+# says: "For TP case, it's gpu_id for rank0".
+common = {"model_name": model, "instance_idx": gpu, "gpu_id": gpu}
 if what == "deactivate":
-    pload = {"model_name": model, "instance_idx": 0,
-             "evict_waiting_requests": False,
-             "preempt": False, "preempt_mode": "RECOMPUTE"}
+    pload = dict(common, evict_waiting_requests=False,
+                 preempt=False, preempt_mode="RECOMPUTE")
 else:
-    pload = {"model_name": model, "instance_idx": 0, "memory_pool_size": 20.0}
+    pload = dict(common, memory_pool_size=20.0)
 req = urllib.request.Request(f"http://127.0.0.1:{port}/{what}",
                              data=json.dumps(pload).encode(),
                              headers={"Content-Type": "application/json"})
 try:
     with urllib.request.urlopen(req, timeout=300) as r:
-        print(f"  {what}: {r.read().decode()[:200]}")
+        body = r.read().decode()
+    print(f"  {what}: {body[:220]}")
+    sys.exit(0 if '"success":true' in body.replace(" ", "").lower() else 3)
 except Exception as e:
     print(f"  {what} FAILED: {type(e).__name__}: {e}")
+    sys.exit(2)
 PY
+    local rc=$?
+    [ "$rc" -ne 0 ] && CTL_RC=$rc
+    return $rc
 }
 
+OWNER=0   # rank0's GPU: the group's control socket is bound there
 hit before
 echo "=== deactivate"
-ctl deactivate
-sleep 8
+ctl deactivate "$OWNER"
+sleep 10
 echo "=== activate again"
-ctl activate
-sleep 8
+ctl activate "$OWNER"
+sleep 10
 hit after
 
 cleanup
@@ -143,23 +154,47 @@ grep -hE "Assign worker|Released worker|release_worker|is not served by any work
      "$LOGDIR"/*.log 2>/dev/null | sed 's/.*\] //' | tail -25
 echo
 echo "=== verdict"
-python3 - "$OUT" <<'PY'
-import json, sys
+python3 - "$OUT" "$CTL_RC" "$LOGDIR" <<'PY'
+import json, re, sys
 from pathlib import Path
-out = Path(sys.argv[1])
-def ok(name):
+out, ctl_rc, logdir = Path(sys.argv[1]), int(sys.argv[2]), Path(sys.argv[3])
+
+def reqs(name):
     p = out / f"requests_{name}.json"
     if not p.exists():
         return None
     s = json.loads(p.read_text())["summary"]
     return s["successful"], s["failed"]
-before, after = ok("before"), ok("after")
-print(f"  before deactivate: {before}")
-print(f"  after reactivate : {after}")
-verdict = "PASS" if (before and after and before[1] == 0 and after[0] > 0
-                     and after[1] == 0) else "FAIL"
-print(f"  TP activate/deactivate cycle: {verdict}")
-json.dump({"before": before, "after": after, "verdict": verdict},
+
+before, after = reqs("before"), reqs("after")
+
+# The first version of this test reported PASS from before/after alone.  That is
+# a false pass: if the deactivate never lands, the model simply stays up and the
+# "after" requests succeed for a reason that has nothing to do with the slot
+# being released.  So the control calls are checked FIRST, and their failure is
+# INVALID (the test did not run), not FAIL (the code is broken).
+blob = "\n".join(p.read_text(errors="replace") for p in logdir.glob("*.log"))
+released = len(re.findall(r"Released worker|release_worker|_free_workers", blob))
+reassigned = len(re.findall(r"Assign worker \d+ to", blob))
+
+if ctl_rc != 0:
+    verdict, why = "INVALID", ("the activate/deactivate calls did not succeed, "
+                               "so the slot-release path was never exercised")
+elif not (before and after):
+    verdict, why = "INVALID", "request probes did not produce a result file"
+elif before[1] or after[1] or not after[0]:
+    verdict, why = "FAIL", "requests failed around the cycle"
+else:
+    verdict, why = "PASS", "deactivated and reactivated, and served again after"
+
+print(f"  before deactivate : {before}")
+print(f"  after  reactivate : {after}")
+print(f"  control calls rc  : {ctl_rc}")
+print(f"  worker assignments seen in logs: {reassigned}")
+print(f"  TP activate/deactivate cycle: {verdict} -- {why}")
+json.dump({"verdict": verdict, "why": why, "control_rc": ctl_rc,
+           "before": before, "after": after,
+           "assign_worker_log_lines": reassigned},
           open(out / "cycle_verdict.json", "w"), indent=2)
 PY
 exit 0
