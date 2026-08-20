@@ -8,5 +8,10 @@
 ps -eo pid,cmd | grep -E "launch_multi_model_server|model_service|benchmark\.py" \
   | grep -v grep | awk '{print $1}' | while read -r p; do kill -9 "$p" 2>/dev/null; done
 sleep 3
-rm -f /dev/shm/ipc_* /dev/shm/sem.mp-* /dev/shm/mp-* 2>/dev/null
+# ipc_* is what actually breaks the next server; torch_* and cuda.shm.*
+# are orphaned by every finished run and simply accumulate.  Only safe
+# because the kills above leave no process holding them -- do not run
+# this while anything is serving.
+rm -f /dev/shm/ipc_* /dev/shm/sem.mp-* /dev/shm/mp-* \
+      /dev/shm/torch_* /dev/shm/cuda.shm.* 2>/dev/null
 exit 0
