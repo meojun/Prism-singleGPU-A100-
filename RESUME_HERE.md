@@ -29,8 +29,8 @@ cat exp/results/paper-faithful-v6/sweep/SUMMARY.txt   # 있으면 스윕이 끝�
 | B — KV migration 모듈 + 25개 단위테스트 | ✅ 통과 |
 | B — 배선 패치 (5개 지점, opt-in) | ✅ 적용, 체인 멱등 확인 |
 | B — e2e 검증: v4 대조군 | ✅ 통과 — 요청 3387, 가중치 전송 24 (P2P 7), KV 마커 0 |
-| B — e2e 검증: v6 처리군 | 진행/완료 — `exp/results/paper-faithful-v6/e2e/` |
-| B — 스윕 (효과가 있는가) | 무인 실행 — `exp/results/paper-faithful-v6/sweep/` |
+| B — e2e 검증: v6 처리군 | ⚠️ **부분 성공** — 캡처 O, 전달 X. `e2e/FINDING.md` |
+| B — 스윕 (효과가 있는가) | ⛔ **던지지 않았다.** 아래 2.1 |
 
 **환경 값은 절대 다른 박스 것을 쓰지 마라.** 이 박스 값은
 `exp/results/paper-faithful-v6/profiling/*_this_box.json` 이고
@@ -43,6 +43,39 @@ cat exp/results/paper-faithful-v6/sweep/SUMMARY.txt   # 있으면 스윕이 끝�
 재현한다는 불변식이 데이터로 확인된 것이다. 그리고 그 런의 가중치 전송 24건 중
 7건이 gpu-to-gpu 였다 — V4 의 P2P 가 이 박스에서 마이크로벤치가 아니라 **실부하
 e2e** 로 동작한다.
+
+### 2.1 다음에 할 일은 이것 하나다 — 전달 채널 수정
+
+**스윕을 먼저 돌리지 마라.** 지금 상태로 돌리면 오염된 숫자가 나온다.
+
+무엇이 되고 무엇이 안 되는지는 `exp/results/paper-faithful-v6/e2e/FINDING.md`
+에 근거와 함께 있다. 요약:
+
+* **된다** — preempt → retract → KV 캡처 → 바이트 계량. stash 6회, capture
+  실패 0회, 최대 89요청 / 40,066토큰 / 4.6 GB. `kv_bytes` 가 하드코딩 0 이
+  아니라 실측값이 됐다.
+* **안 된다** — 엔진이 캡슐을 돌려받지 못한다. 서비스는 정상적으로 돌려주는데
+  (`fetch ... -> 4 requests`) 엔진은 30초 뒤 타임아웃한다.
+* **원인** — 내가 응답을 엔진의 `output_queue` 에 얹었는데, 그건 **가중치 로딩
+  핸드셰이크가 이미 쓰는 채널**이다 (`worker_pool_model_runner.py:277-279,
+  359-367` 이 활성화마다 3번 블로킹 `get()`). `activate_async` 에서는 그 로딩이
+  별도 스레드라 두 리더가 경합하고, 로더가 캡슐을 가져가 버린다.
+  v4 의 `__release__` 는 응답이 없는 단방향이라 채널 공유가 안전했다.
+  요청/응답은 다르다.
+
+**수정 방향** — 전용 응답 큐를 `input_queue` / `output_queue` 와 같은 방식으로
+관통시켜라: `launch_worker_pool_engines` → `launch_engine` →
+`run_scheduler_process` → `ModelRunner`, 그리고 서비스 쪽에 대응 dict.
+그러면 기존 프로토콜을 건드리지 않는다.
+같이 할 것: 타임아웃 30초는 너무 길다. 정상 응답이 그렇게 걸릴 이유가 없고,
+실패 시 활성화가 30초 멈추는 것이 측정을 오염시킨다.
+
+**하지 말 것** — fetch 를 non-blocking 으로 바꾸고 두 채널을 폴링하는 것은
+경합을 줄일 뿐 없애지 못한다. 가중치 응답에 캡슐을 얹는 것은 독립적으로
+실패하는 두 메커니즘을 묶는다.
+
+**수정 후 절차**: 단위테스트 → v6 단독 검증(`exp/scripts/run_v6_validation.sh`,
+약 10분) → `inject > 0` 과 `kv_transfers.jsonl` 존재 확인 → 그 다음에 스윕.
 
 ## 3. 스윕이 중간에 죽었다면
 
@@ -76,11 +109,8 @@ nvidia-smi --query-compute-apps=pid,used_memory --format=csv
 
 ## 5. 다음에 할 일 (권고 순서)
 
-1. **검증이 발동하지 않았다면** — 그게 최우선이다. 계측 세 개로 어디서 끊겼는지 특정된다:
-   `stash=0` → 캡처 미진입 (preempt 가 안 걸렸거나 retract 경로를 안 탔다)
-   `stash>0, inject=0` → 전달 끊김 (모델 서비스 라우팅)
-   `capture_failures>0` → 속성/타이밍 문제, 로그에 사유가 찍힌다
-2. **발동했고 실패 0 이면** — `IMPLEMENTATION_AUDIT.md` 의 KV-cache migration 행을
+1. **전달 채널 수정** (§2.1). 이것 말고 다른 것을 먼저 하지 마라.
+2. 수정 후 검증이 통과하면 — `IMPLEMENTATION_AUDIT.md` 의 KV-cache migration 행을
    `NOT IMPLEMENTED` 에서 갱신하고 근거를 raw data 로 가리켜라.
    `build_report_v4.py` 가 그 표를 생성하므로 **생성기를 고쳐야 한다.**
    손으로 표만 고치면 다음 생성 때 되돌아간다.
