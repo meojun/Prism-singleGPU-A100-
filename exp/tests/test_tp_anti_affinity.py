@@ -117,15 +117,40 @@ def case_constraint_actually_binds():
           "the ON and OFF plans differ -- there is something to measure")
 
 
-def case_off_can_produce_illegal_plan():
-    print("case 3: with the filter off, an illegal placement is actually emitted")
+def case_off_wants_an_illegal_plan_but_cannot_emit_one():
+    print("case 3: OFF *wants* a collision; the engine groups make emitting one "
+          "impossible")
+    # This is the shape the architecture forces, and it is worth stating because
+    # it is not what a naive reading of the paper's constraint predicts.
+    #
+    # Engine groups are pre-formed from DISTINCT GPUs (paper 4: a GPU group is
+    # "a set of GPUs tightly coupled to jointly serve one model instance"), so a
+    # placement that stacks two shards on one GPU has no group to run on.  The
+    # planner is therefore snapped onto a real group before emitting -- without
+    # that snap the activation is simply refused and the model stays down, which
+    # is exactly what happened in the first step-4 run (1672 requests queued
+    # behind the one TP model).
+    #
+    # So the constraint's effect is NOT "prevents an illegal placement".  It is
+    # "keeps the planner's own choice, instead of having it overwritten by the
+    # snap".  Both are measured: aa_violations is the intent, and the emitted
+    # group is the outcome.
     sizes, current, rates = _imbalanced()
     off = make_policy(4, sizes, anti_affinity=False)
-    plan = place(off, current, rates, 4)
-    collided = len(set(plan["tp"])) < len(plan["tp"])
-    print(f"    OFF plan = tp on {plan['tp']}  collided={collided}")
-    check(collided, "OFF emits two shards on one GPU -- the constraint has "
-                    "something to constrain")
+    plan_off = place(off, current, rates, 4)
+    on = make_policy(4, sizes, anti_affinity=True)
+    plan_on = place(on, current, rates, 4)
+    print(f"    OFF wanted a collision: {off._tp_audit['aa_violations'] > 0}; "
+          f"emitted {plan_off['tp']}   ON emitted {plan_on['tp']}")
+    check(off._tp_audit["aa_violations"] > 0,
+          "OFF's unconstrained argmin is recorded as wanting a collision")
+    check(len(set(plan_off["tp"])) == len(plan_off["tp"]),
+          "but what OFF emits is still a legal, distinct-GPU group")
+    check(off._tp_audit["snapped_to_group"] > 0,
+          "and the snap is what made it legal -- counted, not silent")
+    check(plan_on["tp"] != plan_off["tp"],
+          "ON and OFF still emit different groups -- that is the measurable效果"
+          .replace("效果", " effect"))
 
 
 def case_balanced_cluster_does_not_bind():
@@ -238,7 +263,7 @@ def main():
     for fn in (
         case_tp1_unchanged,
         case_constraint_actually_binds,
-        case_off_can_produce_illegal_plan,
+        case_off_wants_an_illegal_plan_but_cannot_emit_one,
         case_balanced_cluster_does_not_bind,
         case_on_never_emits_illegal_plan,
         case_group_size_preserved,

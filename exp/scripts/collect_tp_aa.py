@@ -65,7 +65,8 @@ def deltas(cycles):
     bind" answerable, so both are kept.
     """
     keys = ("aa_violations", "aa_diverted", "aa_infeasible",
-            "aa_second_also_collides", "shards_placed")
+            "aa_second_also_collides", "shards_placed",
+            "snapped_to_group", "group_unavailable")
     prev = {k: 0 for k in keys}
     out = []
     for c in cycles:
@@ -136,7 +137,8 @@ def main():
         "any_tp_group_active_ever": any(c.get("any_tp_group_active") for c in cycles),
         "totals": {k: last.get(k, 0) for k in
                    ("shards_placed", "aa_violations", "aa_diverted",
-                    "aa_infeasible", "aa_second_also_collides")},
+                    "aa_infeasible", "aa_second_also_collides",
+                    "snapped_to_group", "group_unavailable")},
         "cycles_with_a_violation": sum(1 for r in d if r["d_aa_violations"] > 0),
         "cycles_with_a_diversion": sum(1 for r in d if r["d_aa_diverted"] > 0),
         "colliding_plans_emitted": sum(

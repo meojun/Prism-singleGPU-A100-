@@ -87,3 +87,130 @@ module 'torch' has no attribute 'int1'
 [2026-08-20 14:17:15.492] Worker 1 of GPU 1 loaded in process 369831
 [2026-08-20 14:17:16.702 GPU=3 Worker=1 TP0] Initialize req_to_token pool end. Takes 0.0178s. Wait time: 0.0004s. Init time: 0.0178s
 [2026-08-20 14:17:16.703 GPU=3 Worker=1 TP0] Create req_to_token_pool end. Time cost: 0.0197s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:17.095 GPU=3 Worker=0 TP0] Initialize req_to_token pool end. Takes 0.0266s. Wait time: 0.0012s. Init time: 0.0266s
+[2026-08-20 14:17:17.096 GPU=3 Worker=0 TP0] Create req_to_token_pool end. Time cost: 0.0305s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:18.120 GPU=1 Worker=0 TP0] Initialize req_to_token pool end. Takes 0.0217s. Wait time: 0.0008s. Init time: 0.0218s
+[2026-08-20 14:17:18.122 GPU=1 Worker=0 TP0] Create req_to_token_pool end. Time cost: 0.0254s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:18.722 GPU=0 Worker=1 TP0] Initialize req_to_token pool end. Takes 0.0222s. Wait time: 0.0010s. Init time: 0.0223s
+[2026-08-20 14:17:18.723 GPU=0 Worker=1 TP0] Create req_to_token_pool end. Time cost: 0.0248s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:18.768 GPU=2 Worker=1 TP0] Initialize req_to_token pool end. Takes 0.0166s. Wait time: 0.0003s. Init time: 0.0166s
+[2026-08-20 14:17:18.769 GPU=2 Worker=1 TP0] Create req_to_token_pool end. Time cost: 0.0182s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:18.840 GPU=2 Worker=0 TP0] Initialize req_to_token pool end. Takes 0.0189s. Wait time: 0.0002s. Init time: 0.0189s
+[2026-08-20 14:17:18.840 GPU=2 Worker=0 TP0] Create req_to_token_pool end. Time cost: 0.0207s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:19.372 GPU=3 Worker=1 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:19.374] Worker 1 of GPU 3 loaded in process 369767
+[2026-08-20 14:17:20.618 GPU=3 Worker=0 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:20.629] Worker 0 of GPU 3 loaded in process 369960
+[2026-08-20 14:17:20.753 GPU=1 Worker=0 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:20.754] Worker 0 of GPU 1 loaded in process 370094
+[2026-08-20 14:17:21.294 GPU=0 Worker=1 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:21.295] Worker 1 of GPU 0 loaded in process 370417
+[2026-08-20 14:17:21.545 GPU=2 Worker=1 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:21.546] Worker 1 of GPU 2 loaded in process 370222
+[2026-08-20 14:17:22.032 GPU=2 Worker=0 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:22.033] Worker 0 of GPU 2 loaded in process 370090
+[2026-08-20 14:17:38.266 GPU=3 Worker=6 TP1] Initialize req_to_token pool end. Takes 0.0013s. Wait time: 0.0041s. Init time: 0.0014s
+[2026-08-20 14:17:38.268 GPU=3 Worker=6 TP1] Create req_to_token_pool end. Time cost: 0.0085s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:38.420 GPU=0 Worker=4 TP0] Initialize req_to_token pool end. Takes 0.0036s. Wait time: 0.0040s. Init time: 0.0036s
+[2026-08-20 14:17:38.421 GPU=0 Worker=4 TP0] Create req_to_token_pool end. Time cost: 0.0097s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:39.438 GPU=1 Worker=5 TP0] Initialize req_to_token pool end. Takes 0.0064s. Wait time: 0.0043s. Init time: 0.0064s
+[2026-08-20 14:17:39.439 GPU=1 Worker=5 TP0] Create req_to_token_pool end. Time cost: 0.0129s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:39.916 GPU=1 Worker=6 TP0] Initialize req_to_token pool end. Takes 0.0022s. Wait time: 0.0037s. Init time: 0.0022s
+[2026-08-20 14:17:39.916 GPU=1 Worker=6 TP0] Create req_to_token_pool end. Time cost: 0.0075s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:40.029 GPU=2 Worker=7 TP0] Initialize req_to_token pool end. Takes 0.0030s. Wait time: 0.0016s. Init time: 0.0030s
+[2026-08-20 14:17:40.030 GPU=2 Worker=7 TP0] Create req_to_token_pool end. Time cost: 0.0063s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:40.044 GPU=0 Worker=2 TP0] Initialize req_to_token pool end. Takes 0.0034s. Wait time: 0.0040s. Init time: 0.0034s
+[2026-08-20 14:17:40.045 GPU=0 Worker=2 TP0] Create req_to_token_pool end. Time cost: 0.0090s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:40.068 GPU=0 Worker=3 TP0] Initialize req_to_token pool end. Takes 0.0040s. Wait time: 0.0041s. Init time: 0.0040s
+[2026-08-20 14:17:40.069 GPU=0 Worker=3 TP0] Create req_to_token_pool end. Time cost: 0.0099s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:40.141 GPU=2 Worker=3 TP1] Initialize req_to_token pool end. Takes 0.0019s. Wait time: 0.0029s. Init time: 0.0020s
+[2026-08-20 14:17:40.142 GPU=2 Worker=3 TP1] Create req_to_token_pool end. Time cost: 0.0067s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:40.168 GPU=3 Worker=4 TP1] Initialize req_to_token pool end. Takes 0.0029s. Wait time: 0.0028s. Init time: 0.0029s
+[2026-08-20 14:17:40.169 GPU=3 Worker=4 TP1] Create req_to_token_pool end. Time cost: 0.0075s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:40.204 GPU=1 Worker=2 TP1] Initialize req_to_token pool end. Takes 0.0013s. Wait time: 0.0013s. Init time: 0.0013s
+[2026-08-20 14:17:40.205 GPU=1 Worker=2 TP1] Create req_to_token_pool end. Time cost: 0.0045s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:40.211 GPU=2 Worker=5 TP1] Initialize req_to_token pool end. Takes 0.0025s. Wait time: 0.0019s. Init time: 0.0025s
+[2026-08-20 14:17:40.212 GPU=2 Worker=5 TP1] Create req_to_token_pool end. Time cost: 0.0066s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:40.259 GPU=3 Worker=7 TP1] Initialize req_to_token pool end. Takes 0.0009s. Wait time: 0.0008s. Init time: 0.0009s
+[2026-08-20 14:17:40.260 GPU=3 Worker=7 TP1] Create req_to_token_pool end. Time cost: 0.0034s. req_to_token_pool memory=0.25 GB
+[2026-08-20 14:17:42.380 GPU=1 Worker=6 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:42.380 GPU=3 Worker=6 TP1] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:42.382] Worker 6 of GPU 1 loaded in process 372825
+[2026-08-20 14:17:42.613 GPU=0 Worker=4 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:42.614 GPU=3 Worker=4 TP1] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:42.615] Worker 4 of GPU 0 loaded in process 372669
+[2026-08-20 14:17:42.681 GPU=2 Worker=5 TP1] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:42.681 GPU=1 Worker=5 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:42.683] Worker 5 of GPU 1 loaded in process 373069
+[2026-08-20 14:17:42.793 GPU=2 Worker=3 TP1] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:42.793 GPU=0 Worker=3 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:42.795] Worker 3 of GPU 0 loaded in process 372318
+[2026-08-20 14:17:42.973 GPU=1 Worker=2 TP1] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:42.973 GPU=0 Worker=2 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:42.975] Worker 2 of GPU 0 loaded in process 372760
+[2026-08-20 14:17:43.220 GPU=3 Worker=7 TP1] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:43.221 GPU=2 Worker=7 TP0] Worker pool model runner is not active, while calling deactivate
+[2026-08-20 14:17:43.222] Worker 7 of GPU 2 loaded in process 372824
+[2026-08-20 14:17:43.224] All 14 engines prepared in 83.44 seconds.
+[2026-08-20 14:17:50.344] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.345] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.346] Removed IPC file: /tmp/tmpwvsnw499
+[2026-08-20 14:17:50.346] Removed IPC file: /tmp/tmpe3oo_k43
+[2026-08-20 14:17:50.346] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.346] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.346] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.346] Removed IPC file: /tmp/tmpq1ywebej
+[2026-08-20 14:17:50.346] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.349] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.349] Removed IPC file: /tmp/tmpmsnf1_uv
+[2026-08-20 14:17:50.349] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.361] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.361] Removed IPC file: /tmp/tmpob5q88av
+[2026-08-20 14:17:50.361] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.362 GPU=2 Worker=5 TP1] Successfully unlinked shared memory: ipc_2_5_root
+[2026-08-20 14:17:50.364] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.365] Removed IPC file: /tmp/tmp6hsr67_w
+[2026-08-20 14:17:50.365] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.366] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.366] Removed IPC file: /tmp/tmpvqyyghjm
+[2026-08-20 14:17:50.366] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.367] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.369] Removed IPC file: /tmp/tmpp0drnhlo
+[2026-08-20 14:17:50.369] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.370] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.370] Removed IPC file: /tmp/tmpu7jttcsf
+[2026-08-20 14:17:50.370] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.408 GPU=0 Worker=1 TP0] Successfully unlinked shared memory: ipc_0_1_root
+[2026-08-20 14:17:50.426 GPU=3 Worker=6 TP1] Successfully unlinked shared memory: ipc_3_6_root
+[2026-08-20 14:17:50.433] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.436] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.442] Removed IPC file: /tmp/tmpwxalvau7
+[2026-08-20 14:17:50.442] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.446] Removed IPC file: /tmp/tmpfc483fad
+[2026-08-20 14:17:50.446] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.450 GPU=1 Worker=0 TP0] Successfully unlinked shared memory: ipc_1_0_root
+[2026-08-20 14:17:50.522] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.523] Removed IPC file: /tmp/tmpyr_l8i1z
+[2026-08-20 14:17:50.523] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.524] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.530 GPU=3 Worker=1 TP0] Successfully unlinked shared memory: ipc_3_1_root
+[2026-08-20 14:17:50.535 GPU=2 Worker=3 TP1] Successfully unlinked shared memory: ipc_2_3_root
+[2026-08-20 14:17:50.536 GPU=0 Worker=3 TP0] Successfully unlinked shared memory: ipc_0_3_root
+[2026-08-20 14:17:50.546 GPU=1 Worker=5 TP0] Successfully unlinked shared memory: ipc_1_5_root
+[2026-08-20 14:17:50.550 GPU=3 Worker=0 TP0] Successfully unlinked shared memory: ipc_3_0_root
+[2026-08-20 14:17:50.551 GPU=3 Worker=7 TP1] Successfully unlinked shared memory: ipc_3_7_root
+[2026-08-20 14:17:50.610] Cleaning up DetokenizerManager ZMQ sockets and IPC files
+[2026-08-20 14:17:50.611] Removed IPC file: /tmp/tmp7uyitd5d
+[2026-08-20 14:17:50.611] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.614 GPU=0 Worker=0 TP0] Successfully unlinked shared memory: ipc_0_0_root
+[2026-08-20 14:17:50.617 GPU=1 Worker=1 TP0] Successfully unlinked shared memory: ipc_1_1_root
+[2026-08-20 14:17:50.637] Removed IPC file: /tmp/tmpx434xrd0
+[2026-08-20 14:17:50.637] DetokenizerManager cleanup completed
+[2026-08-20 14:17:50.728 GPU=0 Worker=2 TP0] Successfully unlinked shared memory: ipc_0_2_root
+[2026-08-20 14:17:50.745 GPU=2 Worker=1 TP0] Successfully unlinked shared memory: ipc_2_1_root
+[2026-08-20 14:17:50.805 GPU=2 Worker=0 TP0] Successfully unlinked shared memory: ipc_2_0_root
+[2026-08-20 14:17:50.749 GPU=1 Worker=2 TP1] Successfully unlinked shared memory: ipc_1_2_root
+[2026-08-20 14:17:50.846 GPU=3 Worker=4 TP1] Successfully unlinked shared memory: ipc_3_4_root
+[2026-08-20 14:17:51.218 GPU=1 Worker=6 TP0] Successfully unlinked shared memory: ipc_1_6_root
+[2026-08-20 14:17:51.606 GPU=0 Worker=4 TP0] Successfully unlinked shared memory: ipc_0_4_root
+[2026-08-20 14:17:52.203 GPU=2 Worker=7 TP0] Successfully unlinked shared memory: ipc_2_7_root

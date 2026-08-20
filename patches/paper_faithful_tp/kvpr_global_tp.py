@@ -89,6 +89,11 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
             "aa_infeasible": 0,   # no candidate left; fell back
             # The paper's rule permits this; counted, not repaired.
             "aa_second_also_collides": 0,
+            # The argmin's GPU set was not a real/free engine group and had to
+            # be snapped to one.  Emitting an unrealisable set is what left a TP
+            # model down with 1672 requests queued behind it.
+            "snapped_to_group": 0,
+            "group_unavailable": 0,
         }
         logger.info(
             "[PAPER-ALG1-TP] init "
@@ -270,7 +275,7 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
                 shared_kv[chosen] -= shard_size
                 self._tp_audit["shards_placed"] += 1
 
-            target[name] = tuple(chosen_gpus)
+            target[name] = self._snap_to_group(name, k, chosen_gpus, target)
         # NOTE: _group_of is deliberately NOT updated here.  A plan is not a
         # placement -- v4 emits at most one migration per cycle and blocks
         # others, so most of this plan never happens.  Recording it as "where
@@ -304,6 +309,57 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
         plan = self._greedy_placement_tp(weights, groups, gpu_available_memory)
         self._last_group_plan = plan
         return {m: g[0] for m, g in plan.items()}
+
+    def _snap_to_group(self, name, k, chosen_gpus, target_so_far):
+        """Map a per-shard argmin result onto a group that actually exists and is free.
+
+        Placement picks GPUs by KVPR alone.  Nothing in that step knows whether
+        a k-GPU engine group spans exactly those GPUs, or whether it is already
+        serving something else.  Emitting such a placement is not a no-op: the
+        controller sends the activation to the chosen rank0 GPU, that GPU's pool
+        has no free tp_size=k slot, the activation is refused, and the model
+        stays down -- its requests then queue forever.  Measured: a 4-GPU run
+        where all 1672 outstanding requests belonged to the single TP model
+        while the five TP=1 models finished normally.
+
+        So the chosen set is snapped to the nearest real, free group: most GPUs
+        in common with what the argmin wanted, then lowest resulting KVPR order,
+        then lowest GPU ids for determinism.  The model's current group is
+        always a legal target -- staying put must never be impossible.
+        """
+        want = tuple(chosen_gpus)
+        if k <= 1 or self._plan is None:
+            return want
+
+        taken = set()
+        for other, grp in self._group_of.items():
+            if other != name and len(grp) > 1:
+                taken.add(tuple(grp))
+        for other, grp in target_so_far.items():
+            if other != name and len(grp) > 1:
+                taken.add(tuple(grp))
+
+        mine = self._group_of.get(name)
+        candidates = [g for g in self._plan.groups(k)
+                      if tuple(g.gpu_ids) not in taken or tuple(g.gpu_ids) == mine]
+        if not candidates:
+            # Every group of this size is serving something else.  Staying put
+            # is the only honest answer; say so rather than emitting a move that
+            # will be refused.
+            self._tp_audit["group_unavailable"] += 1
+            logger.warning(
+                f"[PAPER-ALG1-TP] no free tp_size={k} group for {name}; "
+                f"wanted {list(want)}, staying on {list(mine) if mine else 'unknown'}"
+            )
+            return tuple(mine) if mine else want
+
+        wanted = set(want)
+        best = max(candidates,
+                   key=lambda g: (len(wanted & set(g.gpu_ids)), -g.gpu_ids[0], -g.worker_id))
+        snapped = tuple(best.gpu_ids)
+        if snapped != want:
+            self._tp_audit["snapped_to_group"] += 1
+        return snapped
 
     # ------------------------------------------------------------ entry point
     def _find_optimal_migrations(
