@@ -76,6 +76,7 @@ case "${TP_POLICY:-simple-global}" in
 esac
 [ -n "${TP_MAX_GROUPS:-}" ] && ARGS+=(--tp-max-groups "$TP_MAX_GROUPS")
 [ -n "${TP_ANTI_AFFINITY:-}" ] && ARGS+=(--enable-tp-anti-affinity)
+[ -n "${TP_ANTI_AFFINITY_STRICT:-}" ] && ARGS+=(--enable-tp-anti-affinity-strict)
 
 VISIBLE=$(seq -s, 0 $((NGPU - 1)))
 
