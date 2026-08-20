@@ -150,3 +150,57 @@ Give it a short timeout on the read, and have a missed reply fall back to
 recompute -- the property the reverted design had and this one must keep.
 
 The server logs from the hung run are beside this file.
+
+---
+
+# Update: capsules cross processes fine. The channel is where the problem is.
+
+Before instrumenting the server, the cheaper question: is the hang about
+*sharing the weight handshake*, or about *moving capsules between processes at
+all*? Only the second would also sink a dedicated queue, so it had to be
+settled first.
+
+`ipc_capsule_probe.py` (beside this file) settles it without a server. A child
+process receives capsules over a `torch.multiprocessing.Queue` and reads every
+byte, while the parent does exactly what the source engine does next -- drops
+its references, stops the allocator thread, and releases the kvcached pool.
+
+```
+parent: expected k/v sums {'r0': (2252800.0, 92364800.0), ...}
+parent: 4 capsules, 13.8 MiB
+parent: put returned in 0.000s
+parent: references dropped and pool released
+child read back:  [('r0', 220, 2252800.0, 92364800.0), ...]
+RESULT: crossing succeeded, bytes MATCH
+```
+
+(The first version of this probe passed vacuously: it wrote `+X` to k and `-X`
+to v and compared their sum, so both sides came to zero. Values are now distinct
+per capsule *and* per layer, with k and v checked separately, and the script
+asserts the expected values are non-zero and distinguishable before trusting a
+match.)
+
+**So the IPC hypothesis is dead for a second reason** -- not just guarded in
+principle by torch's refcounting, but observed working in practice, including the
+teardown that was supposed to break it.
+
+## What this leaves
+
+The hang is a property of **sharing the weight-loading handshake**, not of
+capsule transport. That is good news for the plan: a dedicated per-engine reply
+queue is not undermined by anything known, and can be built.
+
+What the probe does *not* cover, and what an instrumented run still would:
+it used a fresh `spawn` queue rather than the service's long-lived router
+queues; one hand-off rather than many across repeated activations; 13.8 MiB
+rather than the 4.6 GB a real capture reached; and the child read immediately.
+
+## Revised recommendation
+
+Build the dedicated per-engine queue. Instrumenting the abandoned
+fourth-message design would explain a design nobody intends to use, and the one
+thing that explanation could have changed -- whether transport itself is viable
+-- is now answered.
+
+Keep a short read timeout with a recompute fallback, and prove it on the real
+path with a `run_v6_validation.sh` run before any sweep.
