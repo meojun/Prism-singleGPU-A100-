@@ -24,7 +24,58 @@ no further service activity. The previous design at least completed -- 3387
 requests, zero failures, paying 30 s per missed hand-off. This one does not
 finish at all, which is strictly worse.
 
-## Why, most likely
+## Why -- the first hypothesis is REFUTED, and the real one is worse
+
+**Refuted.** The guess below was that message counts got out of step. They do
+not. Auditing every put and get on that channel:
+
+| path | service puts | engine gets | balanced |
+| --- | --- | --- | --- |
+| success, v4 branch | `"success"` (410), elapsed (433), service_id (434), **caps** | 359, 366, 367, **new get** | yes |
+| error | `None` (441), error string (442) | 359, then 364, then `continue` | yes |
+
+Both paths balance, with and without the fourth message. Whatever hung the run,
+it was not a desynchronised handshake.
+
+**The likely real cause is tensor lifetime across CUDA IPC, and it invalidates
+the planned fix as well.**
+
+A capsule holds CUDA tensors on the *source* GPU. Putting it on a
+`torch.multiprocessing.Queue` does not copy them -- it sends CUDA IPC handles.
+So the model service ends up holding a mapping of the source engine's memory.
+Then, immediately:
+
+```
+scheduler.py:2016   q.put(("__kv_stash__", key, gpu_id, self._v6_captured))
+scheduler.py:2025   finally: self._v6_captured = []      # source drops its refs
+scheduler.py:1759   self._v6_stash_captured()
+scheduler.py:1760   self.tp_worker.deactivate_model_runner()   # frees GPU memory,
+                                                              # empty_cache()
+```
+
+The source releases its only references and then tears the engine down, while
+another process is still mapped to that memory. That is a use-after-free across
+IPC, and a hang is a plausible way for it to present.
+
+This is the same class of bug v4 hit with weights, and v4's fix is the tell: the
+model service deliberately *keeps* the source copy alive
+(`if not self.v4_p2p: del gpu_model`) and calls `torch.cuda.ipc_collect()` only
+once the migration has displaced it. Capsules need the same discipline and do
+not have it.
+
+**What this changes for the next attempt.** A dedicated per-engine reply queue
+fixes the channel, which was a real bug, but it does not touch this one -- the
+lifetime problem is independent of which queue carries the handles. Any fix has
+to keep the source-side tensors alive until the target has copied out of them,
+or avoid crossing IPC with them at all (stage through host memory at the cost of
+a bounce). Decide that before writing more plumbing.
+
+**Still a hypothesis.** Nobody has instrumented the source's memory lifetime to
+watch it happen. But unlike the message-count guess, this one is not contradicted
+by the code, and it explains why the hang begins at the first hand-off carrying
+real tensors rather than at any of the empty ones.
+
+## The original guess, kept for the record
 
 The fourth message assumes the engine always performs a matching fourth `get()`.
 That holds only on the one load path the patch edits

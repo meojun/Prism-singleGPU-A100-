@@ -1,0 +1,1046 @@
+[2026-08-20 07:31:19.945 GPU_Scheduler_0] starting GPU scheduler for GPU 0
+[2026-08-20 07:31:19.948 GPU_Scheduler_0] [PAPER-ALG2] enabled=True prefill_speed_entries=6 log=/workspace/prism-exp/exp/results/paper-faithful-v6/sweep/raw/paper-faithful-v4/bursty/rate_8/seed_1/server-logs/server.log.alg2_gpu0.jsonl
+[2026-08-20 07:31:19.949 GPU_Scheduler_0] Model states init: {'model_1': 'deactivated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'deactivated'}
+[2026-08-20 07:31:19.974 GPU_Scheduler_0] Assign worker 0 to model_1. Current model_to_worker: {'model_1': 0}
+[2026-08-20 07:31:19.975 GPU_Scheduler_0] Assign worker 1 to model_4. Current model_to_worker: {'model_1': 0, 'model_4': 1}
+[2026-08-20 07:31:19.975 GPU_Scheduler_0] Assign worker 2 to model_5. Current model_to_worker: {'model_1': 0, 'model_4': 1, 'model_5': 2}
+[2026-08-20 07:31:19.978 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:19.988 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:19.998 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.008 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.019 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.029 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.039 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.049 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.059 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.070 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.080 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.090 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.100 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.111 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.121 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.131 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.141 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.152 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.162 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.172 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.182 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.193 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.203 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.213 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.223 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.234 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.244 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.254 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.264 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.275 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.285 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.295 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.305 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.316 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.326 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.337 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.348 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.358 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.369 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.380 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.390 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.401 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.412 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.422 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.433 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.444 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.455 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.465 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.476 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.487 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.497 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.507 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.518 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.528 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.538 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.548 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.558 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.569 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.579 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.589 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.599 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.610 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.621 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.631 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.641 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.651 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.662 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.672 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.682 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.692 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.702 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.713 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.723 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.733 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.744 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.754 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.764 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.774 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.784 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.795 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.805 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.815 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.825 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.836 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.846 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.856 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.866 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.877 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.888 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.898 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.909 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.919 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.930 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.941 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.951 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.962 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.973 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.983 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:20.994 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.005 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.015 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.025 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.035 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.046 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.056 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.066 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.076 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.087 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.097 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.107 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.117 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.127 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.138 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.148 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.158 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.168 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.179 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.189 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.199 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.209 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.220 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.230 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.240 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.250 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.260 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.271 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.281 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.291 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.301 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.312 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.322 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.332 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.342 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.352 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.363 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.373 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.383 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.393 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.404 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.414 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.424 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.434 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.444 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.455 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.465 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.475 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.485 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.496 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.506 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.516 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.526 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.537 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.547 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.557 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.567 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.578 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.588 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.598 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.608 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.619 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.629 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.639 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.649 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.659 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.670 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.680 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.690 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.700 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.710 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.721 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.731 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.741 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.751 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.762 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.772 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.782 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.792 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.803 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.813 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.823 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.833 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.843 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.854 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.864 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.874 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.884 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.895 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.905 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.915 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.925 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.935 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.946 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.956 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.966 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.976 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.987 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:21.997 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.007 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.018 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.028 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.038 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.048 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.058 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.069 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.079 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.089 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.099 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.110 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.120 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.130 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.140 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.151 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.161 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.171 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.181 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.192 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.202 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.212 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.222 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.233 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.243 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.253 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.263 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.273 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.284 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.294 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.304 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.314 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.324 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.335 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.345 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.355 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.365 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.376 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.386 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.396 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.406 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.416 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.427 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.437 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.447 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.457 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.468 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.478 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.488 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.498 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.509 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.519 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.529 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.539 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.550 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.560 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.570 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.580 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.591 GPU_Scheduler_0] Model model_1 (instance 0) activation succeeded on GPU 0
+[2026-08-20 07:31:22.591 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.601 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.611 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.622 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.632 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.642 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.653 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.663 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.673 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.684 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.694 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.704 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.715 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.725 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.735 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.745 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.756 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.766 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.776 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.786 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.797 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.807 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.817 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.827 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.837 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.848 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.858 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.868 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.878 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.888 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.899 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.909 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.919 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.929 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.939 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.950 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.960 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.970 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.980 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:22.991 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.001 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.011 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.021 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.031 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activating', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.042 GPU_Scheduler_0] Model model_4 (instance 0) activation succeeded on GPU 0
+[2026-08-20 07:31:23.042 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.052 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.062 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.073 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.083 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.093 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.103 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.114 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.124 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.134 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.144 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.154 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.165 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.175 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.185 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.195 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.205 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.216 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.226 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.236 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.246 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.257 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.267 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.277 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.287 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.298 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.308 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.318 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.328 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.339 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.349 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.359 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.369 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.379 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.390 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.400 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.410 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.420 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.430 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.441 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.451 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.461 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.471 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.481 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.492 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.502 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.512 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.522 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.532 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.543 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.553 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.563 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.573 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.584 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.594 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.604 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.614 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.624 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.635 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.645 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.655 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.665 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.675 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.686 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.696 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.706 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.716 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.727 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.737 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.747 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.757 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.768 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.778 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.788 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.798 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.808 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.819 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.829 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.839 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.849 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.859 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.870 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.880 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.890 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.900 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.911 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.921 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.931 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.941 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.951 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.962 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.972 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.982 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:23.992 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.003 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.013 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.023 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.033 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.044 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.054 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.064 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.074 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.084 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.095 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.105 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.115 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.125 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.136 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.146 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.156 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.166 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.176 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.187 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.197 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.207 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.217 GPU_Scheduler_0] Waiting for models to be activated: {'model_1': 'activated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activating', 'model_6': 'deactivated'}
+[2026-08-20 07:31:24.228 GPU_Scheduler_0] Model model_5 (instance 0) activation succeeded on GPU 0
+[2026-08-20 07:31:29.233 GPU_Scheduler_0] [V5-LOOP] {"iters": 469, "t_mem": 0.008231592160882428, "t_redis": 0.24592248609405942, "t_admit": 0.0030028390465304255, "t_send": 0.0003709477896336466, "t_iter": 0.2575278650911059, "admitted": 0, "iter_max": 0.002307337010279298, "gpu_id": 0, "window_s": 5.0046913623809814}
+[2026-08-20 07:31:32.601 GPU_Scheduler_1] starting GPU scheduler for GPU 1
+[2026-08-20 07:31:32.603 GPU_Scheduler_1] [PAPER-ALG2] enabled=True prefill_speed_entries=6 log=/workspace/prism-exp/exp/results/paper-faithful-v6/sweep/raw/paper-faithful-v4/bursty/rate_8/seed_1/server-logs/server.log.alg2_gpu1.jsonl
+[2026-08-20 07:31:32.604 GPU_Scheduler_1] Model states init: {'model_1': 'deactivated', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'deactivated'}
+[2026-08-20 07:31:32.645 GPU_Scheduler_1] Assign worker 0 to model_2. Current model_to_worker: {'model_2': 0}
+[2026-08-20 07:31:32.646 GPU_Scheduler_1] Assign worker 1 to model_3. Current model_to_worker: {'model_2': 0, 'model_3': 1}
+[2026-08-20 07:31:32.646 GPU_Scheduler_1] Assign worker 2 to model_6. Current model_to_worker: {'model_2': 0, 'model_3': 1, 'model_6': 2}
+[2026-08-20 07:31:32.648 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.659 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.669 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.679 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.690 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.700 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.710 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.720 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.730 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.741 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.751 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.761 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.771 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.781 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.792 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.802 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.812 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.822 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.832 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.843 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.853 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.863 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.873 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.884 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.894 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.904 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.914 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.925 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.935 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.945 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.955 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.966 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.976 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.986 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:32.996 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.006 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.017 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.027 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.037 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.047 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.058 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.068 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.078 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.088 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.099 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.109 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.119 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.129 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.140 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.150 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.161 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.171 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.182 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.192 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.203 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.213 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.224 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.234 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.245 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.255 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.266 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.276 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.287 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.298 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.308 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.318 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.329 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.339 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.349 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.360 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.370 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.380 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.390 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.401 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.411 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.421 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.431 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.442 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.452 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.462 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.472 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.483 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.493 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.503 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.513 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.524 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.534 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.544 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.554 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.565 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.575 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.585 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.595 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.605 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.616 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.626 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.636 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.646 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.656 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.667 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.677 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.687 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.697 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.708 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.718 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.728 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.738 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.748 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.759 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.769 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.779 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.789 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.800 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.810 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.820 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.830 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.841 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.851 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.861 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.871 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.881 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.892 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.902 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.912 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.922 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.933 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.943 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.953 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.963 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.974 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.984 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:33.994 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.004 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.015 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.025 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.035 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.045 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.056 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.066 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.076 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.087 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.097 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.107 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.117 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.128 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.138 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.148 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.158 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.169 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.179 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.189 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.199 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.210 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.220 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.230 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.240 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.242 GPU_Scheduler_0] [V5-LOOP] {"iters": 468, "t_mem": 0.007602718309499323, "t_redis": 0.22927804314531386, "t_admit": 0.002821589878294617, "t_send": 0.00035025420947931707, "t_iter": 0.24005260554258712, "admitted": 0, "iter_max": 0.0011841300001833588, "gpu_id": 0, "window_s": 5.0085999965667725}
+[2026-08-20 07:31:34.251 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.261 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.271 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.282 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.292 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activating', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.303 GPU_Scheduler_1] Model model_2 (instance 1) activation succeeded on GPU 1
+[2026-08-20 07:31:34.303 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.314 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.325 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.335 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.346 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.356 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.367 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.378 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.389 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.399 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.410 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.421 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.431 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.442 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.453 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.464 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.474 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.485 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.496 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.506 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.517 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.528 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.539 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.549 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.560 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.570 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.581 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.592 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.602 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.612 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.623 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.633 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.643 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.653 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.664 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.674 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.684 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.694 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.705 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.715 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.725 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.735 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.746 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.756 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.766 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.776 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.787 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.797 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.807 GPU_Scheduler_1] Model model_3 (instance 1) activation succeeded on GPU 1
+[2026-08-20 07:31:34.807 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.818 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.828 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.838 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.848 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.858 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.869 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.879 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.889 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.899 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.909 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.920 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.930 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.940 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.950 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.960 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.971 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.981 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:34.991 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.001 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.012 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.022 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.032 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.042 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.052 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.063 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.073 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.083 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.093 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.103 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.114 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.124 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.134 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.144 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.154 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.165 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.175 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.185 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.195 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.206 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.216 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.226 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.236 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.247 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.257 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.267 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.277 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.287 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.298 GPU_Scheduler_1] Waiting for models to be activated: {'model_1': 'deactivated', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activating'}
+[2026-08-20 07:31:35.308 GPU_Scheduler_1] Model model_6 (instance 1) activation succeeded on GPU 1
+[2026-08-20 07:31:36.348 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:36.349 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:36.349 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:36.354 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:36.355 GPU_Scheduler_0] Admitted 1 requests for model_1
+[2026-08-20 07:31:36.355 GPU_Scheduler_0] Admitted 1 requests for model_4
+[2026-08-20 07:31:38.253 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:38.294 GPU_Scheduler_1] Received activate request for model model_1
+[2026-08-20 07:31:38.295 GPU_Scheduler_1] Received activate request for model_1, model_states: {'model_1': 'activating', 'model_2': 'activated', 'model_3': 'activated', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activated'}
+[2026-08-20 07:31:38.295 GPU_Scheduler_1] Assign worker 3 to model_1. Current model_to_worker: {'model_2': 0, 'model_3': 1, 'model_6': 2, 'model_1': 3}
+[2026-08-20 07:31:38.431 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:38.464 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:38.552 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:38.636 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:38.770 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:38.869 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:38.942 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:38.968 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:39.179 GPU_Scheduler_1] Model model_1 (instance 1) activation succeeded on GPU 1
+[2026-08-20 07:31:39.185 GPU_Scheduler_0] Received deactivate request for model model_1
+[2026-08-20 07:31:39.185 GPU_Scheduler_0] Received deactivate request for model_1, model_states: {'model_1': 'deactivating', 'model_2': 'deactivated', 'model_3': 'deactivated', 'model_4': 'activated', 'model_5': 'activated', 'model_6': 'deactivated'}
+[2026-08-20 07:31:39.185 GPU_Scheduler_0] Release worker 0 from model model_1. Current model_to_worker: {'model_4': 1, 'model_5': 2}
+[2026-08-20 07:31:39.227 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:39.250 GPU_Scheduler_0] [V5-LOOP] {"iters": 466, "t_mem": 0.0069497374061029404, "t_redis": 0.288893142453162, "t_admit": 0.0031831378291826695, "t_send": 0.0022301949211396277, "t_iter": 0.30125621260958724, "admitted": 6, "iter_max": 0.04726060599205084, "gpu_id": 0, "window_s": 5.007354021072388}
+[2026-08-20 07:31:39.584 GPU_Scheduler_0] Model model_1 (instance 0) deactivation succeeded on GPU 0
+[2026-08-20 07:31:39.614 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:39.761 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:39.902 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:40.309 GPU_Scheduler_1] [V5-LOOP] {"iters": 459, "t_mem": 0.008691836846992373, "t_redis": 0.36210089817177504, "t_admit": 0.004354005999630317, "t_send": 0.00471369075239636, "t_iter": 0.3798604317707941, "admitted": 12, "iter_max": 0.04640683700563386, "gpu_id": 1, "window_s": 5.000570297241211}
+[2026-08-20 07:31:40.608 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:40.648 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:40.664 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:40.710 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:40.911 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:41.048 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:41.178 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:41.235 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:41.279 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:41.446 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:41.491 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:41.558 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:41.592 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:41.803 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:41.892 GPU_Scheduler_1] Admitted 3 requests for model_2
+[2026-08-20 07:31:42.271 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:42.357 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:42.688 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:42.744 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:42.767 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:42.855 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:43.009 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:43.329 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:43.439 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:43.703 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:43.747 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:43.978 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:44.199 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:44.255 GPU_Scheduler_0] [V5-LOOP] {"iters": 475, "t_mem": 0.008293199993204325, "t_redis": 0.19926997978473082, "t_admit": 0.003975522413384169, "t_send": 0.0019980857614427805, "t_iter": 0.2135367879527621, "admitted": 4, "iter_max": 0.001095696003176272, "gpu_id": 0, "window_s": 5.004611253738403}
+[2026-08-20 07:31:44.299 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:44.343 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:44.442 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:44.508 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:44.574 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:44.608 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:44.623 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:44.630 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:44.718 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:44.807 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:44.885 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:45.164 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:45.319 GPU_Scheduler_1] [V5-LOOP] {"iters": 452, "t_mem": 0.009946025995304808, "t_redis": 0.41507046096376143, "t_admit": 0.007215081073809415, "t_send": 0.017185791191877797, "t_iter": 0.44941735922475345, "admitted": 38, "iter_max": 0.0021396469965111464, "gpu_id": 1, "window_s": 5.009876012802124}
+[2026-08-20 07:31:45.353 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:45.617 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:45.684 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:45.805 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:45.849 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:45.872 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:45.899 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:45.916 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:46.005 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:46.126 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:46.195 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:46.401 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:46.435 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:46.500 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:46.645 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:46.711 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:46.712 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:46.921 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:47.027 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:47.075 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:47.219 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:47.274 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:47.395 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:47.406 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:47.462 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:47.572 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:47.760 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:47.869 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:47.925 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:47.936 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:47.958 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:48.255 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:48.255 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:48.354 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:48.499 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:48.552 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:48.586 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:48.619 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:48.675 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:48.846 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:48.983 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:49.256 GPU_Scheduler_0] [V5-LOOP] {"iters": 475, "t_mem": 0.0092110687692184, "t_redis": 0.19051197788212448, "t_admit": 0.005106283235363662, "t_send": 0.00484716278151609, "t_iter": 0.20967649266822264, "admitted": 11, "iter_max": 0.0012337820080574602, "gpu_id": 0, "window_s": 5.0005714893341064}
+[2026-08-20 07:31:49.335 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:49.424 GPU_Scheduler_1] Admitted 2 requests for model_2
+[2026-08-20 07:31:49.458 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:49.613 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:49.635 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:49.680 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:49.890 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:49.967 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:50.123 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:50.283 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:50.326 GPU_Scheduler_1] [V5-LOOP] {"iters": 453, "t_mem": 0.008749113912926987, "t_redis": 0.40546316988184117, "t_admit": 0.006007073156069964, "t_send": 0.016509922948898748, "t_iter": 0.43672927989973687, "admitted": 41, "iter_max": 0.0018216489988844842, "gpu_id": 1, "window_s": 5.006033897399902}
+[2026-08-20 07:31:50.370 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:50.536 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:50.602 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:50.757 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:50.878 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:50.945 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:50.967 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:51.376 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:51.642 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:51.719 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:52.082 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:52.280 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:52.402 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:52.468 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:52.611 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:52.667 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:52.882 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:53.032 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:53.166 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:53.342 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:53.696 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:54.038 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:54.262 GPU_Scheduler_0] [V5-LOOP] {"iters": 475, "t_mem": 0.009484606562182307, "t_redis": 0.198979254841106, "t_admit": 0.004282875044737011, "t_send": 0.0016218795790337026, "t_iter": 0.21436861602705903, "admitted": 2, "iter_max": 0.0013799520093016326, "gpu_id": 0, "window_s": 5.005869150161743}
+[2026-08-20 07:31:54.291 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:54.357 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:54.424 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:54.468 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:54.688 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:54.722 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:54.777 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:54.884 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:54.899 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:55.042 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:55.053 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:55.086 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:55.170 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:55.244 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:55.329 GPU_Scheduler_1] [V5-LOOP] {"iters": 453, "t_mem": 0.007421289919875562, "t_redis": 0.4079313571273815, "t_admit": 0.005492661846801639, "t_send": 0.013595336902653798, "t_iter": 0.4344406457967125, "admitted": 32, "iter_max": 0.0016744770109653473, "gpu_id": 1, "window_s": 5.002697467803955}
+[2026-08-20 07:31:55.641 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:55.740 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:55.894 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:56.336 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:56.542 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:56.553 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:56.620 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:56.873 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:56.895 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:56.947 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:57.433 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:57.477 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:57.522 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:57.610 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:57.731 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:58.006 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:58.149 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:31:58.161 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:58.166 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:58.381 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:58.470 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:58.515 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:58.526 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:58.526 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:58.582 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:58.769 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:58.814 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:58.869 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:31:58.871 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:31:59.077 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:59.099 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:59.252 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:59.271 GPU_Scheduler_0] [V5-LOOP] {"iters": 475, "t_mem": 0.00913091647089459, "t_redis": 0.1977144023985602, "t_admit": 0.005017421906813979, "t_send": 0.0041757808066904545, "t_iter": 0.21603852158295922, "admitted": 8, "iter_max": 0.001613022992387414, "gpu_id": 0, "window_s": 5.008534669876099}
+[2026-08-20 07:31:59.340 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:59.526 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:59.724 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:59.802 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:31:59.912 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:00.088 GPU_Scheduler_1] Admitted 2 requests for model_2
+[2026-08-20 07:32:00.133 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:00.330 GPU_Scheduler_1] [V5-LOOP] {"iters": 454, "t_mem": 0.008883536997018382, "t_redis": 0.3897648993006442, "t_admit": 0.006273278675507754, "t_send": 0.01574807011638768, "t_iter": 0.420669785089558, "admitted": 35, "iter_max": 0.0020295729918871075, "gpu_id": 1, "window_s": 5.00110387802124}
+[2026-08-20 07:32:00.427 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:32:00.534 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:32:00.644 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:00.917 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:00.962 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:01.123 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:01.319 GPU_Scheduler_1] Admitted 2 requests for model_2
+[2026-08-20 07:32:01.388 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:01.532 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:01.736 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:01.780 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:02.241 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:02.241 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:32:02.253 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:32:02.297 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:02.352 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:32:02.374 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:02.615 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:02.767 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:02.920 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:03.191 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:03.286 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:03.373 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:03.634 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:03.700 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:03.829 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:03.983 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:04.011 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:04.057 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:04.128 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:32:04.181 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:04.203 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:04.279 GPU_Scheduler_0] [V5-LOOP] {"iters": 474, "t_mem": 0.009580165235092863, "t_redis": 0.2074991620320361, "t_admit": 0.004728234955109656, "t_send": 0.0026351417473051697, "t_iter": 0.2244427039695438, "admitted": 4, "iter_max": 0.0015983259945642203, "gpu_id": 0, "window_s": 5.007324457168579}
+[2026-08-20 07:32:04.373 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:04.618 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:32:04.661 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:32:04.746 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:05.050 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:05.083 GPU_Scheduler_1] Admitted 1 requests for model_3
+[2026-08-20 07:32:05.139 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:32:05.150 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:05.183 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:05.336 GPU_Scheduler_1] [V5-LOOP] {"iters": 463, "t_mem": 0.00746657227864489, "t_redis": 0.30913099693134427, "t_admit": 0.004727692867163569, "t_send": 0.014044985873624682, "t_iter": 0.3353702479507774, "admitted": 38, "iter_max": 0.0018082839960698038, "gpu_id": 1, "window_s": 5.005986452102661}
+[2026-08-20 07:32:05.380 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:05.435 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:05.544 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:05.556 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:05.607 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:05.622 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:05.765 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:05.776 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:05.799 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:05.875 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:06.103 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:06.157 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:06.625 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:06.628 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:06.690 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:06.884 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:06.926 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:07.097 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:07.651 GPU_Scheduler_1] Admitted 2 requests for model_2
+[2026-08-20 07:32:07.726 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:07.822 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:08.046 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:32:08.219 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:08.230 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:08.242 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:08.350 GPU_Scheduler_0] Received activate request for model model_3
+[2026-08-20 07:32:08.350 GPU_Scheduler_0] Received activate request for model_3, model_states: {'model_1': 'deactivated', 'model_2': 'deactivated', 'model_3': 'activating', 'model_4': 'activated', 'model_5': 'activated', 'model_6': 'deactivated'}
+[2026-08-20 07:32:08.350 GPU_Scheduler_0] Assign worker 3 to model_3. Current model_to_worker: {'model_4': 1, 'model_5': 2, 'model_3': 3}
+[2026-08-20 07:32:08.434 GPU_Scheduler_0] Admitted 1 requests for model_3
+[2026-08-20 07:32:08.704 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:08.789 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:08.811 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:08.863 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:08.908 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:09.153 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:32:09.284 GPU_Scheduler_0] [V5-LOOP] {"iters": 472, "t_mem": 0.009654206049162894, "t_redis": 0.22469094663392752, "t_admit": 0.0044775162532459944, "t_send": 0.0026854952448047698, "t_iter": 0.24150816418114118, "admitted": 5, "iter_max": 0.0012947249924764037, "gpu_id": 0, "window_s": 5.004806041717529}
+[2026-08-20 07:32:09.303 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:09.729 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:09.825 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:09.880 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:09.951 GPU_Scheduler_0] Model model_3 (instance 0) activation succeeded on GPU 0
+[2026-08-20 07:32:09.952 GPU_Scheduler_1] Received deactivate request for model model_3
+[2026-08-20 07:32:09.952 GPU_Scheduler_1] Received deactivate request for model_3, model_states: {'model_1': 'activated', 'model_2': 'activated', 'model_3': 'deactivating', 'model_4': 'deactivated', 'model_5': 'deactivated', 'model_6': 'activated'}
+[2026-08-20 07:32:09.952 GPU_Scheduler_1] Release worker 1 from model model_3. Current model_to_worker: {'model_2': 0, 'model_6': 2, 'model_1': 3}
+[2026-08-20 07:32:10.225 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:10.321 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:10.343 GPU_Scheduler_1] [V5-LOOP] {"iters": 466, "t_mem": 0.006814449210651219, "t_redis": 0.2859374780964572, "t_admit": 0.003872349945595488, "t_send": 0.009763440117239952, "t_iter": 0.30638771736994386, "admitted": 33, "iter_max": 0.0015110340027604252, "gpu_id": 1, "window_s": 5.00688624382019}
+[2026-08-20 07:32:10.440 GPU_Scheduler_1] Admitted 2 requests for model_2
+[2026-08-20 07:32:10.600 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:10.751 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:10.838 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:10.860 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:10.992 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:11.069 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:11.502 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:11.814 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:11.878 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:12.046 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:12.441 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:12.462 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:12.494 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:32:12.665 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:12.686 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:12.705 GPU_Scheduler_0] Admitted 1 requests for model_3
+[2026-08-20 07:32:12.790 GPU_Scheduler_0] Admitted 1 requests for model_3
+[2026-08-20 07:32:12.985 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:13.080 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:13.123 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:13.134 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:13.198 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:13.399 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:13.449 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:13.548 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:13.734 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:13.832 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:13.899 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:13.965 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:14.287 GPU_Scheduler_0] [V5-LOOP] {"iters": 470, "t_mem": 0.008090942807029933, "t_redis": 0.2479780086723622, "t_admit": 0.0034405449696350843, "t_send": 0.0024229616683442146, "t_iter": 0.2619324581173714, "admitted": 6, "iter_max": 0.0012093860132154077, "gpu_id": 0, "window_s": 5.003599405288696}
+[2026-08-20 07:32:14.414 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:14.456 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:14.577 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:14.838 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:14.850 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:14.937 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:14.937 GPU_Scheduler_1] Admitted 1 requests for model_6
+[2026-08-20 07:32:15.058 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:15.091 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:15.097 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:15.157 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:15.212 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:15.354 GPU_Scheduler_1] [V5-LOOP] {"iters": 463, "t_mem": 0.006784702913137153, "t_redis": 0.3162060700706206, "t_admit": 0.0041800340404734015, "t_send": 0.01222893301746808, "t_iter": 0.33939974004169926, "admitted": 36, "iter_max": 0.0014756489836145192, "gpu_id": 1, "window_s": 5.010859966278076}
+[2026-08-20 07:32:15.474 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:15.612 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:15.900 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:15.911 GPU_Scheduler_1] Admitted 1 requests for model_2
+[2026-08-20 07:32:16.338 GPU_Scheduler_1] Admitted 1 requests for model_1
+[2026-08-20 07:32:16.369 GPU_Scheduler_1] Model model_3 (instance 1) deactivation succeeded on GPU 1
+[2026-08-20 07:32:16.475 GPU_Scheduler_1] Admitted 1 requests for model_1
+[2026-08-20 07:32:16.602 GPU_Scheduler_1] Admitted 1 requests for model_1
+[2026-08-20 07:32:16.847 GPU_Scheduler_1] Admitted 1 requests for model_1
+[2026-08-20 07:32:17.015 GPU_Scheduler_0] Admitted 1 requests for model_4
+[2026-08-20 07:32:17.025 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:17.131 GPU_Scheduler_0] Admitted 1 requests for model_4
+[2026-08-20 07:32:17.501 GPU_Scheduler_1] Admitted 1 requests for model_1
+[2026-08-20 07:32:17.698 GPU_Scheduler_0] Admitted 1 requests for model_4
+[2026-08-20 07:32:17.709 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:17.720 GPU_Scheduler_0] Admitted 1 requests for model_5
+[2026-08-20 07:32:17.751 GPU_Scheduler_0] Admitted 1 requests for model_4
