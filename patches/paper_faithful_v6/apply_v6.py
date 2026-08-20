@@ -226,6 +226,77 @@ def main():
         "        self.tp_worker.deactivate_model_runner()\n",
         probe="self._v6_stash_captured()\n        self.tp_worker.deactivate_model_runner()")
 
+    # ---- dedicated reply channel for KV capsules -----------------------
+    # The hand-off cannot share the weight-loading handshake: one queue with two
+    # readers races (measured: every fetch timed out), and appending an extra
+    # message to that exchange hangs the run (measured, cause never established).
+    # Capsules themselves cross processes fine -- proved separately in
+    # exp/results/paper-faithful-v6/e2e/attempt-4th-message/ipc_capsule_probe.py
+    # -- so what is needed is a channel nothing else reads.
+    #
+    # Threading a new queue through launch_engine, run_scheduler_process and the
+    # ModelRunner would touch five signatures, all of them files the TP branch
+    # owns.  Instead the reply queues ride on the router object, which already
+    # travels that whole path: it is passed to each engine process at spawn, so
+    # queues attached to it are shared by inheritance, which is the only way
+    # multiprocessing queues can be shared at all.
+    server = mm / "multi_model_server.py"
+
+    replace(server,
+        "    output_queues = {\n"
+        "        engine_id: torch.multiprocessing.Queue() for engine_id in engine_ids\n"
+        "    }\n",
+        "    output_queues = {\n"
+        "        engine_id: torch.multiprocessing.Queue() for engine_id in engine_ids\n"
+        "    }\n"
+        "    # V6: one reply queue per engine, for migrated KV only.\n"
+        "    v6_kv_queues = {\n"
+        "        engine_id: torch.multiprocessing.Queue() for engine_id in engine_ids\n"
+        "    }\n",
+        probe="v6_kv_queues = {")
+
+    replace(server,
+        "    input_queue = _ModelServiceRouter(worker_queues, cpu_model_dict.keys())\n",
+        "    input_queue = _ModelServiceRouter(worker_queues, cpu_model_dict.keys())\n"
+        "    # Rides along to every engine process, so the engine can find its own\n"
+        "    # reply queue without a new parameter on four call signatures.\n"
+        "    input_queue.kv_replies = v6_kv_queues\n",
+        probe="input_queue.kv_replies = v6_kv_queues")
+
+    replace(server,
+        "                worker_queues[service_worker_id],\n"
+        "                output_queues,\n",
+        "                worker_queues[service_worker_id],\n"
+        "                output_queues,\n"
+        "                v6_kv_queues,\n",
+        probe="                v6_kv_queues,\n")
+
+    replace(service,
+        "def run_model_service(\n"
+        "    multi_model_server_args,\n"
+        "    cpu_model_dict: Dict[str, torch.nn.Module],\n"
+        "    input_queue: torch.multiprocessing.Queue,\n"
+        "    output_queues: Dict[str, torch.multiprocessing.Queue],\n",
+        "def run_model_service(\n"
+        "    multi_model_server_args,\n"
+        "    cpu_model_dict: Dict[str, torch.nn.Module],\n"
+        "    input_queue: torch.multiprocessing.Queue,\n"
+        "    output_queues: Dict[str, torch.multiprocessing.Queue],\n"
+        "    v6_kv_queues: Dict[str, torch.multiprocessing.Queue],\n",
+        probe="    v6_kv_queues: Dict[str, torch.multiprocessing.Queue],\n")
+
+    replace(service,
+        "    model_service = ModelService(\n"
+        "        cpu_model_dict, input_queue, output_queues, max_threads, gpu_ids,\n"
+        "        num_shards, instance,\n"
+        "    )\n",
+        "    model_service = ModelService(\n"
+        "        cpu_model_dict, input_queue, output_queues, max_threads, gpu_ids,\n"
+        "        num_shards, instance,\n"
+        "    )\n"
+        "    model_service.v6_kv_queues = v6_kv_queues\n",
+        probe="model_service.v6_kv_queues = v6_kv_queues")
+
     # ------------------------------------------------------------ 3. service
     replace(service,
         "            if model_key == \"__release__\":\n",
@@ -242,7 +313,10 @@ def main():
         "                continue\n"
         "            if model_key == \"__kv_fetch__\":\n"
         "                caps = self.v6_kv_stash.pop(engine_id, [])\n"
-        "                self.output_queue[gpu_model].put(caps)\n"
+        "                # Answer on the dedicated queue: the engine's\n"
+        "                # output_queue is the weight loader's and racing it\n"
+        "                # loses the reply.\n"
+        "                self.v6_kv_queues[gpu_model].put(caps)\n"
         "                logging.info(f\"[PAPER-KV-V6] fetch {engine_id} \"\n"
         "                             f\"-> {len(caps)} requests\")\n"
         "                continue\n"
@@ -291,7 +365,9 @@ def main():
         "            from sglang.multi_model import kv_migration_v6 as _kvm\n"
         "            mr = self.tp_worker.model_runner\n"
         "            q = getattr(mr, \"input_queue\", None)\n"
-        "            oq = getattr(mr, \"output_queue\", None)\n"
+        "            # A queue nothing else reads, so the weight loader\n"
+        "            # cannot take this reply out from under us.\n"
+        "            oq = getattr(q, \"kv_replies\", {}).get(mr.engine_id)\n"
         "            if q is None or oq is None:\n"
         "                return\n"
         "            q.put((\"__kv_fetch__\", mr.model_path, None, mr.engine_id))\n"
@@ -300,7 +376,7 @@ def main():
         "            # a crash -- must cost a recompute, not hang the engine\n"
         "            # forever inside handle_activate_request.\n"
         "            try:\n"
-        "                caps = oq.get(timeout=30)\n"
+        "                caps = oq.get(timeout=5)\n"
         "            except Exception:\n"
         "                logger.warning(\"[PAPER-KV-V6] fetch timed out; \"\n"
         "                               \"falling back to recompute\")\n"
@@ -330,7 +406,7 @@ def main():
         "            logger.warning(f\"[PAPER-KV-V6] inject stage failed: {e}\")\n"
         "\n"
         "    def _restore_waiting_requests(self):\n",
-        probe="oq.get(timeout=30)")
+        probe="oq.get(timeout=5)")
 
     # --------------------------------------------------------------- 5. flag
     # ServerArgs.from_multi_model_server_args() builds each engine's ServerArgs
@@ -388,7 +464,10 @@ def main():
                     "# V6: retracted KV awaiting stash",
                     # the stash call must sit beside the real teardown, not in __init__
                     "self._v6_stash_captured()\n        self.tp_worker.deactivate_model_runner()"],
-        service: ["__kv_stash__", "__kv_fetch__", "self.v6_kv_stash = {}"],
+        service: ["__kv_stash__", "__kv_fetch__", "self.v6_kv_stash = {}",
+                  "v6_kv_queues"],
+        mm / "multi_model_server.py":
+            ["v6_kv_queues = {", "input_queue.kv_replies = v6_kv_queues"],
         args_file: ["enable_kv_migration", "--enable-kv-migration"],
         repo / "python/sglang/srt/server_args.py": ["enable_kv_migration"],
         mm / "kv_migration_v6.py": ["RequestKVCapsule"],
