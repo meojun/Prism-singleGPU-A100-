@@ -70,10 +70,49 @@ to keep the source-side tensors alive until the target has copied out of them,
 or avoid crossing IPC with them at all (stage through host memory at the cost of
 a bounce). Decide that before writing more plumbing.
 
-**Still a hypothesis.** Nobody has instrumented the source's memory lifetime to
-watch it happen. But unlike the message-count guess, this one is not contradicted
-by the code, and it explains why the hang begins at the first hand-off carrying
-real tensors rather than at any of the empty ones.
+### ...and that one does not survive either
+
+Checked before building on it, and it is not supported.
+
+`torch.multiprocessing.reductions.reduce_tensor` passes a `ref_counter_handle`
+alongside the IPC handle -- torch maintains a **cross-process reference count**
+for shared CUDA storages, so a producer that drops its Python reference does not
+hand the memory back to the allocator while a consumer still holds it. That is
+the exact race the hypothesis above described, and torch guards it.
+
+The v4 experience points the same way, in the opposite direction: its bug was
+that IPC-mapped memory was *retained* rather than freed, which is why it needed
+`torch.cuda.ipc_collect()`. Retention, not premature release, is the failure
+mode this machinery produces.
+
+So the pattern is: dropping `self._v6_captured` after the put should be safe, and
+the worst it should cost is memory held longer than expected.
+
+## The honest state: the cause is unknown
+
+Two hypotheses, both proposed with reasons and both undermined by checking. I am
+not going to write a third; a confident-sounding guess is what cost this attempt
+in the first place.
+
+What is actually established:
+
+* the fourth message **removed the race it targeted** -- timeouts 4 -> 0, and the
+  service delivered capsules for the first time
+* the run **hung** shortly after the first hand-off carrying a non-empty list
+* it is **not** a message-count desync (audited, both paths balance)
+* it is **not** obviously a producer-frees-early race (torch refcounts across
+  processes)
+
+What would settle it, in rough order of cost: log every `get()` on the engine's
+`output_queue` with the type of what it received, so a message arriving where
+another was expected becomes visible; stamp entry and exit of the service's
+`while True` iteration to see whether the service itself stalled rather than the
+engine; and watch source-GPU memory across the stash to see whether anything is
+retained.
+
+Until one of those runs, treat the fourth-message design as **known-broken for
+an unknown reason** -- which is enough to not use it, and not enough to design
+the replacement around.
 
 ## The original guess, kept for the record
 
