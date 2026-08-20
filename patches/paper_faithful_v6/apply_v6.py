@@ -319,6 +319,23 @@ def main():
         "    enable_kv_migration: bool = False     # PAPER-FAITHFUL-V6\n",
         probe="enable_kv_migration: bool = False")
 
+    # The flag has to actually reach the code.  The branches read the
+    # environment, not server_args, because the policy runs in the controller
+    # process while the capture and inject run in engine processes -- an env var
+    # crosses that boundary and a parsed arg does not.  So the flag sets the env
+    # var, and either route works.
+    replace(args_file,
+        "    @classmethod\n"
+        "    def from_cli_args(cls, args: argparse.Namespace):\n"
+        "        args.tp_size = args.tensor_parallel_size\n",
+        "    @classmethod\n"
+        "    def from_cli_args(cls, args: argparse.Namespace):\n"
+        "        if getattr(args, \"enable_kv_migration\", False):\n"
+        "            import os as _os\n"
+        "            _os.environ[\"PRISM_V6_KV_MIGRATION\"] = \"1\"\n"
+        "        args.tp_size = args.tensor_parallel_size\n",
+        probe="_os.environ[\"PRISM_V6_KV_MIGRATION\"]")
+
     replace(args_file,
         "        parser.add_argument(\"--overlap-migration\", action=\"store_true\",\n",
         "        parser.add_argument(\"--enable-kv-migration\", action=\"store_true\",\n"
