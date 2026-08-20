@@ -206,3 +206,29 @@ def tp_sizes_from_model_configs(model_configs) -> List[int]:
     for mc in model_configs or []:
         sizes.add(int(getattr(mc, "tp_size", 1) or 1))
     return sorted(sizes)
+
+
+def plan_for_server_args(multi_model_server_args) -> SlotPlan:
+    """The slot layout for a server, derived from its args alone.
+
+    Lives here rather than in ``multi_model_server`` so that the per-GPU
+    scheduler can call it too: ``multi_model_server`` already imports
+    ``gpu_scheduler`` (``multi_model_server.py:66``), so importing back the
+    other way is a cycle -- and it would drag the whole FastAPI/uvicorn stack
+    into every scheduler process for the sake of one pure function.
+
+    With ``enable_tp_worker_pool`` off this returns the released prototype's
+    ``(gpu, worker)`` grid, so callers need no second code path.
+    """
+    tp_sizes = [1]
+    if getattr(multi_model_server_args, "enable_tp_worker_pool", False):
+        tp_sizes = tp_sizes_from_model_configs(
+            getattr(multi_model_server_args, "model_configs", None)
+        ) or [1]
+    cap = getattr(multi_model_server_args, "tp_max_groups", 0) or None
+    return build_slot_plan(
+        num_gpus=multi_model_server_args.num_gpus,
+        workers_per_gpu=multi_model_server_args.workers_per_gpu,
+        tp_sizes=tp_sizes,
+        max_groups_per_tp_size=cap,
+    )
