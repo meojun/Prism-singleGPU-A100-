@@ -231,9 +231,37 @@ Moore-Hodgson 은 그것을 제거한다. 그리고 입력이 도움이 될 방�
 붙잡아 두는 방식이 통하지 않는 이유다.
 
 **Anti-affinity / TP:** 논문은 한 모델의 TP 샤드들이 같은 GPU 를 공유하지 않도록
-제약한다. 우리 구성은 전부 TP=1 이므로 제약은 구현되어 있으나(같은 모델의 샤드를 이미
-가진 후보 GPU 는 거부된다) 한 번도 발동하지 않는다. 이 누락이 조용한 단순화로
-오해되지 않도록 명시해 둔다.
+제약한다. **이 제약은 구현되어 있지 않다.**
+
+> **정정 (V6).** 이 문단은 원래 "제약은 구현되어 있으나 TP=1 이라 한 번도 발동하지
+> 않는다" 고 적고 있었다. 코드에 그런 분기는 없다 — `kvpr_global{,_v3,_v4}.py`
+> 어디에도 같은 모델의 샤드를 이미 가진 후보 GPU 를 거부하는 코드가 없고,
+> `patches/` 전체에 `tp_size` / `tp_rank` 참조가 0 건이다.
+> `exp/results/paper-faithful-v4/IMPLEMENTATION_AUDIT.md` 의 `NOT IMPLEMENTED` 가
+> 맞고 이 문단이 틀렸다.
+
+구현하지 않은 이유는 게으름이 아니라 **표현 자체가 불가능**하기 때문이며, 그 근거는
+`exp/results/paper-faithful-v4/tp-validation/FINDING.md` 에 있다. 요약하면 세 층에서
+막힌다:
+
+* `launch_worker_pool_engines` 가 `(GPU, worker slot)` 당 엔진 하나를 `[gpu_id]`
+  **단일 GPU** 에 바인딩한다. 샤드가 GPU 를 가로지르는 구조가 없다.
+* `controller_global.py` 가 TP 그룹을 rank0 로 축약한다
+  (`gpu_ids = set([mod.gpu_ids[0] for mod in models])`). 배치 코드가 TP 그룹을
+  멀티-GPU 객체로 볼 수 없다.
+* `model_runner.py::_get_cpu_model_ref` 가 가중치를 `(model_path, tp_size)` 로
+  조회하므로 엔진과 모델의 `tp_size` 가 어긋나면 만나지 못한다. TP=2 검증이
+  `not found in shared cpu models` 로 FAIL 한 실제 원인이다.
+
+그리고 `--enable-worker-pool` 은 선택이 아니다 — GPU 스케줄러와 마이그레이션 전부가
+그 경로에 산다. 즉 이 프로토타입에서 **TP>1 과 Prism 스케줄링은 상호 배타적**이고,
+논문이 TP 샤드에 거는 제약은 제약할 대상 자체를 갖지 못한다.
+
+**검증에 필요한 환경.** GPU 2 장으로는 TP=2 의 배치 선택지가 `{0,1}` 하나뿐이라
+제약이 자동 만족되어 검증할 것이 없다. 제약이 구속력을 갖는(= 위반 배치가 표현
+가능하고 제약이 argmin 을 실제로 바꾸는) 최소 조건은 **GPU 4 장 이상 + NVLink
+all-pairs** 이며, 논문의 TP=4/8 을 재현하려면 8 장이다. 다만 장비를 갖춰도 위
+세 층을 먼저 고쳐야 하므로 이는 패치가 아니라 별도 연구 규모다.
 
 ### 5c. 순차 기계 모델은 배치 엔진에서 과소 수용을 만든다
 

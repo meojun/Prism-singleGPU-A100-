@@ -115,12 +115,39 @@ def q1_migration_on_critical_path(base, out):
                          "ttft_ratio": tn / tf if tf else float("nan"),
                          "tpot_ratio": pn / pf if pf else float("nan")})
     if rows_out:
-        tr = [r["ttft_ratio"] for r in rows_out if not math.isnan(r["ttft_ratio"])]
+        # Only runs that actually got a sham window can be compared.  When
+        # migrations are frequent there is no quiet stretch left to sham
+        # against, and far_n comes back 0 -- those runs carry no evidence
+        # either way, so say how many were usable instead of quoting the
+        # median as if it covered every run.
+        usable = [r for r in rows_out if not math.isnan(r["ttft_ratio"])]
+        tr = [r["ttft_ratio"] for r in usable]
         pr = [r["tpot_ratio"] for r in rows_out if not math.isnan(r["tpot_ratio"])]
-        print(f"\n  across {len(rows_out)} runs: TTFT near/far ratio "
-              f"median {np.median(tr):.2f}, TPOT {np.median(pr):.2f}")
-        print("  ratio ~1.0 means requests near a migration are no worse ->")
-        print("  the migration cost is NOT on the request critical path.")
+        print(f"\n  {len(usable)} of {len(rows_out)} runs had a sham control "
+              f"(the rest ran migrations too often to leave a quiet window)")
+        print(f"  pooled: TTFT near/far ratio median {np.median(tr):.2f}, "
+              f"TPOT {np.median(pr):.2f}")
+
+        # Split by arm.  The prototype migrates source-first -- the source is
+        # torn down before the target is up, so the transfer window IS a
+        # service gap -- while v3/v4 migrate target-first with zero downtime.
+        # Those are different mechanisms, and pooling them lets the prototype's
+        # stop-the-world cost speak for arms that do not have it.
+        print("  by arm (the two orderings are different mechanisms):")
+        for arm in sorted({r["arm"] for r in usable}):
+            v = [r["ttft_ratio"] for r in usable if r["arm"] == arm]
+            print(f"    {arm:22} n={len(v):>2}  TTFT ratio median {np.median(v):.2f}  "
+                  f"[{min(v):.2f}, {max(v):.2f}]")
+
+        # The verdict follows the number rather than being asserted.
+        m = float(np.median(tr))
+        if m < 1.10:
+            print(f"  -> median {m:.2f}: requests near a migration are no worse; "
+                  "the cost is NOT on the request critical path.")
+        else:
+            print(f"  -> median {m:.2f}: requests near a migration are measurably "
+                  "worse, so the cost IS on the critical path -- but read the "
+                  "per-arm split above before attributing it to any one arm.")
         with open(out / "q1_migration_critical_path.csv", "w", newline="") as fh:
             w = csv.DictWriter(fh, fieldnames=list(rows_out[0]))
             w.writeheader(); w.writerows(rows_out)
@@ -294,9 +321,14 @@ def q4_reprefill_cost_of_a_discarded_kv(base, out):
         er = [r["e2e_ratio"] for r in rows_out if not math.isnan(r["e2e_ratio"])]
         print(f"\n  across {len(rows_out)} runs: TPOT affected/control median "
               f"{np.median(tr):.2f}, E2E {np.median(er):.2f}")
+        # The median alone reads far firmer than this evidence is.  Print the
+        # spread too: with a handful of runs and ratios straddling 1 in both
+        # directions, "near 1.0" is a weak signal, not a settled result.
+        print(f"  spread: TPOT [{min(tr):.2f}, {max(tr):.2f}], "
+              f"E2E [{min(er):.2f}, {max(er):.2f}] over n={len(tr)} runs")
         print("  A ratio near 1.0 means losing the KV cost these requests little,")
-        print("  and a KV migration would have little to recover -- build it only")
-        print("  if this is meaningfully above 1.")
+        print("  and a KV migration would have little to recover -- but with this")
+        print("  n and this spread, treat it as weak evidence, not a rejection.")
         with open(out / "q4_reprefill_cost.csv", "w", newline="") as fh:
             w = csv.DictWriter(fh, fieldnames=list(rows_out[0]))
             w.writeheader(); w.writerows(rows_out)

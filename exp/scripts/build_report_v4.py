@@ -156,10 +156,30 @@ def figure_migration(migration, outdir):
 
 
 # ---------------------------------------------------------------------- report
-def audit_table(loading, migration, tp2, rows):
+def audit_table(loading, migration, tp2, rows, extra_rows=()):
+    # The v4 sweep itself ran with P2P migration off -- every run shares one
+    # configuration rather than mixing a fixed and an unfixed arm (see
+    # provenance/ENVIRONMENT.md).  So the v4 rows alone can never show P2P
+    # end to end, and reading only them permanently understates the mechanism.
+    # V5 re-enabled it and re-validated; pass that study's summary.csv as
+    # --extra-summary and the verdict follows the evidence instead of the
+    # accident of which sweep is being rendered.
     def has_p2p():
-        return any(num(r.get("p2p_weight_transfers"), 0) > 0 for r in rows
-                   if r["implementation"] == "paper-faithful-v4")
+        return any(num(r.get("p2p_weight_transfers"), 0) > 0
+                   for r in list(rows) + list(extra_rows)
+                   if r.get("implementation", "").startswith("paper-faithful-v4"))
+
+    def p2p_evidence():
+        ok = [r for r in list(rows) + list(extra_rows)
+              if r.get("implementation", "").startswith("paper-faithful-v4")
+              and num(r.get("p2p_weight_transfers"), 0) > 0]
+        if not ok:
+            return "Not observed end to end (see REPORT)."
+        n = len(ok)
+        xfers = sum(int(num(r.get("p2p_weight_transfers"), 0)) for r in ok)
+        failed = sum(int(num(r.get("failed_requests"), 0)) for r in ok)
+        return (f"Observed end to end: {xfers} gpu-to-gpu transfers across {n} runs "
+                f"with {failed} failed requests.")
 
     tp_verdict = (tp2 or {}).get("verdict", "NOT RUN")
     lock = None
@@ -208,7 +228,7 @@ def audit_table(loading, migration, tp2, rows):
          f"v4 fills the target from the source GPU's resident weights over NVLink; "
          f"microbenchmark shows {'x%.1f' % mig_gain if mig_gain else 'see microbench'} lower "
          f"latency and NVLink counters equal to the full model size. "
-         f"{'Observed in the end-to-end runs.' if has_p2p() else 'Not observed end to end (see REPORT).'}"),
+         f"{p2p_evidence()}"),
         ("KV-cache migration", "NOT IMPLEMENTED", "NOT IMPLEMENTED", "NOT IMPLEMENTED",
          "KV pages are owned by kvcached's per-GPU virtual-memory allocator and are dropped, "
          "not moved, on deactivation. No arm transfers KV state; `kv_bytes` is 0 everywhere "
@@ -239,12 +259,18 @@ def audit_table(loading, migration, tp2, rows):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", required=True)
+    ap.add_argument("--extra-summary", action="append", default=[],
+                    help="summary.csv from another study whose runs corroborate a "
+                         "mechanism this sweep could not exercise (e.g. v5's P2P "
+                         "re-validation). Read for evidence only; never aggregated "
+                         "into this report's numbers.")
     a = ap.parse_args()
     base = Path(a.base)
     figs = base / "figures"
     figs.mkdir(parents=True, exist_ok=True)
 
     rows = read_csv(base / "summary.csv")
+    extra_rows = [r for f in a.extra_summary for r in read_csv(Path(f))]
     loading = json.loads((base / "microbench/loading.json").read_text()) \
         if (base / "microbench/loading.json").exists() else None
     migration = json.loads((base / "microbench/migration.json").read_text()) \
@@ -264,7 +290,8 @@ def main():
         "| Mechanism | Prototype | V3 | V4 | Evidence |",
         "| --- | --- | --- | --- | --- |",
     ]
-    for name, proto, v3, v4, evidence in audit_table(loading, migration, tp2, rows):
+    for name, proto, v3, v4, evidence in audit_table(loading, migration, tp2, rows,
+                                                     extra_rows):
         lines.append(f"| {name} | {proto} | {v3} | {v4} | {evidence} |")
     lines += [
         "", "## 판정 기준", "",
