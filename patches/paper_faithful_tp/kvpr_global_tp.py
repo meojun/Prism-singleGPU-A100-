@@ -46,6 +46,7 @@ from typing import Dict, List, Sequence, Tuple
 
 from sglang.multi_model.scheduling.model_queue_tracker import ModelQueueTracker
 from sglang.multi_model.scheduling.policy.kvpr_global_v4 import KVPRGlobalPolicyV4
+from sglang.multi_model.tp_slots import plan_for_server_args
 from sglang.multi_model.scheduling.state import ModelInstanceState
 
 logger = logging.getLogger(__name__)
@@ -67,6 +68,14 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
             mc.model_name: int(getattr(mc, "tp_size", 1) or 1)
             for mc in (getattr(server_args, "model_configs", None) or [])
         }
+        self._plan = plan_for_server_args(server_args) if server_args else None
+        # Seeded from the configured placement; updated when this policy moves a
+        # model.  Nothing else changes a group.
+        self._group_of: Dict[str, Tuple[int, ...]] = {}
+        for mc in (getattr(server_args, "model_configs", None) or []):
+            for ic in mc.get_instance_configs():
+                if ic.on and len(ic.gpu_ids) > 1:
+                    self._group_of[mc.model_name] = tuple(ic.gpu_ids)
         self._tp_audit = {
             "cycles": 0,
             "shards_placed": 0,
@@ -91,16 +100,58 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
     ) -> Dict[str, Tuple[int, ...]]:
         """model -> the ordered tuple of GPUs it currently occupies.
 
-        v4 keeps only one GPU per model here, which is what makes a TP group
-        invisible to placement.  Ordering is by GPU id, which is stable and is
-        also the order ``build_slot_plan`` uses for a group's ranks.
+        The shared instance state cannot carry the group.  ``ModelInstanceState``
+        for a worker-pool model is one candidate per GPU with ``gpu_ids=[gpu]``,
+        and ``simple_global.py:239-240`` asserts that a model's ACTIVE instances
+        touch at most **one** GPU::
+
+            for gpu_id in instance.gpu_ids: model_active_instances[gpu_id] = ...
+            assert len(model_active_instances) <= 1
+
+        Widening an instance to ``gpu_ids=[0, 1]`` therefore crashes the
+        controller's scheduling loop on the first cycle -- measured, not
+        predicted (``aa-on`` went from 4/4 to 0/4 that way).  That file belongs
+        to the migration work, so the shared representation is left exactly as
+        it is and the group is tracked here instead.
+
+        The tracked group is seeded from the configured placement and updated
+        whenever this policy emits a move, which is the only thing that changes
+        it.  If tracking and the reported rank0 GPU ever disagree, the reported
+        GPU wins and the group is re-derived from the slot plan -- the runtime
+        is the authority, not our memory of it.
         """
-        groups: Dict[str, List[int]] = {}
+        reported: Dict[str, List[int]] = {}
         for gpu_id, names in gpu_to_model_mapping.items():
             for name in names:
                 if name in self.model_weights_info:
-                    groups.setdefault(name, []).append(gpu_id)
-        return {name: tuple(sorted(set(g))) for name, g in groups.items()}
+                    reported.setdefault(name, []).append(gpu_id)
+
+        out: Dict[str, Tuple[int, ...]] = {}
+        for name, gpus in reported.items():
+            seen = tuple(sorted(set(gpus)))
+            k = self.tp_size_of(name)
+            if k <= 1 or len(seen) >= k:
+                out[name] = seen
+                continue
+            out[name] = self._group_containing(name, seen[0], k)
+        return out
+
+    def _group_containing(self, name: str, rank0_gpu: int, k: int) -> Tuple[int, ...]:
+        """The k-GPU group this model sits on, given only rank0's GPU."""
+        tracked = self._group_of.get(name)
+        if tracked and len(tracked) == k and tracked[0] == rank0_gpu:
+            return tracked
+        for slot in self._plan.groups(k):
+            if slot.owner_gpu == rank0_gpu:
+                self._group_of[name] = tuple(slot.gpu_ids)
+                return self._group_of[name]
+        # No group owns that GPU: report what is actually known rather than
+        # inventing the missing ranks.
+        logger.warning(
+            f"[PAPER-ALG1-TP] no tp_size={k} group owned by gpu {rank0_gpu} "
+            f"for {name}; reporting rank0 only"
+        )
+        return (rank0_gpu,)
 
     # -------------------------------------------------------------- placement
     def _greedy_placement_tp(
@@ -189,6 +240,10 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
                 self._tp_audit["shards_placed"] += 1
 
             target[name] = tuple(chosen_gpus)
+            if k > 1:
+                # Remember where we put it; the shared instance state only ever
+                # reports rank0, so this is the sole record of the full group.
+                self._group_of[name] = tuple(chosen_gpus)
         return target
 
     # v4's audit calls _greedy_placement and expects model -> gpu.  Keep that
@@ -232,6 +287,7 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
             "anti_affinity": self.anti_affinity,
             "any_tp_group_active": has_tp,
             "current_groups": {m: list(g) for m, g in current_groups.items()},
+            "tracked_groups": {m: list(g) for m, g in self._group_of.items()},
             "group_plan": {
                 m: list(g) for m, g in getattr(self, "_last_group_plan", {}).items()
             },

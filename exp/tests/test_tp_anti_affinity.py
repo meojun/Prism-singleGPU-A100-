@@ -33,11 +33,19 @@ def check(cond, label):
 def make_policy(num_gpus, tp_sizes, anti_affinity, tau=0.0, gpu_mem=80.0):
     """A policy instance with the collaborators Algorithm 1 actually reads."""
     model_configs = [
-        SimpleNamespace(model_name=name, tp_size=k) for name, k in tp_sizes.items()
+        SimpleNamespace(model_name=name, tp_size=k,
+                        get_instance_configs=lambda: [])
+        for name, k in tp_sizes.items()
     ]
+    # num_gpus / workers_per_gpu are what the policy needs to rebuild the slot
+    # plan, which is how it recovers a group from rank0's GPU alone.
     server_args = SimpleNamespace(
         enable_tp_anti_affinity=anti_affinity,
         model_configs=model_configs,
+        num_gpus=num_gpus,
+        workers_per_gpu=2,
+        tp_max_groups=0,
+        enable_tp_worker_pool=True,
     )
     weights_info = {name: {"model_size": 8.0} for name in tp_sizes}
     return KVPRGlobalPolicyTP(

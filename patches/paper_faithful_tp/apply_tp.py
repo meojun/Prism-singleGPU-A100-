@@ -556,7 +556,10 @@ def main():
     replace(controller,
         "from sglang.multi_model.scheduling.policy.kvpr_global_v4 import KVPRGlobalPolicyV4\n",
         "from sglang.multi_model.scheduling.policy.kvpr_global_v4 import KVPRGlobalPolicyV4\n"
-        "from sglang.multi_model.scheduling.policy.kvpr_global_tp import KVPRGlobalPolicyTP\n",
+        "from sglang.multi_model.scheduling.policy.kvpr_global_tp import KVPRGlobalPolicyTP\n"
+        "from sglang.multi_model.tp_slots import (  # PAPER-FAITHFUL-TP\n"
+        "    plan_for_server_args as tp_slot_plan_for,\n"
+        ")\n",
         probe="import KVPRGlobalPolicyTP")
 
     replace(controller,

@@ -9,5 +9,5 @@
 - [PASS] no_runtime_errors
 - [PASS] load_phase_exit_zero
 
-startup: 139.0s
+startup: 137.0s
 TP rank -> GPU: {'0': [0, 1, 2, 3], '1': [1, 2, 3]}
