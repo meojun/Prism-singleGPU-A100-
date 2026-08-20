@@ -1,0 +1,96 @@
+gpu_pair=0,1
+index, name, memory.total [MiB], compute_cap, driver_version
+0, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0, 580.65.06
+1, NVIDIA A100-SXM4-80GB, 81920 MiB, 8.0, 580.65.06
+--- topology
+	[4mGPU0	GPU1	NIC0	NIC1	CPU Affinity	NUMA Affinity	GPU NUMA ID[0m
+GPU0	 X 	NV12	SYS	SYS	8-15,72-79	1		N/A
+GPU1	NV12	 X 	SYS	SYS	8-15,72-79	1		N/A
+NIC0	SYS	SYS	 X 	PIX				
+NIC1	SYS	SYS	PIX	 X 				
+
+Legend:
+
+  X    = Self
+  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node
+  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)
+  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)
+  PIX  = Connection traversing at most a single PCIe bridge
+  NV#  = Connection traversing a bonded set of # NVLinks
+
+NIC Legend:
+
+  NIC0: mlx5_0
+  NIC1: mlx5_1
+
+--- nvlink
+GPU 0: NVIDIA A100-SXM4-80GB (UUID: GPU-2fc6aa29-6370-f7ad-9c78-d6928f01c69f)
+	 Link 0: 25 GB/s
+	 Link 1: 25 GB/s
+	 Link 2: 25 GB/s
+	 Link 3: 25 GB/s
+	 Link 4: 25 GB/s
+	 Link 5: 25 GB/s
+	 Link 6: 25 GB/s
+	 Link 7: 25 GB/s
+	 Link 8: 25 GB/s
+	 Link 9: 25 GB/s
+	 Link 10: 25 GB/s
+	 Link 11: 25 GB/s
+GPU 1: NVIDIA A100-SXM4-80GB (UUID: GPU-e4333065-a9c4-df97-ad35-dc20f21317a1)
+	 Link 0: 25 GB/s
+	 Link 1: 25 GB/s
+	 Link 2: 25 GB/s
+	 Link 3: 25 GB/s
+	 Link 4: 25 GB/s
+	 Link 5: 25 GB/s
+	 Link 6: 25 GB/s
+	 Link 7: 25 GB/s
+	 Link 8: 25 GB/s
+	 Link 9: 25 GB/s
+	 Link 10: 25 GB/s
+	 Link 11: 25 GB/s
+--- cpu
+CPU(s):                                  128
+Model name:                              AMD EPYC 7532 32-Core Processor
+NUMA node(s):                            8
+--- numa nodes
+NUMA node0 CPU(s):                       0-7,64-71
+NUMA node1 CPU(s):                       8-15,72-79
+NUMA node2 CPU(s):                       16-23,80-87
+NUMA node3 CPU(s):                       24-31,88-95
+NUMA node4 CPU(s):                       32-39,96-103
+NUMA node5 CPU(s):                       40-47,104-111
+NUMA node6 CPU(s):                       48-55,112-119
+NUMA node7 CPU(s):                       56-63,120-127
+--- cgroup cpu.max
+3071999 100000
+--- free
+               total        used        free      shared  buff/cache   available
+Mem:            2015          43         912          22        1092        1972
+--- kernel
+5.15.0-151-generic
+--- cuda toolkit
+Cuda compilation tools, release 12.6, V12.6.85
+Build cuda_12.6.r12.6/compiler.35059454_0
+--- peer access
+{
+  "device_count": 2,
+  "names": [
+    "NVIDIA A100-SXM4-80GB",
+    "NVIDIA A100-SXM4-80GB"
+  ],
+  "peer_access": {
+    "0->1": true,
+    "1->0": true
+  },
+  "all_pairs_p2p": true
+}--- stack
+  OK  torch          2.4.0+cu121   (want 2.4.0)
+  OK  sglang         0.3.4.post2   (want 0.3.4.post2)
+  OK  vllm           0.6.3.post1   (want 0.6.3.post1)
+  OK  transformers   4.45.2   (want 4.45.2)
+  OK  flashinfer     0.1.6+cu121torch2.4   (want 0.1.6)
+  OK  kvcached       + vmm_ops extension
+  OK  cuda available True

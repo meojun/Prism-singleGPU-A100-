@@ -1,0 +1,1385 @@
+{
+  "records": [
+    {
+      "arm": "prototype-source-first",
+      "rep": 1,
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 3087428608,
+      "kv_bytes": 0,
+      "total_bytes": 3087428608,
+      "migration_latency_s": 0.2814523439737968,
+      "service_downtime_s": 0.24401421498623677,
+      "migration_total_s": 0.28145266498904675,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 10.969631890105841,
+      "host_registration": {
+        "locked": 338,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 0.5899492570024449
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 1543713792,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 1543712768
+      },
+      "detail": {
+        "tag": "prototype-source-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 676,
+        "payload_bytes": 3087428608,
+        "bytes_h2d_direct": 1543714304,
+        "bytes_h2d_helper": 1543714304,
+        "bytes_p2p": 1543714304,
+        "seconds": 0.2054855799942743,
+        "payload_gbps": 15.025037805991198,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "prototype-source-first",
+      "rep": 2,
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 3087428608,
+      "kv_bytes": 0,
+      "total_bytes": 3087428608,
+      "migration_latency_s": 0.2591126130137127,
+      "service_downtime_s": 0.2193997800059151,
+      "migration_total_s": 0.259114156011492,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 11.91539297176787,
+      "host_registration": {
+        "locked": 338,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 0.5899492570024449
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 1543714816,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 1543716864
+      },
+      "detail": {
+        "tag": "prototype-source-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 676,
+        "payload_bytes": 3087428608,
+        "bytes_h2d_direct": 1543714304,
+        "bytes_h2d_helper": 1543714304,
+        "bytes_p2p": 1543714304,
+        "seconds": 0.130124696996063,
+        "payload_gbps": 23.72669200600261,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "prototype-source-first",
+      "rep": 3,
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 3087428608,
+      "kv_bytes": 0,
+      "total_bytes": 3087428608,
+      "migration_latency_s": 0.26060984999639913,
+      "service_downtime_s": 0.21741425900836475,
+      "migration_total_s": 0.2606125749880448,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 11.846937512310678,
+      "host_registration": {
+        "locked": 338,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 0.5899492570024449
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 1543714816,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 1543712768
+      },
+      "detail": {
+        "tag": "prototype-source-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 676,
+        "payload_bytes": 3087428608,
+        "bytes_h2d_direct": 1543714304,
+        "bytes_h2d_helper": 1543714304,
+        "bytes_p2p": 1543714304,
+        "seconds": 0.13005130097735673,
+        "payload_gbps": 23.74008245052122,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v3-target-first",
+      "rep": 1,
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 3087428608,
+      "kv_bytes": 0,
+      "total_bytes": 3087428608,
+      "migration_latency_s": 0.17528516001766548,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.2146383090002928,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 17.613747836319085,
+      "host_registration": {
+        "locked": 338,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 0.5899492570024449
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 1543713792,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 1543714816
+      },
+      "detail": {
+        "tag": "v3-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 676,
+        "payload_bytes": 3087428608,
+        "bytes_h2d_direct": 1543714304,
+        "bytes_h2d_helper": 1543714304,
+        "bytes_p2p": 1543714304,
+        "seconds": 0.12835156000801362,
+        "payload_gbps": 24.054468896266137,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v3-target-first",
+      "rep": 2,
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 3087428608,
+      "kv_bytes": 0,
+      "total_bytes": 3087428608,
+      "migration_latency_s": 0.23750650801230222,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.2756407630222384,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 12.999343192061412,
+      "host_registration": {
+        "locked": 338,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 0.5899492570024449
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 1543714816,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 1543713792
+      },
+      "detail": {
+        "tag": "v3-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 676,
+        "payload_bytes": 3087428608,
+        "bytes_h2d_direct": 1543714304,
+        "bytes_h2d_helper": 1543714304,
+        "bytes_p2p": 1543714304,
+        "seconds": 0.18988844199338928,
+        "payload_gbps": 16.259170782534962,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v3-target-first",
+      "rep": 3,
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 3087428608,
+      "kv_bytes": 0,
+      "total_bytes": 3087428608,
+      "migration_latency_s": 0.17755387400393374,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.21517840801971033,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 17.38868625266716,
+      "host_registration": {
+        "locked": 338,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 0.5899492570024449
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 1543714816,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 1543714816
+      },
+      "detail": {
+        "tag": "v3-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 676,
+        "payload_bytes": 3087428608,
+        "bytes_h2d_direct": 1543714304,
+        "bytes_h2d_helper": 1543714304,
+        "bytes_p2p": 1543714304,
+        "seconds": 0.13002844899892807,
+        "payload_gbps": 23.744254674801606,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v4-p2p-target-first",
+      "rep": 1,
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 3087428608,
+      "kv_bytes": 0,
+      "total_bytes": 3087428608,
+      "migration_latency_s": 0.11650708699016832,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.1539169839816168,
+      "transfer_path": "gpu-to-gpu-p2p",
+      "effective_gbps": 26.499921058540746,
+      "host_registration": {
+        "locked": 338,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 0.5899492570024449
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 3087428608,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 3087426560
+      },
+      "detail": {
+        "tag": "v4-p2p-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "gpu",
+        "host_registered": null,
+        "slices": 676,
+        "payload_bytes": 3087428608,
+        "bytes_h2d_direct": 0,
+        "bytes_h2d_helper": 0,
+        "bytes_p2p": 3087428608,
+        "seconds": 0.06878118301392533,
+        "payload_gbps": 44.887692719314295,
+        "transfer_path": "gpu-to-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v4-p2p-target-first",
+      "rep": 2,
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 3087428608,
+      "kv_bytes": 0,
+      "total_bytes": 3087428608,
+      "migration_latency_s": 0.12715638100053184,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.16494103099103086,
+      "transfer_path": "gpu-to-gpu-p2p",
+      "effective_gbps": 24.280563694141996,
+      "host_registration": {
+        "locked": 338,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 0.5899492570024449
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 3087426560,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 3087429632
+      },
+      "detail": {
+        "tag": "v4-p2p-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "gpu",
+        "host_registered": null,
+        "slices": 676,
+        "payload_bytes": 3087428608,
+        "bytes_h2d_direct": 0,
+        "bytes_h2d_helper": 0,
+        "bytes_p2p": 3087428608,
+        "seconds": 0.07782688198494725,
+        "payload_gbps": 39.67046513050786,
+        "transfer_path": "gpu-to-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v4-p2p-target-first",
+      "rep": 3,
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 3087428608,
+      "kv_bytes": 0,
+      "total_bytes": 3087428608,
+      "migration_latency_s": 0.1200189390219748,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.15735009999480098,
+      "transfer_path": "gpu-to-gpu-p2p",
+      "effective_gbps": 25.72451175755444,
+      "host_registration": {
+        "locked": 338,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 0.5899492570024449
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 3087429632,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 3087429632
+      },
+      "detail": {
+        "tag": "v4-p2p-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "gpu",
+        "host_registered": null,
+        "slices": 676,
+        "payload_bytes": 3087428608,
+        "bytes_h2d_direct": 0,
+        "bytes_h2d_helper": 0,
+        "bytes_p2p": 3087428608,
+        "seconds": 0.07299115401110612,
+        "payload_gbps": 42.29866824040385,
+        "transfer_path": "gpu-to-gpu-p2p"
+      }
+    },
+    {
+      "arm": "prototype-source-first",
+      "rep": 1,
+      "model": "Qwen/Qwen2.5-3B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 6171877376,
+      "kv_bytes": 0,
+      "total_bytes": 6171877376,
+      "migration_latency_s": 0.4761764289869461,
+      "service_downtime_s": 0.4180074009927921,
+      "migration_total_s": 0.47617703999276273,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 12.96132483737282,
+      "host_registration": {
+        "locked": 434,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 1.004937739984598
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 3085938688,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 3085937664
+      },
+      "detail": {
+        "tag": "prototype-source-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 868,
+        "payload_bytes": 6171877376,
+        "bytes_h2d_direct": 3085938688,
+        "bytes_h2d_helper": 3085938688,
+        "bytes_p2p": 3085938688,
+        "seconds": 0.25302338899928145,
+        "payload_gbps": 24.39251723095657,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "prototype-source-first",
+      "rep": 2,
+      "model": "Qwen/Qwen2.5-3B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 6171877376,
+      "kv_bytes": 0,
+      "total_bytes": 6171877376,
+      "migration_latency_s": 0.47441227798117325,
+      "service_downtime_s": 0.41923416798817925,
+      "migration_total_s": 0.47441283997613937,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 13.009522861136674,
+      "host_registration": {
+        "locked": 434,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 1.004937739984598
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 3085938688,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 3085938688
+      },
+      "detail": {
+        "tag": "prototype-source-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 868,
+        "payload_bytes": 6171877376,
+        "bytes_h2d_direct": 3085938688,
+        "bytes_h2d_helper": 3085938688,
+        "bytes_p2p": 3085938688,
+        "seconds": 0.25317048199940473,
+        "payload_gbps": 24.37834508690674,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "prototype-source-first",
+      "rep": 3,
+      "model": "Qwen/Qwen2.5-3B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 6171877376,
+      "kv_bytes": 0,
+      "total_bytes": 6171877376,
+      "migration_latency_s": 0.5339417209906969,
+      "service_downtime_s": 0.4791933860105928,
+      "migration_total_s": 0.5339421919779852,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 11.559084322065058,
+      "host_registration": {
+        "locked": 434,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 1.004937739984598
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 3085939712,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 3085939712
+      },
+      "detail": {
+        "tag": "prototype-source-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 868,
+        "payload_bytes": 6171877376,
+        "bytes_h2d_direct": 3085938688,
+        "bytes_h2d_helper": 3085938688,
+        "bytes_p2p": 3085938688,
+        "seconds": 0.31133346899878234,
+        "payload_gbps": 19.82400862923009,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v3-target-first",
+      "rep": 1,
+      "model": "Qwen/Qwen2.5-3B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 6171877376,
+      "kv_bytes": 0,
+      "total_bytes": 6171877376,
+      "migration_latency_s": 0.3176810919831041,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.3732056620065123,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 19.427902798597316,
+      "host_registration": {
+        "locked": 434,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 1.004937739984598
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 3085938688,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 3085939712
+      },
+      "detail": {
+        "tag": "v3-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 868,
+        "payload_bytes": 6171877376,
+        "bytes_h2d_direct": 3085938688,
+        "bytes_h2d_helper": 3085938688,
+        "bytes_p2p": 3085938688,
+        "seconds": 0.2504744500038214,
+        "payload_gbps": 24.640746295304123,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v3-target-first",
+      "rep": 2,
+      "model": "Qwen/Qwen2.5-3B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 6171877376,
+      "kv_bytes": 0,
+      "total_bytes": 6171877376,
+      "migration_latency_s": 0.31903398397844285,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.3739695650001522,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 19.345517048168244,
+      "host_registration": {
+        "locked": 434,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 1.004937739984598
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 3085939712,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 3085935616
+      },
+      "detail": {
+        "tag": "v3-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 868,
+        "payload_bytes": 6171877376,
+        "bytes_h2d_direct": 3085938688,
+        "bytes_h2d_helper": 3085938688,
+        "bytes_p2p": 3085938688,
+        "seconds": 0.25103688100352883,
+        "payload_gbps": 24.585540384853818,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v3-target-first",
+      "rep": 3,
+      "model": "Qwen/Qwen2.5-3B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 6171877376,
+      "kv_bytes": 0,
+      "total_bytes": 6171877376,
+      "migration_latency_s": 0.3805389689805452,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.43579533297452144,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 16.21877883501475,
+      "host_registration": {
+        "locked": 434,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 1.004937739984598
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 3085936640,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 3085939712
+      },
+      "detail": {
+        "tag": "v3-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 868,
+        "payload_bytes": 6171877376,
+        "bytes_h2d_direct": 3085938688,
+        "bytes_h2d_helper": 3085938688,
+        "bytes_p2p": 3085938688,
+        "seconds": 0.3121011390176136,
+        "payload_gbps": 19.775247842500463,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v4-p2p-target-first",
+      "rep": 1,
+      "model": "Qwen/Qwen2.5-3B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 6171877376,
+      "kv_bytes": 0,
+      "total_bytes": 6171877376,
+      "migration_latency_s": 0.16409977799048647,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.21854370000073686,
+      "transfer_path": "gpu-to-gpu-p2p",
+      "effective_gbps": 37.610516306474274,
+      "host_registration": {
+        "locked": 434,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 1.004937739984598
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 6171877376,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 6171877376
+      },
+      "detail": {
+        "tag": "v4-p2p-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "gpu",
+        "host_registered": null,
+        "slices": 868,
+        "payload_bytes": 6171877376,
+        "bytes_h2d_direct": 0,
+        "bytes_h2d_helper": 0,
+        "bytes_p2p": 6171877376,
+        "seconds": 0.09421197901247069,
+        "payload_gbps": 65.51053741460031,
+        "transfer_path": "gpu-to-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v4-p2p-target-first",
+      "rep": 2,
+      "model": "Qwen/Qwen2.5-3B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 6171877376,
+      "kv_bytes": 0,
+      "total_bytes": 6171877376,
+      "migration_latency_s": 0.1640503070084378,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.21819733100710437,
+      "transfer_path": "gpu-to-gpu-p2p",
+      "effective_gbps": 37.62185812723016,
+      "host_registration": {
+        "locked": 434,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 1.004937739984598
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 6171877376,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 6171877376
+      },
+      "detail": {
+        "tag": "v4-p2p-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "gpu",
+        "host_registered": null,
+        "slices": 868,
+        "payload_bytes": 6171877376,
+        "bytes_h2d_direct": 0,
+        "bytes_h2d_helper": 0,
+        "bytes_p2p": 6171877376,
+        "seconds": 0.09724506599013694,
+        "payload_gbps": 63.467254746127495,
+        "transfer_path": "gpu-to-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v4-p2p-target-first",
+      "rep": 3,
+      "model": "Qwen/Qwen2.5-3B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 6171877376,
+      "kv_bytes": 0,
+      "total_bytes": 6171877376,
+      "migration_latency_s": 0.2271581539826002,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.28171433397801593,
+      "transfer_path": "gpu-to-gpu-p2p",
+      "effective_gbps": 27.169957440632977,
+      "host_registration": {
+        "locked": 434,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 1.004937739984598
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 6171877376,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 6171877376
+      },
+      "detail": {
+        "tag": "v4-p2p-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "gpu",
+        "host_registered": null,
+        "slices": 868,
+        "payload_bytes": 6171877376,
+        "bytes_h2d_direct": 0,
+        "bytes_h2d_helper": 0,
+        "bytes_p2p": 6171877376,
+        "seconds": 0.1603791909874417,
+        "payload_gbps": 38.48303098425831,
+        "transfer_path": "gpu-to-gpu-p2p"
+      }
+    },
+    {
+      "arm": "prototype-source-first",
+      "rep": 1,
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 15231233024,
+      "kv_bytes": 0,
+      "total_bytes": 15231233024,
+      "migration_latency_s": 0.8984895200119354,
+      "service_downtime_s": 0.8426809740194585,
+      "migration_total_s": 0.8984914940083399,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 16.952043050872394,
+      "host_registration": {
+        "locked": 339,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 2.1016543800069485
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 7615618048,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 7615616000
+      },
+      "detail": {
+        "tag": "prototype-source-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 678,
+        "payload_bytes": 15231233024,
+        "bytes_h2d_direct": 7615616512,
+        "bytes_h2d_helper": 7615616512,
+        "bytes_p2p": 7615616512,
+        "seconds": 0.6693867509893607,
+        "payload_gbps": 22.754010295973256,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "prototype-source-first",
+      "rep": 2,
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 15231233024,
+      "kv_bytes": 0,
+      "total_bytes": 15231233024,
+      "migration_latency_s": 0.9043881859979592,
+      "service_downtime_s": 0.8179421609966084,
+      "migration_total_s": 0.9043887570151128,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 16.841477210577327,
+      "host_registration": {
+        "locked": 339,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 2.1016543800069485
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 7615614976,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 7615618048
+      },
+      "detail": {
+        "tag": "prototype-source-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 678,
+        "payload_bytes": 15231233024,
+        "bytes_h2d_direct": 7615616512,
+        "bytes_h2d_helper": 7615616512,
+        "bytes_p2p": 7615616512,
+        "seconds": 0.643332335021114,
+        "payload_gbps": 23.675528486377285,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "prototype-source-first",
+      "rep": 3,
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 15231233024,
+      "kv_bytes": 0,
+      "total_bytes": 15231233024,
+      "migration_latency_s": 0.9151395620137919,
+      "service_downtime_s": 0.8541554090043064,
+      "migration_total_s": 0.9151401330018416,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 16.643617712781666,
+      "host_registration": {
+        "locked": 339,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 2.1016543800069485
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 7615616000,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 7615614976
+      },
+      "detail": {
+        "tag": "prototype-source-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 678,
+        "payload_bytes": 15231233024,
+        "bytes_h2d_direct": 7615616512,
+        "bytes_h2d_helper": 7615616512,
+        "bytes_p2p": 7615616512,
+        "seconds": 0.6782069179753307,
+        "payload_gbps": 22.45809150615893,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v3-target-first",
+      "rep": 1,
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 15231233024,
+      "kv_bytes": 0,
+      "total_bytes": 15231233024,
+      "migration_latency_s": 0.7018295940069947,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.756948594993446,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 21.702181204755806,
+      "host_registration": {
+        "locked": 339,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 2.1016543800069485
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 7615617024,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 7615618048
+      },
+      "detail": {
+        "tag": "v3-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 678,
+        "payload_bytes": 15231233024,
+        "bytes_h2d_direct": 7615616512,
+        "bytes_h2d_helper": 7615616512,
+        "bytes_p2p": 7615616512,
+        "seconds": 0.6142866809968837,
+        "payload_gbps": 24.79499148391477,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v3-target-first",
+      "rep": 2,
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 15231233024,
+      "kv_bytes": 0,
+      "total_bytes": 15231233024,
+      "migration_latency_s": 0.6755989920056891,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.7313120110193267,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 22.54478352429475,
+      "host_registration": {
+        "locked": 339,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 2.1016543800069485
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 7615618048,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 7615614976
+      },
+      "detail": {
+        "tag": "v3-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 678,
+        "payload_bytes": 15231233024,
+        "bytes_h2d_direct": 7615616512,
+        "bytes_h2d_helper": 7615616512,
+        "bytes_p2p": 7615616512,
+        "seconds": 0.6142728959966917,
+        "payload_gbps": 24.795547912441236,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v3-target-first",
+      "rep": 3,
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 15231233024,
+      "kv_bytes": 0,
+      "total_bytes": 15231233024,
+      "migration_latency_s": 0.6710377119889017,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.729047606990207,
+      "transfer_path": "host-to-device + helper-gpu-p2p",
+      "effective_gbps": 22.698028369904655,
+      "host_registration": {
+        "locked": 339,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 2.1016543800069485
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 7615616000,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 7615618048
+      },
+      "detail": {
+        "tag": "v3-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "cpu",
+        "host_registered": true,
+        "slices": 678,
+        "payload_bytes": 15231233024,
+        "bytes_h2d_direct": 7615616512,
+        "bytes_h2d_helper": 7615616512,
+        "bytes_p2p": 7615616512,
+        "seconds": 0.6072010970092379,
+        "payload_gbps": 25.084330543902613,
+        "transfer_path": "host-to-device + helper-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v4-p2p-target-first",
+      "rep": 1,
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 15231233024,
+      "kv_bytes": 0,
+      "total_bytes": 15231233024,
+      "migration_latency_s": 0.14489257999230176,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.20261368100182153,
+      "transfer_path": "gpu-to-gpu-p2p",
+      "effective_gbps": 105.12086281305258,
+      "host_registration": {
+        "locked": 339,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 2.1016543800069485
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 15231232000,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 15231232000
+      },
+      "detail": {
+        "tag": "v4-p2p-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "gpu",
+        "host_registered": null,
+        "slices": 678,
+        "payload_bytes": 15231233024,
+        "bytes_h2d_direct": 0,
+        "bytes_h2d_helper": 0,
+        "bytes_p2p": 15231233024,
+        "seconds": 0.08168580799247138,
+        "payload_gbps": 186.46119072977518,
+        "transfer_path": "gpu-to-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v4-p2p-target-first",
+      "rep": 2,
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 15231233024,
+      "kv_bytes": 0,
+      "total_bytes": 15231233024,
+      "migration_latency_s": 0.14592061899020337,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.202442854992114,
+      "transfer_path": "gpu-to-gpu-p2p",
+      "effective_gbps": 104.38026599258447,
+      "host_registration": {
+        "locked": 339,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 2.1016543800069485
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 15231234048,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 15231234048
+      },
+      "detail": {
+        "tag": "v4-p2p-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "gpu",
+        "host_registered": null,
+        "slices": 678,
+        "payload_bytes": 15231233024,
+        "bytes_h2d_direct": 0,
+        "bytes_h2d_helper": 0,
+        "bytes_p2p": 15231233024,
+        "seconds": 0.08220145100494847,
+        "payload_gbps": 185.2915348548177,
+        "transfer_path": "gpu-to-gpu-p2p"
+      }
+    },
+    {
+      "arm": "v4-p2p-target-first",
+      "rep": 3,
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "source_gpu": 0,
+      "target_gpu": 1,
+      "peer_access": true,
+      "weight_bytes": 15231233024,
+      "kv_bytes": 0,
+      "total_bytes": 15231233024,
+      "migration_latency_s": 0.14327100198715925,
+      "service_downtime_s": 0.0,
+      "migration_total_s": 0.19818036700598896,
+      "transfer_path": "gpu-to-gpu-p2p",
+      "effective_gbps": 106.3106477426961,
+      "host_registration": {
+        "locked": 339,
+        "already_locked": 0,
+        "failed": 0,
+        "seconds": 2.1016543800069485
+      },
+      "nvlink_delta_source_gpu": {
+        "tx_bytes": 15231232000,
+        "rx_bytes": 0
+      },
+      "nvlink_delta_target_gpu": {
+        "tx_bytes": 0,
+        "rx_bytes": 15231232000
+      },
+      "detail": {
+        "tag": "v4-p2p-target-first",
+        "policy": "paper",
+        "split": 2,
+        "pipeline_depth": null,
+        "target_gpu": 1,
+        "gpu_ids": [
+          0,
+          1
+        ],
+        "source": "gpu",
+        "host_registered": null,
+        "slices": 678,
+        "payload_bytes": 15231233024,
+        "bytes_h2d_direct": 0,
+        "bytes_h2d_helper": 0,
+        "bytes_p2p": 15231233024,
+        "seconds": 0.0814372590102721,
+        "payload_gbps": 187.03027593400222,
+        "transfer_path": "gpu-to-gpu-p2p"
+      }
+    }
+  ],
+  "peer_access": {
+    "0->1": true,
+    "1->0": true
+  }
+}
