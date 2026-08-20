@@ -1,7 +1,7 @@
 #!/bin/bash
 # Common environment for all Prism experiments.
 # Usage:  source /workspace/prism-exp/exp/scripts/env.sh
-export PRISM_ROOT=/workspace/prism-exp
+export PRISM_ROOT=${PRISM_ROOT:-/workspace/prism-exp}
 export PRISM_REPO=$PRISM_ROOT/prism-research
 export PRISM_EXP=$PRISM_ROOT/exp
 export HF_HOME=/workspace/.hf_home

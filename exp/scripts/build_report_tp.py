@@ -78,7 +78,12 @@ def collect_boot(base: Path):
 
 
 def collect_step4(base: Path):
-    step4 = base / "step4"
+    # step4-final is the authoritative sweep: the first pass ran while the
+    # placement code was still changing, so its arms are not comparable to each
+    # other.  Fall back to step4 only if the final sweep has not run.
+    step4 = base / "step4-final"
+    if not step4.is_dir() or not list(step4.glob("*_summary.json")):
+        step4 = base / "step4"
     runs = []
     for p in sorted(step4.glob("*_summary.json")):
         s = load_json(p)
@@ -95,7 +100,10 @@ def placement_diff(base: Path, runs):
     """
     rows = {}
     for r in runs:
-        p = base / "step4" / r["raw"]["placements"]
+        for cand in ("step4-final", "step4"):
+            p = base / cand / r["raw"]["placements"]
+            if p.exists():
+                break
         if not p.exists():
             continue
         with p.open() as fh:
