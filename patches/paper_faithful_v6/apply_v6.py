@@ -284,7 +284,16 @@ def main():
         "            if q is None or oq is None:\n"
         "                return\n"
         "            q.put((\"__kv_fetch__\", mr.model_path, None, mr.engine_id))\n"
-        "            caps = oq.get()\n"
+        "            # Never block activation on this.  A fetch that goes\n"
+        "            # unanswered -- service busy, routed elsewhere, stash lost to\n"
+        "            # a crash -- must cost a recompute, not hang the engine\n"
+        "            # forever inside handle_activate_request.\n"
+        "            try:\n"
+        "                caps = oq.get(timeout=30)\n"
+        "            except Exception:\n"
+        "                logger.warning(\"[PAPER-KV-V6] fetch timed out; \"\n"
+        "                               \"falling back to recompute\")\n"
+        "                return\n"
         "            if not caps:\n"
         "                return\n"
         "            moved, skipped, rec = _kvm.migrate_request_kv(\n"
@@ -310,9 +319,24 @@ def main():
         "            logger.warning(f\"[PAPER-KV-V6] inject stage failed: {e}\")\n"
         "\n"
         "    def _restore_waiting_requests(self):\n",
-        probe="def _v6_inject_migrated_kv(self):")
+        probe="oq.get(timeout=30)")
 
     # --------------------------------------------------------------- 5. flag
+    # ServerArgs.from_multi_model_server_args() builds each engine's ServerArgs
+    # from vars(multi_model_server_args) after stripping the multi-model-only
+    # fields.  A new field that is not in that strip list is passed straight
+    # through and ServerArgs.__init__ rejects it -- which kills EVERY arm at
+    # startup, not just the one using the flag.  overlap_migration is in the
+    # list for exactly this reason.
+    server_args_file = repo / "python/sglang/srt/server_args.py"
+    replace(server_args_file,
+        "            \"overlap_migration\",\n"
+        "        }\n",
+        "            \"overlap_migration\",\n"
+        "            \"enable_kv_migration\",   # PAPER-FAITHFUL-V6\n"
+        "        }\n",
+        probe="\"enable_kv_migration\",   # PAPER-FAITHFUL-V6")
+
     replace(args_file,
         "    overlap_migration: bool = False       # PAPER-FAITHFUL-V3\n",
         "    overlap_migration: bool = False       # PAPER-FAITHFUL-V3\n"
@@ -353,6 +377,7 @@ def main():
                     "self._v6_captured = []"],
         service: ["__kv_stash__", "__kv_fetch__", "self.v6_kv_stash = {}"],
         args_file: ["enable_kv_migration", "--enable-kv-migration"],
+        repo / "python/sglang/srt/server_args.py": ["enable_kv_migration"],
         mm / "kv_migration_v6.py": ["RequestKVCapsule"],
     }
     missing = [f"{p}: {n}" for p, names in checks.items() for n in names
