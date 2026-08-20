@@ -197,6 +197,35 @@ def case_line8_records_the_alternative():
           "at least one shard had a candidate removed")
 
 
+def case_paper_and_strict_coincide_here():
+    print("case 9: the paper's rule and the strict rule cannot differ on 4 GPUs")
+    # Appendix A.2.2 falls back to the *second-lowest* KVPR GPU and does not
+    # re-check it; the strict variant picks the lowest non-colliding GPU.  They
+    # can only disagree when the second-lowest GPU is itself already holding a
+    # part of this model, which needs BOTH:
+    #   * k >= 3 -- with k=2 only one part is placed, so the second-lowest
+    #     candidate cannot collide;
+    #   * n >  k -- with n == k the whole cluster is one group and there is no
+    #     second candidate to fall back to.
+    # On this box that leaves only k=3, and no model here supports it: every
+    # model's num_key_value_heads is 8, 4 or 2, none divisible by 3.
+    # So the two flags are behaviourally identical on this hardware, and the
+    # distinction needs >= 8 GPUs to measure.  Demonstrated, not argued:
+    sizes, current, rates = _imbalanced()
+    for k, cur, n in ((2, {"tp": (0, 1)}, 4), (4, {"tp": (0, 1, 2, 3)}, 4)):
+        s = dict(sizes); s["tp"] = k
+        c = dict(current); c["tp"] = cur["tp"]
+        paper = make_policy(n, s, anti_affinity=True)
+        strict = make_policy(n, s, anti_affinity=True)
+        strict.anti_affinity_strict = True
+        pp = place(paper, c, rates, n)
+        ps = place(strict, c, rates, n)
+        check(pp["tp"] == ps["tp"],
+              f"num_gpus={n} tp_size={k}: paper {pp['tp']} == strict {ps['tp']}")
+        check(paper._tp_audit["aa_second_also_collides"] == 0,
+              f"num_gpus={n} tp_size={k}: the paper's fallback never collides here")
+
+
 def case_tp_size_lookup():
     print("case 8: tp_size comes from the model configs")
     pol = make_policy(4, {"a": 2, "b": 1}, anti_affinity=True)
@@ -215,6 +244,7 @@ def main():
         case_group_size_preserved,
         case_counterfactual_is_recorded_when_off,
         case_line8_records_the_alternative,
+        case_paper_and_strict_coincide_here,
         case_tp_size_lookup,
     ):
         fn()

@@ -4,31 +4,31 @@
 Initializing torch distributed...
 Torch distributed initialized.
 Loading 1 shared models to cpu...
-INFO 08-20 13:26:31 weight_utils.py:243] Using model weights format ['*.safetensors']
-INFO 08-20 13:26:31 weight_utils.py:288] No model.safetensors.index.json found in remote.
+INFO 08-20 13:28:45 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-20 13:28:45 weight_utils.py:288] No model.safetensors.index.json found in remote.
 Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  1.52it/s]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  1.52it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  1.57it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  1.57it/s]
 
-INFO 08-20 13:26:33 weight_utils.py:243] Using model weights format ['*.safetensors']
-INFO 08-20 13:26:33 weight_utils.py:288] No model.safetensors.index.json found in remote.
+INFO 08-20 13:28:47 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-20 13:28:47 weight_utils.py:288] No model.safetensors.index.json found in remote.
 Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.30it/s]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.30it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.73it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.73it/s]
 
-INFO 08-20 13:26:34 weight_utils.py:243] Using model weights format ['*.safetensors']
-INFO 08-20 13:26:34 weight_utils.py:288] No model.safetensors.index.json found in remote.
+INFO 08-20 13:28:48 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-20 13:28:48 weight_utils.py:288] No model.safetensors.index.json found in remote.
 Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  2.69it/s]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  2.69it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.65it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.64it/s]
 
-INFO 08-20 13:26:35 weight_utils.py:243] Using model weights format ['*.safetensors']
-INFO 08-20 13:26:35 weight_utils.py:288] No model.safetensors.index.json found in remote.
+INFO 08-20 13:28:49 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-20 13:28:49 weight_utils.py:288] No model.safetensors.index.json found in remote.
 Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.99it/s]
-Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.98it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.76it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.76it/s]
 
-Shared models loaded in 5.98 seconds.
+Shared models loaded in 5.58 seconds.
 /workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
   from pkg_resources import resource_string
 Model service worker 0 started.
@@ -63,14 +63,14 @@ Controller process started.
   from pkg_resources import resource_string
 /workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
   from pkg_resources import resource_string
-Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_2_1_root
-Started page preallocation thread
-Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_1_1_root
 Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_3_1_root
 Started page preallocation thread
+Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_2_1_root
 Started page preallocation thread
 Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_0_1_root
 Started page preallocation thread
+Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_1_1_root
+Started page preallocation thread
 WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
 WARNING: current device is not 2, but 0,  which may cause useless memory allocation for torch CUDA context.
 WARNING: current device is not 3, but 0,  which may cause useless memory allocation for torch CUDA context.
@@ -80,28 +80,28 @@ WARNING: current device is not 3, but 0,  which may cause useless memory allocat
   from pkg_resources import resource_string
 /workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
   from pkg_resources import resource_string
-[2026-08-20 13:28:06] INFO:     Started server process [326875]
-[2026-08-20 13:28:06] INFO:     Waiting for application startup.
-[2026-08-20 13:28:06] INFO:     Application startup complete.
-[2026-08-20 13:28:06] INFO:     Uvicorn running on http://127.0.0.1:41100 (Press CTRL+C to quit)
-[2026-08-20 13:28:07] INFO:     127.0.0.1:58826 - "GET /get_model_names HTTP/1.1" 200 OK
-[2026-08-20 13:28:07] INFO:     127.0.0.1:58836 - "GET /get_model_names HTTP/1.1" 200 OK
+[2026-08-20 13:30:22] INFO:     Started server process [332508]
+[2026-08-20 13:30:22] INFO:     Waiting for application startup.
+[2026-08-20 13:30:22] INFO:     Application startup complete.
+[2026-08-20 13:30:22] INFO:     Uvicorn running on http://127.0.0.1:41250 (Press CTRL+C to quit)
+[2026-08-20 13:30:23] INFO:     127.0.0.1:47398 - "GET /get_model_names HTTP/1.1" 200 OK
+[2026-08-20 13:30:23] INFO:     127.0.0.1:47424 - "GET /get_model_names HTTP/1.1" 200 OK
 WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
 WARNING: current device is not 2, but 0,  which may cause useless memory allocation for torch CUDA context.
 WARNING: current device is not 3, but 0,  which may cause useless memory allocation for torch CUDA context.
-[2026-08-20 13:28:09] INFO:     127.0.0.1:58828 - "POST /generate HTTP/1.1" 200 OK
-[2026-08-20 13:28:09] INFO:     127.0.0.1:58844 - "POST /generate HTTP/1.1" 200 OK
-[2026-08-20 13:28:09] INFO:     127.0.0.1:58858 - "POST /generate HTTP/1.1" 200 OK
-[2026-08-20 13:28:10] INFO:     127.0.0.1:59420 - "POST /generate HTTP/1.1" 200 OK
-[2026-08-20 13:28:10] INFO:     127.0.0.1:59430 - "POST /generate HTTP/1.1" 200 OK
-[2026-08-20 13:28:10] INFO:     Shutting down
-[2026-08-20 13:28:10] INFO:     Waiting for application shutdown.
-[2026-08-20 13:28:10] INFO:     Application shutdown complete.
-[2026-08-20 13:28:10] INFO:     Finished server process [326875]
+[2026-08-20 13:30:25] INFO:     127.0.0.1:47412 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-20 13:30:25] INFO:     127.0.0.1:47440 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-20 13:30:26] INFO:     127.0.0.1:47452 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-20 13:30:26] INFO:     127.0.0.1:47468 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-20 13:30:27] INFO:     127.0.0.1:47474 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-20 13:30:27] INFO:     Shutting down
+[2026-08-20 13:30:27] INFO:     Waiting for application shutdown.
+[2026-08-20 13:30:27] INFO:     Application shutdown complete.
+[2026-08-20 13:30:27] INFO:     Finished server process [332508]
 /workspace/prism-exp/prism-research/python/sglang/multi_model/request_handler_worker_pool.py:238: RuntimeWarning: coroutine 'AsyncRedisClient.close' was never awaited
   logger.error(f"Error during cleanup: {e}")
 RuntimeWarning: Enable tracemalloc to get the object allocation traceback
 /.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 19 leaked semaphore objects to clean up at shutdown
   warnings.warn('resource_tracker: There appear to be %d '
-/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 2 leaked shared_memory objects to clean up at shutdown
+/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked shared_memory objects to clean up at shutdown
   warnings.warn('resource_tracker: There appear to be %d '
