@@ -430,11 +430,11 @@ def main():
         "                    f\"ipc_{self.gpu_id}_{worker_id}_{self.username}\"\n"
         "                )\n",
         "            self._worker_to_mem_reader = {}\n"
-        "            for worker_id in self._worker_ids:  # PAPER-FAITHFUL-TP: sparse\n"
+        "            for worker_id in self._worker_ids:  # PAPER-FAITHFUL-TP sparse (readers)\n"
         "                self._worker_to_mem_reader[worker_id] = MemoryUsageReader(\n"
         "                    f\"ipc_{self.gpu_id}_{worker_id}_{self.username}\"\n"
         "                )\n",
-        probe="for worker_id in self._worker_ids:  # PAPER-FAITHFUL-TP: sparse")
+        probe="PAPER-FAITHFUL-TP sparse (readers)")
 
     replace(resource,
         "            used_sum = 0\n"
@@ -444,12 +444,12 @@ def main():
         "                ].get_memory_usage_in_bytes()\n"
         "            return used_sum\n",
         "            used_sum = 0\n"
-        "            for worker_id in self._worker_ids:  # PAPER-FAITHFUL-TP: sparse\n"
+        "            for worker_id in self._worker_ids:  # PAPER-FAITHFUL-TP sparse (usage)\n"
         "                used_sum += self._worker_to_mem_reader[\n"
         "                    worker_id\n"
         "                ].get_memory_usage_in_bytes()\n"
         "            return used_sum\n",
-        probe="for worker_id in self._worker_ids:  # PAPER-FAITHFUL-TP: sparse\n                used_sum")
+        probe="PAPER-FAITHFUL-TP sparse (usage)")
 
     # A TP=k model puts 1/k of its weights on each GPU it spans.  Charging the
     # full size on every GPU would understate free KV memory k-fold and starve
@@ -512,6 +512,72 @@ def main():
         "        )\n",
         probe="slot_plan=getattr(self, \"_tp_slot_plan\", None)")
 
+    # ------------------------------------------------- controller (step 2/3)
+    controller = mm / "scheduling/controller_global.py"
+    shutil.copyfile(HERE / "kvpr_global_tp.py", mm / "scheduling/policy/kvpr_global_tp.py")
+
+    # A TP group stops being collapsed to its rank-0 GPU.  With every model at
+    # tp_size=1 this is a no-op (gpu_ids is a 1-element list either way), so it
+    # needs no flag; it only starts to matter once a group spans GPUs.
+    replace(controller,
+        "            # NOTE(ke): For TP case, only consider rank0 state\n"
+        "            gpu_ids = set([mod.gpu_ids[0] for mod in models])\n",
+        "            # PAPER-FAITHFUL-TP: a TP group is a multi-GPU object.  The\n"
+        "            # upstream note kept only rank0, which makes every GPU past\n"
+        "            # rank0 invisible to placement -- and an anti-affinity\n"
+        "            # constraint over GPUs nobody can see cannot be expressed.\n"
+        "            # Identical to the old line when every model is tp_size=1.\n"
+        "            gpu_ids = set()\n"
+        "            for mod in models:\n"
+        "                gpu_ids.update(mod.gpu_ids)\n",
+        probe="PAPER-FAITHFUL-TP: a TP group is a multi-GPU object")
+
+    replace(controller,
+        "from sglang.multi_model.scheduling.policy.kvpr_global_v4 import KVPRGlobalPolicyV4\n",
+        "from sglang.multi_model.scheduling.policy.kvpr_global_v4 import KVPRGlobalPolicyV4\n"
+        "from sglang.multi_model.scheduling.policy.kvpr_global_tp import KVPRGlobalPolicyTP\n",
+        probe="import KVPRGlobalPolicyTP")
+
+    replace(controller,
+        '        elif self.server_args.policy in ("kvpr-global-v3", "kvpr-global-v4"):\n',
+        '        elif self.server_args.policy in ("kvpr-global-v3", "kvpr-global-v4",\n'
+        '                                        "kvpr-global-tp"):\n',
+        probe='"kvpr-global-tp"):')
+
+    replace(controller,
+        "            _cls = (KVPRGlobalPolicyV4\n"
+        "                    if self.server_args.policy == \"kvpr-global-v4\"\n"
+        "                    else KVPRGlobalPolicyV3)\n"
+        "            self.policy = _cls(\n",
+        "            _cls = (KVPRGlobalPolicyTP\n"
+        "                    if self.server_args.policy == \"kvpr-global-tp\"\n"
+        "                    else KVPRGlobalPolicyV4\n"
+        "                    if self.server_args.policy == \"kvpr-global-v4\"\n"
+        "                    else KVPRGlobalPolicyV3)\n"
+        "            # Only the TP policy needs the server args (for tp_size per\n"
+        "            # model and the anti-affinity flag); the others keep the\n"
+        "            # keyword-only signature they already had.\n"
+        "            _extra = ({\"server_args\": self.server_args}\n"
+        "                      if self.server_args.policy == \"kvpr-global-tp\" else {})\n"
+        "            self.policy = _cls(\n",
+        probe="_cls = (KVPRGlobalPolicyTP")
+
+    replace(controller,
+        "                tpot_slo_s=_tpot,\n"
+        "            )\n"
+        "        else:\n"
+        "            raise ValueError(f\"Unknown policy: {self.server_args.policy}\")\n",
+        "                tpot_slo_s=_tpot,\n"
+        "                **_extra,  # PAPER-FAITHFUL-TP\n"
+        "            )\n"
+        "        else:\n"
+        "            raise ValueError(f\"Unknown policy: {self.server_args.policy}\")\n",
+        probe="**_extra,  # PAPER-FAITHFUL-TP")
+
+    replace(args_py, '                "kvpr-global-v4",\n',
+        '                "kvpr-global-v4",\n                "kvpr-global-tp",\n',
+        probe='                "kvpr-global-tp",')
+
     # --------------------------------------------------------- model runner
     # The worker-pool log prefix stamps rank0's gpu_id on every rank, so a TP
     # run reads as though every rank sat on one GPU -- which is why the v4
@@ -549,13 +615,17 @@ def main():
         resource: ["self._worker_ids", "self._model_tp_sizes.get(model_name, 1)"],
         gpu_sched: ["slot_plan=self._tp_slot_plan", "plan_for_server_args as tp_slot_plan_for"],
         runner: ["[PAPER-TP] engine rank:"],
+        mm / "scheduling/controller_global.py": [
+            "import KVPRGlobalPolicyTP", "gpu_ids.update(mod.gpu_ids)",
+            "**_extra,  # PAPER-FAITHFUL-TP"],
+        mm / "scheduling/policy/kvpr_global_tp.py": ["class KVPRGlobalPolicyTP"],
         repo / "python/sglang/srt/server_args.py": ["\"enable_tp_worker_pool\","],
     }
     missing = [f"{p}: {n}" for p, names in checks.items() for n in names
                if n not in p.read_text()]
     if missing:
         raise RuntimeError("paper-faithful-tp verification failed:\n" + "\n".join(missing))
-    print("paper-faithful-tp applied (8 files, all landing points verified)")
+    print("paper-faithful-tp applied (10 files, all landing points verified)")
 
 
 if __name__ == "__main__":

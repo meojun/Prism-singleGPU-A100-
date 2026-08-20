@@ -55,8 +55,11 @@ class KVPRGlobalPolicyTP(KVPRGlobalPolicyV4):
     """v4's decision rule, with TP groups intact and anti-affinity available."""
 
     def __init__(self, *args, **kwargs):
+        # The parent takes keyword args only and does not know about
+        # server_args, so it is popped before the super() call rather than
+        # forwarded.  controller_global passes it only for this class.
+        server_args = kwargs.pop("server_args", None)
         super().__init__(*args, **kwargs)
-        server_args = kwargs.get("server_args") or (args[0] if args else None)
         self.anti_affinity = bool(
             getattr(server_args, "enable_tp_anti_affinity", False)
         )
