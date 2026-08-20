@@ -205,15 +205,26 @@ def main():
         "        self.tp_rank = tp_rank\n"
         "        self._v6_captured = []            # V6: retracted KV awaiting stash\n"
         "        self._v6_capture_failures = 0\n",
-        probe="self._v6_captured = []")
+        probe="# V6: retracted KV awaiting stash")
 
-    # Stash after the retraction finishes, before the pools are released at
-    # tp_worker.deactivate_model_runner().
+    # Stash after the retraction finishes, before the pools are released.
+    # The anchor has to carry enough context to be unique: a bare
+    # "self.tp_worker.deactivate_model_runner()" first matches __init__'s own
+    # startup teardown, and putting the call there runs it before the attribute
+    # it reads has been assigned.
     replace(scheduler,
+        "        logger.info(\n"
+        "            f\"Process ongoing requests with preempt ({preempt}) takes {time_taken:.4f} s\"\n"
+        "        )\n"
+        "\n"
         "        self.tp_worker.deactivate_model_runner()\n",
+        "        logger.info(\n"
+        "            f\"Process ongoing requests with preempt ({preempt}) takes {time_taken:.4f} s\"\n"
+        "        )\n"
+        "\n"
         "        self._v6_stash_captured()\n"
         "        self.tp_worker.deactivate_model_runner()\n",
-        probe="self._v6_stash_captured()")
+        probe="self._v6_stash_captured()\n        self.tp_worker.deactivate_model_runner()")
 
     # ------------------------------------------------------------ 3. service
     replace(service,
@@ -374,7 +385,9 @@ def main():
     checks = {
         policy: ["_v6_kv = _os.environ.get"],
         scheduler: ["_v6_capture_kv", "_v6_stash_captured", "_v6_inject_migrated_kv",
-                    "self._v6_captured = []"],
+                    "# V6: retracted KV awaiting stash",
+                    # the stash call must sit beside the real teardown, not in __init__
+                    "self._v6_stash_captured()\n        self.tp_worker.deactivate_model_runner()"],
         service: ["__kv_stash__", "__kv_fetch__", "self.v6_kv_stash = {}"],
         args_file: ["enable_kv_migration", "--enable-kv-migration"],
         repo / "python/sglang/srt/server_args.py": ["enable_kv_migration"],
