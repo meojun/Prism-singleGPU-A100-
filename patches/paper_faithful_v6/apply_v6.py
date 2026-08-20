@@ -226,6 +226,48 @@ def main():
         "        self.tp_worker.deactivate_model_runner()\n",
         probe="self._v6_stash_captured()\n        self.tp_worker.deactivate_model_runner()")
 
+    # The activation handshake is already three ordered messages read by one
+    # reader ("success", elapsed, service_id).  Appending a fourth keeps one
+    # reader on one ordered channel, which removes the race by construction.
+    # The logging line is part of the anchor because the two put() lines alone
+    # also match an earlier branch that is not the worker-pool path.
+    runner = repo / "python/sglang/srt/model_executor/worker_pool_model_runner.py"
+    replace(service, "import gc\n", "import gc\nimport os as _os6\n",
+            probe="import os as _os6")
+
+    replace(service,
+        "                    logging.info(f\"Time taken to copy model to GPU {target_gpu_id}, service {self.service_id}, engine {engine_id}, model {model_key}: {t1 - t0:.4f} seconds\")\n"
+        "                    self.output_queue[engine_id].put(t1 - t0)\n"
+        "                    self.output_queue[engine_id].put(self.service_id)\n",
+        "                    logging.info(f\"Time taken to copy model to GPU {target_gpu_id}, service {self.service_id}, engine {engine_id}, model {model_key}: {t1 - t0:.4f} seconds\")\n"
+        "                    self.output_queue[engine_id].put(t1 - t0)\n"
+        "                    self.output_queue[engine_id].put(self.service_id)\n"
+        "                    if _os6.environ.get(\"PRISM_V6_KV_MIGRATION\") == \"1\":\n"
+        "                        # V6: hand this model's migrated KV over in the\n"
+        "                        # same exchange that just delivered its weights.\n"
+        "                        # Empty list when there is none, so the engine's\n"
+        "                        # read count never depends on whether a\n"
+        "                        # migration happened.\n"
+        "                        _caps = self.v6_kv_stash.pop(model_key, [])\n"
+        "                        self.output_queue[engine_id].put(_caps)\n"
+        "                        logging.info(f\"[PAPER-KV-V6] handover {model_key}\"\n"
+        "                                     f\" -> {engine_id}: {len(_caps)} reqs\")\n",
+        probe="[PAPER-KV-V6] handover")
+
+    replace(runner,
+        "                loading_time = self.output_queue.get()\n"
+        "                service_id = self.output_queue.get()\n"
+        "                success = True\n",
+        "                loading_time = self.output_queue.get()\n"
+        "                service_id = self.output_queue.get()\n"
+        "                import os as _os6\n"
+        "                if _os6.environ.get(\"PRISM_V6_KV_MIGRATION\") == \"1\":\n"
+        "                    # V6: fourth message of the same exchange -- the KV\n"
+        "                    # this model left behind on its previous GPU.\n"
+        "                    self.v6_pending_kv = self.output_queue.get()\n"
+        "                success = True\n",
+        probe="self.v6_pending_kv = self.output_queue.get()")
+
     # ------------------------------------------------------------ 3. service
     replace(service,
         "            if model_key == \"__release__\":\n",
@@ -290,21 +332,11 @@ def main():
         "            import json as _json\n"
         "            from sglang.multi_model import kv_migration_v6 as _kvm\n"
         "            mr = self.tp_worker.model_runner\n"
-        "            q = getattr(mr, \"input_queue\", None)\n"
-        "            oq = getattr(mr, \"output_queue\", None)\n"
-        "            if q is None or oq is None:\n"
-        "                return\n"
-        "            q.put((\"__kv_fetch__\", mr.model_path, None, mr.engine_id))\n"
-        "            # Never block activation on this.  A fetch that goes\n"
-        "            # unanswered -- service busy, routed elsewhere, stash lost to\n"
-        "            # a crash -- must cost a recompute, not hang the engine\n"
-        "            # forever inside handle_activate_request.\n"
-        "            try:\n"
-        "                caps = oq.get(timeout=30)\n"
-        "            except Exception:\n"
-        "                logger.warning(\"[PAPER-KV-V6] fetch timed out; \"\n"
-        "                               \"falling back to recompute\")\n"
-        "                return\n"
+        "            # The capsules arrived with the weights, as the fourth\n"
+        "            # message of that same ordered exchange -- nothing to\n"
+        "            # wait for, and no second reader on any queue.\n"
+        "            caps = getattr(mr, \"v6_pending_kv\", None)\n"
+        "            mr.v6_pending_kv = None\n"
         "            if not caps:\n"
         "                return\n"
         "            moved, skipped, rec = _kvm.migrate_request_kv(\n"
@@ -330,7 +362,7 @@ def main():
         "            logger.warning(f\"[PAPER-KV-V6] inject stage failed: {e}\")\n"
         "\n"
         "    def _restore_waiting_requests(self):\n",
-        probe="oq.get(timeout=30)")
+        probe="mr.v6_pending_kv = None")
 
     # --------------------------------------------------------------- 5. flag
     # ServerArgs.from_multi_model_server_args() builds each engine's ServerArgs
@@ -388,7 +420,10 @@ def main():
                     "# V6: retracted KV awaiting stash",
                     # the stash call must sit beside the real teardown, not in __init__
                     "self._v6_stash_captured()\n        self.tp_worker.deactivate_model_runner()"],
-        service: ["__kv_stash__", "__kv_fetch__", "self.v6_kv_stash = {}"],
+        service: ["__kv_stash__", "self.v6_kv_stash = {}",
+                  "[PAPER-KV-V6] handover"],
+        repo / "python/sglang/srt/model_executor/worker_pool_model_runner.py":
+            ["self.v6_pending_kv = self.output_queue.get()"],
         args_file: ["enable_kv_migration", "--enable-kv-migration"],
         repo / "python/sglang/srt/server_args.py": ["enable_kv_migration"],
         mm / "kv_migration_v6.py": ["RequestKVCapsule"],
