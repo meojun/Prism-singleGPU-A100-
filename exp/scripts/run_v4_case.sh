@@ -121,13 +121,37 @@ case "$SYSTEM" in
       # path.
       export PRISM_V4_P2P_MIGRATION=${V5_P2P:-${PRISM_V4_P2P_MIGRATION:-1}}
       ;;
+  paper-faithful-v6)
+      # v4 plus the paper's KV-cache migration.  Identical to the v4 arm in
+      # every other respect so a v4/v6 pair isolates exactly the KV transfer.
+      CONTROLLER+=(--policy kvpr-global-v4 --kvpr-tau "$KVPR_TAU"
+                   --kvpr-rate-window "$KVPR_WINDOW" --slo-base-file "$SLO_BASE"
+                   --kvpr-migration-cooldown "$KVPR_COOLDOWN"
+                   --kvpr-tpot-slo-scale "$TPOT_SCALE"
+                   --enable-moore-hodgson --prefill-speed-file "$PREFILL_SPEED"
+                   --parallel-model-loading --overlap-migration
+                   --enable-kv-migration)
+      export PRISM_V4_PAGELOCK=${V5_PAGELOCK:-${PRISM_V4_PAGELOCK:-1}}
+      export PRISM_V4_P2P_MIGRATION=${V5_P2P:-${PRISM_V4_P2P_MIGRATION:-1}}
+      # The policy runs in the controller process and the capture/inject run in
+      # engine processes; an env var crosses that boundary, a parsed arg does
+      # not.  --enable-kv-migration sets this too, but set it here as well so
+      # the ModelService fork sees it regardless of parse order.
+      export PRISM_V6_KV_MIGRATION=1
+      ;;
   *) echo "unknown system: $SYSTEM" >&2; exit 1 ;;
 esac
 # Any arm other than v4 must see the v3 code path, even if the shell that
 # invoked us had the switches set.
 case "$SYSTEM" in
-  paper-faithful-v4) ;;
+  paper-faithful-v4|paper-faithful-v6) ;;
   *) unset PRISM_V4_PAGELOCK PRISM_V4_P2P_MIGRATION ;;
+esac
+# Likewise: only the v6 arm may see the KV-migration switch, whatever the
+# invoking shell had set.
+case "$SYSTEM" in
+  paper-faithful-v6) export PRISM_V6_KV_TRACE="$OUTDIR/kv_transfers.jsonl" ;;
+  *) unset PRISM_V6_KV_MIGRATION PRISM_V6_KV_TRACE ;;
 esac
 # Per-run raw record of every weight transfer.
 export PRISM_V4_LOAD_TRACE="$OUTDIR/weight_transfers.jsonl"
@@ -182,6 +206,8 @@ rm -f /dev/shm/ipc_[0-9]*_root /dev/shm/cuda.shm.* /dev/shm/ipc_0_model_*_root 2
 V4ENV="export PRISM_V4_LOAD_TRACE='$PRISM_V4_LOAD_TRACE'"
 [ -n "${PRISM_V4_PAGELOCK:-}" ] && V4ENV="$V4ENV PRISM_V4_PAGELOCK=$PRISM_V4_PAGELOCK"
 [ -n "${PRISM_V4_P2P_MIGRATION:-}" ] && V4ENV="$V4ENV PRISM_V4_P2P_MIGRATION=$PRISM_V4_P2P_MIGRATION"
+[ -n "${PRISM_V6_KV_MIGRATION:-}" ] && V4ENV="$V4ENV PRISM_V6_KV_MIGRATION=$PRISM_V6_KV_MIGRATION"
+[ -n "${PRISM_V6_KV_TRACE:-}" ] && V4ENV="$V4ENV PRISM_V6_KV_TRACE='$PRISM_V6_KV_TRACE'"
 tmux new-session -d -s "$SESSION" \
   "export CUDA_VISIBLE_DEVICES=$VISIBLE && cd $PRISM_REPO/benchmark/multi-model && \
    source $SCRIPT_DIR/env.sh && export CUDA_VISIBLE_DEVICES=$VISIBLE && $V4ENV && \
