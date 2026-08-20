@@ -28,7 +28,8 @@ cat exp/results/paper-faithful-v6/sweep/SUMMARY.txt   # 있으면 스윕이 끝�
 | C — 감사 정정 3건 + P2P FULL 승격 | ✅ 완료, 커밋됨 |
 | B — KV migration 모듈 + 25개 단위테스트 | ✅ 통과 |
 | B — 배선 패치 (5개 지점, opt-in) | ✅ 적용, 체인 멱등 확인 |
-| B — e2e 검증 (발동하는가) | 진행/완료 — `exp/results/paper-faithful-v6/e2e/` |
+| B — e2e 검증: v4 대조군 | ✅ 통과 — 요청 3387, 가중치 전송 24 (P2P 7), KV 마커 0 |
+| B — e2e 검증: v6 처리군 | 진행/완료 — `exp/results/paper-faithful-v6/e2e/` |
 | B — 스윕 (효과가 있는가) | 무인 실행 — `exp/results/paper-faithful-v6/sweep/` |
 
 **환경 값은 절대 다른 박스 것을 쓰지 마라.** 이 박스 값은
@@ -37,14 +38,22 @@ cat exp/results/paper-faithful-v6/sweep/SUMMARY.txt   # 있으면 스윕이 끝�
 `exp/configs/v2/` 의 추적본은 **다른 박스 값이므로 건드리지 않았다.**
 이유는 `exp/results/paper-faithful-v6/provenance/ENVIRONMENT.md`.
 
+대조군의 `stash=0 inject=0` 은 그 자체가 결과다 — **플래그가 꺼져 있으면 v6 코드
+경로에 진입조차 하지 않는다**는 증거이고, 기본 arm 이 released prototype 을 그대로
+재현한다는 불변식이 데이터로 확인된 것이다. 그리고 그 런의 가중치 전송 24건 중
+7건이 gpu-to-gpu 였다 — V4 의 P2P 가 이 박스에서 마이크로벤치가 아니라 **실부하
+e2e** 로 동작한다.
+
 ## 3. 스윕이 중간에 죽었다면
 
 **resumable 이다.** 끝난 런은 `DONE` 마커가 있어 건너뛴다. 그대로 다시 던져라:
 
 ```bash
 tmux new-session -d -s stage_b \
-  "bash -lc 'ulimit -n 65535; /workspace/stage_b_sweep.sh 2>&1 | tee -a /workspace/logs/stage_b_sweep.log; sleep infinity'"
+  "bash -lc 'ulimit -n 65535; /workspace/prism-exp/exp/scripts/run_v6_sweep.sh 2>&1 | tee -a /workspace/logs/stage_b_sweep.log; sleep infinity'"
 ```
+
+(`/workspace/stage_b_sweep.sh` 도 같은 내용이지만 레포 안의 것을 써라.)
 
 죽은 런의 잔해부터 치워야 다음 서버가 뜬다 (실제로 겪은 함정):
 
@@ -107,3 +116,9 @@ nvidia-smi --query-compute-apps=pid,used_memory --format=csv
   반환한다. 조용해서 찾기 어렵다.
 * kvcached 는 종료 시 `cuMemRelease` 실패로 프로세스를 abort 시킨다. 판정이 다
   끝난 뒤라 결과에는 영향이 없지만 종료 코드를 덮는다.
+* **런 사이에 `/dev/shm` 을 반드시 치워라.** 끝난 서버가 `ipc_<gpu>_<worker>_root`
+  와 multiprocessing 의 `sem.mp-*` / `mp-*` 를 남기고, 다음 서버가 그것과 충돌해
+  기동 중에 죽는다 (`resource_tracker: process died unexpectedly` + 세그먼트
+  이름 KeyError). v6 검증이 실제로 이렇게 죽었고, 바로 옆에서 v4 대조군은
+  깨끗하게 끝났다 — **v6 코드와 무관하고 순서만 반대였으면 v4 가 죽었다.**
+  `exp/scripts/shm_clean.sh` 가 이걸 한다. 스윕은 매 런 사이에 호출한다.
