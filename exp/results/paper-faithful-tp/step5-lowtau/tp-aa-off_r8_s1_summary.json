@@ -1,0 +1,30 @@
+{
+  "tag": "tp-aa-off_r8_s1",
+  "arm": "off",
+  "rate": "8",
+  "seed": "1",
+  "cycles_logged": 87,
+  "anti_affinity": false,
+  "anti_affinity_strict": null,
+  "any_tp_group_active_ever": true,
+  "totals": {
+    "shards_placed": 539,
+    "aa_violations": 34,
+    "aa_diverted": 0,
+    "aa_infeasible": 0,
+    "aa_second_also_collides": 0,
+    "snapped_to_group": 27,
+    "group_unavailable": 0
+  },
+  "cycles_with_a_violation": 34,
+  "cycles_with_a_diversion": 0,
+  "colliding_plans_emitted": 0,
+  "requests": {
+    "total": 3387,
+    "ok": 3387
+  },
+  "raw": {
+    "cycles": "raw/alg1_tp/tp-aa-off_r8_s1.jsonl",
+    "placements": "raw/placements/tp-aa-off_r8_s1.csv"
+  }
+}

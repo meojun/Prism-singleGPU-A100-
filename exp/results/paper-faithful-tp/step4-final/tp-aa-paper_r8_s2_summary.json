@@ -1,0 +1,30 @@
+{
+  "tag": "tp-aa-paper_r8_s2",
+  "arm": "paper",
+  "rate": "8",
+  "seed": "2",
+  "cycles_logged": 90,
+  "anti_affinity": true,
+  "anti_affinity_strict": null,
+  "any_tp_group_active_ever": true,
+  "totals": {
+    "shards_placed": 518,
+    "aa_violations": 12,
+    "aa_diverted": 12,
+    "aa_infeasible": 0,
+    "aa_second_also_collides": 0,
+    "snapped_to_group": 1,
+    "group_unavailable": 0
+  },
+  "cycles_with_a_violation": 12,
+  "cycles_with_a_diversion": 12,
+  "colliding_plans_emitted": 0,
+  "requests": {
+    "total": 3365,
+    "ok": 3365
+  },
+  "raw": {
+    "cycles": "raw/alg1_tp/tp-aa-paper_r8_s2.jsonl",
+    "placements": "raw/placements/tp-aa-paper_r8_s2.csv"
+  }
+}
