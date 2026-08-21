@@ -1,0 +1,30 @@
+generated: 2026-08-20T20:00:06+00:00
+tree: /workspace/prism-merge @ f2e56fd
+model: meta-llama/Llama-3.1-70B   tp_size: 4   ngpu: 4   precision: bfloat16 (config)
+
+weight_bytes: 141107497872 (131.42 GiB)
+layers: 80  kv_heads: 8  hidden: 8192  dtype: bfloat16
+
+--- topo
+	[4mGPU0	GPU1	GPU2	GPU3	CPU Affinity	NUMA Affinity	GPU NUMA ID[0m
+GPU0	 X 	NV12	NV12	NV12	0-31,64-95	0		N/A
+GPU1	NV12	 X 	NV12	NV12	32-63,96-127	1		N/A
+GPU2	NV12	NV12	 X 	NV12	32-63,96-127	1		N/A
+GPU3	NV12	NV12	NV12	 X 	32-63,96-127	1		N/A
+
+Legend:
+
+  X    = Self
+  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node
+  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)
+  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)
+  PIX  = Connection traversing at most a single PCIe bridge
+  NV#  = Connection traversing a bonded set of # NVLinks
+
+--- GPU memory BEFORE startup
+index, memory.used [MiB], memory.total [MiB]
+0, 0 MiB, 81920 MiB
+1, 0 MiB, 81920 MiB
+2, 0 MiB, 81920 MiB
+3, 0 MiB, 81920 MiB

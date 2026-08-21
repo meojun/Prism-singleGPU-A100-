@@ -1,0 +1,34 @@
+/workspace/prism-merge/exp/scripts/env.sh: line 17: /workspace/prism-merge/prism-venv/bin/activate: No such file or directory
+=== TP boot test: tp_size=4 ngpu=4 workers/gpu=1 model=meta-llama/Llama-3.1-70B
+[
+  {
+    "model_name": "model_70b",
+    "model_path": "meta-llama/Llama-3.1-70B",
+    "tp_size": 4,
+    "init_placements": [{"gpu_ids": [0, 1, 2, 3], "on": true, "max_memory_pool_size": 20.0}]
+  }
+]
+  policy=kvpr-global-tp tau=0.17108602804407128 (this box)
+server pid=542073  log=/workspace/prism-merge/exp/results/final-prototype-vs-paper-faithful/large-model-70b/raw/stage12/server-logs/stdout.log
+waiting for server. -> DIED
+ -> not ready (see /workspace/prism-merge/exp/results/final-prototype-vs-paper-faithful/large-model-70b/raw/stage12/server-logs/stdout.log)
+startup: 2s
+=== rank -> GPU, straight from the engines' own logs
+  (none found)
+=== slot plan
+  (none found)
+=== worker pools
+  (none found)
+# TP=2 validation: FAIL
+
+- [FAIL] server_started
+- [FAIL] tp_size_2_configured
+- [FAIL] both_gpus_in_placement
+- [NOT OBSERVED] ranks_observed_on_distinct_gpus
+- [FAIL] nccl_mentioned_in_logs
+- [FAIL] inference_succeeded
+- [PASS] no_runtime_errors
+- [FAIL] load_phase_exit_zero
+
+startup: 2.0s
+TP rank -> GPU: not recoverable from logs

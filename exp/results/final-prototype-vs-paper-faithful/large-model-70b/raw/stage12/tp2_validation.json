@@ -1,0 +1,38 @@
+{
+  "verdict": "FAIL",
+  "checks": {
+    "server_started": false,
+    "tp_size_2_configured": false,
+    "both_gpus_in_placement": false,
+    "ranks_observed_on_distinct_gpus": null,
+    "nccl_mentioned_in_logs": false,
+    "inference_succeeded": false,
+    "no_runtime_errors": true,
+    "load_phase_exit_zero": false
+  },
+  "startup_seconds": 2.0,
+  "tp_rank_to_gpu": {},
+  "planned_gpu_ids": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "gpus_observed": [],
+  "nccl_log_lines": 0,
+  "nccl_init_seconds_reported": [],
+  "runtime_error_lines": [],
+  "latency": {
+    "ttft": null,
+    "tpot": null,
+    "e2e": null
+  },
+  "requests": {
+    "requests": null,
+    "successful": null,
+    "failed": null,
+    "errors": null,
+    "per_model": null
+  },
+  "note_parallel_loading_disabled_under_tp": "model_runner.py disables the model-service weight path when tp_size > 1, so a TP=2 model never uses parallel weight loading."
+}
