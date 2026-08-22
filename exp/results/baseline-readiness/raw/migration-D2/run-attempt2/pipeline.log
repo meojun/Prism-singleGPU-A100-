@@ -1,0 +1,45 @@
+[2026-08-22T07:58:04Z] stage command: env PRISM_ROOT=/workspace/prism-exp PRISM_REPO=/root/Prism-final-regression-diagnosis/prism-research PRISM_EXP=/root/Prism-final-regression-diagnosis/exp KVPR_TAU=0.07 PRISM_DIAG_ALG2=0 BENCHMARK_TIMEOUT=1200 bash exp/scripts/run_v4_case.sh paper-migration-only bursty 20 1 /root/Prism-final-regression-diagnosis/exp/results/baseline-readiness/raw/migration-D2/workload/bursty_r20_s1.pkl /root/Prism-final-regression-diagnosis/exp/results/baseline-readiness/raw/migration-D2/run-attempt2
+### paper-migration-only_bursty_rate20_seed1  port=41950 trace=bursty_r20_s1.pkl workers=4 models=6
+waiting for server............................................................................................. -> ready
+Terminated
+benchmark failed rc=143
+
+Request model_3#1528 arrives at 1669105.350491142, sleeping for 0.067512919427827 seconds
+Error in sending generate request model_6#1177 model model_6, error: Traceback (most recent call last):
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/aiohttp/connector.py", line 1301, in _wrap_create_connection
+    sock = await aiohappyeyeballs.start_connection(
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/aiohappyeyeballs/impl.py", line 124, in start_connection
+    raise first_exception
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/aiohappyeyeballs/impl.py", line 75, in start_connection
+    sock = await _connect_sock(
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/aiohappyeyeballs/impl.py", line 210, in _connect_sock
+    await loop.sock_connect(sock, address)
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/asyncio/selector_events.py", line 501, in sock_connect
+    return await fut
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/asyncio/selector_events.py", line 541, in _sock_connect_cb
+    raise OSError(err, f'Connect call failed {address}')
+ConnectionRefusedError: [Errno 111] Connect call failed ('127.0.0.1', 41950)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/Prism-final-regression-diagnosis/prism-research/benchmark/multi-model/benchmark.py", line 93, in send_generate_request
+    async with session.post(
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/aiohttp/client.py", line 1693, in __aenter__
+    self._resp: _RetType_co = await self._coro
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/aiohttp/client.py", line 858, in _request
+    resp = await handler(req)
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/aiohttp/client.py", line 812, in _connect_and_send_request
+    conn = await self._connector.connect(
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/aiohttp/connector.py", line 657, in connect
+    proto = await self._create_connection(req, traces, timeout)
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/aiohttp/connector.py", line 1242, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/aiohttp/connector.py", line 1620, in _create_direct_connection
+    raise last_exc
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/aiohttp/connector.py", line 1589, in _create_direct_connection
+    transp, proto = await self._wrap_create_connection(
+  File "/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/aiohttp/connector.py", line 1324, in _wrap_create_connection
+    raise client_error(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorError: Cannot connect to host 127.0.0.1:41950 ssl:default [Connect call failed ('127.0.0.1', 41950)]
+

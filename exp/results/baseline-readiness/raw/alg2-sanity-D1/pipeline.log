@@ -1,0 +1,15 @@
+[2026-08-22T07:41:10Z] stage command: env PRISM_ROOT=/workspace/prism-exp PRISM_REPO=/root/Prism-final-regression-diagnosis/prism-research PRISM_EXP=/root/Prism-final-regression-diagnosis/exp PRISM_DIAG_ALG2=0 BENCHMARK_TIMEOUT=600 bash exp/scripts/run_v4_case.sh paper-alg2-only steady 8 1 /root/Prism-final-regression-diagnosis/exp/results/final-regression-diagnosis/alg2-root-cause/sanity/steady_r8_s1_120s.pkl /root/Prism-final-regression-diagnosis/exp/results/baseline-readiness/raw/alg2-sanity-D1
+### paper-alg2-only_steady_rate8_seed1  port=41050 trace=steady_r8_s1_120s.pkl workers=4 models=6
+waiting for server.................................................................................. -> ready
+system=paper-alg2-only workload=steady rate=8 seed=1
+max_mem_usage=67.28
+alg1_log_lines=0
+alg1_migrations=0
+alg2_log_lines=2
+alg2_underadmission_warnings=0
+proto_migrations=0
+activations=0
+deactivations=0
+idle_evictions=0
+### paper-alg2-only_steady_rate8_seed1 done
+[2026-08-22T07:46:25Z] stage complete

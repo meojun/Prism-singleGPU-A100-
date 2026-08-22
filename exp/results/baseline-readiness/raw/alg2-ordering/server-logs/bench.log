@@ -1,0 +1,24 @@
+Real trace file: /root/Prism-final-regression-diagnosis/exp/results/baseline-readiness/raw/alg2-ordering/abc_same_gpu.pkl
+[PRISM_DIRECT] 3 requests, span 0.0s
+Starting TP benchmark: paper-alg2-only_ordering_rate3_seed1
+Generated 3 requests
+Request A arrives at 1667483.131620955, sleeping for 0 seconds
+Request B arrives at 1667483.131664705, sleeping for 0 seconds
+Request C arrives at 1667483.13228785, sleeping for 0 seconds
+============================================================
+BENCHMARK RESULTS
+============================================================
+Completed requests: 3
+Aborted requests: 0
+Request throughput: 15.76 req/s
+Input throughput: 7051.16 tokens/s
+Output throughput: 126.10 tokens/s
+Mean TTFT: 70.2 ms
+P99 TTFT: 77.8 ms
+Mean TPOT: 14.0 ms
+P99 TPOT: 15.3 ms
+Mean Latency: 189.1 ms
+P99 Latency: 189.7 ms
+============================================================
+Results saved to /root/Prism-final-regression-diagnosis/exp/results/baseline-readiness/raw/alg2-ordering
+Requests saved to /root/Prism-final-regression-diagnosis/exp/results/baseline-readiness/raw/alg2-ordering/requests

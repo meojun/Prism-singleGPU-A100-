@@ -1,0 +1,60 @@
+[2026-08-22T05:28:53Z] waiting for representative-model profiling
+profile pipeline failed rc=1
+[2026-08-22T05:35:45Z] waiting for representative-model profiling
+[2026-08-22T05:40:21Z] profiling complete; validating Algorithm 2
+/root/Prism-final-regression-diagnosis/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+== 1. worked example: one infeasible job is shed ==
+  PASS  selected == A,B,D
+  PASS  deferred == C
+  PASS  selection is feasible
+== 2. drop-the-longest, not drop-the-latest ==
+  PASS  evicts the LONGEST job A
+  PASS  keeps B and C
+  PASS  selection is feasible
+== 3. beats plain EDF on number of on-time jobs ==
+  PASS  MH keeps 3 jobs
+  PASS  MH sheds the blocker A
+  PASS  MH selection is feasible
+  PASS  plain EDF would only make 1 on time
+== 4. everything feasible -> nothing deferred ==
+  PASS  all selected
+== 5. nothing feasible -> everything deferred ==
+  PASS  all deferred
+== 6. `now` offset is honoured ==
+  PASS  same result as example 1
+== 7. empty input ==
+  PASS  empty in, empty out
+== 8. output is in dispatch (ascending deadline) order ==
+  PASS  ascending deadline
+== 9. past-deadline jobs are separable (no starvation) ==
+  PASS  feasible job is selected
+  PASS  both expired jobs are deferred
+  PASS  nothing feasible is left requeued
+  PASS  verdict is stable across rounds (hence the livelock)
+== 10. maximum cardinality vs brute force (randomised) ==
+  PASS  optimal on 300 random instances
+
+ALL MOORE-HODGSON TESTS PASSED
+[2026-08-22T05:40:29Z] starting D1 steady/r8/seed1
+### paper-alg2-only_steady_rate8_seed1  port=41250 trace=steady_r8_s1.pkl workers=4 models=6
+waiting for server................................................................................. -> ready
+system=paper-alg2-only workload=steady rate=8 seed=1
+max_mem_usage=67.28
+alg1_log_lines=0
+alg1_migrations=0
+alg2_log_lines=7
+alg2_underadmission_warnings=0
+proto_migrations=0
+activations=0
+deactivations=0
+idle_evictions=0
+### paper-alg2-only_steady_rate8_seed1 done
+[2026-08-22T05:50:42Z] collecting D1 metrics
+collected paper-alg2-only/steady/8/1: goodput=0.357 joint=0.044 migrations=0 (decided 0)
+
+wrote summary.csv (1 runs), aggregated over 1 conditions
+{"goodput": -1.7933333333333332, "joint_slo": -0.22305140961857378, "tpot_slo": -0.22097844112769488, "ttft_slo": -0.04311774461028184}
+wrote /root/Prism-final-regression-diagnosis/exp/results/final-regression-diagnosis/D1/result.json
+wrote /root/Prism-final-regression-diagnosis/exp/results/final-regression-diagnosis/alg2_prediction_audit.csv
+[2026-08-22T05:50:42Z] D1 result complete

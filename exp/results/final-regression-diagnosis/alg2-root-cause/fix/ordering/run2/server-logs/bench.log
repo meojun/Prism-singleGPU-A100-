@@ -1,0 +1,24 @@
+Real trace file: /root/Prism-final-regression-diagnosis/exp/results/final-regression-diagnosis/alg2-root-cause/fix/ordering/abc_same_gpu.pkl
+[PRISM_DIRECT] 3 requests, span 0.0s
+Starting TP benchmark: paper-alg2-only_ordering_rate3_seed1
+Generated 3 requests
+Request A arrives at 1664588.777841827, sleeping for 0 seconds
+Request B arrives at 1664588.777880567, sleeping for 0 seconds
+Request C arrives at 1664588.778599232, sleeping for 0 seconds
+============================================================
+BENCHMARK RESULTS
+============================================================
+Completed requests: 3
+Aborted requests: 0
+Request throughput: 2.41 req/s
+Input throughput: 1078.42 tokens/s
+Output throughput: 19.29 tokens/s
+Mean TTFT: 1137.8 ms
+P99 TTFT: 1179.2 ms
+Mean TPOT: 10.3 ms
+P99 TPOT: 12.8 ms
+Mean Latency: 1225.5 ms
+P99 Latency: 1243.9 ms
+============================================================
+Results saved to /root/Prism-final-regression-diagnosis/exp/results/final-regression-diagnosis/alg2-root-cause/fix/ordering/run2
+Requests saved to /root/Prism-final-regression-diagnosis/exp/results/final-regression-diagnosis/alg2-root-cause/fix/ordering/run2/requests

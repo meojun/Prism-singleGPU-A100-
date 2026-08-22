@@ -1,0 +1,49 @@
+generated: 2026-08-22 UTC
+study: Prism Final Regression Diagnosis / Paper-Fidelity Audit
+
+branch: exp/final-regression-diagnosis
+harness_commit: 684e487c82c40556f9ae50fac8892b684e7e5950
+upstream_prism_research_commit: 595ec1f170e75a43897a7a2ad58ac5a9820aa2e8
+upstream_patch_chain: paper_faithful -> v3 -> v4 -> v5_2 -> v6 -> paper_faithful_tp
+
+GPU IDs: 0,1 (current container indices)
+GPU UUIDs:
+  0: GPU-435b8647-c13a-0cc8-d748-41679ddb08d1
+  1: GPU-24a09821-2da2-18fe-7b33-87f43f38025f
+GPU model: 2 x NVIDIA A100-SXM4-80GB
+GPU memory: 81920 MiB each
+topology: GPU0 <-> GPU1 NV12; CUDA peer access true in both directions
+driver: 570.195.03
+system CUDA toolkit: 12.6
+Python: 3.10.20
+PyTorch: 2.4.0+cu121 (runtime CUDA 12.1)
+SGLang: 0.3.4.post2
+vLLM: 0.6.3.post1
+Transformers: 4.45.2
+FlashInfer: 0.1.6+cu121torch2.4
+TP: 1
+
+config: exp/configs/v2/6model_2gpu.json
+config_sha256: a70e906c6249c70de11567fdc7a26404929c0c8351eaf8631346fa3db644e51d
+slo_base: exp/configs/v2/slo_base.json
+slo_base_sha256: 4e6b20b0fe7cb558683b3d80afbbbe3f5e055b963c368ff5b34ed075686a508f
+prefill_speed: exp/configs/v2/prefill_speed.json
+prefill_speed_sha256: a57dffcd117e05295488d9222a17a1c97cfaa262b54692743fb93c1c06fda599
+
+Baseline policy:
+  Existing Prototype A results are immutable and will not be rerun.
+  Existing Prototype A steady/rate8/seed1 source:
+  exp/results/final-prototype-vs-paper-faithful/raw/armA/raw/released-prototype/steady/rate_8/seed_1/
+
+UNAVOIDABLE DIFFERENCE:
+  The existing baseline used physical GPU UUIDs 435b... and bc69... (old host indices 0,1).
+  This allocation exposes UUIDs 435b... and 24a... (old host indices 0,3; current 0,1).
+  GPU SKU, 80-GiB memory, driver, host, and NV12/NVSwitch topology match, but the
+  second physical GPU is not identical. Any cross-run D0 comparison retains this
+  hardware-pair confound. The requested two-model c_i microbenchmark is repeated.
+
+Storage warning:
+  workspace_is_volume=false. Results survive stop/start but not recycle/destroy.
+
+Prohibited actions retained:
+  no full sweep; no tau tuning; no Prototype A rerun; no baseline overwrite.

@@ -1,0 +1,101 @@
+[2026-08-22 06:50:41.824 GlobalController] All assigned GPU ids: [0, 1]
+[2026-08-22 06:50:41.848 GlobalController] Total single GPU memory: 79.25 GB
+[2026-08-22 06:50:44.494 GlobalController] GPU 0, memory: 59.77 GB
+[2026-08-22 06:50:46.511 GlobalController] GPU 1, memory: 72.89 GB
+[2026-08-22 06:50:46.511 GlobalController] Time for checking GPU memory: 4.6628s
+[2026-08-22 06:50:46.511 GlobalController] Model weight information loaded successfully
+[2026-08-22 06:50:46.512 GlobalController] Using policy: SimpleGlobalPolicy
+[2026-08-22 06:50:46.512 GlobalController] Starting schedule statistic thread
+[2026-08-22 06:50:46.513 GlobalController] Waiting for the first generate request to start model scheduling
+[2026-08-22 06:50:46.513 GlobalController] Schedule statistics will be logged to /root/Prism-final-regression-diagnosis/prism-research/benchmark/multi-model/benchmark/multi-model/stats_2026-08-22T06:50:46.513098.log
+[2026-08-22 06:50:46.513 GlobalController] Loading model weight information for statistics
+[2026-08-22 06:50:46.513 GlobalController] Loaded model weights from /root/Prism-final-regression-diagnosis/prism-research/python/sglang/multi_model/scheduling/../utils/model_info.json
+[2026-08-22 06:50:46.513 GlobalController] Loading model config and mapping weights
+[2026-08-22 06:50:46.513 GlobalController] Mapped 6 models to their weights
+[2026-08-22 06:50:46.513 GlobalController] Set GPU total memory: {0: 80, 1: 80}
+[2026-08-22 06:51:01.037 GlobalController] model_3: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: N/A, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-22 06:51:01.037 GlobalController] model_6: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: N/A, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-22 06:51:01.037 GlobalController] model_5: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: N/A, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-22 06:51:01.037 GlobalController] model_4: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: N/A, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-22 06:51:01.037 GlobalController] model_2: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: N/A, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-22 06:51:01.037 GlobalController] model_1: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: N/A, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-22 06:51:02.339 GlobalController] model_2: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: N/A, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-22 06:51:02.340 GlobalController] model_5: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: N/A, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-22 06:51:03.542 GlobalController] model_3: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: N/A, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-22 06:51:03.542 GlobalController] model_1: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: N/A, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-22 06:51:03.743 GlobalController] model_4: num_unfinished_reqs: 1, num_waiting_reqs: 1, num_running_reqs: 0, last_arrival_time_ref: 0:00:21.858520, earliest_arrived_req_in_queue: 0:00:21.858520, last_finish_time_ref: N/A
+[2026-08-22 06:51:03.743 GlobalController] Schedule interval: 5 seconds
+[2026-08-22 06:51:03.743 GlobalController] model_1: num_unfinished_reqs: 2, num_waiting_reqs: 2, num_running_reqs: 0, last_arrival_time_ref: 0:00:21.858804, earliest_arrived_req_in_queue: 0:00:21.857891, last_finish_time_ref: N/A
+[2026-08-22 06:51:03.743 GlobalController] Starting model scheduling
+[2026-08-22 06:51:03.744 GlobalController] Time for preprocessing data structures: 0.0001s
+[2026-08-22 06:51:03.744 GlobalController] Model model_1:
+[2026-08-22 06:51:03.744 GlobalController]   Instance 0: ACTIVE, memory usage: 2.28 GB, gpu_ids: [0], init_memory_pool_size: 0 GB
+[2026-08-22 06:51:03.744 GlobalController]   Instance 1: INACTIVE, memory usage: 2.28 GB, gpu_ids: [1], init_memory_pool_size: 0 GB
+[2026-08-22 06:51:03.744 GlobalController] Model model_4:
+[2026-08-22 06:51:03.744 GlobalController]   Instance 0: ACTIVE, memory usage: 5.84 GB, gpu_ids: [0], init_memory_pool_size: 0 GB
+[2026-08-22 06:51:03.744 GlobalController]   Instance 1: INACTIVE, memory usage: 5.84 GB, gpu_ids: [1], init_memory_pool_size: 0 GB
+[2026-08-22 06:51:03.744 GlobalController] Model model_5:
+[2026-08-22 06:51:03.744 GlobalController]   Instance 0: ACTIVE, memory usage: 15.08 GB, gpu_ids: [0], init_memory_pool_size: 0 GB
+[2026-08-22 06:51:03.744 GlobalController]   Instance 1: INACTIVE, memory usage: 15.08 GB, gpu_ids: [1], init_memory_pool_size: 0 GB
+[2026-08-22 06:51:03.744 GlobalController] Model model_2:
+[2026-08-22 06:51:03.744 GlobalController]   Instance 0: INACTIVE, memory usage: 3.01 GB, gpu_ids: [0], init_memory_pool_size: 0 GB
+[2026-08-22 06:51:03.744 GlobalController]   Instance 1: ACTIVE, memory usage: 3.01 GB, gpu_ids: [1], init_memory_pool_size: 0 GB
+[2026-08-22 06:51:03.744 GlobalController] Model model_3:
+[2026-08-22 06:51:03.744 GlobalController]   Instance 0: INACTIVE, memory usage: 6.00 GB, gpu_ids: [0], init_memory_pool_size: 0 GB
+[2026-08-22 06:51:03.744 GlobalController]   Instance 1: ACTIVE, memory usage: 6.00 GB, gpu_ids: [1], init_memory_pool_size: 0 GB
+[2026-08-22 06:51:03.744 GlobalController] Model model_6:
+[2026-08-22 06:51:03.744 GlobalController]   Instance 0: INACTIVE, memory usage: 14.28 GB, gpu_ids: [0], init_memory_pool_size: 0 GB
+[2026-08-22 06:51:03.744 GlobalController]   Instance 1: ACTIVE, memory usage: 14.28 GB, gpu_ids: [1], init_memory_pool_size: 0 GB
+[2026-08-22 06:51:03.744 GlobalController] first request time: 1787381463.6835275
+[2026-08-22 06:51:03.744 GlobalController] Model model_1 has been idle for 0.06 seconds, its own last request or global first request time is 1787381463.6835275
+[2026-08-22 06:51:03.745 GlobalController] Model model_1 has waiting/running requests: True
+[2026-08-22 06:51:03.745 GlobalController] Model model_2 has been idle for 0.06 seconds, its own last request or global first request time is 1787381463.6835275
+[2026-08-22 06:51:03.745 GlobalController] Model model_2 has waiting/running requests: False
+[2026-08-22 06:51:03.745 GlobalController] Model model_3 has been idle for 0.06 seconds, its own last request or global first request time is 1787381463.6835275
+[2026-08-22 06:51:03.745 GlobalController] Model model_3 has waiting/running requests: False
+[2026-08-22 06:51:03.745 GlobalController] Model model_4 has been idle for 0.06 seconds, its own last request or global first request time is 1787381463.6835275
+[2026-08-22 06:51:03.745 GlobalController] Model model_4 has waiting/running requests: True
+[2026-08-22 06:51:03.745 GlobalController] Model model_5 has been idle for 0.06 seconds, its own last request or global first request time is 1787381463.6835275
+[2026-08-22 06:51:03.745 GlobalController] Model model_5 has waiting/running requests: False
+[2026-08-22 06:51:03.745 GlobalController] Model model_6 has been idle for 0.06 seconds, its own last request or global first request time is 1787381463.6835275
+[2026-08-22 06:51:03.745 GlobalController] Model model_6 has waiting/running requests: False
+[2026-08-22 06:51:03.745 GlobalController] Time for idle instance eviction: 0.0004s
+[2026-08-22 06:51:03.745 GlobalController] GPU 0, mem 46.26422119140625
+[2026-08-22 06:51:03.745 GlobalController] GPU 1, mem 46.24273681640625
+[2026-08-22 06:51:03.745 GlobalController] Time for checking GPU memory: 0.0002s
+[2026-08-22 06:51:03.745 GlobalController] GPU 0:
+[2026-08-22 06:51:03.745 GlobalController]   Memory per request (smoothed requests): 18.69 GB
+[2026-08-22 06:51:03.745 GlobalController]   Total requests (smoothed): 3.00
+[2026-08-22 06:51:03.745 GlobalController]   Available memory: 46.26 GB
+[2026-08-22 06:51:03.745 GlobalController]     Model model_1:
+[2026-08-22 06:51:03.745 GlobalController]       Requests (smoothed): 2.00
+[2026-08-22 06:51:03.745 GlobalController]       Model memory: 2.28 GB
+[2026-08-22 06:51:03.745 GlobalController]     Model model_4:
+[2026-08-22 06:51:03.745 GlobalController]       Requests (smoothed): 1.00
+[2026-08-22 06:51:03.745 GlobalController]       Model memory: 5.84 GB
+[2026-08-22 06:51:03.745 GlobalController]     Model model_5:
+[2026-08-22 06:51:03.746 GlobalController]       Requests (smoothed): 0.00
+[2026-08-22 06:51:03.746 GlobalController]       Model memory: 15.08 GB
+[2026-08-22 06:51:03.746 GlobalController] GPU 1:
+[2026-08-22 06:51:03.746 GlobalController]   Memory per request (smoothed requests): 55.96 GB
+[2026-08-22 06:51:03.746 GlobalController]   Total requests (smoothed): 0.00
+[2026-08-22 06:51:03.746 GlobalController]   Available memory: 46.24 GB
+[2026-08-22 06:51:03.746 GlobalController]     Model model_2:
+[2026-08-22 06:51:03.746 GlobalController]       Requests (smoothed): 0.00
+[2026-08-22 06:51:03.746 GlobalController]       Model memory: 3.01 GB
+[2026-08-22 06:51:03.746 GlobalController]     Model model_3:
+[2026-08-22 06:51:03.746 GlobalController]       Requests (smoothed): 0.00
+[2026-08-22 06:51:03.746 GlobalController]       Model memory: 6.00 GB
+[2026-08-22 06:51:03.746 GlobalController]     Model model_6:
+[2026-08-22 06:51:03.746 GlobalController]       Requests (smoothed): 0.00
+[2026-08-22 06:51:03.746 GlobalController]       Model memory: 14.28 GB
+[2026-08-22 06:51:03.746 GlobalController] Current unstable pairs: 1
+[2026-08-22 06:51:03.746 GlobalController] No migrations found that reduce unstable pairs
+[2026-08-22 06:51:03.746 GlobalController] Time for finding migrations: 0.0009s
+[2026-08-22 06:51:03.746 GlobalController] Time for planning inactive model activation: 0.0000s
+[2026-08-22 06:51:03.746 GlobalController] Time for creating action list: 0.0000s
+[2026-08-22 06:51:03.746 GlobalController] Total time for global scheduling: 0.0024s
+[2026-08-22 06:51:04.746 GlobalController] model_4: num_unfinished_reqs: 1, num_waiting_reqs: 0, num_running_reqs: 1, last_arrival_time_ref: 0:00:21.858520, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: N/A
+[2026-08-22 06:51:04.846 GlobalController] model_1: num_unfinished_reqs: 2, num_waiting_reqs: 1, num_running_reqs: 1, last_arrival_time_ref: 0:00:21.858804, earliest_arrived_req_in_queue: 0:00:21.857891, last_finish_time_ref: N/A
+[2026-08-22 06:51:04.947 GlobalController] model_4: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: 0:00:21.858520, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: 0:00:23.051650
+[2026-08-22 06:51:04.947 GlobalController] model_1: num_unfinished_reqs: 0, num_waiting_reqs: 0, num_running_reqs: 0, last_arrival_time_ref: 0:00:21.858804, earliest_arrived_req_in_queue: N/A, last_finish_time_ref: 0:00:23.099024

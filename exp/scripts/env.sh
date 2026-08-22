@@ -2,8 +2,8 @@
 # Common environment for all Prism experiments.
 # Usage:  source /workspace/prism-exp/exp/scripts/env.sh
 export PRISM_ROOT=${PRISM_ROOT:-/workspace/prism-exp}
-export PRISM_REPO=$PRISM_ROOT/prism-research
-export PRISM_EXP=$PRISM_ROOT/exp
+export PRISM_REPO=${PRISM_REPO:-$PRISM_ROOT/prism-research}
+export PRISM_EXP=${PRISM_EXP:-$PRISM_ROOT/exp}
 # The shared venv contains an editable sglang install from the bootstrap tree.
 # Worktree experiments must import the source that belongs to their own arm,
 # otherwise A and C silently execute the same implementation.

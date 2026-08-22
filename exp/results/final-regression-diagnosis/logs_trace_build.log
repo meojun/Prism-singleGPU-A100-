@@ -1,0 +1,14 @@
+rate=8.0 req/s  duration=420.0s  phases=7  total=3387
+  model_1     238 reqs  prompt_len mean=  276.7  output_len mean= 146.2
+  model_2     509 reqs  prompt_len mean=  290.9  output_len mean= 169.2
+  model_3     777 reqs  prompt_len mean=  323.4  output_len mean= 167.9
+  model_4     379 reqs  prompt_len mean=  306.3  output_len mean= 166.6
+  model_5     973 reqs  prompt_len mean=  315.0  output_len mean= 161.3
+  model_6     511 reqs  prompt_len mean=  295.1  output_len mean= 168.8
+wrote bursty_r8_s1.pkl / steady_r8_s1.pkl / paired_requests_r8_s1.json / phases_r8_s1.json  in exp/results/final-regression-diagnosis/workloads
+  model_1   n=  238  bursty span [38,419]  steady span [3,415]
+  model_2   n=  509  bursty span [0,418]  steady span [0,420]
+  model_3   n=  777  bursty span [3,339]  steady span [2,420]
+  model_4   n=  379  bursty span [39,419]  steady span [0,420]
+  model_5   n=  973  bursty span [0,419]  steady span [0,420]
+  model_6   n=  511  bursty span [5,420]  steady span [2,420]

@@ -10,6 +10,7 @@
 #   released-prototype  prototype global (simple-global) + prototype local
 #   paper-alg1-only     paper KVPR global               + prototype local
 #   paper-alg2-only     prototype global                + paper Moore-Hodgson
+#   paper-migration-only paper KVPR + overlap/KV migration, Algorithm 2 off
 #   paper-faithful      paper KVPR global               + paper Moore-Hodgson
 #   paper-faithful-v3   literal absolute-tau KVPR + Moore-Hodgson + overlap loading
 #
@@ -142,18 +143,31 @@ case "$SYSTEM" in
       # the ModelService fork sees it regardless of parse order.
       export PRISM_V6_KV_MIGRATION=1
       ;;
+  paper-migration-only)
+      # Diagnostic D2: identical v6 migration runtime, with Algorithm 2
+      # deliberately absent so the run isolates migration integration.
+      CONTROLLER+=(--policy kvpr-global-v4 --kvpr-tau "$KVPR_TAU"
+                   --kvpr-rate-window "$KVPR_WINDOW" --slo-base-file "$SLO_BASE"
+                   --kvpr-migration-cooldown "$KVPR_COOLDOWN"
+                   --kvpr-tpot-slo-scale "$TPOT_SCALE"
+                   --overlap-migration
+                   --enable-kv-migration)
+      export PRISM_V4_PAGELOCK=${V5_PAGELOCK:-${PRISM_V4_PAGELOCK:-1}}
+      export PRISM_V4_P2P_MIGRATION=${V5_P2P:-${PRISM_V4_P2P_MIGRATION:-1}}
+      export PRISM_V6_KV_MIGRATION=1
+      ;;
   *) echo "unknown system: $SYSTEM" >&2; exit 1 ;;
 esac
 # Any arm other than v4 must see the v3 code path, even if the shell that
 # invoked us had the switches set.
 case "$SYSTEM" in
-  paper-faithful-v4|paper-faithful-v6) ;;
+  paper-faithful-v4|paper-faithful-v6|paper-migration-only) ;;
   *) unset PRISM_V4_PAGELOCK PRISM_V4_P2P_MIGRATION ;;
 esac
 # Likewise: only the v6 arm may see the KV-migration switch, whatever the
 # invoking shell had set.
 case "$SYSTEM" in
-  paper-faithful-v6) export PRISM_V6_KV_TRACE="$OUTDIR/kv_transfers.jsonl" ;;
+  paper-faithful-v6|paper-migration-only) export PRISM_V6_KV_TRACE="$OUTDIR/kv_transfers.jsonl" ;;
   *) unset PRISM_V6_KV_MIGRATION PRISM_V6_KV_TRACE ;;
 esac
 # Per-run raw record of every weight transfer.
@@ -211,6 +225,7 @@ V4ENV="export PRISM_V4_LOAD_TRACE='$PRISM_V4_LOAD_TRACE'"
 [ -n "${PRISM_V4_P2P_MIGRATION:-}" ] && V4ENV="$V4ENV PRISM_V4_P2P_MIGRATION=$PRISM_V4_P2P_MIGRATION"
 [ -n "${PRISM_V6_KV_MIGRATION:-}" ] && V4ENV="$V4ENV PRISM_V6_KV_MIGRATION=$PRISM_V6_KV_MIGRATION"
 [ -n "${PRISM_V6_KV_TRACE:-}" ] && V4ENV="$V4ENV PRISM_V6_KV_TRACE='$PRISM_V6_KV_TRACE'"
+[ -n "${PRISM_DIAG_ALG2:-}" ] && V4ENV="$V4ENV PRISM_DIAG_ALG2=$PRISM_DIAG_ALG2"
 tmux new-session -d -s "$SESSION" \
   "ulimit -n 65535 && export PRISM_ROOT='$PRISM_ROOT' PRISM_REPO='$PRISM_REPO' \
    PRISM_EXP='$PRISM_EXP' PYTHONPATH='$PRISM_REPO/python' && \
@@ -274,12 +289,12 @@ count_file() { local n; n=$(grep -cF -- "$1" "$2" 2>/dev/null || true); echo "${
 {
   echo "system=$SYSTEM workload=$WORKLOAD rate=$RATE seed=$SEED"
   echo "max_mem_usage=$MAXMEM"
-  if [ "$SYSTEM" = "paper-faithful-v4" ] || [ "$SYSTEM" = "paper-faithful-v6" ]; then
+  if [ "$SYSTEM" = "paper-faithful-v4" ] || [ "$SYSTEM" = "paper-faithful-v6" ] || [ "$SYSTEM" = "paper-migration-only" ]; then
     echo "alg1_log_lines=$(count_gc '[PAPER-ALG1-V4]')"
     echo "alg1_migrations=$(count_gc '"migration_decision": "MIGRATE"')"
     echo "v4_weight_transfers=$(wc -l < "$OUTDIR/weight_transfers.jsonl" 2>/dev/null || echo 0)"
     echo "v4_p2p_transfers=$(count_file '"bytes_p2p":' "$OUTDIR/weight_transfers.jsonl")"
-    if [ "$SYSTEM" = "paper-faithful-v6" ]; then
+    if [ "$SYSTEM" = "paper-faithful-v6" ] || [ "$SYSTEM" = "paper-migration-only" ]; then
       echo "v6_kv_transfers=$(wc -l < "$OUTDIR/kv_transfers.jsonl" 2>/dev/null || echo 0)"
       echo "v6_p2p_transfers=$(count_file '"transfer_path": "gpu-to-gpu-p2p"' "$OUTDIR/kv_transfers.jsonl")"
       echo "v6_resumed_requests=$(count_file '"event": "resume"' "$LOGDIR/server.log")"
@@ -293,7 +308,7 @@ count_file() { local n; n=$(grep -cF -- "$1" "$2" 2>/dev/null || true); echo "${
   fi
   echo "alg2_log_lines=$(count_gs '[PAPER-ALG2]')"
   echo "alg2_underadmission_warnings=$(count_gs '[PAPER-ALG2-WARN]')"
-  if [ "$SYSTEM" = "paper-faithful-v3" ] || [ "$SYSTEM" = "paper-faithful-v4" ] || [ "$SYSTEM" = "paper-faithful-v6" ]; then
+  if [ "$SYSTEM" = "paper-faithful-v3" ] || [ "$SYSTEM" = "paper-faithful-v4" ] || [ "$SYSTEM" = "paper-faithful-v6" ] || [ "$SYSTEM" = "paper-migration-only" ]; then
     echo "proto_migrations=0"
   else
     echo "proto_migrations=$(count_gc 'Reason: migrate model')"
