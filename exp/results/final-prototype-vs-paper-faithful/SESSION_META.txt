@@ -1,0 +1,67 @@
+generated: 2026-08-21T08:16:48+00:00
+branch(base):  13ad7ae (no TP patch)
+branch(merge): 26ebda5
+gpus_used: 0,1  (of 4 present; the rest stay idle)
+
+--- nvidia-smi -L
+GPU 0: NVIDIA A100-SXM4-80GB (UUID: GPU-435b8647-c13a-0cc8-d748-41679ddb08d1)
+GPU 1: NVIDIA A100-SXM4-80GB (UUID: GPU-bc692286-b1c5-2909-5328-a5a23087f4aa)
+GPU 2: NVIDIA A100-SXM4-80GB (UUID: GPU-915ac7c9-50de-d59c-e310-15a580b86c91)
+GPU 3: NVIDIA A100-SXM4-80GB (UUID: GPU-24a09821-2da2-18fe-7b33-87f43f38025f)
+
+--- driver / cuda
+570.195.03
+
+--- topo -m
+	[4mGPU0	GPU1	GPU2	GPU3	CPU Affinity	NUMA Affinity	GPU NUMA ID[0m
+GPU0	 X 	NV12	NV12	NV12	0-31,64-95	0		N/A
+GPU1	NV12	 X 	NV12	NV12	32-63,96-127	1		N/A
+GPU2	NV12	NV12	 X 	NV12	32-63,96-127	1		N/A
+GPU3	NV12	NV12	NV12	 X 	32-63,96-127	1		N/A
+
+Legend:
+
+  X    = Self
+  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node
+  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)
+  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)
+  PIX  = Connection traversing at most a single PCIe bridge
+  NV#  = Connection traversing a bonded set of # NVLinks
+
+--- nvlink
+GPU 0: NVIDIA A100-SXM4-80GB (UUID: GPU-435b8647-c13a-0cc8-d748-41679ddb08d1)
+	 Link 0: 25 GB/s
+	 Link 1: 25 GB/s
+	 Link 2: 25 GB/s
+	 Link 3: 25 GB/s
+	 Link 4: 25 GB/s
+	 Link 5: 25 GB/s
+	 Link 6: 25 GB/s
+	 Link 7: 25 GB/s
+	 Link 8: 25 GB/s
+	 Link 9: 25 GB/s
+	 Link 10: 25 GB/s
+
+--- torch / peer
+torch 2.4.0+cu121 cuda 12.1 devices 4
+{"0->1": true, "0->2": true, "0->3": true, "1->0": true, "1->2": true, "1->3": true, "2->0": true, "2->1": true, "2->3": true, "3->0": true, "3->1": true, "3->2": true}
+
+--- calibration provenance
+reused committed calibration: user confirmed this is the same hardware
+{
+  "tau": 0.17108602804407128,
+  "rule": "mean + 2 sd of line-8 absolute delta, over cycles where a different GPU was actually the argmin",
+  "cycles": 86,
+  "decisions_total": 461,
+  "decisions_with_a_move_available": 199,
+  "delta_mean": 0.05831799473636271,
+  "delta_sd": 0.056384016653854285,
+  "delta_median": 0.03802352108684876,
+  "delta_p90": 0.13528077124796625,
+  "delta_p99": 0.18125189429112967,
+  "delta_max": 0.20226666133713048,
+  "fraction_of_all_decisions_above_tau": 0.008676789587852495,
+  "peak_kvpr_median": 0.11677065288850505,
+  "migrations_during_calibration": 0
+}

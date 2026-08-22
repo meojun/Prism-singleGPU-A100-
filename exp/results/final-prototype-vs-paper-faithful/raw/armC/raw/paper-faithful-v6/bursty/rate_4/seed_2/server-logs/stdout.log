@@ -1,0 +1,2015 @@
+[PRISM-SOURCE] expected=/workspace/prism-merge/prism-research/python actual=/workspace/prism-merge/prism-research/python/sglang/__init__.py
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+[ModelConfig(model_name='model_1', model_path='meta-llama/Llama-3.2-1B', tokenizer_path='meta-llama/Llama-3.2-1B', tp_size=1, init_placements=[{'gpu_ids': [0], 'on': True, 'max_memory_pool_size': 20.0}]), ModelConfig(model_name='model_2', model_path='Qwen/Qwen2.5-1.5B-Instruct', tokenizer_path='Qwen/Qwen2.5-1.5B-Instruct', tp_size=1, init_placements=[{'gpu_ids': [1], 'on': True, 'max_memory_pool_size': 20.0}]), ModelConfig(model_name='model_3', model_path='meta-llama/Llama-3.2-3B', tokenizer_path='meta-llama/Llama-3.2-3B', tp_size=1, init_placements=[{'gpu_ids': [1], 'on': True, 'max_memory_pool_size': 20.0}]), ModelConfig(model_name='model_4', model_path='Qwen/Qwen2.5-3B-Instruct', tokenizer_path='Qwen/Qwen2.5-3B-Instruct', tp_size=1, init_placements=[{'gpu_ids': [0], 'on': True, 'max_memory_pool_size': 20.0}]), ModelConfig(model_name='model_5', model_path='meta-llama/Llama-3.1-8B', tokenizer_path='meta-llama/Llama-3.1-8B', tp_size=1, init_placements=[{'gpu_ids': [0], 'on': True, 'max_memory_pool_size': 20.0}]), ModelConfig(model_name='model_6', model_path='Qwen/Qwen2.5-7B-Instruct', tokenizer_path='Qwen/Qwen2.5-7B-Instruct', tp_size=1, init_placements=[{'gpu_ids': [1], 'on': True, 'max_memory_pool_size': 20.0}])]
+Initializing torch distributed...
+Torch distributed initialized.
+Loading 6 shared models to cpu...
+INFO 08-21 10:59:21 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-21 10:59:21 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-21 10:59:21 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-21 10:59:21 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-21 10:59:21 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-21 10:59:21 weight_utils.py:243] Using model weights format ['*.safetensors']
+Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+INFO 08-21 10:59:21 weight_utils.py:288] No model.safetensors.index.json found in remote.
+
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+[A
+
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+[A[A
+
+
+Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+[A[A[A
+
+
+
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+[A[A[A[AINFO 08-21 10:59:21 weight_utils.py:288] No model.safetensors.index.json found in remote.
+
+
+
+
+
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+[A[A[A[A[A
+
+
+
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:00<00:02,  1.07it/s]
+[A[A[A[A
+
+
+Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:01<00:01,  1.25s/it]
+[A[A[ALoading safetensors checkpoint shards:  50% Completed | 1/2 [00:01<00:01,  1.94s/it]
+
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:02<00:00,  2.25s/it]
+[ALoading safetensors checkpoint shards: 100% Completed | 1/1 [00:02<00:00,  2.25s/it]
+
+
+
+
+
+
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:03<00:00,  3.43s/it]
+[A[A[A[A[ALoading safetensors checkpoint shards: 100% Completed | 1/1 [00:03<00:00,  3.43s/it]
+
+
+
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:03<00:11,  3.75s/it]
+[A[A
+
+
+
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:06<00:06,  3.44s/it]
+[A[A[A[A
+
+
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:06<00:00,  3.74s/it]
+[A[A[ALoading safetensors checkpoint shards: 100% Completed | 2/2 [00:06<00:00,  3.37s/it]
+
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:07<00:00,  3.94s/it]
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:07<00:00,  3.64s/it]
+
+
+
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:07<00:07,  3.83s/it]
+[A[A
+
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:11<00:03,  3.99s/it]
+[A[A
+
+
+
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:12<00:04,  4.71s/it]
+[A[A[A[A
+
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:15<00:00,  4.05s/it]
+[A[ALoading safetensors checkpoint shards: 100% Completed | 4/4 [00:15<00:00,  3.99s/it]
+
+
+
+
+
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:17<00:00,  4.75s/it]
+[A[A[A[ALoading safetensors checkpoint shards: 100% Completed | 4/4 [00:17<00:00,  4.29s/it]
+
+Shared models loaded in 37.99 seconds.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 0 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 1 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 2 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 3 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 4 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 5 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Controller process started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_0_0_root
+Started page preallocation thread
+Init PageAllocator: total_mem_size=354MB, page_size=2MB, shm: ipc_0_1_root
+Started page preallocation thread
+Init PageAllocator: total_mem_size=400MB, page_size=2MB, shm: ipc_0_2_root
+Started page preallocation thread
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Init PageAllocator: total_mem_size=456MB, page_size=2MB, shm: ipc_1_0_root
+Started page preallocation thread
+Init PageAllocator: total_mem_size=456MB, page_size=2MB, shm: ipc_1_1_root
+Started page preallocation thread
+Init PageAllocator: total_mem_size=456MB, page_size=2MB, shm: ipc_1_2_root
+Started page preallocation thread
+[2026-08-21 11:02:00] INFO:     Started server process [370289]
+[2026-08-21 11:02:00] INFO:     Waiting for application startup.
+[2026-08-21 11:02:00] INFO:     Application startup complete.
+[2026-08-21 11:02:00] INFO:     Uvicorn running on http://127.0.0.1:42400 (Press CTRL+C to quit)
+[2026-08-21 11:02:01] INFO:     127.0.0.1:51410 - "GET /get_model_names HTTP/1.1" 200 OK
+[2026-08-21 11:02:01] INFO:     127.0.0.1:51398 - "GET /get_model_names HTTP/1.1" 200 OK
+[2026-08-21 11:02:01] INFO:     127.0.0.1:51416 - "GET /get_model_names HTTP/1.1" 200 OK
+[2026-08-21 11:02:01] INFO:     127.0.0.1:51418 - "GET /get_model_names HTTP/1.1" 200 OK
+[2026-08-21 11:02:01] INFO:     127.0.0.1:51428 - "GET /get_model_names HTTP/1.1" 200 OK
+[2026-08-21 11:02:01] INFO:     127.0.0.1:51440 - "GET /get_model_names HTTP/1.1" 200 OK
+[2026-08-21 11:02:02] INFO:     127.0.0.1:51482 - "GET /get_model_names HTTP/1.1" 200 OK
+[2026-08-21 11:02:02] INFO:     127.0.0.1:51474 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:03] INFO:     127.0.0.1:51476 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:03] INFO:     127.0.0.1:51478 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:03] INFO:     127.0.0.1:51472 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:03] INFO:     127.0.0.1:51464 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:03] INFO:     127.0.0.1:51448 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:02:05] INFO:     127.0.0.1:51518 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:06] INFO:     127.0.0.1:51502 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:07] INFO:     127.0.0.1:51580 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:08] INFO:     127.0.0.1:51598 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:09] INFO:     127.0.0.1:51600 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:02:10] INFO:     127.0.0.1:51526 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:10] INFO:     127.0.0.1:51536 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:11] INFO:     127.0.0.1:51604 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:11] INFO:     127.0.0.1:51514 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:12] INFO:     127.0.0.1:56570 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:12] INFO:     127.0.0.1:56582 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:12] INFO:     127.0.0.1:56592 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:13] INFO:     127.0.0.1:51616 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:13] INFO:     127.0.0.1:51596 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:13] INFO:     127.0.0.1:56510 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:13] INFO:     127.0.0.1:56642 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:13] INFO:     127.0.0.1:56616 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:14] INFO:     127.0.0.1:56676 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:14] INFO:     127.0.0.1:51484 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:14] INFO:     127.0.0.1:51564 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:14] INFO:     127.0.0.1:56668 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:02:14] INFO:     127.0.0.1:56634 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:15] INFO:     127.0.0.1:56722 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:15] INFO:     127.0.0.1:56754 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:15] INFO:     127.0.0.1:56506 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:16] INFO:     127.0.0.1:51582 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:16] INFO:     127.0.0.1:56820 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:16] INFO:     127.0.0.1:56772 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:17] INFO:     127.0.0.1:56832 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:17] INFO:     127.0.0.1:56850 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:17] INFO:     127.0.0.1:51550 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:17] INFO:     127.0.0.1:56884 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:17] INFO:     127.0.0.1:56528 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:17] INFO:     127.0.0.1:56566 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:18] INFO:     127.0.0.1:56900 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:18] INFO:     127.0.0.1:51486 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:18] INFO:     127.0.0.1:56918 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:18] INFO:     127.0.0.1:56648 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:18] INFO:     127.0.0.1:56782 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:18] INFO:     127.0.0.1:56912 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:19] INFO:     127.0.0.1:56538 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:02:19] INFO:     127.0.0.1:56960 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:19] INFO:     127.0.0.1:56664 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:20] INFO:     127.0.0.1:56684 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:20] INFO:     127.0.0.1:56712 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:20] INFO:     127.0.0.1:56896 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:20] INFO:     127.0.0.1:56738 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:21] INFO:     127.0.0.1:56976 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:21] INFO:     127.0.0.1:56496 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:21] INFO:     127.0.0.1:56872 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:21] INFO:     127.0.0.1:56512 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:21] INFO:     127.0.0.1:56550 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:21] INFO:     127.0.0.1:56536 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:21] INFO:     127.0.0.1:53328 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:22] INFO:     127.0.0.1:56608 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:22] INFO:     127.0.0.1:56862 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:23] INFO:     127.0.0.1:56620 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:23] INFO:     127.0.0.1:56756 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:23] INFO:     127.0.0.1:56798 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:23] INFO:     127.0.0.1:53354 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:23] INFO:     127.0.0.1:56696 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:24] INFO:     127.0.0.1:53342 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:24] INFO:     127.0.0.1:53314 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:24] INFO:     127.0.0.1:53386 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:24] INFO:     127.0.0.1:53344 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:24] INFO:     127.0.0.1:56946 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:02:24] INFO:     127.0.0.1:56846 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:25] INFO:     127.0.0.1:56812 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:25] INFO:     127.0.0.1:53438 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:26] INFO:     127.0.0.1:53430 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:26] INFO:     127.0.0.1:56792 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:27] INFO:     127.0.0.1:53460 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:27] INFO:     127.0.0.1:56858 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:27] INFO:     127.0.0.1:53380 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:27] INFO:     127.0.0.1:53422 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:28] INFO:     127.0.0.1:53490 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:28] INFO:     127.0.0.1:53370 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:28] INFO:     127.0.0.1:56932 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:29] INFO:     127.0.0.1:53320 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:02:30] INFO:     127.0.0.1:53418 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:30] INFO:     127.0.0.1:53404 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:30] INFO:     127.0.0.1:35276 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:31] INFO:     127.0.0.1:53398 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:31] INFO:     127.0.0.1:35282 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:32] INFO:     127.0.0.1:35258 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:32] INFO:     127.0.0.1:53446 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:32] INFO:     127.0.0.1:35264 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:32] INFO:     127.0.0.1:35284 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:33] INFO:     127.0.0.1:53432 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:33] INFO:     127.0.0.1:53420 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:33] INFO:     127.0.0.1:35340 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:33] INFO:     127.0.0.1:53378 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:02:34] INFO:     127.0.0.1:35370 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:34] INFO:     127.0.0.1:35362 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:35] INFO:     127.0.0.1:53476 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:35] INFO:     127.0.0.1:53448 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:35] INFO:     127.0.0.1:35348 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:36] INFO:     127.0.0.1:35300 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:36] INFO:     127.0.0.1:35420 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:37] INFO:     127.0.0.1:35388 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:37] INFO:     127.0.0.1:35408 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:38] INFO:     127.0.0.1:35462 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:38] INFO:     127.0.0.1:35472 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:38] INFO:     127.0.0.1:35320 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:38] INFO:     127.0.0.1:35230 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:38] INFO:     127.0.0.1:35296 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:38] INFO:     127.0.0.1:35412 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:39] INFO:     127.0.0.1:35512 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:02:39] INFO:     127.0.0.1:35516 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:40] INFO:     127.0.0.1:35510 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:40] INFO:     127.0.0.1:35336 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:40] INFO:     127.0.0.1:35540 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:40] INFO:     127.0.0.1:35316 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:40] INFO:     127.0.0.1:34384 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:41] INFO:     127.0.0.1:35246 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:41] INFO:     127.0.0.1:34392 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:42] INFO:     127.0.0.1:35306 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:42] INFO:     127.0.0.1:34426 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:42] INFO:     127.0.0.1:34434 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:42] INFO:     127.0.0.1:34406 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:42] INFO:     127.0.0.1:34442 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:43] INFO:     127.0.0.1:35536 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:43] INFO:     127.0.0.1:35384 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:43] INFO:     127.0.0.1:35488 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:43] INFO:     127.0.0.1:34430 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:43] INFO:     127.0.0.1:35446 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:43] INFO:     127.0.0.1:35506 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:43] INFO:     127.0.0.1:35324 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:43] INFO:     127.0.0.1:34374 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:43] INFO:     127.0.0.1:34432 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:43] INFO:     127.0.0.1:34358 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:43] INFO:     127.0.0.1:34410 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:43] INFO:     127.0.0.1:35402 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:02:44] INFO:     127.0.0.1:35526 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:45] INFO:     127.0.0.1:35444 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:45] INFO:     127.0.0.1:34540 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:45] INFO:     127.0.0.1:35430 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:46] INFO:     127.0.0.1:35426 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:46] INFO:     127.0.0.1:34566 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:46] INFO:     127.0.0.1:34560 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:46] INFO:     127.0.0.1:34530 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:46] INFO:     127.0.0.1:34580 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:46] INFO:     127.0.0.1:34502 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:47] INFO:     127.0.0.1:34592 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:47] INFO:     127.0.0.1:34438 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:47] INFO:     127.0.0.1:34608 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:47] INFO:     127.0.0.1:34622 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:47] INFO:     127.0.0.1:34474 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:48] INFO:     127.0.0.1:34494 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:48] INFO:     127.0.0.1:34458 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:48] INFO:     127.0.0.1:34660 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:48] INFO:     127.0.0.1:34548 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:02:49] INFO:     127.0.0.1:34688 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:49] INFO:     127.0.0.1:34722 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:49] INFO:     127.0.0.1:35490 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:49] INFO:     127.0.0.1:35494 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:50] INFO:     127.0.0.1:34514 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:50] INFO:     127.0.0.1:34586 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:50] INFO:     127.0.0.1:34676 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:50] INFO:     127.0.0.1:34516 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:51] INFO:     127.0.0.1:34714 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:51] INFO:     127.0.0.1:58724 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:52] INFO:     127.0.0.1:58784 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:52] INFO:     127.0.0.1:34644 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:52] INFO:     127.0.0.1:34636 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:52] INFO:     127.0.0.1:34574 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:52] INFO:     127.0.0.1:58704 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:52] INFO:     127.0.0.1:34478 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:52] INFO:     127.0.0.1:34684 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:52] INFO:     127.0.0.1:58770 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:54] INFO:     127.0.0.1:58820 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:54] INFO:     127.0.0.1:58836 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:54] INFO:     127.0.0.1:58834 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:54] INFO:     127.0.0.1:34640 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:02:54] INFO:     127.0.0.1:58752 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:55] INFO:     127.0.0.1:34588 - "POST /generate HTTP/1.1" 200 OK
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/fastapi/routing.py:352: FastAPIDeprecationWarning: ORJSONResponse is deprecated, FastAPI now serializes data directly to JSON bytes via Pydantic when a return type or response model is set, which is faster and doesn't need a custom response class. Read more in the FastAPI docs: https://fastapi.tiangolo.com/advanced/custom-response/#orjson-or-response-model and https://fastapi.tiangolo.com/tutorial/response-model/
+  return await dependant.call(**values)
+[2026-08-21 11:02:55] INFO:     127.0.0.1:58842 - "POST /deactivate HTTP/1.1" 200 OK
+[2026-08-21 11:02:55] INFO:     127.0.0.1:58734 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:55] INFO:     127.0.0.1:58854 - "POST /deactivate HTTP/1.1" 200 OK
+[2026-08-21 11:02:55] INFO:     127.0.0.1:58848 - "POST /deactivate HTTP/1.1" 200 OK
+[2026-08-21 11:02:55] INFO:     127.0.0.1:58856 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:55] INFO:     127.0.0.1:58874 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:56] INFO:     127.0.0.1:58702 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:56] INFO:     127.0.0.1:58896 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:56] INFO:     127.0.0.1:58748 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:56] INFO:     127.0.0.1:58912 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:56] INFO:     127.0.0.1:58944 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:57] INFO:     127.0.0.1:34674 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:57] INFO:     127.0.0.1:58934 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:57] INFO:     127.0.0.1:58928 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:58] INFO:     127.0.0.1:58760 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:58] INFO:     127.0.0.1:59014 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:58] INFO:     127.0.0.1:58978 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:59] INFO:     127.0.0.1:58722 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:59] INFO:     127.0.0.1:59064 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:02:59] INFO:     127.0.0.1:58828 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:02:59] INFO:     127.0.0.1:59000 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:00] INFO:     127.0.0.1:34698 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:00] INFO:     127.0.0.1:59032 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:00] INFO:     127.0.0.1:58698 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:00] INFO:     127.0.0.1:58800 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:00] INFO:     127.0.0.1:59054 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:00] INFO:     127.0.0.1:58964 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:00] INFO:     127.0.0.1:58990 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:01] INFO:     127.0.0.1:58718 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:01] INFO:     127.0.0.1:35732 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:01] INFO:     127.0.0.1:35756 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:01] INFO:     127.0.0.1:35758 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:02] INFO:     127.0.0.1:58798 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:02] INFO:     127.0.0.1:58808 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:02] INFO:     127.0.0.1:59076 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:03] INFO:     127.0.0.1:35778 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:03] INFO:     127.0.0.1:58890 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:03] INFO:     127.0.0.1:35834 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:04] INFO:     127.0.0.1:35890 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:04] INFO:     127.0.0.1:35882 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:04] INFO:     127.0.0.1:35856 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:04] INFO:     127.0.0.1:59086 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:03:05] INFO:     127.0.0.1:35770 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:05] INFO:     127.0.0.1:59040 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:05] INFO:     127.0.0.1:35824 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:06] INFO:     127.0.0.1:35740 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:06] INFO:     127.0.0.1:59024 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:06] INFO:     127.0.0.1:35958 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:06] INFO:     127.0.0.1:35984 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:06] INFO:     127.0.0.1:58866 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:06] INFO:     127.0.0.1:35808 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:06] INFO:     127.0.0.1:35786 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:06] INFO:     127.0.0.1:35794 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:07] INFO:     127.0.0.1:58932 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:07] INFO:     127.0.0.1:35704 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:07] INFO:     127.0.0.1:35988 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:07] INFO:     127.0.0.1:35706 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:07] INFO:     127.0.0.1:35858 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:07] INFO:     127.0.0.1:35804 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:07] INFO:     127.0.0.1:35830 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:07] INFO:     127.0.0.1:35928 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:08] INFO:     127.0.0.1:36004 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:08] INFO:     127.0.0.1:58954 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:08] INFO:     127.0.0.1:36026 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:08] INFO:     127.0.0.1:35826 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:08] INFO:     127.0.0.1:36018 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:09] INFO:     127.0.0.1:35916 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:09] INFO:     127.0.0.1:35722 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:09] INFO:     127.0.0.1:35698 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:03:10] INFO:     127.0.0.1:35944 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:10] INFO:     127.0.0.1:44554 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:10] INFO:     127.0.0.1:44576 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:10] INFO:     127.0.0.1:35964 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:11] INFO:     127.0.0.1:35846 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:11] INFO:     127.0.0.1:44558 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:11] INFO:     127.0.0.1:44592 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:11] INFO:     127.0.0.1:44604 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:11] INFO:     127.0.0.1:35724 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:11] INFO:     127.0.0.1:35792 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:11] INFO:     127.0.0.1:35874 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:12] INFO:     127.0.0.1:35866 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:13] INFO:     127.0.0.1:44626 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:13] INFO:     127.0.0.1:44652 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:13] INFO:     127.0.0.1:36046 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:13] INFO:     127.0.0.1:44616 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:13] INFO:     127.0.0.1:44676 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:13] INFO:     127.0.0.1:35970 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:13] INFO:     127.0.0.1:44664 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:13] INFO:     127.0.0.1:44686 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:03:15] INFO:     127.0.0.1:44716 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:15] INFO:     127.0.0.1:44650 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:15] INFO:     127.0.0.1:44730 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:15] INFO:     127.0.0.1:44754 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:15] INFO:     127.0.0.1:44772 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:15] INFO:     127.0.0.1:44738 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:16] INFO:     127.0.0.1:44574 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:16] INFO:     127.0.0.1:44588 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:16] INFO:     127.0.0.1:44794 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:16] INFO:     127.0.0.1:35902 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:17] INFO:     127.0.0.1:44638 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:18] INFO:     127.0.0.1:44806 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:18] INFO:     127.0.0.1:44834 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:18] INFO:     127.0.0.1:44856 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:18] INFO:     127.0.0.1:44698 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:18] INFO:     127.0.0.1:36044 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:18] INFO:     127.0.0.1:44826 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:18] INFO:     127.0.0.1:44690 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:19] INFO:     127.0.0.1:44786 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:19] INFO:     127.0.0.1:44874 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:19] INFO:     127.0.0.1:44878 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:19] INFO:     127.0.0.1:36042 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:19] INFO:     127.0.0.1:44712 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:03:20] INFO:     127.0.0.1:44860 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:21] INFO:     127.0.0.1:41414 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:21] INFO:     127.0.0.1:41420 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:21] INFO:     127.0.0.1:41426 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:21] INFO:     127.0.0.1:44850 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:22] INFO:     127.0.0.1:44882 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:22] INFO:     127.0.0.1:41384 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:22] INFO:     127.0.0.1:44898 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:22] INFO:     127.0.0.1:41434 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:22] INFO:     127.0.0.1:41450 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:22] INFO:     127.0.0.1:41456 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:23] INFO:     127.0.0.1:41472 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:23] INFO:     127.0.0.1:41378 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:23] INFO:     127.0.0.1:41488 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:24] INFO:     127.0.0.1:44812 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:24] INFO:     127.0.0.1:41506 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:03:24] INFO:     127.0.0.1:44770 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:24] INFO:     127.0.0.1:41534 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:25] INFO:     127.0.0.1:41522 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:25] INFO:     127.0.0.1:41362 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:25] INFO:     127.0.0.1:41520 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:26] INFO:     127.0.0.1:41524 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:27] INFO:     127.0.0.1:41590 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:27] INFO:     127.0.0.1:41478 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:27] INFO:     127.0.0.1:41548 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:27] INFO:     127.0.0.1:44810 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:27] INFO:     127.0.0.1:41574 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:28] INFO:     127.0.0.1:41498 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:28] INFO:     127.0.0.1:41620 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:28] INFO:     127.0.0.1:41634 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:29] INFO:     127.0.0.1:41398 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:29] INFO:     127.0.0.1:44902 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:29] INFO:     127.0.0.1:41702 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:03:31] INFO:     127.0.0.1:54904 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:32] INFO:     127.0.0.1:41564 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:32] INFO:     127.0.0.1:41444 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:32] INFO:     127.0.0.1:54944 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:32] INFO:     127.0.0.1:41570 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:33] INFO:     127.0.0.1:41664 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:34] INFO:     127.0.0.1:54920 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:34] INFO:     127.0.0.1:55030 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:34] INFO:     127.0.0.1:41672 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:34] INFO:     127.0.0.1:55018 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:34] INFO:     127.0.0.1:55036 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:34] INFO:     127.0.0.1:41602 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:03:35] INFO:     127.0.0.1:55064 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:35] INFO:     127.0.0.1:54854 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:35] INFO:     127.0.0.1:41482 - "POST /generate HTTP/1.1" 200 OK
+Init PageAllocator: total_mem_size=400MB, page_size=2MB, shm: ipc_1_3_root
+Started page preallocation thread
+[2026-08-21 11:03:36] INFO:     127.0.0.1:55040 - "POST /activate HTTP/1.1" 200 OK
+[2026-08-21 11:03:36] INFO:     127.0.0.1:41556 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:37] INFO:     127.0.0.1:41554 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:37] INFO:     127.0.0.1:41650 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:37] INFO:     127.0.0.1:41572 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:37] INFO:     127.0.0.1:54890 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:37] INFO:     127.0.0.1:41660 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:37] INFO:     127.0.0.1:54970 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:37] INFO:     127.0.0.1:55068 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:37] INFO:     127.0.0.1:55088 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:38] INFO:     127.0.0.1:54986 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:38] INFO:     127.0.0.1:55010 - "POST /generate HTTP/1.1" 200 OK
+Init PageAllocator: total_mem_size=456MB, page_size=2MB, shm: ipc_1_0_root
+Started page preallocation thread
+[2026-08-21 11:03:38] INFO:     127.0.0.1:55126 - "POST /activate HTTP/1.1" 200 OK
+[2026-08-21 11:03:38] INFO:     127.0.0.1:41596 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:38] INFO:     127.0.0.1:41614 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:39] INFO:     127.0.0.1:41686 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:39] INFO:     127.0.0.1:55234 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:39] INFO:     127.0.0.1:55224 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:03:39] INFO:     127.0.0.1:54838 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:40] INFO:     127.0.0.1:54866 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:40] INFO:     127.0.0.1:55120 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:40] INFO:     127.0.0.1:55182 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:40] INFO:     127.0.0.1:55206 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:41] INFO:     127.0.0.1:55152 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:41] INFO:     127.0.0.1:55104 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:41] INFO:     127.0.0.1:53646 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:41] INFO:     127.0.0.1:53660 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:42] INFO:     127.0.0.1:54932 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:42] INFO:     127.0.0.1:55080 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:43] INFO:     127.0.0.1:55134 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:43] INFO:     127.0.0.1:53668 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:44] INFO:     127.0.0.1:53688 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:44] INFO:     127.0.0.1:53704 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:44] INFO:     127.0.0.1:53718 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:44] INFO:     127.0.0.1:54878 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:03:45] INFO:     127.0.0.1:53722 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:45] INFO:     127.0.0.1:54908 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:45] INFO:     127.0.0.1:54962 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:45] INFO:     127.0.0.1:55052 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:46] INFO:     127.0.0.1:53700 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:46] INFO:     127.0.0.1:53740 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:46] INFO:     127.0.0.1:55166 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:46] INFO:     127.0.0.1:53754 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:46] INFO:     127.0.0.1:53768 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:47] INFO:     127.0.0.1:53770 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:47] INFO:     127.0.0.1:53786 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:48] INFO:     127.0.0.1:53826 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:48] INFO:     127.0.0.1:53834 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:48] INFO:     127.0.0.1:53860 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:48] INFO:     127.0.0.1:55116 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:49] INFO:     127.0.0.1:53864 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:49] INFO:     127.0.0.1:53710 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:49] INFO:     127.0.0.1:53818 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:49] INFO:     127.0.0.1:53848 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:49] INFO:     127.0.0.1:53626 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:03:50] INFO:     127.0.0.1:53936 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:50] INFO:     127.0.0.1:53952 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:50] INFO:     127.0.0.1:53678 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:51] INFO:     127.0.0.1:45056 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:51] INFO:     127.0.0.1:45076 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:52] INFO:     127.0.0.1:53730 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:52] INFO:     127.0.0.1:53906 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:52] INFO:     127.0.0.1:53932 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:52] INFO:     127.0.0.1:45092 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:53] INFO:     127.0.0.1:54958 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:53] INFO:     127.0.0.1:45098 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:54] INFO:     127.0.0.1:55240 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:54] INFO:     127.0.0.1:55146 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:54] INFO:     127.0.0.1:45232 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:54] INFO:     127.0.0.1:54996 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:03:56] INFO:     127.0.0.1:45274 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:56] INFO:     127.0.0.1:53890 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:56] INFO:     127.0.0.1:53812 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:57] INFO:     127.0.0.1:45258 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:57] INFO:     127.0.0.1:45344 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:57] INFO:     127.0.0.1:53632 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:58] INFO:     127.0.0.1:45280 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:58] INFO:     127.0.0.1:45300 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:58] INFO:     127.0.0.1:45332 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:59] INFO:     127.0.0.1:45194 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:59] INFO:     127.0.0.1:45408 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:59] INFO:     127.0.0.1:45418 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:59] INFO:     127.0.0.1:55254 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:59] INFO:     127.0.0.1:45430 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:03:59] INFO:     127.0.0.1:45204 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:00] INFO:     127.0.0.1:45426 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:04:00] INFO:     127.0.0.1:45152 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:00] INFO:     127.0.0.1:53742 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:00] INFO:     127.0.0.1:45324 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:01] INFO:     127.0.0.1:43504 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:01] INFO:     127.0.0.1:53934 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:01] INFO:     127.0.0.1:43490 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:01] INFO:     127.0.0.1:45448 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:02] INFO:     127.0.0.1:53896 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:02] INFO:     127.0.0.1:43516 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:02] INFO:     127.0.0.1:53792 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:02] INFO:     127.0.0.1:43488 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:03] INFO:     127.0.0.1:55194 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:03] INFO:     127.0.0.1:55218 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:03] INFO:     127.0.0.1:45454 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:03] INFO:     127.0.0.1:53764 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:03] INFO:     127.0.0.1:43546 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:03] INFO:     127.0.0.1:43564 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:05] INFO:     127.0.0.1:45386 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:05] INFO:     127.0.0.1:43572 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:04:05] INFO:     127.0.0.1:45104 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:05] INFO:     127.0.0.1:45068 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:05] INFO:     127.0.0.1:53760 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:05] INFO:     127.0.0.1:43530 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:06] INFO:     127.0.0.1:45120 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:06] INFO:     127.0.0.1:53820 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:07] INFO:     127.0.0.1:43604 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:08] INFO:     127.0.0.1:45368 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:08] INFO:     127.0.0.1:45238 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:08] INFO:     127.0.0.1:43660 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:08] INFO:     127.0.0.1:45144 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:08] INFO:     127.0.0.1:45182 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:09] INFO:     127.0.0.1:53948 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:09] INFO:     127.0.0.1:45392 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:09] INFO:     127.0.0.1:43732 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:09] INFO:     127.0.0.1:43684 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:10] INFO:     127.0.0.1:43728 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:04:10] INFO:     127.0.0.1:43636 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:10] INFO:     127.0.0.1:43680 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:10] INFO:     127.0.0.1:43748 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:10] INFO:     127.0.0.1:46134 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:10] INFO:     127.0.0.1:45444 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:10] INFO:     127.0.0.1:45292 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:11] INFO:     127.0.0.1:45132 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:11] INFO:     127.0.0.1:46166 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:12] INFO:     127.0.0.1:45200 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:12] INFO:     127.0.0.1:46196 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:12] INFO:     127.0.0.1:53876 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:12] INFO:     127.0.0.1:45220 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:13] INFO:     127.0.0.1:46210 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:13] INFO:     127.0.0.1:53796 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:14] INFO:     127.0.0.1:43482 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:04:15] INFO:     127.0.0.1:43758 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:15] INFO:     127.0.0.1:46234 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:15] INFO:     127.0.0.1:46268 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:15] INFO:     127.0.0.1:53920 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:15] INFO:     127.0.0.1:46222 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:16] INFO:     127.0.0.1:46304 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:16] INFO:     127.0.0.1:46356 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:16] INFO:     127.0.0.1:46364 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:17] INFO:     127.0.0.1:45384 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:17] INFO:     127.0.0.1:45048 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:17] INFO:     127.0.0.1:46388 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:18] INFO:     127.0.0.1:46348 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:18] INFO:     127.0.0.1:46398 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:18] INFO:     127.0.0.1:45316 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:18] INFO:     127.0.0.1:43470 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:18] INFO:     127.0.0.1:46414 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:18] INFO:     127.0.0.1:45166 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:19] INFO:     127.0.0.1:46192 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:19] INFO:     127.0.0.1:45352 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:19] INFO:     127.0.0.1:46244 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:19] INFO:     127.0.0.1:46424 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:19] INFO:     127.0.0.1:45246 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:20] INFO:     127.0.0.1:46440 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:04:20] INFO:     127.0.0.1:46146 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:20] INFO:     127.0.0.1:46380 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:21] INFO:     127.0.0.1:43560 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:21] INFO:     127.0.0.1:43644 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:22] INFO:     127.0.0.1:45294 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:22] INFO:     127.0.0.1:52336 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:22] INFO:     127.0.0.1:52322 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:23] INFO:     127.0.0.1:46284 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:24] INFO:     127.0.0.1:52420 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:24] INFO:     127.0.0.1:46184 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:24] INFO:     127.0.0.1:52362 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:24] INFO:     127.0.0.1:43502 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:24] INFO:     127.0.0.1:52432 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:25] INFO:     127.0.0.1:52478 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:04:25] INFO:     127.0.0.1:46456 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:25] INFO:     127.0.0.1:52474 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:25] INFO:     127.0.0.1:43596 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:26] INFO:     127.0.0.1:52548 - "POST /deactivate HTTP/1.1" 200 OK
+[2026-08-21 11:04:26] INFO:     127.0.0.1:52522 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:26] INFO:     127.0.0.1:46260 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:26] INFO:     127.0.0.1:52546 - "POST /deactivate HTTP/1.1" 200 OK
+[2026-08-21 11:04:26] INFO:     127.0.0.1:52448 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:27] INFO:     127.0.0.1:52358 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:27] INFO:     127.0.0.1:52576 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:27] INFO:     127.0.0.1:43700 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:27] INFO:     127.0.0.1:52342 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:27] INFO:     127.0.0.1:46494 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:27] INFO:     127.0.0.1:46320 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:27] INFO:     127.0.0.1:52508 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:28] INFO:     127.0.0.1:52594 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:28] INFO:     127.0.0.1:52550 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:28] INFO:     127.0.0.1:46508 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:28] INFO:     127.0.0.1:52454 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:29] INFO:     127.0.0.1:52626 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:29] INFO:     127.0.0.1:52558 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:29] INFO:     127.0.0.1:46170 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:29] INFO:     127.0.0.1:46408 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:30] INFO:     127.0.0.1:46460 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:04:30] INFO:     127.0.0.1:43584 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:30] INFO:     127.0.0.1:52652 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:30] INFO:     127.0.0.1:52672 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:31] INFO:     127.0.0.1:52662 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:31] INFO:     127.0.0.1:52572 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:31] INFO:     127.0.0.1:43620 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:31] INFO:     127.0.0.1:52372 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:31] INFO:     127.0.0.1:41294 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:32] INFO:     127.0.0.1:52570 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:33] INFO:     127.0.0.1:52644 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:33] INFO:     127.0.0.1:41254 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:33] INFO:     127.0.0.1:46294 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:34] INFO:     127.0.0.1:52628 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:34] INFO:     127.0.0.1:41350 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:34] INFO:     127.0.0.1:41340 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:34] INFO:     127.0.0.1:41356 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:34] INFO:     127.0.0.1:43682 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:34] INFO:     127.0.0.1:43692 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:34] INFO:     127.0.0.1:43668 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:35] INFO:     127.0.0.1:41242 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:35] INFO:     127.0.0.1:43712 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:04:35] INFO:     127.0.0.1:41402 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:36] INFO:     127.0.0.1:46378 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:36] INFO:     127.0.0.1:41422 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:36] INFO:     127.0.0.1:46150 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:36] INFO:     127.0.0.1:46416 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:37] INFO:     127.0.0.1:52468 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:37] INFO:     127.0.0.1:41328 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:37] INFO:     127.0.0.1:41386 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:37] INFO:     127.0.0.1:46238 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:38] INFO:     127.0.0.1:41458 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:38] INFO:     127.0.0.1:41500 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:38] INFO:     127.0.0.1:41482 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:38] INFO:     127.0.0.1:41490 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:38] INFO:     127.0.0.1:52536 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:38] INFO:     127.0.0.1:41512 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:39] INFO:     127.0.0.1:46482 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:39] INFO:     127.0.0.1:41266 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:39] INFO:     127.0.0.1:46334 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:39] INFO:     127.0.0.1:46328 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:04:40] INFO:     127.0.0.1:46274 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:41] INFO:     127.0.0.1:57060 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:41] INFO:     127.0.0.1:41540 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:41] INFO:     127.0.0.1:57080 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:41] INFO:     127.0.0.1:57064 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:41] INFO:     127.0.0.1:57086 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:42] INFO:     127.0.0.1:41424 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:42] INFO:     127.0.0.1:46520 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:42] INFO:     127.0.0.1:41364 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:42] INFO:     127.0.0.1:52384 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:42] INFO:     127.0.0.1:46400 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:43] INFO:     127.0.0.1:41418 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:43] INFO:     127.0.0.1:57154 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:43] INFO:     127.0.0.1:57166 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:43] INFO:     127.0.0.1:57104 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:44] INFO:     127.0.0.1:52528 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:44] INFO:     127.0.0.1:46474 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:44] INFO:     127.0.0.1:41456 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:45] INFO:     127.0.0.1:57196 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:45] INFO:     127.0.0.1:57224 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:04:45] INFO:     127.0.0.1:52606 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:45] INFO:     127.0.0.1:57170 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:45] INFO:     127.0.0.1:52392 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:46] INFO:     127.0.0.1:57286 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:46] INFO:     127.0.0.1:57212 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:46] INFO:     127.0.0.1:57236 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:46] INFO:     127.0.0.1:57338 - "POST /generate HTTP/1.1" 200 OK
+Init PageAllocator: total_mem_size=456MB, page_size=2MB, shm: ipc_0_3_root
+Started page preallocation thread
+[2026-08-21 11:04:46] INFO:     127.0.0.1:41312 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:46] INFO:     127.0.0.1:57344 - "POST /activate HTTP/1.1" 200 OK
+[2026-08-21 11:04:47] INFO:     127.0.0.1:57260 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:47] INFO:     127.0.0.1:57384 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:47] INFO:     127.0.0.1:57132 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:47] INFO:     127.0.0.1:57394 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:47] INFO:     127.0.0.1:52590 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:48] INFO:     127.0.0.1:57314 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:48] INFO:     127.0.0.1:57460 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:48] INFO:     127.0.0.1:57400 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:48] INFO:     127.0.0.1:57440 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:48] INFO:     127.0.0.1:57446 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:49] INFO:     127.0.0.1:57458 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:49] INFO:     127.0.0.1:52406 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:49] INFO:     127.0.0.1:41506 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:49] INFO:     127.0.0.1:57112 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:50] INFO:     127.0.0.1:57126 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:50] INFO:     127.0.0.1:41276 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:50] INFO:     127.0.0.1:57502 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:04:50] INFO:     127.0.0.1:52566 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:51] INFO:     127.0.0.1:41408 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:51] INFO:     127.0.0.1:33152 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:51] INFO:     127.0.0.1:57380 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:51] INFO:     127.0.0.1:33176 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:51] INFO:     127.0.0.1:33154 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:51] INFO:     127.0.0.1:41524 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:51] INFO:     127.0.0.1:57526 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:51] INFO:     127.0.0.1:33194 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:51] INFO:     127.0.0.1:57490 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:52] INFO:     127.0.0.1:33210 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:52] INFO:     127.0.0.1:41470 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:52] INFO:     127.0.0.1:33230 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:52] INFO:     127.0.0.1:41440 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:52] INFO:     127.0.0.1:52494 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:53] INFO:     127.0.0.1:57252 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:53] INFO:     127.0.0.1:33162 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:54] INFO:     127.0.0.1:41292 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:54] INFO:     127.0.0.1:57100 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:54] INFO:     127.0.0.1:33310 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:54] INFO:     127.0.0.1:57362 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:55] INFO:     127.0.0.1:52612 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:55] INFO:     127.0.0.1:52618 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:04:55] INFO:     127.0.0.1:33312 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:56] INFO:     127.0.0.1:57238 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:56] INFO:     127.0.0.1:33344 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:56] INFO:     127.0.0.1:33178 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:57] INFO:     127.0.0.1:41522 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:57] INFO:     127.0.0.1:33250 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:57] INFO:     127.0.0.1:33296 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:57] INFO:     127.0.0.1:57150 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:58] INFO:     127.0.0.1:41302 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:58] INFO:     127.0.0.1:33376 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:58] INFO:     127.0.0.1:57476 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:59] INFO:     127.0.0.1:41374 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:59] INFO:     127.0.0.1:33452 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:04:59] INFO:     127.0.0.1:33424 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:05:00] INFO:     127.0.0.1:33490 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:00] INFO:     127.0.0.1:33438 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:00] INFO:     127.0.0.1:57186 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:01] INFO:     127.0.0.1:57198 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:01] INFO:     127.0.0.1:57328 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:01] INFO:     127.0.0.1:33226 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:02] INFO:     127.0.0.1:57536 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:02] INFO:     127.0.0.1:46142 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:03] INFO:     127.0.0.1:46092 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:03] INFO:     127.0.0.1:57532 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:03] INFO:     127.0.0.1:33294 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:03] INFO:     127.0.0.1:57142 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:04] INFO:     127.0.0.1:57302 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:04] INFO:     127.0.0.1:46204 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:05] INFO:     127.0.0.1:46250 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:05:05] INFO:     127.0.0.1:46236 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:06] INFO:     127.0.0.1:33280 - "POST /generate HTTP/1.1" 200 OK
+Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_0_2_root
+Started page preallocation thread
+[2026-08-21 11:05:07] INFO:     127.0.0.1:46306 - "POST /activate HTTP/1.1" 200 OK
+[2026-08-21 11:05:07] INFO:     127.0.0.1:57414 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:07] INFO:     127.0.0.1:33364 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:07] INFO:     127.0.0.1:46160 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:07] INFO:     127.0.0.1:57512 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:07] INFO:     127.0.0.1:46350 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:07] INFO:     127.0.0.1:33392 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:08] INFO:     127.0.0.1:46124 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:08] INFO:     127.0.0.1:33324 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:08] INFO:     127.0.0.1:33314 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:08] INFO:     127.0.0.1:46082 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:08] INFO:     127.0.0.1:46172 - "POST /generate HTTP/1.1" 200 OK
+Init PageAllocator: total_mem_size=354MB, page_size=2MB, shm: ipc_0_1_root
+Started page preallocation thread
+[2026-08-21 11:05:09] INFO:     127.0.0.1:46372 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:09] INFO:     127.0.0.1:46364 - "POST /activate HTTP/1.1" 200 OK
+[2026-08-21 11:05:09] INFO:     127.0.0.1:46310 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:10] INFO:     127.0.0.1:46412 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:10] INFO:     127.0.0.1:57204 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:10] INFO:     127.0.0.1:46434 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:05:10] INFO:     127.0.0.1:46126 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:33268 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:53274 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:46116 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:46176 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:46220 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:46234 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:46392 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:46422 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:46318 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:57372 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:57274 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:53310 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:53300 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:46380 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:33420 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:11] INFO:     127.0.0.1:57356 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:12] INFO:     127.0.0.1:57438 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:12] INFO:     127.0.0.1:53330 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:12] INFO:     127.0.0.1:53334 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:12] INFO:     127.0.0.1:53348 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:12] INFO:     127.0.0.1:46420 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:13] INFO:     127.0.0.1:57422 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:13] INFO:     127.0.0.1:53336 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:13] INFO:     127.0.0.1:46402 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:13] INFO:     127.0.0.1:53360 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:13] INFO:     127.0.0.1:33334 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:13] INFO:     127.0.0.1:53248 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:13] INFO:     127.0.0.1:53410 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:14] INFO:     127.0.0.1:46140 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:14] INFO:     127.0.0.1:46098 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:14] INFO:     127.0.0.1:33474 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:14] INFO:     127.0.0.1:46060 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:14] INFO:     127.0.0.1:46232 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:14] INFO:     127.0.0.1:46162 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:14] INFO:     127.0.0.1:46074 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:15] INFO:     127.0.0.1:53320 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:05:15] INFO:     127.0.0.1:53448 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:16] INFO:     127.0.0.1:33428 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:16] INFO:     127.0.0.1:33232 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:16] INFO:     127.0.0.1:33246 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:16] INFO:     127.0.0.1:33252 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:16] INFO:     127.0.0.1:33440 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:16] INFO:     127.0.0.1:53514 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:17] INFO:     127.0.0.1:53500 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:17] INFO:     127.0.0.1:53454 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:18] INFO:     127.0.0.1:53606 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:18] INFO:     127.0.0.1:53290 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:18] INFO:     127.0.0.1:53378 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:18] INFO:     127.0.0.1:33354 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:18] INFO:     127.0.0.1:53388 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:18] INFO:     127.0.0.1:46228 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:19] INFO:     127.0.0.1:53518 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:19] INFO:     127.0.0.1:46190 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:19] INFO:     127.0.0.1:46286 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:19] INFO:     127.0.0.1:46352 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:19] INFO:     127.0.0.1:46144 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:20] INFO:     127.0.0.1:53604 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:20] INFO:     127.0.0.1:53644 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:20] INFO:     127.0.0.1:33406 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:20] INFO:     127.0.0.1:53664 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:20] INFO:     127.0.0.1:46400 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:05:20] INFO:     127.0.0.1:33466 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:20] INFO:     127.0.0.1:33472 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:21] INFO:     127.0.0.1:38298 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:21] INFO:     127.0.0.1:53532 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:21] INFO:     127.0.0.1:38312 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:21] INFO:     127.0.0.1:53470 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:21] INFO:     127.0.0.1:53486 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:21] INFO:     127.0.0.1:53558 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:21] INFO:     127.0.0.1:38322 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:22] INFO:     127.0.0.1:46106 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:22] INFO:     127.0.0.1:38380 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:22] INFO:     127.0.0.1:38270 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:22] INFO:     127.0.0.1:38388 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:22] INFO:     127.0.0.1:38332 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:23] INFO:     127.0.0.1:38348 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:23] INFO:     127.0.0.1:46294 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:23] INFO:     127.0.0.1:53510 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:23] INFO:     127.0.0.1:38418 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:24] INFO:     127.0.0.1:53344 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:24] INFO:     127.0.0.1:38436 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:24] INFO:     127.0.0.1:38422 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:24] INFO:     127.0.0.1:38458 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:24] INFO:     127.0.0.1:53262 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:25] INFO:     127.0.0.1:38470 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:25] INFO:     127.0.0.1:46264 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:25] INFO:     127.0.0.1:46276 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:25] INFO:     127.0.0.1:46334 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:25] INFO:     127.0.0.1:53436 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:25] INFO:     127.0.0.1:38452 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:25] INFO:     127.0.0.1:38502 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:25] INFO:     127.0.0.1:38522 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:25] INFO:     127.0.0.1:38318 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:05:25] INFO:     127.0.0.1:38538 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:26] INFO:     127.0.0.1:38282 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:26] INFO:     127.0.0.1:53370 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:26] INFO:     127.0.0.1:38402 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:26] INFO:     127.0.0.1:38460 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:26] INFO:     127.0.0.1:53578 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:27] INFO:     127.0.0.1:53420 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:27] INFO:     127.0.0.1:53434 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:27] INFO:     127.0.0.1:53524 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:27] INFO:     127.0.0.1:53568 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:27] INFO:     127.0.0.1:38552 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:27] INFO:     127.0.0.1:38582 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:27] INFO:     127.0.0.1:38540 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:27] INFO:     127.0.0.1:53398 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:27] INFO:     127.0.0.1:38598 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:28] INFO:     127.0.0.1:38364 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:28] INFO:     127.0.0.1:38612 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:29] INFO:     127.0.0.1:38616 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:29] INFO:     127.0.0.1:53564 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:29] INFO:     127.0.0.1:53590 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:29] INFO:     127.0.0.1:38644 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:29] INFO:     127.0.0.1:38648 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:30] INFO:     127.0.0.1:38620 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:30] INFO:     127.0.0.1:54862 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:30] INFO:     127.0.0.1:54864 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:30] INFO:     127.0.0.1:54872 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:30] INFO:     127.0.0.1:38518 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:05:31] INFO:     127.0.0.1:53656 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:31] INFO:     127.0.0.1:54892 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:31] INFO:     127.0.0.1:53544 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:31] INFO:     127.0.0.1:54932 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:31] INFO:     127.0.0.1:53622 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:32] INFO:     127.0.0.1:38430 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:32] INFO:     127.0.0.1:54922 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:32] INFO:     127.0.0.1:38442 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:32] INFO:     127.0.0.1:53642 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:33] INFO:     127.0.0.1:38566 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:33] INFO:     127.0.0.1:38262 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:33] INFO:     127.0.0.1:53626 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:33] INFO:     127.0.0.1:54948 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:34] INFO:     127.0.0.1:55020 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:34] INFO:     127.0.0.1:55072 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:34] INFO:     127.0.0.1:55058 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:35] INFO:     127.0.0.1:38638 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:35] INFO:     127.0.0.1:55078 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:35] INFO:     127.0.0.1:55110 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:35] INFO:     127.0.0.1:38404 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:35] INFO:     127.0.0.1:54994 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:35] INFO:     127.0.0.1:55052 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:35] INFO:     127.0.0.1:54886 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:05:36] INFO:     127.0.0.1:38544 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:37] INFO:     127.0.0.1:38662 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:38] INFO:     127.0.0.1:55122 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:38] INFO:     127.0.0.1:38486 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:38] INFO:     127.0.0.1:38678 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:38] INFO:     127.0.0.1:38626 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:38] INFO:     127.0.0.1:38546 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:38] INFO:     127.0.0.1:55174 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:38] INFO:     127.0.0.1:55182 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:38] INFO:     127.0.0.1:55194 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:39] INFO:     127.0.0.1:55192 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:39] INFO:     127.0.0.1:55006 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:39] INFO:     127.0.0.1:55206 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:39] INFO:     127.0.0.1:55216 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:39] INFO:     127.0.0.1:54996 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:39] INFO:     127.0.0.1:55232 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:39] INFO:     127.0.0.1:38454 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:39] INFO:     127.0.0.1:54966 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:39] INFO:     127.0.0.1:55242 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:40] INFO:     127.0.0.1:41898 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:40] INFO:     127.0.0.1:55250 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:41] INFO:     127.0.0.1:41884 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:05:41] INFO:     127.0.0.1:41914 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:41] INFO:     127.0.0.1:55160 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:41] INFO:     127.0.0.1:41924 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:41] INFO:     127.0.0.1:38674 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:42] INFO:     127.0.0.1:41970 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:42] INFO:     127.0.0.1:41952 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:42] INFO:     127.0.0.1:54908 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:42] INFO:     127.0.0.1:54890 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:42] INFO:     127.0.0.1:54980 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:43] INFO:     127.0.0.1:55046 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:43] INFO:     127.0.0.1:54964 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:43] INFO:     127.0.0.1:38642 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:43] INFO:     127.0.0.1:42012 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:44] INFO:     127.0.0.1:41998 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:44] INFO:     127.0.0.1:55128 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:44] INFO:     127.0.0.1:55138 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:44] INFO:     127.0.0.1:55092 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:44] INFO:     127.0.0.1:42052 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:45] INFO:     127.0.0.1:41930 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:45] INFO:     127.0.0.1:42104 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:46] INFO:     127.0.0.1:42024 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:46] INFO:     127.0.0.1:55148 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:05:46] INFO:     127.0.0.1:41940 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:46] INFO:     127.0.0.1:42048 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:46] INFO:     127.0.0.1:42106 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:46] INFO:     127.0.0.1:42112 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:47] INFO:     127.0.0.1:42176 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:47] INFO:     127.0.0.1:55248 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:47] INFO:     127.0.0.1:55034 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:47] INFO:     127.0.0.1:55188 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:48] INFO:     127.0.0.1:42122 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:48] INFO:     127.0.0.1:42188 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:48] INFO:     127.0.0.1:42204 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:48] INFO:     127.0.0.1:42218 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:48] INFO:     127.0.0.1:55096 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:49] INFO:     127.0.0.1:42038 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:49] INFO:     127.0.0.1:42152 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:49] INFO:     127.0.0.1:42072 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:49] INFO:     127.0.0.1:55172 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:49] INFO:     127.0.0.1:42126 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:49] INFO:     127.0.0.1:42058 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:50] INFO:     127.0.0.1:42272 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:50] INFO:     127.0.0.1:55124 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:50] INFO:     127.0.0.1:55202 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:50] INFO:     127.0.0.1:43376 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:05:51] INFO:     127.0.0.1:42168 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:52] INFO:     127.0.0.1:42138 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:52] INFO:     127.0.0.1:43438 - "POST /deactivate HTTP/1.1" 200 OK
+[2026-08-21 11:05:53] INFO:     127.0.0.1:41894 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:53] INFO:     127.0.0.1:42082 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:53] INFO:     127.0.0.1:43392 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:53] INFO:     127.0.0.1:42250 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:54] INFO:     127.0.0.1:42094 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:54] INFO:     127.0.0.1:55240 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:54] INFO:     127.0.0.1:43468 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:54] INFO:     127.0.0.1:43448 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:54] INFO:     127.0.0.1:43476 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:54] INFO:     127.0.0.1:43442 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:54] INFO:     127.0.0.1:43488 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:54] INFO:     127.0.0.1:41974 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:54] INFO:     127.0.0.1:43386 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:55] INFO:     127.0.0.1:43490 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:55] INFO:     127.0.0.1:43416 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:55] INFO:     127.0.0.1:43494 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:55] INFO:     127.0.0.1:41962 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:55] INFO:     127.0.0.1:43428 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:05:56] INFO:     127.0.0.1:43504 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:57] INFO:     127.0.0.1:43508 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:57] INFO:     127.0.0.1:42232 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:58] INFO:     127.0.0.1:42256 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:58] INFO:     127.0.0.1:41984 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:59] INFO:     127.0.0.1:43366 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:59] INFO:     127.0.0.1:43586 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:59] INFO:     127.0.0.1:43636 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:59] INFO:     127.0.0.1:42144 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:05:59] INFO:     127.0.0.1:43464 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:00] INFO:     127.0.0.1:42248 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:00] INFO:     127.0.0.1:42208 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:00] INFO:     127.0.0.1:43600 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:00] INFO:     127.0.0.1:43498 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:06:01] INFO:     127.0.0.1:43616 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:02] INFO:     127.0.0.1:43374 - "POST /generate HTTP/1.1" 200 OK
+Init PageAllocator: total_mem_size=456MB, page_size=2MB, shm: ipc_0_0_root
+Started page preallocation thread
+[2026-08-21 11:06:02] INFO:     127.0.0.1:53406 - "POST /activate HTTP/1.1" 200 OK
+[2026-08-21 11:06:02] INFO:     127.0.0.1:43480 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:03] INFO:     127.0.0.1:53462 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:03] INFO:     127.0.0.1:53442 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:03] INFO:     127.0.0.1:43528 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:03] INFO:     127.0.0.1:43400 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:03] INFO:     127.0.0.1:43424 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:04] INFO:     127.0.0.1:53426 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:04] INFO:     127.0.0.1:53484 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:04] INFO:     127.0.0.1:43560 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:04] INFO:     127.0.0.1:53440 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:04] INFO:     127.0.0.1:53458 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:04] INFO:     127.0.0.1:43548 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:05] INFO:     127.0.0.1:53476 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:06:06] INFO:     127.0.0.1:53390 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:08] INFO:     127.0.0.1:43536 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:09] INFO:     127.0.0.1:53718 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:09] INFO:     127.0.0.1:53764 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:09] INFO:     127.0.0.1:53672 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:09] INFO:     127.0.0.1:53592 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:09] INFO:     127.0.0.1:53596 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:09] INFO:     127.0.0.1:53584 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:09] INFO:     127.0.0.1:53612 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:10] INFO:     127.0.0.1:53566 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:10] INFO:     127.0.0.1:43576 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:06:11] INFO:     127.0.0.1:33942 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:11] INFO:     127.0.0.1:33918 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:11] INFO:     127.0.0.1:33982 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:12] INFO:     127.0.0.1:53522 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:12] INFO:     127.0.0.1:34014 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:12] INFO:     127.0.0.1:34054 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:12] INFO:     127.0.0.1:43542 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:12] INFO:     127.0.0.1:43514 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:12] INFO:     127.0.0.1:34034 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:12] INFO:     127.0.0.1:53538 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:13] INFO:     127.0.0.1:34088 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:13] INFO:     127.0.0.1:34146 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:13] INFO:     127.0.0.1:34136 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:13] INFO:     127.0.0.1:43626 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:14] INFO:     127.0.0.1:53444 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:14] INFO:     127.0.0.1:33950 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:14] INFO:     127.0.0.1:34148 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:14] INFO:     127.0.0.1:34046 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:15] INFO:     127.0.0.1:53348 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:15] INFO:     127.0.0.1:33998 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:15] INFO:     127.0.0.1:53374 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:15] INFO:     127.0.0.1:34150 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:16] INFO:     127.0.0.1:34102 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:06:16] INFO:     127.0.0.1:53660 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:16] INFO:     127.0.0.1:34222 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:17] INFO:     127.0.0.1:34206 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:17] INFO:     127.0.0.1:34176 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:17] INFO:     127.0.0.1:34194 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:17] INFO:     127.0.0.1:53772 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:18] INFO:     127.0.0.1:53530 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:18] INFO:     127.0.0.1:53534 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:18] INFO:     127.0.0.1:53358 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:18] INFO:     127.0.0.1:33928 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:19] INFO:     127.0.0.1:34120 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:19] INFO:     127.0.0.1:34250 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:19] INFO:     127.0.0.1:34258 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:19] INFO:     127.0.0.1:34276 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:19] INFO:     127.0.0.1:53416 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:19] INFO:     127.0.0.1:53760 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:19] INFO:     127.0.0.1:34314 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:19] INFO:     127.0.0.1:34336 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:19] INFO:     127.0.0.1:34364 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:19] INFO:     127.0.0.1:53496 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:19] INFO:     127.0.0.1:53508 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:19] INFO:     127.0.0.1:34366 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:20] INFO:     127.0.0.1:53644 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:20] INFO:     127.0.0.1:33920 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:21] INFO:     127.0.0.1:34070 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:21] INFO:     127.0.0.1:44526 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:06:22] INFO:     127.0.0.1:44550 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:22] INFO:     127.0.0.1:53452 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:23] INFO:     127.0.0.1:53582 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:23] INFO:     127.0.0.1:44596 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:24] INFO:     127.0.0.1:44636 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:24] INFO:     127.0.0.1:44628 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:24] INFO:     127.0.0.1:53628 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:24] INFO:     127.0.0.1:53686 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:24] INFO:     127.0.0.1:33958 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:24] INFO:     127.0.0.1:53742 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:24] INFO:     127.0.0.1:44578 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:24] INFO:     127.0.0.1:53702 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:24] INFO:     127.0.0.1:53732 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:24] INFO:     127.0.0.1:34348 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:24] INFO:     127.0.0.1:44562 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:24] INFO:     127.0.0.1:44510 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:24] INFO:     127.0.0.1:53552 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:25] INFO:     127.0.0.1:44638 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:25] INFO:     127.0.0.1:53614 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:26] INFO:     127.0.0.1:44698 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:06:26] INFO:     127.0.0.1:44722 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:26] INFO:     127.0.0.1:44658 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:26] INFO:     127.0.0.1:53752 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:27] INFO:     127.0.0.1:44730 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:27] INFO:     127.0.0.1:34210 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:27] INFO:     127.0.0.1:34076 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:27] INFO:     127.0.0.1:44654 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:27] INFO:     127.0.0.1:34320 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:27] INFO:     127.0.0.1:33994 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:27] INFO:     127.0.0.1:34020 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:27] INFO:     127.0.0.1:33940 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:28] INFO:     127.0.0.1:44714 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:28] INFO:     127.0.0.1:44762 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:28] INFO:     127.0.0.1:33970 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:28] INFO:     127.0.0.1:34062 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:28] INFO:     127.0.0.1:44464 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:28] INFO:     127.0.0.1:44822 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:29] INFO:     127.0.0.1:34126 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:30] INFO:     127.0.0.1:34112 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:30] INFO:     127.0.0.1:38526 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:30] INFO:     127.0.0.1:38532 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:30] INFO:     127.0.0.1:38556 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:30] INFO:     127.0.0.1:44504 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:30] INFO:     127.0.0.1:44878 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:06:31] INFO:     127.0.0.1:34226 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:32] INFO:     127.0.0.1:34164 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:32] INFO:     127.0.0.1:34192 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:32] INFO:     127.0.0.1:44536 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:32] INFO:     127.0.0.1:38596 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:32] INFO:     127.0.0.1:44672 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:32] INFO:     127.0.0.1:38620 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:32] INFO:     127.0.0.1:44836 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:33] INFO:     127.0.0.1:44696 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:33] INFO:     127.0.0.1:44458 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:33] INFO:     127.0.0.1:34302 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:33] INFO:     127.0.0.1:34224 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:33] INFO:     127.0.0.1:38680 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:34] INFO:     127.0.0.1:38638 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:34] INFO:     127.0.0.1:44620 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:34] INFO:     127.0.0.1:38654 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:34] INFO:     127.0.0.1:34218 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:34] INFO:     127.0.0.1:44746 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:34] INFO:     127.0.0.1:34238 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:34] INFO:     127.0.0.1:34270 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:34] INFO:     127.0.0.1:38710 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:34] INFO:     127.0.0.1:38540 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:35] INFO:     127.0.0.1:38716 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:35] INFO:     127.0.0.1:44650 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:36] INFO:     127.0.0.1:44612 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:06:36] INFO:     127.0.0.1:34292 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:36] INFO:     127.0.0.1:34332 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:37] INFO:     127.0.0.1:44850 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:37] INFO:     127.0.0.1:38802 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:38] INFO:     127.0.0.1:44474 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:38] INFO:     127.0.0.1:44488 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:38] INFO:     127.0.0.1:44584 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:38] INFO:     127.0.0.1:38592 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:38] INFO:     127.0.0.1:44776 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:38] INFO:     127.0.0.1:38852 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:38] INFO:     127.0.0.1:44572 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:39] INFO:     127.0.0.1:38670 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:39] INFO:     127.0.0.1:38690 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:39] INFO:     127.0.0.1:38732 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:39] INFO:     127.0.0.1:38696 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:39] INFO:     127.0.0.1:38894 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:39] INFO:     127.0.0.1:38572 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:40] INFO:     127.0.0.1:44684 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:40] INFO:     127.0.0.1:38584 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:40] INFO:     127.0.0.1:60370 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:40] INFO:     127.0.0.1:38826 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:06:41] INFO:     127.0.0.1:44804 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:41] INFO:     127.0.0.1:44750 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:41] INFO:     127.0.0.1:60418 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:41] INFO:     127.0.0.1:44810 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:41] INFO:     127.0.0.1:44720 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:41] INFO:     127.0.0.1:38656 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:42] INFO:     127.0.0.1:44788 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:42] INFO:     127.0.0.1:38720 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:42] INFO:     127.0.0.1:44796 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:43] INFO:     127.0.0.1:60452 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:43] INFO:     127.0.0.1:60440 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:43] INFO:     127.0.0.1:38760 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:43] INFO:     127.0.0.1:60476 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:43] INFO:     127.0.0.1:60434 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:44] INFO:     127.0.0.1:60504 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:44] INFO:     127.0.0.1:44840 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:44] INFO:     127.0.0.1:38812 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:44] INFO:     127.0.0.1:60516 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:44] INFO:     127.0.0.1:38806 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:44] INFO:     127.0.0.1:38610 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:44] INFO:     127.0.0.1:38880 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:45] INFO:     127.0.0.1:60556 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:45] INFO:     127.0.0.1:60552 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:45] INFO:     127.0.0.1:38786 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:45] INFO:     127.0.0.1:38564 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:45] INFO:     127.0.0.1:38678 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:45] INFO:     127.0.0.1:60652 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:45] INFO:     127.0.0.1:60496 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:45] INFO:     127.0.0.1:60482 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:46] INFO:     127.0.0.1:38588 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:46] INFO:     127.0.0.1:60568 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:46] INFO:     127.0.0.1:60462 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:46] INFO:     127.0.0.1:60432 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:06:46] INFO:     127.0.0.1:44864 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:46] INFO:     127.0.0.1:38752 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:46] INFO:     127.0.0.1:38856 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:46] INFO:     127.0.0.1:38628 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:46] INFO:     127.0.0.1:38550 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:47] INFO:     127.0.0.1:38744 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:47] INFO:     127.0.0.1:38764 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:47] INFO:     127.0.0.1:60682 - "POST /deactivate HTTP/1.1" 200 OK
+[2026-08-21 11:06:47] INFO:     127.0.0.1:60692 - "POST /deactivate HTTP/1.1" 200 OK
+[2026-08-21 11:06:48] INFO:     127.0.0.1:60716 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:48] INFO:     127.0.0.1:38748 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:48] INFO:     127.0.0.1:38790 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:48] INFO:     127.0.0.1:60758 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:48] INFO:     127.0.0.1:60742 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:48] INFO:     127.0.0.1:60576 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:48] INFO:     127.0.0.1:60700 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:48] INFO:     127.0.0.1:60776 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:48] INFO:     127.0.0.1:38774 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:49] INFO:     127.0.0.1:60426 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:49] INFO:     127.0.0.1:60754 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:49] INFO:     127.0.0.1:60676 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:49] INFO:     127.0.0.1:38634 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:49] INFO:     127.0.0.1:60806 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:49] INFO:     127.0.0.1:60634 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:49] INFO:     127.0.0.1:60378 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:49] INFO:     127.0.0.1:60732 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:49] INFO:     127.0.0.1:38836 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:50] INFO:     127.0.0.1:60674 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:50] INFO:     127.0.0.1:60812 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:50] INFO:     127.0.0.1:45938 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:50] INFO:     127.0.0.1:45948 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:51] INFO:     127.0.0.1:60628 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:51] INFO:     127.0.0.1:60388 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:51] INFO:     127.0.0.1:38874 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:06:51] INFO:     127.0.0.1:38782 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:51] INFO:     127.0.0.1:60402 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:51] INFO:     127.0.0.1:60630 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:51] INFO:     127.0.0.1:60668 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:52] INFO:     127.0.0.1:38862 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:53] INFO:     127.0.0.1:60642 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:53] INFO:     127.0.0.1:60590 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:53] INFO:     127.0.0.1:46014 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:53] INFO:     127.0.0.1:45992 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:54] INFO:     127.0.0.1:45998 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:54] INFO:     127.0.0.1:60528 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:54] INFO:     127.0.0.1:60730 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:54] INFO:     127.0.0.1:60492 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:54] INFO:     127.0.0.1:46072 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:55] INFO:     127.0.0.1:60704 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:55] INFO:     127.0.0.1:46062 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:55] INFO:     127.0.0.1:60436 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:55] INFO:     127.0.0.1:46044 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:55] INFO:     127.0.0.1:60766 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:56] INFO:     127.0.0.1:46120 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:56] INFO:     127.0.0.1:46126 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:56] INFO:     127.0.0.1:60792 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:56] INFO:     127.0.0.1:46136 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:56] INFO:     127.0.0.1:60604 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:06:56] INFO:     127.0.0.1:60542 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:56] INFO:     127.0.0.1:60614 - "POST /generate HTTP/1.1" 200 OK
+Init PageAllocator: total_mem_size=456MB, page_size=2MB, shm: ipc_0_2_root
+Started page preallocation thread
+[2026-08-21 11:06:57] INFO:     127.0.0.1:45958 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:57] INFO:     127.0.0.1:46158 - "POST /activate HTTP/1.1" 200 OK
+[2026-08-21 11:06:57] INFO:     127.0.0.1:46106 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:58] INFO:     127.0.0.1:60660 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:58] INFO:     127.0.0.1:60808 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:58] INFO:     127.0.0.1:45934 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:06:58] INFO:     127.0.0.1:46084 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:00] INFO:     127.0.0.1:46280 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:00] INFO:     127.0.0.1:60822 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:00] INFO:     127.0.0.1:45926 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:00] INFO:     127.0.0.1:59468 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:00] INFO:     127.0.0.1:46038 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:01] INFO:     127.0.0.1:46236 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:01] INFO:     127.0.0.1:59478 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:01] INFO:     127.0.0.1:46104 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:01] INFO:     127.0.0.1:46300 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:01] INFO:     127.0.0.1:46078 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:01] INFO:     127.0.0.1:59462 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:01] INFO:     127.0.0.1:45972 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:07:01] INFO:     127.0.0.1:46258 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:02] INFO:     127.0.0.1:46096 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:02] INFO:     127.0.0.1:59510 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:02] INFO:     127.0.0.1:59520 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:02] INFO:     127.0.0.1:59556 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:02] INFO:     127.0.0.1:46148 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:02] INFO:     127.0.0.1:45932 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:02] INFO:     127.0.0.1:45970 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:03] INFO:     127.0.0.1:59492 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:03] INFO:     127.0.0.1:60790 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:03] INFO:     127.0.0.1:59538 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:03] INFO:     127.0.0.1:59606 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:04] INFO:     127.0.0.1:59640 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:04] INFO:     127.0.0.1:46028 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:05] INFO:     127.0.0.1:59648 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:05] INFO:     127.0.0.1:59656 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:06] INFO:     127.0.0.1:59670 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:07:06] INFO:     127.0.0.1:59624 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:07] INFO:     127.0.0.1:45994 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:07] INFO:     127.0.0.1:46268 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:07] INFO:     127.0.0.1:59694 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:07] INFO:     127.0.0.1:45984 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:07] INFO:     127.0.0.1:46166 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:07] INFO:     127.0.0.1:59706 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:08] INFO:     127.0.0.1:45960 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:08] INFO:     127.0.0.1:59500 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:08] INFO:     127.0.0.1:59692 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:08] INFO:     127.0.0.1:59744 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:08] INFO:     127.0.0.1:46060 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:08] INFO:     127.0.0.1:46250 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:08] INFO:     127.0.0.1:59764 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:08] INFO:     127.0.0.1:46286 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:08] INFO:     127.0.0.1:59588 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:09] INFO:     127.0.0.1:59664 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:09] INFO:     127.0.0.1:59752 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:09] INFO:     127.0.0.1:46116 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:10] INFO:     127.0.0.1:59786 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:10] INFO:     127.0.0.1:46228 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:10] INFO:     127.0.0.1:46032 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:10] INFO:     127.0.0.1:59696 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:10] INFO:     127.0.0.1:59770 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:11] INFO:     127.0.0.1:46224 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:11] INFO:     127.0.0.1:46180 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:11] INFO:     127.0.0.1:46192 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:11] INFO:     127.0.0.1:46208 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:07:12] INFO:     127.0.0.1:59522 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:12] INFO:     127.0.0.1:59496 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:13] INFO:     127.0.0.1:59572 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:13] INFO:     127.0.0.1:39926 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:13] INFO:     127.0.0.1:39944 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:14] INFO:     127.0.0.1:39916 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:14] INFO:     127.0.0.1:39894 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:14] INFO:     127.0.0.1:39886 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:14] INFO:     127.0.0.1:59548 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:15] INFO:     127.0.0.1:39956 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:15] INFO:     127.0.0.1:59714 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:15] INFO:     127.0.0.1:59592 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:15] INFO:     127.0.0.1:39962 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:15] INFO:     127.0.0.1:40018 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:16] INFO:     127.0.0.1:39826 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:16] INFO:     127.0.0.1:40032 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:16] INFO:     127.0.0.1:40012 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:07:17] INFO:     127.0.0.1:40036 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:17] INFO:     127.0.0.1:59676 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:17] INFO:     127.0.0.1:40050 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:18] INFO:     127.0.0.1:40110 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:18] INFO:     127.0.0.1:40106 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:18] INFO:     127.0.0.1:40116 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:18] INFO:     127.0.0.1:59612 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:18] INFO:     127.0.0.1:40124 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:18] INFO:     127.0.0.1:40140 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:19] INFO:     127.0.0.1:39856 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:19] INFO:     127.0.0.1:39812 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:20] INFO:     127.0.0.1:44942 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:20] INFO:     127.0.0.1:40166 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:20] INFO:     127.0.0.1:39870 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:20] INFO:     127.0.0.1:44940 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:20] INFO:     127.0.0.1:44950 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:20] INFO:     127.0.0.1:44990 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:21] INFO:     127.0.0.1:44964 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:21] INFO:     127.0.0.1:45022 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:21] INFO:     127.0.0.1:39838 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:21] INFO:     127.0.0.1:59728 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:07:21] INFO:     127.0.0.1:45046 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:22] INFO:     127.0.0.1:39930 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:22] INFO:     127.0.0.1:40074 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:22] INFO:     127.0.0.1:45060 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:22] INFO:     127.0.0.1:45030 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:23] INFO:     127.0.0.1:39846 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:23] INFO:     127.0.0.1:39892 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:23] INFO:     127.0.0.1:40078 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:23] INFO:     127.0.0.1:39988 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:23] INFO:     127.0.0.1:45114 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:23] INFO:     127.0.0.1:39910 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:25] INFO:     127.0.0.1:40052 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:25] INFO:     127.0.0.1:45190 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:25] INFO:     127.0.0.1:45166 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:25] INFO:     127.0.0.1:45176 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:25] INFO:     127.0.0.1:45076 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:25] INFO:     127.0.0.1:45234 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:25] INFO:     127.0.0.1:39990 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:25] INFO:     127.0.0.1:39998 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:26] INFO:     127.0.0.1:39996 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:26] INFO:     127.0.0.1:45232 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:26] INFO:     127.0.0.1:45240 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:26] INFO:     127.0.0.1:45142 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:26] INFO:     127.0.0.1:45260 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:26] INFO:     127.0.0.1:45266 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:07:27] INFO:     127.0.0.1:45254 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:27] INFO:     127.0.0.1:45282 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:27] INFO:     127.0.0.1:45216 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:27] INFO:     127.0.0.1:45132 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:27] INFO:     127.0.0.1:45298 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:28] INFO:     127.0.0.1:45364 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:28] INFO:     127.0.0.1:45124 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:28] INFO:     127.0.0.1:45304 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:28] INFO:     127.0.0.1:45312 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:29] INFO:     127.0.0.1:45066 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:29] INFO:     127.0.0.1:45380 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:29] INFO:     127.0.0.1:40066 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:30] INFO:     127.0.0.1:45418 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:30] INFO:     127.0.0.1:45326 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:30] INFO:     127.0.0.1:45276 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:30] INFO:     127.0.0.1:39976 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:31] INFO:     127.0.0.1:45424 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:07:32] INFO:     127.0.0.1:40094 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:32] INFO:     127.0.0.1:40142 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:32] INFO:     127.0.0.1:45006 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:32] INFO:     127.0.0.1:57178 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:32] INFO:     127.0.0.1:57186 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:32] INFO:     127.0.0.1:57202 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:32] INFO:     127.0.0.1:45084 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:33] INFO:     127.0.0.1:45204 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:33] INFO:     127.0.0.1:57218 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:33] INFO:     127.0.0.1:40158 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:33] INFO:     127.0.0.1:45094 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:34] INFO:     127.0.0.1:57232 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:34] INFO:     127.0.0.1:45152 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:34] INFO:     127.0.0.1:44956 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:35] INFO:     127.0.0.1:57260 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:35] INFO:     127.0.0.1:44976 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:35] INFO:     127.0.0.1:57210 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:35] INFO:     127.0.0.1:57168 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:36] INFO:     127.0.0.1:45412 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:36] INFO:     127.0.0.1:57284 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:36] INFO:     127.0.0.1:57292 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:07:37] INFO:     127.0.0.1:57324 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:37] INFO:     127.0.0.1:45106 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:37] INFO:     127.0.0.1:57300 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:38] INFO:     127.0.0.1:45206 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:38] INFO:     127.0.0.1:45148 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:38] INFO:     127.0.0.1:57162 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:38] INFO:     127.0.0.1:57192 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:40] INFO:     127.0.0.1:45284 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:40] INFO:     127.0.0.1:45358 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:40] INFO:     127.0.0.1:45342 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:41] INFO:     127.0.0.1:42172 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:41] INFO:     127.0.0.1:45396 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:41] INFO:     127.0.0.1:57420 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:41] INFO:     127.0.0.1:45398 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:07:42] INFO:     127.0.0.1:57404 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:42] INFO:     127.0.0.1:57272 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:42] INFO:     127.0.0.1:42242 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:42] INFO:     127.0.0.1:42250 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:43] INFO:     127.0.0.1:57266 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:43] INFO:     127.0.0.1:57314 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:43] INFO:     127.0.0.1:42288 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:44] INFO:     127.0.0.1:42294 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:44] INFO:     127.0.0.1:42326 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:44] INFO:     127.0.0.1:57346 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:44] INFO:     127.0.0.1:57362 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:45] INFO:     127.0.0.1:42330 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:45] INFO:     127.0.0.1:57200 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:45] INFO:     127.0.0.1:42312 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:45] INFO:     127.0.0.1:57206 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:45] INFO:     127.0.0.1:42190 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:46] INFO:     127.0.0.1:57244 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:46] INFO:     127.0.0.1:57364 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:46] INFO:     127.0.0.1:57336 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:07:47] INFO:     127.0.0.1:42384 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:48] INFO:     127.0.0.1:42370 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:48] INFO:     127.0.0.1:42396 - "POST /deactivate HTTP/1.1" 200 OK
+[2026-08-21 11:07:48] INFO:     127.0.0.1:42230 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:48] INFO:     127.0.0.1:42398 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:48] INFO:     127.0.0.1:57276 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:48] INFO:     127.0.0.1:42366 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:49] INFO:     127.0.0.1:57376 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:49] INFO:     127.0.0.1:57380 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:50] INFO:     127.0.0.1:42410 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:50] INFO:     127.0.0.1:42352 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:50] INFO:     127.0.0.1:47818 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:50] INFO:     127.0.0.1:42258 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:51] INFO:     127.0.0.1:42414 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:51] INFO:     127.0.0.1:57394 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:51] INFO:     127.0.0.1:42174 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:51] INFO:     127.0.0.1:47826 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:51] INFO:     127.0.0.1:47850 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:52] INFO:     127.0.0.1:42214 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:52] INFO:     127.0.0.1:47860 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:07:53] INFO:     127.0.0.1:47878 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:53] INFO:     127.0.0.1:47926 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:53] INFO:     127.0.0.1:47800 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:53] INFO:     127.0.0.1:42202 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:53] INFO:     127.0.0.1:42292 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:53] INFO:     127.0.0.1:47928 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:54] INFO:     127.0.0.1:47816 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:54] INFO:     127.0.0.1:47942 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:55] INFO:     127.0.0.1:42340 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:55] INFO:     127.0.0.1:47984 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:55] INFO:     127.0.0.1:42304 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:55] INFO:     127.0.0.1:48010 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:55] INFO:     127.0.0.1:42420 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:55] INFO:     127.0.0.1:47844 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:55] INFO:     127.0.0.1:42272 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:55] INFO:     127.0.0.1:47996 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:55] INFO:     127.0.0.1:47894 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:55] INFO:     127.0.0.1:48020 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:55] INFO:     127.0.0.1:42334 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:56] INFO:     127.0.0.1:47864 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:56] INFO:     127.0.0.1:48032 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:56] INFO:     127.0.0.1:48048 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:07:57] INFO:     127.0.0.1:48070 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:57] INFO:     127.0.0.1:48066 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:57] INFO:     127.0.0.1:48132 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:57] INFO:     127.0.0.1:48104 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:57] INFO:     127.0.0.1:48136 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:58] INFO:     127.0.0.1:48116 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:59] INFO:     127.0.0.1:48182 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:59] INFO:     127.0.0.1:47910 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:59] INFO:     127.0.0.1:48212 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:59] INFO:     127.0.0.1:48224 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:59] INFO:     127.0.0.1:48162 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:07:59] INFO:     127.0.0.1:42360 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:00] INFO:     127.0.0.1:48228 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:00] INFO:     127.0.0.1:55944 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:01] INFO:     127.0.0.1:48204 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:01] INFO:     127.0.0.1:55950 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:01] INFO:     127.0.0.1:55958 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:01] INFO:     127.0.0.1:55998 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:01] INFO:     127.0.0.1:56002 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:02] INFO:     127.0.0.1:55984 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:02] INFO:     127.0.0.1:47786 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:08:03] INFO:     127.0.0.1:56042 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:04] INFO:     127.0.0.1:47968 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:04] INFO:     127.0.0.1:47832 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:05] INFO:     127.0.0.1:48170 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:05] INFO:     127.0.0.1:55940 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:05] INFO:     127.0.0.1:56014 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:06] INFO:     127.0.0.1:56094 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:06] INFO:     127.0.0.1:47976 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:06] INFO:     127.0.0.1:56096 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:06] INFO:     127.0.0.1:47958 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:07] INFO:     127.0.0.1:47986 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:08:07] INFO:     127.0.0.1:56176 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:07] INFO:     127.0.0.1:56146 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:08] INFO:     127.0.0.1:55978 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:08] INFO:     127.0.0.1:48152 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:08] INFO:     127.0.0.1:56188 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:08] INFO:     127.0.0.1:56204 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:09] INFO:     127.0.0.1:56158 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:09] INFO:     127.0.0.1:56240 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:09] INFO:     127.0.0.1:56102 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:10] INFO:     127.0.0.1:56252 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:10] INFO:     127.0.0.1:48028 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:10] INFO:     127.0.0.1:48058 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:10] INFO:     127.0.0.1:48082 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:11] INFO:     127.0.0.1:55964 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:11] INFO:     127.0.0.1:48126 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:11] INFO:     127.0.0.1:56030 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:12] INFO:     127.0.0.1:48094 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:12] INFO:     127.0.0.1:48194 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:08:13] INFO:     127.0.0.1:56038 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:13] INFO:     127.0.0.1:56006 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:13] INFO:     127.0.0.1:56012 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:13] INFO:     127.0.0.1:56160 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:13] INFO:     127.0.0.1:56214 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:13] INFO:     127.0.0.1:56004 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:14] INFO:     127.0.0.1:56068 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:14] INFO:     127.0.0.1:48156 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:15] INFO:     127.0.0.1:56130 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:16] INFO:     127.0.0.1:55978 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:16] INFO:     127.0.0.1:56140 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:16] INFO:     127.0.0.1:55946 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:16] INFO:     127.0.0.1:56108 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:16] INFO:     127.0.0.1:56144 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:16] INFO:     127.0.0.1:55962 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:16] INFO:     127.0.0.1:56106 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:08:18] INFO:     127.0.0.1:56116 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:18] INFO:     127.0.0.1:56174 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:18] INFO:     127.0.0.1:56142 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:18] INFO:     127.0.0.1:56054 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:18] INFO:     127.0.0.1:56200 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:18] INFO:     127.0.0.1:56184 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:19] INFO:     127.0.0.1:56226 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:19] INFO:     127.0.0.1:56234 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:19] INFO:     127.0.0.1:56072 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:19] INFO:     127.0.0.1:56166 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:19] INFO:     127.0.0.1:56126 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:19] INFO:     127.0.0.1:56114 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:19] INFO:     127.0.0.1:56232 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:20] INFO:     127.0.0.1:56238 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:20] INFO:     127.0.0.1:56080 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:20] INFO:     127.0.0.1:56052 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:20] INFO:     127.0.0.1:56128 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:20] INFO:     127.0.0.1:56092 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:20] INFO:     127.0.0.1:56014 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:21] INFO:     127.0.0.1:60018 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:21] INFO:     127.0.0.1:60026 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:21] INFO:     127.0.0.1:60070 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:22] INFO:     127.0.0.1:56086 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:22] INFO:     127.0.0.1:60054 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:08:22] INFO:     127.0.0.1:56224 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:22] INFO:     127.0.0.1:60090 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:22] INFO:     127.0.0.1:56210 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:22] INFO:     127.0.0.1:60074 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:23] INFO:     127.0.0.1:56236 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:23] INFO:     127.0.0.1:56230 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:23] INFO:     127.0.0.1:60128 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:23] INFO:     127.0.0.1:56192 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:23] INFO:     127.0.0.1:56070 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:23] INFO:     127.0.0.1:55984 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:23] INFO:     127.0.0.1:55988 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:24] INFO:     127.0.0.1:60042 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:24] INFO:     127.0.0.1:56170 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:24] INFO:     127.0.0.1:60152 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:25] INFO:     127.0.0.1:60178 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:25] INFO:     127.0.0.1:60192 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:25] INFO:     127.0.0.1:60106 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:25] INFO:     127.0.0.1:56036 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:26] INFO:     127.0.0.1:60014 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:27] INFO:     127.0.0.1:56028 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:27] INFO:     127.0.0.1:55970 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:27] INFO:     127.0.0.1:60256 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:08:27] INFO:     127.0.0.1:56168 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:27] INFO:     127.0.0.1:60304 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:27] INFO:     127.0.0.1:60288 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:27] INFO:     127.0.0.1:60314 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:27] INFO:     127.0.0.1:56158 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:27] INFO:     127.0.0.1:60306 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:28] INFO:     127.0.0.1:60274 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:28] INFO:     127.0.0.1:55982 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:28] INFO:     127.0.0.1:60162 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:28] INFO:     127.0.0.1:60342 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:28] INFO:     127.0.0.1:60354 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:28] INFO:     127.0.0.1:60246 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:28] INFO:     127.0.0.1:60398 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:29] INFO:     127.0.0.1:60144 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:29] INFO:     127.0.0.1:60406 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:29] INFO:     127.0.0.1:56050 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:29] INFO:     127.0.0.1:60442 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:30] INFO:     127.0.0.1:51208 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:30] INFO:     127.0.0.1:60448 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:31] INFO:     127.0.0.1:60234 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:31] INFO:     127.0.0.1:51298 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:32] INFO:     127.0.0.1:51312 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:32] INFO:     127.0.0.1:60080 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:32] INFO:     127.0.0.1:51346 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:32] INFO:     127.0.0.1:51282 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:08:33] INFO:     127.0.0.1:51396 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:35] INFO:     127.0.0.1:51362 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:35] INFO:     127.0.0.1:60242 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:35] INFO:     127.0.0.1:60012 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:36] INFO:     127.0.0.1:51414 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:36] INFO:     127.0.0.1:60262 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:36] INFO:     127.0.0.1:51272 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:36] INFO:     127.0.0.1:60086 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:37] INFO:     127.0.0.1:60218 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:37] INFO:     127.0.0.1:51522 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:08:37] INFO:     127.0.0.1:51318 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:38] INFO:     127.0.0.1:60000 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:39] INFO:     127.0.0.1:51452 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:39] INFO:     127.0.0.1:51468 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:39] INFO:     127.0.0.1:60366 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:40] INFO:     127.0.0.1:60278 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:40] INFO:     127.0.0.1:51228 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:41] INFO:     127.0.0.1:51274 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:42] INFO:     127.0.0.1:60382 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:42] INFO:     127.0.0.1:60328 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:42] INFO:     127.0.0.1:51566 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:42] INFO:     127.0.0.1:60116 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:42] INFO:     127.0.0.1:51386 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:08:42] INFO:     127.0.0.1:51400 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:42] INFO:     127.0.0.1:60418 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:42] INFO:     127.0.0.1:51306 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:43] INFO:     127.0.0.1:51236 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:44] INFO:     127.0.0.1:60208 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:44] INFO:     127.0.0.1:60428 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:44] INFO:     127.0.0.1:36750 - "POST /generate HTTP/1.1" 200 OK
+Init PageAllocator: total_mem_size=800MB, page_size=2MB, shm: ipc_0_3_root
+Started page preallocation thread
+[2026-08-21 11:08:45] INFO:     127.0.0.1:51212 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:45] INFO:     127.0.0.1:36738 - "POST /activate HTTP/1.1" 200 OK
+[2026-08-21 11:08:45] INFO:     127.0.0.1:60220 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:45] INFO:     127.0.0.1:60230 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:45] INFO:     127.0.0.1:51426 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:45] INFO:     127.0.0.1:51490 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:45] INFO:     127.0.0.1:51570 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:45] INFO:     127.0.0.1:36682 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:45] INFO:     127.0.0.1:60250 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:45] INFO:     127.0.0.1:36684 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:46] INFO:     127.0.0.1:51262 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:46] INFO:     127.0.0.1:51384 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:46] INFO:     127.0.0.1:36802 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:46] INFO:     127.0.0.1:51248 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:46] INFO:     127.0.0.1:51368 - "POST /generate HTTP/1.1" 200 OK
+Init PageAllocator: total_mem_size=354MB, page_size=2MB, shm: ipc_0_1_root
+Started page preallocation thread
+[2026-08-21 11:08:47] INFO:     127.0.0.1:51332 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:47] INFO:     127.0.0.1:36814 - "POST /activate HTTP/1.1" 200 OK
+[2026-08-21 11:08:47] INFO:     127.0.0.1:36892 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:08:47] INFO:     127.0.0.1:36952 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:48] INFO:     127.0.0.1:36734 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:48] INFO:     127.0.0.1:51524 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:48] INFO:     127.0.0.1:51316 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:48] INFO:     127.0.0.1:36700 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:48] INFO:     127.0.0.1:36868 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:48] INFO:     127.0.0.1:36916 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:48] INFO:     127.0.0.1:51354 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:49] INFO:     127.0.0.1:36870 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:49] INFO:     127.0.0.1:36792 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:49] INFO:     127.0.0.1:51548 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:49] INFO:     127.0.0.1:51450 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:50] INFO:     127.0.0.1:51502 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:50] INFO:     127.0.0.1:36986 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:50] INFO:     127.0.0.1:51588 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:50] INFO:     127.0.0.1:36956 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:51] INFO:     127.0.0.1:51576 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:52] INFO:     127.0.0.1:36782 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:52] INFO:     127.0.0.1:51412 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:08:53] INFO:     127.0.0.1:36974 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:53] INFO:     127.0.0.1:44968 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:53] INFO:     127.0.0.1:51592 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:53] INFO:     127.0.0.1:45002 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:53] INFO:     127.0.0.1:36736 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:53] INFO:     127.0.0.1:36678 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:53] INFO:     127.0.0.1:36934 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:53] INFO:     127.0.0.1:51422 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:53] INFO:     127.0.0.1:51440 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:54] INFO:     127.0.0.1:51550 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:54] INFO:     127.0.0.1:45018 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:55] INFO:     127.0.0.1:51476 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:55] INFO:     127.0.0.1:36992 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:55] INFO:     127.0.0.1:51514 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:57] INFO:     127.0.0.1:45070 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:57] INFO:     127.0.0.1:36850 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:57] INFO:     127.0.0.1:45078 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:57] INFO:     127.0.0.1:45058 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:57] INFO:     127.0.0.1:51536 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:08:58] INFO:     127.0.0.1:45152 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:58] INFO:     127.0.0.1:36828 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:58] INFO:     127.0.0.1:45144 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:58] INFO:     127.0.0.1:45130 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:58] INFO:     127.0.0.1:36830 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:58] INFO:     127.0.0.1:36838 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:59] INFO:     127.0.0.1:36964 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:59] INFO:     127.0.0.1:36854 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:59] INFO:     127.0.0.1:51598 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:08:59] INFO:     127.0.0.1:45186 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:00] INFO:     127.0.0.1:45190 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:00] INFO:     127.0.0.1:36664 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:00] INFO:     127.0.0.1:36712 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:00] INFO:     127.0.0.1:52604 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:00] INFO:     127.0.0.1:44966 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:01] INFO:     127.0.0.1:36726 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:02] INFO:     127.0.0.1:45172 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:02] INFO:     127.0.0.1:44942 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:02] INFO:     127.0.0.1:36844 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:02] INFO:     127.0.0.1:52622 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:02] INFO:     127.0.0.1:52646 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:02] INFO:     127.0.0.1:45198 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:09:03] INFO:     127.0.0.1:45112 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:03] INFO:     127.0.0.1:52680 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:03] INFO:     127.0.0.1:52652 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:03] INFO:     127.0.0.1:52684 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:03] INFO:     127.0.0.1:52654 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:04] INFO:     127.0.0.1:52694 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:04] INFO:     127.0.0.1:36766 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:04] INFO:     127.0.0.1:36882 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:04] INFO:     127.0.0.1:36908 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:04] INFO:     127.0.0.1:45028 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:05] INFO:     127.0.0.1:44996 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:05] INFO:     127.0.0.1:45052 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:05] INFO:     127.0.0.1:45060 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:05] INFO:     127.0.0.1:36840 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:06] INFO:     127.0.0.1:44984 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:06] INFO:     127.0.0.1:44978 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:06] INFO:     127.0.0.1:45168 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:07] INFO:     127.0.0.1:45102 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:07] INFO:     127.0.0.1:44960 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:07] INFO:     127.0.0.1:36920 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:07] INFO:     127.0.0.1:36948 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:07] INFO:     127.0.0.1:45084 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:09:08] INFO:     127.0.0.1:45066 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:08] INFO:     127.0.0.1:52706 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:08] INFO:     127.0.0.1:52598 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:09] INFO:     127.0.0.1:52636 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:09] INFO:     127.0.0.1:45094 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:09] INFO:     127.0.0.1:45124 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:10] INFO:     127.0.0.1:44952 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:10] INFO:     127.0.0.1:45206 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:11] INFO:     127.0.0.1:44982 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:12] INFO:     127.0.0.1:52666 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:12] INFO:     127.0.0.1:52618 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 11:09:13] INFO:     127.0.0.1:52702 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:13] INFO:     127.0.0.1:45020 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:13] INFO:     127.0.0.1:45044 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:13] INFO:     127.0.0.1:45118 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:14] INFO:     127.0.0.1:45100 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:14] INFO:     127.0.0.1:52712 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:14] INFO:     127.0.0.1:45178 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 11:09:16] INFO:     127.0.0.1:52668 - "POST /generate HTTP/1.1" 200 OK

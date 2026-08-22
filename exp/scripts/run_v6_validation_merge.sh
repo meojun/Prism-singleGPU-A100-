@@ -13,6 +13,7 @@ cd "$R"
 set -a; . /workspace/.env 2>/dev/null; set +a
 source "$R/prism-venv/bin/activate"
 export PRISM_ROOT=$R PRISM_REPO=$R/prism-research PRISM_EXP=$R/exp
+export PYTHONPATH="$PRISM_REPO/python${PYTHONPATH:+:$PYTHONPATH}"
 export HF_HOME=/workspace/.hf_home PYTHONUNBUFFERED=1
 export CUDA_VISIBLE_DEVICES=0,1
 # This box's numbers, not the committed ones and not the other box's.

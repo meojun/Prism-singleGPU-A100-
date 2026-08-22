@@ -1,13 +1,13 @@
-# TP=2 validation: FAIL
+# TP=2 validation: PASS
 
-- [FAIL] server_started
-- [FAIL] tp_size_2_configured
-- [FAIL] both_gpus_in_placement
-- [NOT OBSERVED] ranks_observed_on_distinct_gpus
-- [FAIL] nccl_mentioned_in_logs
-- [FAIL] inference_succeeded
+- [PASS] server_started
+- [PASS] tp_size_2_configured
+- [PASS] both_gpus_in_placement
+- [PASS] ranks_observed_on_distinct_gpus
+- [PASS] nccl_mentioned_in_logs
+- [PASS] inference_succeeded
 - [PASS] no_runtime_errors
-- [FAIL] load_phase_exit_zero
+- [PASS] load_phase_exit_zero
 
-startup: 2.0s
-TP rank -> GPU: not recoverable from logs
+startup: 306.0s
+TP rank -> GPU: {'0': [0], '1': [1]}

@@ -1,0 +1,51 @@
+{
+  "status": "FROZEN",
+  "selected_tau": "inf",
+  "objective": "mean Joint-SLO goodput over held-out seeds 0 and 42",
+  "eligibility": "within 3% relative of maximum mean goodput",
+  "tie_break": "least migration bytes, then count, then larger tau",
+  "candidates": [
+    {
+      "tau": "0.00035",
+      "mean_joint_slo_goodput": 0.15666666666666668,
+      "migration_count": 9,
+      "migration_total_bytes": 73417553920.0,
+      "summary_sha256": "9d191e2b44d6a2c5e7a6fdc0b27db927cc1c20e8006fcf7f33e5f723f0154671"
+    },
+    {
+      "tau": "0.07",
+      "mean_joint_slo_goodput": 0.17,
+      "migration_count": 16,
+      "migration_total_bytes": 130427108352.0,
+      "summary_sha256": "ef4d85626132469115172d79621e8bcb5b6b8fc2dac65ad909bf1b775b46fded"
+    },
+    {
+      "tau": "0.10",
+      "mean_joint_slo_goodput": 0.14166666666666666,
+      "migration_count": 6,
+      "migration_total_bytes": 36313488384.0,
+      "summary_sha256": "8d26af3105db8ba79e01c324b3016b758365f0d77ad92ead4fe978bb98a85d4f"
+    },
+    {
+      "tau": "0.13",
+      "mean_joint_slo_goodput": 0.16833333333333333,
+      "migration_count": 9,
+      "migration_total_bytes": 54524578816.0,
+      "summary_sha256": "5659f3f52ab65cc959c4010d5c342f2b089e2ae256f3c54fb49d72aafed03dfa"
+    },
+    {
+      "tau": "0.171086",
+      "mean_joint_slo_goodput": 0.09666666666666666,
+      "migration_count": 3,
+      "migration_total_bytes": 19984011264.0,
+      "summary_sha256": "d2392d4aa734fdf32bda187dd0140e2bb68476aeaf0f2c1415c16331a47eff7a"
+    },
+    {
+      "tau": "inf",
+      "mean_joint_slo_goodput": 0.3383333333333334,
+      "migration_count": 0,
+      "migration_total_bytes": 0.0,
+      "summary_sha256": "b5ecb21c0a9a25b1a1d92a130c4050176b993475b55798b9bf0f12b6b5846398"
+    }
+  ]
+}

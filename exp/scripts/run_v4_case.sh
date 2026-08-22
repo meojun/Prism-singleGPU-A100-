@@ -129,8 +129,11 @@ case "$SYSTEM" in
                    --kvpr-migration-cooldown "$KVPR_COOLDOWN"
                    --kvpr-tpot-slo-scale "$TPOT_SCALE"
                    --enable-moore-hodgson --prefill-speed-file "$PREFILL_SPEED"
-                   --parallel-model-loading --overlap-migration
+                   --overlap-migration
                    --enable-kv-migration)
+      # Initial placement is deliberately serialized. Concurrent startup
+      # activation has produced model-service SIGSEGVs while loading different
+      # models onto one GPU; this flag affects boot only, not migration overlap.
       export PRISM_V4_PAGELOCK=${V5_PAGELOCK:-${PRISM_V4_PAGELOCK:-1}}
       export PRISM_V4_P2P_MIGRATION=${V5_P2P:-${PRISM_V4_P2P_MIGRATION:-1}}
       # The policy runs in the controller process and the capture/inject run in
@@ -209,9 +212,13 @@ V4ENV="export PRISM_V4_LOAD_TRACE='$PRISM_V4_LOAD_TRACE'"
 [ -n "${PRISM_V6_KV_MIGRATION:-}" ] && V4ENV="$V4ENV PRISM_V6_KV_MIGRATION=$PRISM_V6_KV_MIGRATION"
 [ -n "${PRISM_V6_KV_TRACE:-}" ] && V4ENV="$V4ENV PRISM_V6_KV_TRACE='$PRISM_V6_KV_TRACE'"
 tmux new-session -d -s "$SESSION" \
-  "export CUDA_VISIBLE_DEVICES=$VISIBLE && cd $PRISM_REPO/benchmark/multi-model && \
+  "ulimit -n 65535 && export PRISM_ROOT='$PRISM_ROOT' PRISM_REPO='$PRISM_REPO' \
+   PRISM_EXP='$PRISM_EXP' PYTHONPATH='$PRISM_REPO/python' && \
+   export CUDA_VISIBLE_DEVICES=$VISIBLE && cd $PRISM_REPO/benchmark/multi-model && \
    source $SCRIPT_DIR/env.sh && export CUDA_VISIBLE_DEVICES=$VISIBLE && $V4ENV && \
-   python3 -m sglang.launch_multi_model_server ${ARGS[*]} 2>&1 | tee $LOGDIR/stdout.log"
+   { python3 $SCRIPT_DIR/verify_sglang_source.py '$PRISM_REPO' && \
+     python3 -m sglang.launch_multi_model_server ${ARGS[*]}; } \
+   2>&1 | tee $LOGDIR/stdout.log"
 
 echo -n "waiting for server"
 READY=0
@@ -219,6 +226,13 @@ for _ in $(seq 1 600); do
     if curl -sf "http://127.0.0.1:$PORT/get_model_names" >/dev/null 2>&1; then READY=1; break; fi
     if ! tmux has-session -t "$SESSION" 2>/dev/null; then
         echo " -> DIED, see $LOGDIR/stdout.log"; exit 1
+    fi
+    # A model-service worker can segfault while the launcher and tmux session
+    # remain alive.  Without this check the run waits the full 20-minute
+    # readiness timeout with one model permanently stuck in `activating`.
+    SERVER_PID=$(pgrep -f "^python3 -m sglang.launch_multi_model_server .*--port $PORT( |$)" | head -1 || true)
+    if [ -n "$SERVER_PID" ] && ps --ppid "$SERVER_PID" -o stat= 2>/dev/null | grep -q '^Z'; then
+        echo " -> CHILD_DIED, see $LOGDIR/stdout.log and server logs"; exit 1
     fi
     echo -n "."; sleep 2
 done
@@ -256,13 +270,20 @@ kill "$SAMPLER" 2>/dev/null || true
 GC="$LOGDIR/server.log.global_controller.log"
 count_gc() { local n; n=$(grep -cF -- "$1" "$GC" 2>/dev/null || true); echo "${n:-0}"; }
 count_gs() { local n; n=$(cat "$LOGDIR"/*gpu_scheduler*.log 2>/dev/null | grep -cF -- "$1" || true); echo "${n:-0}"; }
+count_file() { local n; n=$(grep -cF -- "$1" "$2" 2>/dev/null || true); echo "${n:-0}"; }
 {
   echo "system=$SYSTEM workload=$WORKLOAD rate=$RATE seed=$SEED"
-  if [ "$SYSTEM" = "paper-faithful-v4" ]; then
+  echo "max_mem_usage=$MAXMEM"
+  if [ "$SYSTEM" = "paper-faithful-v4" ] || [ "$SYSTEM" = "paper-faithful-v6" ]; then
     echo "alg1_log_lines=$(count_gc '[PAPER-ALG1-V4]')"
     echo "alg1_migrations=$(count_gc '"migration_decision": "MIGRATE"')"
     echo "v4_weight_transfers=$(wc -l < "$OUTDIR/weight_transfers.jsonl" 2>/dev/null || echo 0)"
-    echo "v4_p2p_transfers=$(grep -cF -- '"transfer_path": "gpu-to-gpu-p2p"' "$OUTDIR/weight_transfers.jsonl" 2>/dev/null || echo 0)"
+    echo "v4_p2p_transfers=$(count_file '"bytes_p2p":' "$OUTDIR/weight_transfers.jsonl")"
+    if [ "$SYSTEM" = "paper-faithful-v6" ]; then
+      echo "v6_kv_transfers=$(wc -l < "$OUTDIR/kv_transfers.jsonl" 2>/dev/null || echo 0)"
+      echo "v6_p2p_transfers=$(count_file '"transfer_path": "gpu-to-gpu-p2p"' "$OUTDIR/kv_transfers.jsonl")"
+      echo "v6_resumed_requests=$(count_file '"event": "resume"' "$LOGDIR/server.log")"
+    fi
   elif [ "$SYSTEM" = "paper-faithful-v3" ]; then
     echo "alg1_log_lines=$(count_gc '[PAPER-ALG1-V3]')"
     echo "alg1_migrations=$(count_gc '"migration_decision": "MIGRATE"')"
@@ -272,7 +293,7 @@ count_gs() { local n; n=$(cat "$LOGDIR"/*gpu_scheduler*.log 2>/dev/null | grep -
   fi
   echo "alg2_log_lines=$(count_gs '[PAPER-ALG2]')"
   echo "alg2_underadmission_warnings=$(count_gs '[PAPER-ALG2-WARN]')"
-  if [ "$SYSTEM" = "paper-faithful-v3" ] || [ "$SYSTEM" = "paper-faithful-v4" ]; then
+  if [ "$SYSTEM" = "paper-faithful-v3" ] || [ "$SYSTEM" = "paper-faithful-v4" ] || [ "$SYSTEM" = "paper-faithful-v6" ]; then
     echo "proto_migrations=0"
   else
     echo "proto_migrations=$(count_gc 'Reason: migrate model')"

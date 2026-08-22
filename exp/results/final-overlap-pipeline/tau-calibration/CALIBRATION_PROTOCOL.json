@@ -1,0 +1,19 @@
+{
+  "status": "PREREGISTERED_BEFORE_RUNS",
+  "workload": "bursty rate=20 duration=420s",
+  "held_out_seeds": [
+    0,
+    42
+  ],
+  "candidates": [
+    "0.00035",
+    "0.07",
+    "0.10",
+    "0.13",
+    "0.171086",
+    "inf"
+  ],
+  "primary": "maximum mean Joint-SLO goodput",
+  "tie": "within 3% relative: least migration bytes, then count, then larger tau",
+  "final_evaluation": "tau frozen; seeds 1,2,3 only"
+}

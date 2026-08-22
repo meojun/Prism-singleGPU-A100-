@@ -1,0 +1,22 @@
+{
+  "source_evidence": "OVERLAP_GATE.json",
+  "source_evidence_preserved": true,
+  "decision": "CORE_OVERLAP_CORRECTNESS_PASS",
+  "strict_zero_abort_gate": "FAIL",
+  "reason": "The sole abort (1/3429) was a Moore-Hodgson SLO admission rejection. It was not a migration loss, runtime crash, OOM, NCCL error, or CUDA error; the benchmark then raised TypeError while serializing a null prefill_finish_time.",
+  "evidence": {
+    "completed": 3428,
+    "slo_admission_rejections": 1,
+    "successful_prepare_actions": 13,
+    "source_completed_during_prepare": 9,
+    "resume_events": 79,
+    "continuation_events": 79,
+    "requests_injected": 79,
+    "kv_transfer_records": 9,
+    "p2p_transfer_records": 9,
+    "oom_errors": 0,
+    "nccl_errors": 0,
+    "cuda_errors": 0
+  },
+  "pipeline_action": "Skip further small-model gate reruns and proceed to post-overlap 70B TP=2 sanity."
+}

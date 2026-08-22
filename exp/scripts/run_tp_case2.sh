@@ -25,6 +25,7 @@
 # placement it produced are preserved per run; the aggregate is derived from
 # them and never replaces them.
 set -uo pipefail
+ulimit -n 65535
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 cd /workspace/prism-exp
 source "$SCRIPT_DIR/env.sh"

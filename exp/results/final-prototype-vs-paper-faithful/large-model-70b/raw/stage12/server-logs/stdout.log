@@ -1,1 +1,131 @@
-/usr/bin/python3: Error while finding module specification for 'sglang.launch_multi_model_server' (ModuleNotFoundError: No module named 'sglang')
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+[ModelConfig(model_name='model_70b', model_path='meta-llama/Llama-3.1-70B', tokenizer_path='meta-llama/Llama-3.1-70B', tp_size=2, init_placements=[{'gpu_ids': [0, 1], 'on': True, 'max_memory_pool_size': 20.0}])]
+Initializing torch distributed...
+Torch distributed initialized.
+Loading 1 shared models to cpu...
+INFO 08-21 05:44:39 weight_utils.py:243] Using model weights format ['*.safetensors']
+Loading safetensors checkpoint shards:   0% Completed | 0/30 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:   3% Completed | 1/30 [00:01<00:50,  1.74s/it]
+Loading safetensors checkpoint shards:   7% Completed | 2/30 [00:03<00:45,  1.63s/it]
+Loading safetensors checkpoint shards:  10% Completed | 3/30 [00:05<00:45,  1.70s/it]
+Loading safetensors checkpoint shards:  13% Completed | 4/30 [00:06<00:42,  1.63s/it]
+Loading safetensors checkpoint shards:  17% Completed | 5/30 [00:08<00:41,  1.67s/it]
+Loading safetensors checkpoint shards:  20% Completed | 6/30 [00:09<00:39,  1.63s/it]
+Loading safetensors checkpoint shards:  23% Completed | 7/30 [00:11<00:36,  1.59s/it]
+Loading safetensors checkpoint shards:  27% Completed | 8/30 [00:12<00:34,  1.57s/it]
+Loading safetensors checkpoint shards:  30% Completed | 9/30 [00:14<00:35,  1.69s/it]
+Loading safetensors checkpoint shards:  33% Completed | 10/30 [00:16<00:35,  1.78s/it]
+Loading safetensors checkpoint shards:  37% Completed | 11/30 [00:18<00:35,  1.85s/it]
+Loading safetensors checkpoint shards:  40% Completed | 12/30 [00:20<00:33,  1.85s/it]
+Loading safetensors checkpoint shards:  43% Completed | 13/30 [00:22<00:29,  1.75s/it]
+Loading safetensors checkpoint shards:  47% Completed | 14/30 [00:23<00:26,  1.67s/it]
+Loading safetensors checkpoint shards:  50% Completed | 15/30 [00:25<00:24,  1.64s/it]
+Loading safetensors checkpoint shards:  53% Completed | 16/30 [00:26<00:21,  1.57s/it]
+Loading safetensors checkpoint shards:  57% Completed | 17/30 [00:28<00:19,  1.51s/it]
+Loading safetensors checkpoint shards:  60% Completed | 18/30 [00:29<00:17,  1.50s/it]
+Loading safetensors checkpoint shards:  63% Completed | 19/30 [00:31<00:16,  1.49s/it]
+Loading safetensors checkpoint shards:  67% Completed | 20/30 [00:32<00:14,  1.47s/it]
+Loading safetensors checkpoint shards:  70% Completed | 21/30 [00:34<00:13,  1.50s/it]
+Loading safetensors checkpoint shards:  73% Completed | 22/30 [00:35<00:11,  1.47s/it]
+Loading safetensors checkpoint shards:  77% Completed | 23/30 [00:37<00:10,  1.56s/it]
+Loading safetensors checkpoint shards:  80% Completed | 24/30 [00:38<00:09,  1.57s/it]
+Loading safetensors checkpoint shards:  83% Completed | 25/30 [00:39<00:06,  1.30s/it]
+Loading safetensors checkpoint shards:  87% Completed | 26/30 [00:40<00:05,  1.31s/it]
+Loading safetensors checkpoint shards:  90% Completed | 27/30 [00:42<00:03,  1.33s/it]
+Loading safetensors checkpoint shards:  93% Completed | 28/30 [00:44<00:03,  1.56s/it]
+Loading safetensors checkpoint shards:  97% Completed | 29/30 [00:45<00:01,  1.55s/it]
+Loading safetensors checkpoint shards: 100% Completed | 30/30 [00:47<00:00,  1.55s/it]
+Loading safetensors checkpoint shards: 100% Completed | 30/30 [00:47<00:00,  1.58s/it]
+
+INFO 08-21 05:46:30 weight_utils.py:243] Using model weights format ['*.safetensors']
+Loading safetensors checkpoint shards:   0% Completed | 0/30 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:   3% Completed | 1/30 [00:01<00:51,  1.77s/it]
+Loading safetensors checkpoint shards:   7% Completed | 2/30 [00:03<00:47,  1.69s/it]
+Loading safetensors checkpoint shards:  10% Completed | 3/30 [00:05<00:44,  1.66s/it]
+Loading safetensors checkpoint shards:  13% Completed | 4/30 [00:06<00:42,  1.63s/it]
+Loading safetensors checkpoint shards:  17% Completed | 5/30 [00:08<00:42,  1.69s/it]
+Loading safetensors checkpoint shards:  20% Completed | 6/30 [00:10<00:40,  1.67s/it]
+Loading safetensors checkpoint shards:  23% Completed | 7/30 [00:11<00:37,  1.64s/it]
+Loading safetensors checkpoint shards:  27% Completed | 8/30 [00:13<00:35,  1.62s/it]
+Loading safetensors checkpoint shards:  30% Completed | 9/30 [00:15<00:35,  1.69s/it]
+Loading safetensors checkpoint shards:  33% Completed | 10/30 [00:16<00:35,  1.76s/it]
+Loading safetensors checkpoint shards:  37% Completed | 11/30 [00:19<00:35,  1.89s/it]
+Loading safetensors checkpoint shards:  40% Completed | 12/30 [00:21<00:34,  1.93s/it]
+Loading safetensors checkpoint shards:  43% Completed | 13/30 [00:22<00:31,  1.83s/it]
+Loading safetensors checkpoint shards:  47% Completed | 14/30 [00:24<00:27,  1.75s/it]
+Loading safetensors checkpoint shards:  50% Completed | 15/30 [00:26<00:27,  1.82s/it]
+Loading safetensors checkpoint shards:  53% Completed | 16/30 [00:27<00:23,  1.71s/it]
+Loading safetensors checkpoint shards:  57% Completed | 17/30 [00:29<00:21,  1.64s/it]
+Loading safetensors checkpoint shards:  60% Completed | 18/30 [00:30<00:19,  1.62s/it]
+Loading safetensors checkpoint shards:  63% Completed | 19/30 [00:32<00:17,  1.61s/it]
+Loading safetensors checkpoint shards:  67% Completed | 20/30 [00:33<00:15,  1.57s/it]
+Loading safetensors checkpoint shards:  70% Completed | 21/30 [00:35<00:14,  1.59s/it]
+Loading safetensors checkpoint shards:  73% Completed | 22/30 [00:36<00:12,  1.56s/it]
+Loading safetensors checkpoint shards:  77% Completed | 23/30 [00:38<00:11,  1.63s/it]
+Loading safetensors checkpoint shards:  80% Completed | 24/30 [00:40<00:10,  1.67s/it]
+Loading safetensors checkpoint shards:  83% Completed | 25/30 [00:41<00:07,  1.40s/it]
+Loading safetensors checkpoint shards:  87% Completed | 26/30 [00:42<00:05,  1.38s/it]
+Loading safetensors checkpoint shards:  90% Completed | 27/30 [00:44<00:04,  1.41s/it]
+Loading safetensors checkpoint shards:  93% Completed | 28/30 [00:45<00:03,  1.52s/it]
+Loading safetensors checkpoint shards:  97% Completed | 29/30 [00:47<00:01,  1.55s/it]
+Loading safetensors checkpoint shards: 100% Completed | 30/30 [00:49<00:00,  1.55s/it]
+Loading safetensors checkpoint shards: 100% Completed | 30/30 [00:49<00:00,  1.64s/it]
+
+Shared models loaded in 238.99 seconds.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 0 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Controller process started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+Init PageAllocator: total_mem_size=160MB, page_size=2MB, shm: ipc_0_1_root
+Started page preallocation thread
+Init PageAllocator: total_mem_size=160MB, page_size=2MB, shm: ipc_1_1_root
+Started page preallocation thread
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+[2026-08-21 05:49:35] INFO:     Started server process [80238]
+[2026-08-21 05:49:35] INFO:     Waiting for application startup.
+[2026-08-21 05:49:35] INFO:     Application startup complete.
+[2026-08-21 05:49:35] INFO:     Uvicorn running on http://127.0.0.1:42800 (Press CTRL+C to quit)
+[2026-08-21 05:49:36] INFO:     127.0.0.1:59746 - "GET /get_model_names HTTP/1.1" 200 OK
+[2026-08-21 05:49:36] INFO:     127.0.0.1:59764 - "GET /get_model_names HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 05:49:38] INFO:     127.0.0.1:59762 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 05:49:39] INFO:     127.0.0.1:59768 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 05:49:40] INFO:     127.0.0.1:59778 - "POST /generate HTTP/1.1" 200 OK
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+[2026-08-21 05:49:42] INFO:     127.0.0.1:49710 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 05:49:43] INFO:     127.0.0.1:49716 - "POST /generate HTTP/1.1" 200 OK
+[2026-08-21 05:49:43] INFO:     Shutting down
+[2026-08-21 05:49:43] INFO:     Waiting for application shutdown.
+[2026-08-21 05:49:43] INFO:     Application shutdown complete.
+[2026-08-21 05:49:43] INFO:     Finished server process [80238]
+/workspace/prism-exp/prism-research/python/sglang/multi_model/request_handler_worker_pool.py:238: RuntimeWarning: coroutine 'AsyncRedisClient.close' was never awaited
+  logger.error(f"Error during cleanup: {e}")
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+WARNING: current device is not 1, but 0,  which may cause useless memory allocation for torch CUDA context.
+/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 22 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 2 leaked shared_memory objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py:237: UserWarning: resource_tracker: '/ipc_1_1_root': [Errno 2] No such file or directory: '/ipc_1_1_root'
+  warnings.warn('resource_tracker: %r: %s' % (name, e))

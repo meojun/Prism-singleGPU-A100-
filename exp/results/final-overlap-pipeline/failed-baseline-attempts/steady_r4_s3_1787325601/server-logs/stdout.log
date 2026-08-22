@@ -1,0 +1,145 @@
+[PRISM-SOURCE] expected=/workspace/prism-base/prism-research/python actual=/workspace/prism-base/prism-research/python/sglang/__init__.py
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+[ModelConfig(model_name='model_1', model_path='meta-llama/Llama-3.2-1B', tokenizer_path='meta-llama/Llama-3.2-1B', tp_size=1, init_placements=[{'gpu_ids': [0], 'on': True, 'max_memory_pool_size': 20.0}]), ModelConfig(model_name='model_2', model_path='Qwen/Qwen2.5-1.5B-Instruct', tokenizer_path='Qwen/Qwen2.5-1.5B-Instruct', tp_size=1, init_placements=[{'gpu_ids': [1], 'on': True, 'max_memory_pool_size': 20.0}]), ModelConfig(model_name='model_3', model_path='meta-llama/Llama-3.2-3B', tokenizer_path='meta-llama/Llama-3.2-3B', tp_size=1, init_placements=[{'gpu_ids': [1], 'on': True, 'max_memory_pool_size': 20.0}]), ModelConfig(model_name='model_4', model_path='Qwen/Qwen2.5-3B-Instruct', tokenizer_path='Qwen/Qwen2.5-3B-Instruct', tp_size=1, init_placements=[{'gpu_ids': [0], 'on': True, 'max_memory_pool_size': 20.0}]), ModelConfig(model_name='model_5', model_path='meta-llama/Llama-3.1-8B', tokenizer_path='meta-llama/Llama-3.1-8B', tp_size=1, init_placements=[{'gpu_ids': [0], 'on': True, 'max_memory_pool_size': 20.0}]), ModelConfig(model_name='model_6', model_path='Qwen/Qwen2.5-7B-Instruct', tokenizer_path='Qwen/Qwen2.5-7B-Instruct', tp_size=1, init_placements=[{'gpu_ids': [1], 'on': True, 'max_memory_pool_size': 20.0}])]
+Initializing torch distributed...
+Torch distributed initialized.
+Loading 6 shared models to cpu...
+INFO 08-21 13:47:16 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-21 13:47:16 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-21 13:47:16 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-21 13:47:16 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-21 13:47:16 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 08-21 13:47:16 weight_utils.py:288] No model.safetensors.index.json found in remote.
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+
+Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+[AINFO 08-21 13:47:16 weight_utils.py:243] Using model weights format ['*.safetensors']
+
+
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+[A[AINFO 08-21 13:47:16 weight_utils.py:288] No model.safetensors.index.json found in remote.
+
+
+
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+[A[A[A
+
+
+
+Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+[A[A[A[A
+
+
+
+
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+[A[A[A[A[A
+
+
+
+
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:00<00:02,  1.02it/s]
+[A[A[A[A[A
+
+
+
+Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:01<00:01,  1.27s/it]
+[A[A[A[A
+Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:01<00:01,  1.95s/it]
+[A
+
+
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:02<00:00,  2.28s/it]
+[A[A[ALoading safetensors checkpoint shards: 100% Completed | 1/1 [00:02<00:00,  2.28s/it]
+
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:03<00:00,  3.41s/it]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:03<00:00,  3.41s/it]
+
+
+
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:03<00:11,  3.79s/it]
+[A[A
+
+
+
+
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:06<00:06,  3.42s/it]
+[A[A[A[A[A
+
+
+
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:06<00:00,  3.67s/it]
+[A[A[A[ALoading safetensors checkpoint shards: 100% Completed | 2/2 [00:06<00:00,  3.31s/it]
+
+
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:07<00:00,  3.81s/it]
+[ALoading safetensors checkpoint shards: 100% Completed | 2/2 [00:07<00:00,  3.53s/it]
+
+
+
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:07<00:07,  3.74s/it]
+[A[A
+
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:10<00:03,  3.52s/it]
+[A[A
+
+
+
+
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:11<00:04,  4.22s/it]
+[A[A[A[A[A
+
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:14<00:00,  3.50s/it]
+[A[ALoading safetensors checkpoint shards: 100% Completed | 4/4 [00:14<00:00,  3.56s/it]
+
+
+
+
+
+
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:15<00:00,  4.33s/it]
+[A[A[A[A[ALoading safetensors checkpoint shards: 100% Completed | 4/4 [00:15<00:00,  3.94s/it]
+
+Shared models loaded in 36.42 seconds.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 0 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 1 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 2 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 3 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 4 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+Model service worker 5 started.
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/workspace/prism-exp/prism-venv/lib/python3.10/site-packages/pyairports/airports.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_string
+/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py:104: UserWarning: resource_tracker: process died unexpectedly, relaunching.  Some resources might leak.
+  warnings.warn('resource_tracker: process died unexpectedly, '
+Traceback (most recent call last):
+  File "/.uv/python_install/cpython-3.10-linux-x86_64-gnu/lib/python3.10/multiprocessing/resource_tracker.py", line 209, in main
+    cache[rtype].remove(name)
+KeyError: '/ipc_0_0_root'
+bash: line 1: 533797 Killed                  python3 -m sglang.launch_multi_model_server --model-config-file /workspace/prism-merge/exp/configs/v2/6model_2gpu.json --host 127.0.0.1 --port 41150 --disable-cuda-graph --disable-radix-cache --log-file /workspace/prism-merge/exp/results/final-prototype-vs-paper-faithful/raw/armA/raw/released-prototype/steady/rate_4/seed_3/server-logs/server.log --enable-elastic-memory --use-kvcached-v0 --enable-cpu-share-memory --max-mem-usage 67.28 --enable-gpu-scheduler --enable-controller --policy simple-global --enable-model-service --enable-worker-pool --workers-per-gpu 4 --num-model-service-workers 6 --num-gpus 2

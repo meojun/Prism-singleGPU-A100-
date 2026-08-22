@@ -1,0 +1,41 @@
+=== TP boot test: tp_size=2 ngpu=2 workers/gpu=1 model=meta-llama/Llama-3.1-70B
+[
+  {
+    "model_name": "model_70b",
+    "model_path": "meta-llama/Llama-3.1-70B",
+    "tp_size": 2,
+    "init_placements": [{"gpu_ids": [0, 1], "on": true, "max_memory_pool_size": 20.0}]
+  }
+]
+server pid=715740  log=/workspace/prism-merge/exp/results/final-overlap-pipeline/70b-sanity/attempt_20260821T173248/server-logs/stdout.log
+waiting for server........................................................................................................................................................ -> ready
+startup: 305s
+=== sending requests
+  ok  ( 3.41s) 'The capital of France is' -> {"text":" Paris. Most people in Paris live in apartment buildings. There are nearly eight hundred large apartment buildings along 
+  ok  ( 1.39s) 'Explain in one sentence why the ' -> {"text":" because, in the cold atmospheric temperature gradient, water vapor freezes out due to entropy maximization, allowing us 
+  ok  ( 1.39s) 'List three prime numbers:' -> {"text":" 4 8 12 16 20 24 28 32 36. A prime number is a","meta_info":{"prompt_tokens":6,"completion_tokens":24,"completion_tokens_
+  ok  ( 1.32s) 'Translate to French: good mornin' -> {"text":" Le haricot écrasé est caché dans les lits de délicieux champignons dans le thé","meta_info":{"prompt_tokens":8,"completi
+=== requests: 4 ok / 0 failed
+=== rank -> GPU, straight from the engines' own logs
+[2026-08-21 17:37:09.487 GPU=0 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=1 model_service=True
+[2026-08-21 17:37:09.588 GPU=1 Worker=0 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=1 tp_size=1 model_service=True
+[2026-08-21 17:37:09.669 GPU=0 Worker=1 TP0] [PAPER-TP] engine rank: tp_rank=0 gpu_id=0 tp_size=2 model_service=False
+[2026-08-21 17:37:18.227 GPU=1 Worker=1 TP1] [PAPER-TP] engine rank: tp_rank=1 gpu_id=1 tp_size=2 model_service=False
+=== slot plan
+[2026-08-21 17:37:01.080] [PAPER-TP] slot plan: {"num_gpus": 2, "workers_per_gpu": 1, "slots": [{"worker_id": 0, "tp_size": 1, "gpu_ids": [0], "owner_gpu": 0}, {"worker_id": 0, "tp_size": 1, "gpu_ids": [1], "owner_gpu": 1}, {"worker_id": 1, "tp_size": 2, "gpu_ids": [0, 1], "owner_gpu": 0}], "slots_per_gpu": {"0": [0, 1], "1": [0, 1]}}
+=== worker pools
+[2026-08-21 17:37:31.512 GPU_Scheduler_0] [PAPER-TP] WorkerPool gpu=0 owned=[0, 1] shadow=[] {0: 1, 1: 2}
+[2026-08-21 17:37:53.044 GPU_Scheduler_1] [PAPER-TP] WorkerPool gpu=1 owned=[0] shadow=[1] {0: 1, 1: 2}
+# TP=2 validation: PASS
+
+- [PASS] server_started
+- [PASS] tp_size_2_configured
+- [PASS] both_gpus_in_placement
+- [PASS] ranks_observed_on_distinct_gpus
+- [PASS] nccl_mentioned_in_logs
+- [PASS] inference_succeeded
+- [PASS] no_runtime_errors
+- [PASS] load_phase_exit_zero
+
+startup: 305.0s
+TP rank -> GPU: {'0': [0], '1': [1]}

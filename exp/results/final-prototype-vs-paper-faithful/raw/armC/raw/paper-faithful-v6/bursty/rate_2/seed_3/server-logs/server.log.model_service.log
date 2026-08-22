@@ -1,0 +1,662 @@
+[2026-08-21 10:17:55.152 Model_Service_0] [PAPER-LOAD-V4] worker 0/6 host page-lock: {'Qwen/Qwen2.5-1.5B-Instruct': {'locked': 199, 'already_locked': 0, 'failed': 0, 'seconds': 1.1147554838098586}}
+[2026-08-21 10:17:55.152 Model_Service_0] [PAPER-LOAD-V4] peer access: {'0->1': True, '1->0': True} p2p=True
+[2026-08-21 10:18:00.159 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:18:05.418 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:18:05.746 Model_Service_1] [PAPER-LOAD-V4] worker 1/6 host page-lock: {'Qwen/Qwen2.5-3B-Instruct': {'locked': 255, 'already_locked': 0, 'failed': 0, 'seconds': 2.0821448678616434}}
+[2026-08-21 10:18:05.747 Model_Service_1] [PAPER-LOAD-V4] peer access: {'0->1': True, '1->0': True} p2p=True
+[2026-08-21 10:18:10.663 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:18:10.754 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:18:15.916 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:18:16.008 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:18:18.683 Model_Service_2] [PAPER-LOAD-V4] worker 2/6 host page-lock: {'Qwen/Qwen2.5-7B-Instruct': {'locked': 199, 'already_locked': 0, 'failed': 0, 'seconds': 4.492826774017885}}
+[2026-08-21 10:18:18.683 Model_Service_2] [PAPER-LOAD-V4] peer access: {'0->1': True, '1->0': True} p2p=True
+[2026-08-21 10:18:21.203 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:18:21.261 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:18:23.690 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:18:26.452 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:18:26.519 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:18:28.951 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:18:31.711 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:18:31.775 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:18:31.924 Model_Service_3] [PAPER-LOAD-V4] worker 3/6 host page-lock: {'meta-llama/Llama-3.1-8B': {'locked': 195, 'already_locked': 0, 'failed': 0, 'seconds': 4.881758583011106}}
+[2026-08-21 10:18:31.924 Model_Service_3] [PAPER-LOAD-V4] peer access: {'0->1': True, '1->0': True} p2p=True
+[2026-08-21 10:18:34.233 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:18:36.930 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:18:36.960 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:18:37.036 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:18:39.486 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:18:41.070 Model_Service_4] [PAPER-LOAD-V4] worker 4/6 host page-lock: {'meta-llama/Llama-3.2-1B': {'locked': 98, 'already_locked': 1, 'failed': 0, 'seconds': 0.7497267359867692}}
+[2026-08-21 10:18:41.071 Model_Service_4] [PAPER-LOAD-V4] peer access: {'0->1': True, '1->0': True} p2p=True
+[2026-08-21 10:18:42.203 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:18:42.224 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:18:42.302 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:18:44.828 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:18:46.078 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:18:47.471 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:18:47.514 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:18:47.549 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:18:50.306 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:18:51.340 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:18:51.383 Model_Service_5] [PAPER-LOAD-V4] worker 5/6 host page-lock: {'meta-llama/Llama-3.2-3B': {'locked': 170, 'already_locked': 1, 'failed': 0, 'seconds': 1.9074115259572864}}
+[2026-08-21 10:18:51.383 Model_Service_5] [PAPER-LOAD-V4] peer access: {'0->1': True, '1->0': True} p2p=True
+[2026-08-21 10:18:52.740 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:18:52.777 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:18:52.805 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:18:55.570 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:18:56.391 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:18:56.610 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:18:58.004 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:18:58.043 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:18:58.049 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:19:00.893 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:19:01.660 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:19:01.874 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:19:03.277 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:19:03.310 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:19:03.325 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:19:06.245 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:19:07.026 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:19:07.158 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:19:08.545 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:19:08.590 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:19:08.593 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:19:11.538 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:19:12.275 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:19:12.419 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:19:13.835 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:19:13.879 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:19:13.886 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:19:16.809 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:19:17.542 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:19:17.685 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:19:19.098 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:19:19.146 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:19:19.151 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:19:22.097 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:19:22.806 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:19:22.925 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:19:24.364 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:19:24.427 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:19:24.429 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:19:27.394 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:19:28.064 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:19:28.173 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:19:29.623 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:19:29.670 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:19:29.672 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:19:32.638 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:19:33.332 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:19:33.426 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:19:34.862 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:19:34.939 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:19:34.946 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:19:34.955 Model_Service_4] Model key: meta-llama/Llama-3.2-1B, engine id: 0_0, target gpu id: 0
+[2026-08-21 10:19:35.257 Model_Service_4] [PAPER-LOAD-V4] {"tag": "meta-llama/Llama-3.2-1B|engine=0_0|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 0, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 198, "payload_bytes": 2996965376, "bytes_h2d_direct": 1498482688, "bytes_h2d_helper": 1498482688, "bytes_p2p": 1498482688, "seconds": 0.30006944318301976, "payload_gbps": 9.987572690539093, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:19:35.260 Model_Service_4] Time taken to copy model to GPU 0, service 4, engine 0_0, model meta-llama/Llama-3.2-1B: 0.3044 seconds
+[2026-08-21 10:19:35.534 Model_Service_1] Model key: Qwen/Qwen2.5-3B-Instruct, engine id: 0_1, target gpu id: 0
+[2026-08-21 10:19:35.551 Model_Service_3] Model key: meta-llama/Llama-3.1-8B, engine id: 0_2, target gpu id: 0
+[2026-08-21 10:19:35.764 Model_Service_4] [KV-PROBE service] key='0_0' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=140391170323648
+[2026-08-21 10:19:35.765 Model_Service_4] [PAPER-KV-V6] fetch meta-llama/Llama-3.2-1B -> 0 requests
+[2026-08-21 10:19:36.660 Model_Service_1] [PAPER-LOAD-V4] {"tag": "Qwen/Qwen2.5-3B-Instruct|engine=0_1|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 0, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 510, "payload_bytes": 6794207232, "bytes_h2d_direct": 3397103616, "bytes_h2d_helper": 3397103616, "bytes_p2p": 3397103616, "seconds": 1.1223771409131587, "payload_gbps": 6.053408417131766, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:19:36.663 Model_Service_1] Time taken to copy model to GPU 0, service 1, engine 0_1, model Qwen/Qwen2.5-3B-Instruct: 1.1284 seconds
+[2026-08-21 10:19:37.172 Model_Service_3] [PAPER-LOAD-V4] {"tag": "meta-llama/Llama-3.1-8B|engine=0_2|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 0, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 390, "payload_bytes": 16060522496, "bytes_h2d_direct": 8030261248, "bytes_h2d_helper": 8030261248, "bytes_p2p": 8030261248, "seconds": 1.615623882971704, "payload_gbps": 9.940755806641715, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:19:37.175 Model_Service_3] Time taken to copy model to GPU 0, service 3, engine 0_2, model meta-llama/Llama-3.1-8B: 1.6235 seconds
+[2026-08-21 10:19:37.885 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:19:37.918 Model_Service_1] [KV-PROBE service] key='0_1' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=140662907304592
+[2026-08-21 10:19:37.919 Model_Service_1] [PAPER-KV-V6] fetch Qwen/Qwen2.5-3B-Instruct -> 0 requests
+[2026-08-21 10:19:37.950 Model_Service_3] [KV-PROBE service] key='0_2' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=140081800757840
+[2026-08-21 10:19:37.951 Model_Service_3] [PAPER-KV-V6] fetch meta-llama/Llama-3.1-8B -> 0 requests
+[2026-08-21 10:19:38.586 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:19:40.283 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:19:40.766 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:19:42.922 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:19:42.954 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:19:43.177 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:19:43.855 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:19:45.527 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:19:46.065 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:19:46.985 Model_Service_0] Model key: Qwen/Qwen2.5-1.5B-Instruct, engine id: 1_0, target gpu id: 1
+[2026-08-21 10:19:47.005 Model_Service_2] Model key: Qwen/Qwen2.5-7B-Instruct, engine id: 1_2, target gpu id: 1
+[2026-08-21 10:19:47.039 Model_Service_5] Model key: meta-llama/Llama-3.2-3B, engine id: 1_1, target gpu id: 1
+[2026-08-21 10:19:47.688 Model_Service_0] [PAPER-LOAD-V4] {"tag": "Qwen/Qwen2.5-1.5B-Instruct|engine=1_0|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 1, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 398, "payload_bytes": 3554176000, "bytes_h2d_direct": 1777088000, "bytes_h2d_helper": 1777088000, "bytes_p2p": 1777088000, "seconds": 0.6996976539958268, "payload_gbps": 5.079588276025859, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:19:47.691 Model_Service_0] Time taken to copy model to GPU 1, service 0, engine 1_0, model Qwen/Qwen2.5-1.5B-Instruct: 0.7059 seconds
+[2026-08-21 10:19:48.134 Model_Service_0] [KV-PROBE service] key='1_0' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=139958304913440
+[2026-08-21 10:19:48.135 Model_Service_0] [PAPER-KV-V6] fetch Qwen/Qwen2.5-1.5B-Instruct -> 0 requests
+[2026-08-21 10:19:48.186 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:19:48.222 Model_Service_5] [PAPER-LOAD-V4] {"tag": "meta-llama/Llama-3.2-3B|engine=1_1|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 1, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 342, "payload_bytes": 7213504512, "bytes_h2d_direct": 3606752256, "bytes_h2d_helper": 3606752256, "bytes_p2p": 3606752256, "seconds": 1.1799863390624523, "payload_gbps": 6.113210189985272, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:19:48.225 Model_Service_5] Time taken to copy model to GPU 1, service 5, engine 1_1, model meta-llama/Llama-3.2-3B: 1.1863 seconds
+[2026-08-21 10:19:48.282 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:19:48.682 Model_Service_2] [PAPER-LOAD-V4] {"tag": "Qwen/Qwen2.5-7B-Instruct|engine=1_2|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 1, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 398, "payload_bytes": 15231233024, "bytes_h2d_direct": 7615616512, "bytes_h2d_helper": 7615616512, "bytes_p2p": 7615616512, "seconds": 1.6734676328487694, "payload_gbps": 9.101600010077064, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:19:48.686 Model_Service_2] Time taken to copy model to GPU 1, service 2, engine 1_2, model Qwen/Qwen2.5-7B-Instruct: 1.6810 seconds
+[2026-08-21 10:19:48.872 Model_Service_5] [KV-PROBE service] key='1_1' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=139572050263536
+[2026-08-21 10:19:48.873 Model_Service_5] [PAPER-KV-V6] fetch meta-llama/Llama-3.2-3B -> 0 requests
+[2026-08-21 10:19:49.124 Model_Service_2] [KV-PROBE service] key='1_2' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=139859724436816
+[2026-08-21 10:19:49.124 Model_Service_2] [PAPER-KV-V6] fetch Qwen/Qwen2.5-7B-Instruct -> 0 requests
+[2026-08-21 10:19:51.395 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:19:53.141 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:19:53.502 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:19:53.654 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:19:53.878 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:19:54.126 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:19:56.717 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:19:58.428 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:19:58.816 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:19:58.913 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:19:59.160 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:19:59.463 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:20:01.986 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:20:03.762 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:20:04.090 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:20:04.220 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:20:04.500 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:20:04.721 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:20:07.325 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:20:09.059 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:20:09.388 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:20:09.538 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:20:09.794 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:20:10.067 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:20:12.580 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:20:14.374 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:20:14.722 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:20:14.822 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:20:15.122 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:20:15.312 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:20:17.866 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:20:19.683 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:20:19.967 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:20:20.170 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:20:20.402 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:20:20.650 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:20:23.187 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:20:25.008 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:20:25.221 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:20:25.444 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:20:25.726 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:20:25.949 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:20:28.488 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:20:30.286 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:20:30.603 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:20:30.714 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:20:31.024 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:20:31.262 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:20:33.762 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:20:35.583 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:20:35.919 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:20:36.096 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:20:36.274 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:20:36.605 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:20:39.079 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:20:40.913 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:20:41.194 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:20:41.386 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:20:41.564 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:20:41.882 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:20:44.406 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:20:44.629 Model_Service_1] [PAPER-LOAD-V4] release Qwen/Qwen2.5-3B-Instruct gpu 0 held=0
+[2026-08-21 10:20:46.174 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:20:46.638 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:20:46.878 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:20:47.178 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:20:49.634 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:20:49.676 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:20:51.414 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:20:51.938 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:20:52.147 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:20:52.479 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:20:54.894 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:20:54.922 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:20:56.693 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:20:57.262 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:20:57.394 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:20:57.751 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:21:00.142 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:21:00.210 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:21:01.988 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:21:02.526 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:21:02.660 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:21:03.009 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:21:05.398 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:21:05.497 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:21:07.242 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:21:07.772 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:21:07.958 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:21:08.250 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:21:09.252 Model_Service_1] Model key: Qwen/Qwen2.5-3B-Instruct, engine id: 0_3, target gpu id: 0
+[2026-08-21 10:21:10.030 Model_Service_1] [PAPER-LOAD-V4] {"tag": "Qwen/Qwen2.5-3B-Instruct|engine=0_3|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 0, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 510, "payload_bytes": 6794207232, "bytes_h2d_direct": 3397103616, "bytes_h2d_helper": 3397103616, "bytes_p2p": 3397103616, "seconds": 0.7749263050500304, "payload_gbps": 8.767552717882452, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:21:10.033 Model_Service_1] Time taken to copy model to GPU 0, service 1, engine 0_3, model Qwen/Qwen2.5-3B-Instruct: 0.7801 seconds
+[2026-08-21 10:21:10.678 Model_Service_1] [KV-PROBE service] key='0_3' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=140662907455376
+[2026-08-21 10:21:10.678 Model_Service_1] [PAPER-KV-V6] fetch Qwen/Qwen2.5-3B-Instruct -> 0 requests
+[2026-08-21 10:21:10.814 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:21:12.482 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:21:13.022 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:21:13.271 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:21:13.526 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:21:15.683 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:21:16.077 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:21:17.742 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:21:18.321 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:21:18.525 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:21:18.832 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:21:20.962 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:21:21.338 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:21:23.049 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:21:23.625 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:21:23.769 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:21:24.102 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:21:26.274 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:21:26.580 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:21:28.306 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:21:28.894 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:21:29.023 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:21:29.039 Model_Service_4] [PAPER-LOAD-V4] release meta-llama/Llama-3.2-1B gpu 0 held=0
+[2026-08-21 10:21:29.388 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:21:31.519 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:21:33.631 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:21:34.045 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:21:34.142 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:21:34.295 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:21:34.638 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:21:36.762 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:21:38.870 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:21:39.389 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:21:39.406 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:21:39.601 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:21:39.878 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:21:42.018 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:21:44.160 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:21:44.694 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:21:44.729 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:21:44.852 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:21:45.148 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:21:47.269 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:21:49.429 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:21:50.035 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:21:50.042 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:21:50.165 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:21:50.404 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:21:52.552 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:21:54.715 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:21:55.307 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:21:55.314 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:21:55.428 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:21:55.737 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:21:57.801 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:21:59.995 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:22:00.591 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:22:00.606 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:22:00.688 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:22:00.981 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:22:03.114 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:22:05.316 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:22:05.837 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:22:05.926 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:22:05.952 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:22:06.234 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:22:08.375 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:22:10.593 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:22:11.086 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:22:11.186 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:22:11.218 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:22:11.474 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:22:13.636 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:22:15.862 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:22:16.366 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:22:16.470 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:22:16.506 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:22:16.740 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:22:18.907 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:22:21.134 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:22:21.624 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:22:21.828 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:22:21.834 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:22:22.006 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:22:24.227 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:22:24.889 Model_Service_0] [PAPER-LOAD-V4] release Qwen/Qwen2.5-1.5B-Instruct gpu 1 held=1
+[2026-08-21 10:22:26.943 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:22:27.118 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:22:27.142 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:22:27.295 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:22:29.475 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:22:29.894 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:22:32.197 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:22:32.418 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:22:32.470 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:22:32.580 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:22:34.770 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:22:35.174 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:22:37.464 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:22:37.680 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:22:37.741 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:22:37.869 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:22:40.026 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:22:40.507 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:22:42.704 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:22:42.992 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:22:43.022 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:22:43.166 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:22:45.308 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:22:45.786 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:22:47.947 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:22:48.314 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:22:48.333 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:22:48.432 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:22:50.617 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:22:51.080 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:22:53.198 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:22:53.581 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:22:53.615 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:22:53.693 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:22:55.867 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:22:56.422 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:22:58.490 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:22:58.871 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:22:58.885 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:22:58.958 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:22:59.336 Model_Service_0] Model key: Qwen/Qwen2.5-1.5B-Instruct, engine id: 1_3, target gpu id: 1
+[2026-08-21 10:22:59.732 Model_Service_0] [PAPER-LOAD-V4] {"tag": "Qwen/Qwen2.5-1.5B-Instruct|engine=1_3|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 1, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 398, "payload_bytes": 3554176000, "bytes_h2d_direct": 1777088000, "bytes_h2d_helper": 1777088000, "bytes_p2p": 1777088000, "seconds": 0.39275958808138967, "payload_gbps": 9.049240573252371, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:22:59.734 Model_Service_0] Time taken to copy model to GPU 1, service 0, engine 1_3, model Qwen/Qwen2.5-1.5B-Instruct: 0.3977 seconds
+[2026-08-21 10:23:00.258 Model_Service_0] [KV-PROBE service] key='1_3' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=139958305049472
+[2026-08-21 10:23:00.258 Model_Service_0] [PAPER-KV-V6] fetch Qwen/Qwen2.5-1.5B-Instruct -> 0 requests
+[2026-08-21 10:23:01.124 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:23:03.727 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:23:04.118 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:23:04.146 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:23:04.215 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:23:05.262 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:23:06.388 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:23:09.037 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:23:09.397 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:23:09.429 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:23:09.485 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:23:10.546 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:23:11.660 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:23:14.314 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:23:14.690 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:23:14.722 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:23:14.754 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:23:15.866 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:23:16.910 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:23:19.587 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:23:19.938 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:23:20.036 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:23:20.059 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:23:21.126 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:23:22.177 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:23:24.846 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:23:25.184 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:23:25.309 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:23:25.324 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:23:26.394 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:23:27.436 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:23:30.093 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:23:30.480 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:23:30.575 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:23:30.592 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:23:31.680 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:23:32.746 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:23:35.356 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:23:35.758 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:23:35.834 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:23:35.905 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:23:37.002 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:23:38.012 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:23:39.788 Model_Service_4] Model key: meta-llama/Llama-3.2-1B, engine id: 1_0, target gpu id: 1
+[2026-08-21 10:23:39.926 Model_Service_4] [PAPER-LOAD-V4] {"tag": "meta-llama/Llama-3.2-1B|engine=1_0|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 1, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 198, "payload_bytes": 2996965376, "bytes_h2d_direct": 1498482688, "bytes_h2d_helper": 1498482688, "bytes_p2p": 1498482688, "seconds": 0.1357381429988891, "payload_gbps": 22.07902148789915, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:23:39.927 Model_Service_4] Time taken to copy model to GPU 1, service 4, engine 1_0, model meta-llama/Llama-3.2-1B: 0.1386 seconds
+[2026-08-21 10:23:40.279 Model_Service_4] [KV-PROBE service] key='1_0' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=140391170324464
+[2026-08-21 10:23:40.280 Model_Service_4] [PAPER-KV-V6] fetch meta-llama/Llama-3.2-1B -> 0 requests
+[2026-08-21 10:23:40.629 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:23:41.006 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:23:41.167 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:23:42.255 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:23:43.284 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:23:45.285 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:23:45.351 Model_Service_5] [PAPER-LOAD-V4] release meta-llama/Llama-3.2-3B gpu 1 held=1
+[2026-08-21 10:23:45.916 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:23:46.431 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:23:47.525 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:23:48.619 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:23:49.858 Model_Service_2] [PAPER-LOAD-V4] release Qwen/Qwen2.5-7B-Instruct gpu 1 held=1
+[2026-08-21 10:23:50.354 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:23:50.606 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:23:51.150 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:23:52.790 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:23:53.868 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:23:54.625 Model_Service_5] Model key: meta-llama/Llama-3.2-3B, engine id: 1_1, target gpu id: 1
+[2026-08-21 10:23:54.864 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:23:55.152 Model_Service_5] [PAPER-LOAD-V4] {"tag": "meta-llama/Llama-3.2-3B|engine=1_1|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 1, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 342, "payload_bytes": 7213504512, "bytes_h2d_direct": 3606752256, "bytes_h2d_helper": 3606752256, "bytes_p2p": 3606752256, "seconds": 0.5248807319439948, "payload_gbps": 13.743130720922876, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:23:55.154 Model_Service_5] Time taken to copy model to GPU 1, service 5, engine 1_1, model meta-llama/Llama-3.2-3B: 0.5295 seconds
+[2026-08-21 10:23:55.726 Model_Service_5] [KV-PROBE service] key='1_1' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=139572050263536
+[2026-08-21 10:23:55.726 Model_Service_5] [PAPER-KV-V6] fetch meta-llama/Llama-3.2-3B -> 0 requests
+[2026-08-21 10:23:55.938 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:23:56.411 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:23:58.067 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:23:59.131 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:24:00.219 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:24:00.731 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:24:01.186 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:24:01.742 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:24:03.386 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:24:04.388 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:24:05.511 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:24:05.995 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:24:06.463 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:24:06.992 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:24:08.643 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:24:09.656 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:24:10.858 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:24:11.254 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:24:11.779 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:24:12.242 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:24:13.904 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:24:14.901 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:24:16.140 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:24:16.504 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:24:17.030 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:24:17.498 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:24:19.174 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:24:20.168 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:24:21.431 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:24:21.748 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:24:22.338 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:24:22.739 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:24:24.426 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:24:25.343 Model_Service_1] [PAPER-LOAD-V4] release Qwen/Qwen2.5-3B-Instruct gpu 0 held=0
+[2026-08-21 10:24:25.344 Model_Service_0] [PAPER-LOAD-V4] release Qwen/Qwen2.5-1.5B-Instruct gpu 1 held=1
+[2026-08-21 10:24:26.754 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:24:27.015 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:24:27.644 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:24:27.982 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:24:29.854 Model_Service_1] Model key: Qwen/Qwen2.5-3B-Instruct, engine id: 0_1, target gpu id: 0
+[2026-08-21 10:24:30.349 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:24:30.520 Model_Service_1] [PAPER-LOAD-V4] {"tag": "Qwen/Qwen2.5-3B-Instruct|engine=0_1|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 0, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 510, "payload_bytes": 6794207232, "bytes_h2d_direct": 3397103616, "bytes_h2d_helper": 3397103616, "bytes_p2p": 3397103616, "seconds": 0.6632974981330335, "payload_gbps": 10.243076826195608, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:24:30.523 Model_Service_1] Time taken to copy model to GPU 0, service 1, engine 0_1, model Qwen/Qwen2.5-3B-Instruct: 0.6688 seconds
+[2026-08-21 10:24:30.875 Model_Service_1] [KV-PROBE service] key='0_1' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=140662907304592
+[2026-08-21 10:24:30.876 Model_Service_1] [PAPER-KV-V6] fetch Qwen/Qwen2.5-3B-Instruct -> 0 requests
+[2026-08-21 10:24:32.021 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:24:32.294 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:24:32.903 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:24:33.226 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:24:35.678 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:24:35.881 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:24:37.297 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:24:37.568 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:24:38.182 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:24:38.469 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:24:40.037 Model_Service_2] Model key: Qwen/Qwen2.5-7B-Instruct, engine id: 1_2, target gpu id: 1
+[2026-08-21 10:24:40.951 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:24:41.225 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:24:41.337 Model_Service_2] [PAPER-LOAD-V4] {"tag": "Qwen/Qwen2.5-7B-Instruct|engine=1_2|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 1, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 398, "payload_bytes": 15231233024, "bytes_h2d_direct": 7615616512, "bytes_h2d_helper": 7615616512, "bytes_p2p": 7615616512, "seconds": 1.294172558002174, "payload_gbps": 11.769089778501094, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:24:41.346 Model_Service_2] Time taken to copy model to GPU 1, service 2, engine 1_2, model Qwen/Qwen2.5-7B-Instruct: 1.3088 seconds
+[2026-08-21 10:24:42.427 Model_Service_2] [KV-PROBE service] key='1_2' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=139859724436816
+[2026-08-21 10:24:42.427 Model_Service_2] [PAPER-KV-V6] fetch Qwen/Qwen2.5-7B-Instruct -> 0 requests
+[2026-08-21 10:24:42.811 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:24:43.481 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:24:43.750 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:24:46.240 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:24:46.512 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:24:47.432 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:24:48.116 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:24:48.762 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:24:49.018 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:24:51.503 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:24:51.782 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:24:52.770 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:24:53.377 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:24:54.029 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:24:54.296 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:24:56.754 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:24:57.072 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:24:58.045 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:24:58.620 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:24:59.326 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:24:59.576 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:25:02.018 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:25:02.398 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:25:03.321 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:25:03.861 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:25:04.630 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:25:04.835 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:25:07.265 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:25:07.663 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:25:08.666 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:25:09.127 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:25:09.959 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:25:10.110 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:25:12.568 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:25:12.924 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:25:13.930 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:25:14.379 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:25:15.214 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:25:15.358 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:25:17.816 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:25:18.201 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:25:19.238 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:25:19.643 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:25:20.463 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:25:20.622 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:25:23.139 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:25:23.449 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:25:24.550 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:25:24.893 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:25:25.711 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:25:25.874 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:25:28.408 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:25:28.717 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:25:29.850 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:25:30.138 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:25:30.975 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:25:31.123 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:25:33.658 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:25:33.963 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:25:35.182 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:25:35.387 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:25:36.248 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:25:36.378 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:25:38.924 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:25:39.214 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:25:40.463 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:25:40.646 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:25:41.512 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:25:41.629 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:25:44.167 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:25:44.468 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:25:45.722 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:25:45.921 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:25:46.826 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:25:46.883 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:25:49.438 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:25:49.734 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:25:51.027 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:25:51.170 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:25:52.092 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:25:52.139 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:25:54.702 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:25:54.990 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:25:56.355 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:25:56.421 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:25:57.370 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:25:57.422 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:25:59.966 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:26:00.245 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:26:01.301 Model_Service_5] [PAPER-LOAD-V4] release meta-llama/Llama-3.2-3B gpu 1 held=1
+[2026-08-21 10:26:01.319 Model_Service_3] [PAPER-LOAD-V4] release meta-llama/Llama-3.1-8B gpu 0 held=0
+[2026-08-21 10:26:01.601 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:26:02.638 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:26:05.206 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:26:05.510 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:26:06.307 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:26:06.324 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:26:06.871 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:26:07.902 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:26:10.525 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:26:10.754 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:26:11.562 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:26:11.680 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:26:12.137 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:26:13.146 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:26:15.820 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:26:16.020 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:26:16.817 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:26:16.946 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:26:17.408 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:26:18.429 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:26:21.074 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:26:21.260 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:26:22.069 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:26:22.263 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:26:22.709 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:26:23.675 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:26:26.369 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:26:26.522 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:26:27.342 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:26:27.519 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:26:27.998 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:26:29.008 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:26:31.005 Model_Service_3] Model key: meta-llama/Llama-3.1-8B, engine id: 0_0, target gpu id: 0
+[2026-08-21 10:26:31.626 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:26:31.782 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:26:32.302 Model_Service_3] [PAPER-LOAD-V4] {"tag": "meta-llama/Llama-3.1-8B|engine=0_0|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 0, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 390, "payload_bytes": 16060522496, "bytes_h2d_direct": 8030261248, "bytes_h2d_helper": 8030261248, "bytes_p2p": 8030261248, "seconds": 1.2933104920666665, "payload_gbps": 12.418149079062854, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:26:32.305 Model_Service_3] Time taken to copy model to GPU 0, service 3, engine 0_0, model meta-llama/Llama-3.1-8B: 1.2992 seconds
+[2026-08-21 10:26:32.654 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:26:33.196 Model_Service_3] [KV-PROBE service] key='0_0' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=140081800607056
+[2026-08-21 10:26:33.197 Model_Service_3] [PAPER-KV-V6] fetch meta-llama/Llama-3.1-8B -> 0 requests
+[2026-08-21 10:26:33.265 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:26:34.318 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:26:36.029 Model_Service_0] Model key: Qwen/Qwen2.5-1.5B-Instruct, engine id: 0_3, target gpu id: 0
+[2026-08-21 10:26:36.168 Model_Service_0] [PAPER-LOAD-V4] {"tag": "Qwen/Qwen2.5-1.5B-Instruct|engine=0_3|src=None", "policy": "paper", "split": 2, "pipeline_depth": null, "target_gpu": 0, "gpu_ids": [0, 1], "source": "cpu", "host_registered": true, "slices": 398, "payload_bytes": 3554176000, "bytes_h2d_direct": 1777088000, "bytes_h2d_helper": 1777088000, "bytes_p2p": 1777088000, "seconds": 0.1360277950298041, "payload_gbps": 26.128307080338026, "transfer_path": "host-to-device + helper-gpu-p2p"}
+[2026-08-21 10:26:36.171 Model_Service_0] Time taken to copy model to GPU 0, service 0, engine 0_3, model Qwen/Qwen2.5-1.5B-Instruct: 0.1415 seconds
+[2026-08-21 10:26:36.730 Model_Service_0] [KV-PROBE service] key='0_3' have=['0_0', '0_1', '0_2', '0_3', '1_0', '1_1', '1_2', '1_3'] id=139958305048656
+[2026-08-21 10:26:36.731 Model_Service_0] [PAPER-KV-V6] fetch Qwen/Qwen2.5-1.5B-Instruct -> 0 requests
+[2026-08-21 10:26:37.101 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:26:37.902 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:26:38.202 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:26:38.522 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:26:39.590 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:26:41.736 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:26:42.417 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:26:43.158 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:26:43.512 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:26:43.798 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:26:44.828 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:26:47.018 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:26:47.701 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:26:48.433 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:26:48.832 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:26:49.103 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:26:50.082 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:26:52.356 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:26:52.957 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:26:53.686 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:26:54.106 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:26:54.357 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:26:55.334 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:26:57.631 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:26:58.222 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 10:26:58.930 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 10:26:59.458 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 10:26:59.618 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 10:27:00.602 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 10:27:02.944 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 10:27:03.480 Model_Service_1] Model service 1 input queue is empty, waiting for next request

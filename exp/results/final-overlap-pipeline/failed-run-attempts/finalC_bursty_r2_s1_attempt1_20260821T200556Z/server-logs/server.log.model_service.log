@@ -1,0 +1,53 @@
+[2026-08-21 20:04:02.562 Model_Service_0] [PAPER-LOAD-V4] worker 0/6 host page-lock: {'Qwen/Qwen2.5-1.5B-Instruct': {'locked': 199, 'already_locked': 0, 'failed': 0, 'seconds': 1.0827335671056062}}
+[2026-08-21 20:04:02.563 Model_Service_0] [PAPER-LOAD-V4] peer access: {'0->1': True, '1->0': True} p2p=True
+[2026-08-21 20:04:07.571 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 20:04:12.661 Model_Service_1] [PAPER-LOAD-V4] worker 1/6 host page-lock: {'Qwen/Qwen2.5-3B-Instruct': {'locked': 255, 'already_locked': 0, 'failed': 0, 'seconds': 2.0088580138981342}}
+[2026-08-21 20:04:12.662 Model_Service_1] [PAPER-LOAD-V4] peer access: {'0->1': True, '1->0': True} p2p=True
+[2026-08-21 20:04:12.830 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 20:04:17.666 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 20:04:18.069 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 20:04:22.904 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 20:04:23.313 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 20:04:25.006 Model_Service_2] [PAPER-LOAD-V4] worker 2/6 host page-lock: {'Qwen/Qwen2.5-7B-Instruct': {'locked': 199, 'already_locked': 0, 'failed': 0, 'seconds': 4.196112136123702}}
+[2026-08-21 20:04:25.006 Model_Service_2] [PAPER-LOAD-V4] peer access: {'0->1': True, '1->0': True} p2p=True
+[2026-08-21 20:04:28.157 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 20:04:28.560 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 20:04:30.013 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 20:04:33.413 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 20:04:33.805 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 20:04:35.247 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 20:04:37.705 Model_Service_3] [PAPER-LOAD-V4] worker 3/6 host page-lock: {'meta-llama/Llama-3.1-8B': {'locked': 195, 'already_locked': 0, 'failed': 0, 'seconds': 4.432372356997803}}
+[2026-08-21 20:04:37.705 Model_Service_3] [PAPER-LOAD-V4] peer access: {'0->1': True, '1->0': True} p2p=True
+[2026-08-21 20:04:38.655 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 20:04:39.043 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 20:04:40.488 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 20:04:42.712 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 20:04:43.899 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 20:04:44.298 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 20:04:45.723 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 20:04:46.552 Model_Service_4] [PAPER-LOAD-V4] worker 4/6 host page-lock: {'meta-llama/Llama-3.2-1B': {'locked': 98, 'already_locked': 1, 'failed': 0, 'seconds': 0.7211921899579465}}
+[2026-08-21 20:04:46.552 Model_Service_4] [PAPER-LOAD-V4] peer access: {'0->1': True, '1->0': True} p2p=True
+[2026-08-21 20:04:47.979 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 20:04:49.159 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 20:04:49.573 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 20:04:50.959 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 20:04:51.560 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 20:04:53.218 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 20:04:54.411 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 20:04:54.813 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 20:04:56.204 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 20:04:56.663 Model_Service_5] [PAPER-LOAD-V4] worker 5/6 host page-lock: {'meta-llama/Llama-3.2-3B': {'locked': 170, 'already_locked': 1, 'failed': 0, 'seconds': 1.8357403678819537}}
+[2026-08-21 20:04:56.664 Model_Service_5] [PAPER-LOAD-V4] peer access: {'0->1': True, '1->0': True} p2p=True
+[2026-08-21 20:04:56.794 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 20:04:58.490 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 20:04:59.666 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 20:05:00.074 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 20:05:01.446 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 20:05:01.670 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 20:05:02.130 Model_Service_4] Model service 4 input queue is empty, waiting for next request
+[2026-08-21 20:05:03.753 Model_Service_3] Model service 3 input queue is empty, waiting for next request
+[2026-08-21 20:05:04.930 Model_Service_1] Model service 1 input queue is empty, waiting for next request
+[2026-08-21 20:05:05.331 Model_Service_0] Model service 0 input queue is empty, waiting for next request
+[2026-08-21 20:05:06.698 Model_Service_2] Model service 2 input queue is empty, waiting for next request
+[2026-08-21 20:05:06.938 Model_Service_5] Model service 5 input queue is empty, waiting for next request
+[2026-08-21 20:05:07.387 Model_Service_4] Model service 4 input queue is empty, waiting for next request

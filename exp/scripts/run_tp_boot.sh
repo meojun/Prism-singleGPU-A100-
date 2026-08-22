@@ -15,6 +15,7 @@
 #
 # Nothing here is left running: the server is torn down on every exit path.
 set -uo pipefail
+ulimit -n 65535
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 cd /workspace/prism-exp
 source "$SCRIPT_DIR/env.sh"

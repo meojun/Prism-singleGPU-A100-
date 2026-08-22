@@ -101,10 +101,11 @@ class RequestKVCapsule:
 
     __slots__ = ("rid", "model_name", "origin_input_ids", "output_ids",
                  "sampling_params", "arrival_time", "slo", "k", "v",
-                 "num_tokens", "source_gpu")
+                 "num_tokens", "source_gpu", "request_state")
 
     def __init__(self, rid, model_name, origin_input_ids, output_ids,
-                 sampling_params, arrival_time, slo, k, v, source_gpu):
+                 sampling_params, arrival_time, slo, k, v, source_gpu,
+                 request_state=None):
         self.rid = rid
         self.model_name = model_name
         self.origin_input_ids = list(origin_input_ids)
@@ -116,6 +117,7 @@ class RequestKVCapsule:
         self.v = v
         self.num_tokens = k[0].shape[0] if k else 0
         self.source_gpu = source_gpu
+        self.request_state = dict(request_state or {})
 
     @property
     def nbytes(self):
@@ -142,6 +144,25 @@ def gather_request_kv(k_buffer, v_buffer, slots, device):
     k = [k_buffer[i][idx].clone() for i in range(len(k_buffer))]
     v = [v_buffer[i][idx].clone() for i in range(len(v_buffer))]
     return k, v
+
+
+def clone_capsules_for_relay(capsules):
+    """Make a relay process the owner of received CUDA tensor storage.
+
+    PyTorch intentionally refuses to send a CUDA tensor that the sending
+    process itself received over multiprocessing IPC.  The model service is a
+    relay (source engine -> service -> target engine), so it must first clone
+    the received tensors into storage it owns.  Mutating the capsules also
+    drops the service's references to the source-owned IPC mappings.
+    """
+    devices = set()
+    for capsule in capsules:
+        capsule.k = [tensor.clone() for tensor in capsule.k]
+        capsule.v = [tensor.clone() for tensor in capsule.v]
+        devices.update(tensor.device.index for tensor in capsule.k + capsule.v)
+    for device in devices:
+        torch.cuda.synchronize(device)
+    return capsules
 
 
 def transfer_capsule(capsule, target_gpu, stream=None):
@@ -190,6 +211,93 @@ def scatter_request_kv(k_buffer, v_buffer, slots, capsule, device):
     for i in range(len(k_buffer)):
         k_buffer[i][idx] = capsule.k[i]
         v_buffer[i][idx] = capsule.v[i]
+
+
+def _restore_request_state(req, capsule):
+    for name, value in capsule.request_state.items():
+        setattr(req, name, value)
+
+
+def build_resumed_request(req_cls, capsule, slots, tokenizer):
+    """Rebuild a request on the target and attach its migrated KV slots.
+
+    ``BatchRetractDecodeReq`` carries queue-accounting metadata only; it does
+    not requeue a ``GenerateReqInput``.  Therefore the capsule, rather than a
+    future frontend request, is the authoritative request body.  The target
+    computes one final token while treating all migrated tokens as its cached
+    prefix.
+    """
+    if len(slots) != capsule.num_tokens:
+        raise ValueError(
+            f"slot count {len(slots)} != capsule tokens {capsule.num_tokens}")
+
+    origin_input_ids = list(capsule.origin_input_ids)
+    output_ids = list(capsule.output_ids)
+    fill_ids = origin_input_ids + output_ids
+    expected_tokens = len(fill_ids) - 1
+    if expected_tokens <= 0 or capsule.num_tokens != expected_tokens:
+        raise ValueError(
+            f"capsule tokens {capsule.num_tokens} != resumable prefix "
+            f"{expected_tokens} for {capsule.rid!r}")
+
+    state = capsule.request_state
+    req = req_cls(
+        capsule.rid,
+        state.get("origin_input_text", ""),
+        origin_input_ids,
+        capsule.sampling_params,
+        lora_path=state.get("lora_path"),
+        arrival_time=capsule.arrival_time,
+        slo=capsule.slo,
+    )
+    req.tokenizer = tokenizer
+    _restore_request_state(req, capsule)
+    req.origin_input_ids = origin_input_ids
+    req.origin_input_ids_unpadded = list(origin_input_ids)
+    req.output_ids = output_ids
+    req.fill_ids = fill_ids
+    req.sampling_params = capsule.sampling_params
+    req.arrival_time = capsule.arrival_time
+    req.slo = capsule.slo
+
+    # These slots belong to the target engine.  Source-pool indices and radix
+    # nodes are deliberately never transferred.
+    req.req_pool_idx = None
+    req.prefix_indices = slots
+    req.extend_input_len = len(fill_ids) - len(slots)
+    req.last_node = None
+    req.cached_tokens = 0
+    if req.extend_input_len != 1:
+        raise ValueError(
+            f"resume extend length {req.extend_input_len} != 1 for {capsule.rid!r}")
+    return req
+
+
+def build_recomputed_request(req_cls, capsule, tokenizer):
+    """Rebuild a migrated request without KV when transfer cannot be used."""
+    origin_input_ids = list(capsule.origin_input_ids)
+    state = capsule.request_state
+    req = req_cls(
+        capsule.rid,
+        state.get("origin_input_text", ""),
+        origin_input_ids,
+        capsule.sampling_params,
+        lora_path=state.get("lora_path"),
+        arrival_time=capsule.arrival_time,
+        slo=capsule.slo,
+    )
+    req.tokenizer = tokenizer
+    _restore_request_state(req, capsule)
+    req.origin_input_ids = origin_input_ids
+    req.origin_input_ids_unpadded = list(origin_input_ids)
+    req.output_ids = list(capsule.output_ids)
+    req.fill_ids = req.origin_input_ids + req.output_ids
+    req.req_pool_idx = None
+    req.prefix_indices = []
+    req.extend_input_len = len(req.fill_ids)
+    req.last_node = None
+    req.cached_tokens = 0
+    return req
 
 
 def migrate_request_kv(capsules, target_gpu, tag=""):

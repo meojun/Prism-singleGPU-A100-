@@ -4,6 +4,10 @@
 export PRISM_ROOT=${PRISM_ROOT:-/workspace/prism-exp}
 export PRISM_REPO=$PRISM_ROOT/prism-research
 export PRISM_EXP=$PRISM_ROOT/exp
+# The shared venv contains an editable sglang install from the bootstrap tree.
+# Worktree experiments must import the source that belongs to their own arm,
+# otherwise A and C silently execute the same implementation.
+export PYTHONPATH="$PRISM_REPO/python${PYTHONPATH:+:$PYTHONPATH}"
 export HF_HOME=/workspace/.hf_home
 export PYTHONUNBUFFERED=1
 # Datasets. real_trace.pkl (harness default) has synthetic "Hello "*n prompts;

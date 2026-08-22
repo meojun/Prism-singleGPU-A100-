@@ -23,6 +23,23 @@ def read_logs(logdir):
 
 def rank_gpu_map(logs):
     """Recover the TP rank -> GPU assignment the engines reported."""
+    # Prefer the instrumentation's exact engine line and exclude the TP=1
+    # helper engines.  The old generic regex merged those helpers into rank 0,
+    # yielding rank0 -> [0, 1] even when the real TP=2 ranks were 0->0, 1->1.
+    exact = re.compile(
+        r"\[PAPER-TP\] engine rank: tp_rank=(\d+) gpu_id=(\d+) tp_size=(\d+)",
+        re.I,
+    )
+    mapping = {}
+    for _, text in logs:
+        for m in exact.finditer(text):
+            rank, gpu, tp_size = map(int, m.groups())
+            if tp_size > 1:
+                mapping.setdefault(rank, set()).add(gpu)
+    if mapping:
+        return {k: sorted(v) for k, v in sorted(mapping.items())}
+
+    # Compatibility fallback for older logs that predate the exact marker.
     mapping = {}
     patterns = [
         re.compile(r"tp_rank[=: ]+(\d+).*?gpu_id[=: ]+(\d+)", re.I),

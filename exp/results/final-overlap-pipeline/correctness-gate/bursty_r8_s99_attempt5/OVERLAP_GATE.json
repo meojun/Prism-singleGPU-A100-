@@ -1,0 +1,135 @@
+{
+  "status": "FAIL",
+  "benchmark_files": [
+    "paper-faithful-v6_bursty_rate8_seed99_e2e_2gpu_1.0x_1rep.json"
+  ],
+  "completed": 3428,
+  "aborted": 1,
+  "successful_prepare_actions": 13,
+  "source_completed_during_prepare": 9,
+  "sequences": [
+    {
+      "model": "model_3",
+      "target_ready": 1787331852.173965,
+      "source_quiesce": 1787331852.1842725,
+      "target_commit": 1787331852.91697,
+      "source_was_serving": true,
+      "exposed_downtime_s": 0.7326974868774414
+    },
+    {
+      "model": "model_5",
+      "target_ready": 1787331883.0155668,
+      "source_quiesce": 1787331883.025781,
+      "target_commit": 1787331883.8840744,
+      "source_was_serving": true,
+      "exposed_downtime_s": 0.8582935333251953
+    },
+    {
+      "model": "model_6",
+      "target_ready": 1787331914.5797725,
+      "source_quiesce": 1787331914.5935667,
+      "target_commit": 1787331918.379667,
+      "source_was_serving": true,
+      "exposed_downtime_s": 3.786100387573242
+    },
+    {
+      "model": "model_2",
+      "target_ready": 1787331945.5040276,
+      "source_quiesce": 1787331945.520507,
+      "target_commit": 1787331949.2745805,
+      "source_was_serving": true,
+      "exposed_downtime_s": 3.75407338142395
+    },
+    {
+      "model": "model_2",
+      "target_ready": 1787332001.3007593,
+      "source_quiesce": 1787332001.3109946,
+      "target_commit": 1787332001.8849065,
+      "source_was_serving": true,
+      "exposed_downtime_s": 0.5739119052886963
+    },
+    {
+      "model": "model_3",
+      "target_ready": 1787332031.6811082,
+      "source_quiesce": 1787332031.7121897,
+      "target_commit": 1787332037.5540786,
+      "source_was_serving": true,
+      "exposed_downtime_s": 5.841888904571533
+    },
+    {
+      "model": "model_1",
+      "target_ready": 1787332079.7057893,
+      "source_quiesce": 1787332079.72626,
+      "target_commit": 1787332082.6803532,
+      "source_was_serving": true,
+      "exposed_downtime_s": 2.9540932178497314
+    },
+    {
+      "model": "model_4",
+      "target_ready": 1787332111.0858157,
+      "source_quiesce": 1787332111.0948572,
+      "target_commit": 1787332112.1522126,
+      "source_was_serving": true,
+      "exposed_downtime_s": 1.0573554039001465
+    },
+    {
+      "model": "model_2",
+      "target_ready": 1787332140.7121868,
+      "source_quiesce": 1787332140.743979,
+      "target_commit": 1787332145.9293728,
+      "source_was_serving": true,
+      "exposed_downtime_s": 5.185393810272217
+    },
+    {
+      "model": "model_6",
+      "target_ready": 1787332175.028131,
+      "source_quiesce": 1787332175.0646403,
+      "target_commit": 1787332180.2123747,
+      "source_was_serving": true,
+      "exposed_downtime_s": 5.1477344036102295
+    },
+    {
+      "model": "model_4",
+      "target_ready": 1787332207.1566164,
+      "source_quiesce": 1787332207.1791933,
+      "target_commit": 1787332208.4515438,
+      "source_was_serving": true,
+      "exposed_downtime_s": 1.272350549697876
+    },
+    {
+      "model": "model_3",
+      "target_ready": 1787332237.187959,
+      "source_quiesce": 1787332237.1962936,
+      "target_commit": 1787332240.975939,
+      "source_was_serving": true,
+      "exposed_downtime_s": 3.7796454429626465
+    },
+    {
+      "model": "model_1",
+      "target_ready": 1787332268.542505,
+      "source_quiesce": 1787332268.5557234,
+      "target_commit": 1787332269.9049175,
+      "source_was_serving": true,
+      "exposed_downtime_s": 1.349194049835205
+    }
+  ],
+  "exposed_downtime_s": {
+    "count": 13,
+    "mean": 2.791748652091393,
+    "p50": 2.9540932178497314,
+    "p95": 5.447991847991943,
+    "max": 5.841888904571533
+  },
+  "resume_events": 79,
+  "continuation_events": 79,
+  "requests_injected": 79,
+  "kv_transfer_records": 9,
+  "p2p_transfer_records": 9,
+  "fatal_errors": {
+    "Aborted": 1
+  },
+  "failures": [
+    "benchmark completed/aborted=3428/1",
+    "fatal runtime errors observed"
+  ]
+}

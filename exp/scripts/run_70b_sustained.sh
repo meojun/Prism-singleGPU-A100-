@@ -21,6 +21,7 @@
 #
 # Nothing here is left running: the server is torn down on every exit path.
 set -uo pipefail
+ulimit -n 65535
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 cd /workspace/prism-exp
 source "$SCRIPT_DIR/env.sh"
@@ -101,9 +102,11 @@ LOAD_RC=0
   exec python3 -m sglang.launch_multi_model_server "${ARGS[@]}"
 ) > "$LOGDIR/stdout.log" 2>&1 &
 SERVER_PID=$!
+SAMPLER=""
 echo "server pid=$SERVER_PID  log=$LOGDIR/stdout.log"
 
 cleanup() {
+  [ -n "$SAMPLER" ] && kill "$SAMPLER" 2>/dev/null || true
   # Only ever signal a PID we actually started.  Never `kill 0` (CLAUDE.md 8.1).
   if [ -n "${SERVER_PID:-}" ] && kill -0 "$SERVER_PID" 2>/dev/null; then
       kill -TERM "$SERVER_PID" 2>/dev/null
@@ -146,6 +149,16 @@ fi
 STARTUP=$(( $(date +%s) - T0 ))
 echo "startup: ${STARTUP}s"
 
+# Sample all GPUs for the leak/drift check in build_70b_report.py.  The caller
+# can place this in the report's canonical gpu_metrics directory.
+GPU_TIMELINE=${B70_GPU_TIMELINE:-$OUT/gpu_timeline.txt}
+mkdir -p "$(dirname "$GPU_TIMELINE")"
+( while kill -0 "$SERVER_PID" 2>/dev/null; do
+    echo "$(date +%s.%N) $(nvidia-smi --query-gpu=index,memory.used,utilization.gpu \
+        --format=csv,noheader,nounits | tr '\n' ';')"
+    sleep 2
+  done ) > "$GPU_TIMELINE" 2>/dev/null &
+SAMPLER=$!
 
 # --- sustained load ----------------------------------------------------------
 SECONDS_TO_RUN=${B70_SUSTAIN_SEC:-1800}
@@ -155,6 +168,8 @@ python3 "$SCRIPT_DIR/sustained_load.py" --port "$PORT" --model "$MODEL_NAME" \
     --seconds "$SECONDS_TO_RUN" --rate "$RATE" --out "$OUT" 2>&1 | tail -40
 LOAD_RC=${PIPESTATUS[0]}
 echo "=== sustained rc=$LOAD_RC"
+kill "$SAMPLER" 2>/dev/null || true
+SAMPLER=""
 
 # --- what stayed alive -------------------------------------------------------
 echo "=== TP ranks seen (tp_size>1 only)"

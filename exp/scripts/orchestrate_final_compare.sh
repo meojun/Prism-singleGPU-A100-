@@ -10,11 +10,13 @@
 # which is the comparison the report is for.
 #
 # B (released-prototype on the merged tree, TP flags off) still exists, but only
-# in the gate -- one matched case, not the whole grid.  Without it there is no
+# in the gate -- three matched seeds at bursty 8, not the whole grid.  Without it there is no
 # answer to "did adding TP support change the TP=1 path?", and every A-vs-C
 # number would rest on an unmeasured assumption.  Two runs buy that answer;
 # carrying B through all 24 cells would cost about four hours and add nothing
-# the gate does not already show.
+# the gate does not already show. Three seeds are required because this
+# project's measured seed variation is too large for a one-run compatibility
+# claim.
 #
 # TP=1 throughout, 2 GPUs throughout, even though the box has four: every arm
 # must see the same hardware, and the prototype cannot use more than that in
@@ -41,15 +43,28 @@ RATES_BURSTY=${FC_RATES_BURSTY:-"2 4 8 14 20"}
 RATES_STEADY=${FC_RATES_STEADY:-"4 8 20"}
 SEEDS=${FC_SEEDS:-"1 2 3"}
 DURATION=${FC_DURATION:-420}
+RUN_C=${FC_RUN_C:-1}                 # 0: finish/reuse baseline A only
 
 mkdir -p "$OUT"/{raw,logs,aggregated,figures} "$STATE" "$WL"
 say() { echo -e "\n===== $* $(date -Is) ====="; }
 reap() {
-    for p in $(pgrep -f "prism-venv/bin/python3" 2>/dev/null); do
-        [ "$p" = "$$" ] && continue; kill -TERM "$p" 2>/dev/null; done
+    for pattern in \
+        "python3 -m sglang.launch_multi_model_server" \
+        "prism-venv/bin/python3 -c from multiprocessing.spawn import spawn_main" \
+        "python3 benchmark.py"; do
+      for p in $(pgrep -f "$pattern" 2>/dev/null); do
+        [ "$p" = "$$" ] && continue; kill -TERM "$p" 2>/dev/null
+      done
+    done
     sleep 6
-    for p in $(pgrep -f "prism-venv/bin/python3" 2>/dev/null); do
-        [ "$p" = "$$" ] && continue; kill -KILL "$p" 2>/dev/null; done
+    for pattern in \
+        "python3 -m sglang.launch_multi_model_server" \
+        "prism-venv/bin/python3 -c from multiprocessing.spawn import spawn_main" \
+        "python3 benchmark.py"; do
+      for p in $(pgrep -f "$pattern" 2>/dev/null); do
+        [ "$p" = "$$" ] && continue; kill -KILL "$p" 2>/dev/null
+      done
+    done
     sleep 6
     rm -f /dev/shm/ipc_* /dev/shm/mp-* /dev/shm/torch_* /dev/shm/cuda.shm.* 2>/dev/null
     sleep 2
@@ -70,7 +85,10 @@ done
 reap
 
 # ---------------------------------------------------------------- META
-if [ ! -f "$OUT/META.txt" ]; then
+# META.txt may be a committed artifact from an earlier failed attempt.  Keep it
+# intact and always record the current resumable session separately.
+SESSION_META="$OUT/SESSION_META.txt"
+if [ ! -f "$SESSION_META" ]; then
     say "환경 기록"
     {
         echo "generated: $(date -Is)"
@@ -91,10 +109,11 @@ n=torch.cuda.device_count()
 print('torch', torch.__version__, 'cuda', torch.version.cuda, 'devices', n)
 print(json.dumps({f'{i}->{j}': torch.cuda.can_device_access_peer(i,j)
                   for i in range(n) for j in range(n) if i!=j}))" )
-        echo; echo "--- this box's calibration (NOT the committed values)"
+        echo; echo "--- calibration provenance"
+        echo "reused committed calibration: user confirmed this is the same hardware"
         cat "$MERGE_TREE/exp/results/paper-faithful-tp/calibration/tau.json" 2>/dev/null
-    } > "$OUT/META.txt" 2>&1
-    cat "$OUT/META.txt" | head -20
+    } > "$SESSION_META" 2>&1
+    head -20 "$SESSION_META"
 fi
 
 TAU=$(python3 -c "import json;print(json.load(open('$MERGE_TREE/exp/results/paper-faithful-tp/calibration/tau.json'))['tau'])" 2>/dev/null || echo 0.171086)
@@ -128,7 +147,10 @@ arm_run() {
     say "$id"
     set_st "$id" RUNNING
     reap
-    local dest="$OUT/raw/arm${arm}"
+    # Keep every run in the hierarchy collect_v4_metrics.py consumes.  A flat
+    # arm directory overwrites server-logs on the next seed and can never
+    # produce the collector's required */rate_*/seed_*/DONE discovery marker.
+    local dest="$OUT/raw/arm${arm}/raw/$sys/$wl/rate_$rate/seed_$seed"
     mkdir -p "$dest"
     ( cd "$tree" && \
       PRISM_ROOT="$tree" NGPU="$GPUS" CFG="$CFG" KVPR_TAU="$TAU" \
@@ -136,7 +158,12 @@ arm_run() {
       bash exp/scripts/run_v4_case.sh "$sys" "$wl" "$rate" "$seed" "$trace" "$dest" ) \
       > "$OUT/logs/${id}.log" 2>&1
     local rc=$?
-    if [ "$rc" -eq 0 ]; then set_st "$id" SUCCESS; else set_st "$id" FAILED; fi
+    if [ "$rc" -eq 0 ]; then
+        touch "$dest/DONE"
+        set_st "$id" SUCCESS
+    else
+        set_st "$id" FAILED
+    fi
     echo "  rc=$rc -> $(st "$id")"
     tail -6 "$OUT/logs/${id}.log"
     reap
@@ -146,10 +173,28 @@ arm_run() {
 # The whole sweep is 70+ runs.  If the TP patch broke the TP=1 path there is no
 # point spending twelve hours finding out at the end, so A and B run one matched
 # case first and the numbers are compared before anything else starts.
-if [ ! -f "$OUT/aggregated/regression_check.csv" ]; then
-    say "회귀 게이트: A(패치 없음) vs B(패치 있음, 꺼짐) -- bursty 8 seed 1"
-    arm_run A "$BASE_TREE"  released-prototype bursty 8 1
-    arm_run B "$MERGE_TREE" released-prototype bursty 8 1
+gate_complete() {
+    for seed in 1 2 3; do
+        [ "$(st A_bursty_r8_s${seed})" = SUCCESS ] || return 1
+        [ "$(st B_bursty_r8_s${seed})" = SUCCESS ] || return 1
+    done
+    grep -q '^# GATE: PASS$' "$OUT/aggregated/regression_check.csv" 2>/dev/null &&
+    awk -F, '$3 == "goodput" || $3 == "joint_slo" || $3 == "throughput" {found=1} END {exit !found}' \
+        "$OUT/aggregated/regression_check.csv" 2>/dev/null
+}
+if ! gate_complete; then
+    say "회귀 게이트: A(패치 없음) vs B(패치 있음, 꺼짐) -- bursty 8 seeds 1..3"
+    for seed in 1 2 3; do
+        arm_run A "$BASE_TREE"  released-prototype bursty 8 "$seed"
+        arm_run B "$MERGE_TREE" released-prototype bursty 8 "$seed"
+    done
+    # compare_arms reads each arm's collected summary.csv, not the raw request
+    # JSON.  Collect the two gate arms before asking it for a verdict.
+    for arm in A B; do
+      ( cd "$MERGE_TREE" && PRISM_ROOT=$MERGE_TREE source exp/scripts/env.sh >/dev/null 2>&1
+        python3 exp/scripts/collect_v4_metrics.py --base "$OUT/raw/arm$arm" \
+            --slo-base "$SLO_BASE" --config "$CFG" --trace-dir "$WL" ) 2>&1 | tail -3
+    done
     ( cd "$MERGE_TREE" && PRISM_ROOT=$MERGE_TREE source exp/scripts/env.sh >/dev/null 2>&1
       python3 exp/scripts/compare_arms.py --out "$OUT" --gate ) 2>&1 | tail -25
     if grep -q "GATE: STOP" "$OUT/aggregated/regression_check.csv" 2>/dev/null; then
@@ -164,7 +209,7 @@ say "본 스윕 -- shifting-bursty (A: prototype, C: final)"
 for RATE in $RATES_BURSTY; do
   for SEED in $SEEDS; do
     arm_run A "$BASE_TREE"  released-prototype bursty "$RATE" "$SEED"
-    arm_run C "$MERGE_TREE" paper-faithful-v6  bursty "$RATE" "$SEED"
+    [ "$RUN_C" = 1 ] && arm_run C "$MERGE_TREE" paper-faithful-v6 bursty "$RATE" "$SEED"
   done
 done
 
@@ -172,12 +217,20 @@ say "steady -- 이점이 시간적 이질성에 몰려 있는지 확인"
 for RATE in $RATES_STEADY; do
   for SEED in $SEEDS; do
     arm_run A "$BASE_TREE"  released-prototype steady "$RATE" "$SEED"
-    arm_run C "$MERGE_TREE" paper-faithful-v6  steady "$RATE" "$SEED"
+    [ "$RUN_C" = 1 ] && arm_run C "$MERGE_TREE" paper-faithful-v6 steady "$RATE" "$SEED"
   done
 done
 
 # ---------------------------------------------------------------- aggregate
 say "집계"
+if [ "$RUN_C" != 1 ]; then
+    ( cd "$MERGE_TREE" && PRISM_ROOT=$MERGE_TREE source exp/scripts/env.sh >/dev/null 2>&1
+      python3 exp/scripts/collect_v4_metrics.py --base "$OUT/raw/armA" \
+          --slo-base "$SLO_BASE" --config "$CFG" --trace-dir "$WL" ) 2>&1 | tail -3
+    say "A baseline 완료 -- pre-overlap C는 diagnostic으로 보존"
+    touch "$L/.tp_final_baseline_done"
+    exit 0
+fi
 for arm in A B C; do
     d="$OUT/raw/arm$arm"
     [ -d "$d" ] || continue

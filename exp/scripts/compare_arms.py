@@ -72,7 +72,7 @@ def key_of(row):
 METRICS = [
     # (column candidates, label, higher_is_better)
     (("goodput",), "goodput", True),
-    (("joint_slo_attainment", "joint_attainment"), "joint_slo", True),
+    (("joint_slo_attainment", "joint_attainment", "joint_slo"), "joint_slo", True),
     (("ttft_slo_attainment",), "ttft_slo", True),
     (("tpot_slo_attainment",), "tpot_slo", True),
     (("throughput", "achieved_throughput"), "throughput", True),
@@ -158,14 +158,26 @@ def write_gate(out: Path, data, seeds):
             # With one seed there is no spread to compare against, so fall back
             # to a flat tolerance and say which rule was used.
             if an < 2 or bn < 2:
-                v = ("within 10%" if am and abs(bm - am) / abs(am) <= 0.10
-                     else "differs >10%")
+                if am == bm:
+                    v = "identical"
+                elif am == 0:
+                    v = "differs >10%"
+                else:
+                    v = ("within 10%" if abs(bm - am) / abs(am) <= 0.10
+                         else "differs >10%")
             rows.append({"workload": wl, "rate": rate, "metric": label,
                          "A_mean": am, "A_n": an, "B_mean": bm, "B_n": bn,
                          "delta_pct": None if delta is None else round(delta, 2),
                          "verdict": v})
-            if label in ("goodput", "joint_slo", "throughput") and "differs" in v:
+            if (label in ("goodput", "joint_slo", "throughput") and
+                    v in {"differs", "differs >10%", "exceeds seed spread"}):
                 stop = True
+    # An empty (or non-core-only) comparison is not evidence of compatibility.
+    # The previous implementation emitted PASS for zero matched rows, which let
+    # a failed 0-run setup bypass the regression gate.
+    core_metrics = {"goodput", "joint_slo", "throughput"}
+    if not any(r["metric"] in core_metrics for r in rows):
+        stop = True
     (out / "aggregated").mkdir(parents=True, exist_ok=True)
     p = out / "aggregated" / "regression_check.csv"
     with p.open("w", newline="") as fh:
@@ -177,6 +189,8 @@ def write_gate(out: Path, data, seeds):
             w.writerow(r)
         fh.write(f"# GATE: {'STOP' if stop else 'PASS'}\n")
     print(f"regression gate -> {'STOP' if stop else 'PASS'}  ({p})")
+    if stop and not any(r["metric"] in core_metrics for r in rows):
+        print("  no comparable core metric rows; refusing an empty PASS")
     for r in rows:
         if r["metric"] in ("goodput", "joint_slo", "throughput", "failed"):
             print(f"  {r['workload']} r{r['rate']} {r['metric']:12s} "

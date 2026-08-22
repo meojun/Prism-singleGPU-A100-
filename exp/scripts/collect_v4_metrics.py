@@ -23,7 +23,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from collect_v2_metrics import join_trace, load_requests   # noqa: E402
 
-PAPER_ARMS = ("paper-faithful-v3", "paper-faithful-v4")
+PAPER_ARMS = ("paper-faithful-v3", "paper-faithful-v4", "paper-faithful-v6")
 
 
 def pct(xs, q):
@@ -87,6 +87,20 @@ def read_transfers(run_dir):
     return out
 
 
+def read_kv_transfers(run_dir):
+    path = os.path.join(run_dir, "kv_transfers.jsonl")
+    if not os.path.exists(path):
+        return []
+    out = []
+    with open(path, errors="replace") as fh:
+        for line in fh:
+            try:
+                out.append(json.loads(line))
+            except json.JSONDecodeError:
+                pass
+    return out
+
+
 PROTO_MIGRATION_RE = re.compile(
     r"ACTION: deactivate (\S+) on GPU (\d+) and activate \S+ on GPU (\d+)\. "
     r"Reason: migrate model")
@@ -126,7 +140,7 @@ def read_migration_decisions(run_dir, alg1):
     return out
 
 
-def pair_migrations(actions, transfers, alg1, run_dir, slot_to_path, overlap,
+def pair_migrations(actions, transfers, kv_transfers, alg1, run_dir, slot_to_path, overlap,
                     window_s=120.0):
     """Attach action timings and byte counts to each decided migration.
 
@@ -157,18 +171,31 @@ def pair_migrations(actions, transfers, alg1, run_dir, slot_to_path, overlap,
         if not cand_a or not cand_d:
             continue
         ref = dec["timestamp"] or cand_a[0]["start"]
-        act = min(cand_a, key=lambda a: abs(a["start"] - ref))
+        prepares = [a for a in cand_a if a.get("phase") == "prepare"]
+        act = min(prepares or cand_a, key=lambda a: abs(a["start"] - ref))
         dea = min(cand_d, key=lambda a: abs(a["start"] - act["start"]))
         if abs(dea["start"] - act["start"]) > window_s:
             continue
         used.add(id(act))
         used.add(id(dea))
 
+        commits = [a for a in cand_a if a.get("phase") == "commit"
+                   and a.get("start", 0) >= dea.get("start", 0)]
+        commit = min(commits, key=lambda a: a["start"]) if commits else None
+        if commit is not None:
+            used.add(id(commit))
+
         target_first = dea["start"] >= act["start"]
-        begin, end = min(act["start"], dea["start"]), max(act["end"], dea["end"])
-        downtime = 0.0 if target_first else max(0.0, act["end"] - dea["start"])
+        begin = min(act["start"], dea["start"])
+        end = max(act["end"], dea["end"], commit["end"] if commit else 0)
+        downtime = (max(0.0, commit["end"] - dea["start"])
+                    if commit is not None else
+                    (0.0 if target_first else max(0.0, act["end"] - dea["start"])))
         path = slot_to_path.get(model)
         wrec = next((r for r in by_path.get(path, []) if r.get("target_gpu") == dst), None)
+        kv_for_model = [r for r in kv_transfers
+                        if model in str(r.get("tag", ""))]
+        kv_bytes = sum(int(r.get("kv_bytes", 0)) for r in kv_for_model)
         migrations.append({
             "model": model, "model_path": path,
             "source_gpu": src, "target_gpu": dst,
@@ -178,15 +205,17 @@ def pair_migrations(actions, transfers, alg1, run_dir, slot_to_path, overlap,
             "migration_latency_s": act["end"] - begin,
             "service_downtime_s": downtime,
             "migration_total_s": end - begin,
-            "ordering": "target-first" if target_first else "source-first",
+            "ordering": ("prepare-quiesce-commit" if commit is not None else
+                         ("target-first" if target_first else "source-first")),
             "readiness_barrier": int(bool(overlap)),
             "latency_is_submission_only": int(not overlap),
             "weight_bytes": (wrec or {}).get("payload_bytes", 0),
-            "kv_bytes": 0,
-            "total_bytes": (wrec or {}).get("payload_bytes", 0),
+            "kv_bytes": kv_bytes,
+            "total_bytes": (wrec or {}).get("payload_bytes", 0) + kv_bytes,
             "transfer_path": (wrec or {}).get("transfer_path"),
             "effective_gbps": (wrec or {}).get("payload_gbps"),
-            "success": bool(act.get("success")) and bool(dea.get("success")),
+            "success": (bool(act.get("success")) and bool(dea.get("success"))
+                        and (commit is None or bool(commit.get("success")))),
             "peak_kvpr_before": dec.get("peak_kvpr_before"),
             "peak_kvpr_after": dec.get("peak_kvpr_after"),
             "tau": dec.get("tau"), "alg1_cycle": dec.get("alg1_cycle"),
@@ -285,11 +314,12 @@ def process_run(run_dir, base, system, workload, rate, seed, slo_base,
 
     # ---- migrations
     actions, alg1, transfers = read_actions(run_dir), read_alg1(run_dir), read_transfers(run_dir)
+    kv_transfers = read_kv_transfers(run_dir)
     slot_to_path = {}
     if os.path.exists(cfg_path):
         slot_to_path = {m["model_name"]: m["model_path"] for m in json.load(open(cfg_path))}
     overlap = system in PAPER_ARMS
-    migrations, decided = pair_migrations(actions, transfers, alg1, run_dir,
+    migrations, decided = pair_migrations(actions, transfers, kv_transfers, alg1, run_dir,
                                           slot_to_path, overlap)
 
     mig_cols = ["migration_id", "model", "model_path", "source_gpu", "target_gpu",
